@@ -5,11 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { MissionsModule } from './missions/missions.module';
+import { GestionMissionsComponent } from './gestion-missions/gestion-missions.component';
+import { DemanderMissionComponent } from './demander-mission/demander-mission.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    GestionMissionsComponent,
+    DemanderMissionComponent
   ],
   imports: [
     BrowserModule,
