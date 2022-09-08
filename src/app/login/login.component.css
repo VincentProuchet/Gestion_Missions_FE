@@ -1,0 +1,10 @@
+.login,
+.image {
+  width: 90%;
+  margin: 0  auto;
+}
+.bg-image {
+  background-image: url('https://akaguriro.com/sites/default/files/articles/181112_Blog_Feature_Mission.jpg');
+  background-size: cover;
+  background-position: left center;
+}
