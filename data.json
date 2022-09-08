@@ -1,0 +1,82 @@
+{
+  "Natures": [
+    {
+      "libelle": "Developpement",
+      "dateCreation": "2022-01-04",
+      "dateFin": "undefined",
+      "prime": true,
+      "facture": true,
+      "tauxJournalier": 250,
+      "pourcentagePrime": 5
+    },
+    {
+      "libelle": "Management",
+      "dateCreation": "2021-11-01",
+      "dateFin": "undefined",
+      "prime": true,
+      "facture": true,
+      "tauxJournalier": 150,
+      "pourcentagePrime": 2
+    },
+    {
+      "libelle": "Concept Artist",
+      "dateCreation": "2022-01-04",
+      "dateFin": "undefined",
+      "prime": true,
+      "facture": true,
+      "tauxJournalier": 180,
+      "pourcentagePrime": 4
+    },
+    {
+      "libelle": "manutention",
+      "dateCreation": "2022-02-04",
+      "dateFin": "undefined",
+      "prime": true,
+      "facture": true,
+      "tauxJournalier": 280,
+      "pourcentagePrime": 10
+    },
+    {
+      "libelle": "manutention",
+      "dateCreation": "2021-02-04",
+      "dateFin": "2022-02-04",
+      "prime": true,
+      "facture": true,
+      "tauxJournalier": 280,
+      "pourcentagePrime": 10
+    }
+  ],
+  "frais": [],
+  "Mission": [
+    {
+      "prime": 0,
+      "statut": "VALIDEE",
+      "transport": "voiture",
+      "dateDebut": "2021-02-04",
+      "dateFin": "2021-04-24",
+      "villeDepart": "Montpellier",
+      "villeArrivee": "Montpellier",
+      "nature": "manutention",
+      "collaborateur": 0,
+      "lignesFrais": [
+        {
+          "date": "2021-04-21",
+          "montant": 12,
+          "pourcentageTVA": 20,
+          "typeFrais": "Type"
+        }
+      ]
+    }
+  ],
+  "Collaborateur": [
+    {
+      "nom": "nom",
+      "prenom": "prenom",
+      "email": "email",
+      "password": "password",
+      "authToken": "authToken",
+      "role": "role",
+      "manager": "manager"
+    }
+  ]
+}
