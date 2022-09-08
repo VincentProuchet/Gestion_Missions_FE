@@ -1,0 +1,60 @@
+<div class="container d-flex align-items-center flex-column">
+  <h1>Demande de Mission</h1>
+  <div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="d-flex align-items-center flex-column">
+      <div class="form-group row d-flex justify-content-center">
+        <label for="startDate" class="col-sm-6 col-form-label text-right">Date de début</label>
+        <div class="col-sm-6">
+          <input type="date" formControlName="startDateControl" id="startDate" />
+        </div>
+        <div *ngIf="formGroup.controls['startDateControl'].value == ''" class="alert alert-danger">
+          Saisie invalide, a preciser
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="endDate" class="col-sm-6 col-form-label text-right">Date de fin</label>
+        <div class="col-sm-6">
+          <input type="date" formControlName="endDateControl" id="endDate" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
+        <div class="col-sm-6">
+          <select formControlName="natureControl" class="form-control" id="nature">
+            <option><!--ngfor--></option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="startCity" class="col-sm-6 col-form-label text-right">Ville de départ</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="startCityControl" class="form-control" id="startCity">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="endCity" class="col-sm-6 col-form-label text-right">Ville d'arrivée</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="endCityControl" class="form-control" id="endCity">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="transport" class="col-sm-6 col-form-label text-right">Transport</label>
+        <div class="col-sm-6">
+          <select formControlName="transportControl" class="form-control" id="transport">
+            <option><!--ngfor--></option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="bonusEstimee" class="col-sm-6 col-form-label text-right">Estimation de la prime</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="bonusEstimeeControl" class="form-control-plaintext" id="bonusEstimee" value="0" readonly>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-between">
+        <button class="btn btn-danger col-sm-6" type="button">Annuler</button>
+        <button class="btn btn-success col-sm-6" type="submit">Valider</button>
+      </div>
+    </form>
+  </div>
+</div>

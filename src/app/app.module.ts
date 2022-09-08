@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { MissionsModule } from './missions/missions.module';
 import { GestionMissionsComponent } from './gestion-missions/gestion-missions.component';
 import { DemanderMissionComponent } from './demander-mission/demander-mission.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DemanderMissionComponent } from './demander-mission/demander-mission.co
   imports: [
     BrowserModule,
     MissionsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
