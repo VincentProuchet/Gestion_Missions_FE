@@ -47,6 +47,23 @@
     }
   ],
   "frais": [],
+  "expenseTypes": [
+    {
+      "name": "transport"
+    },
+    {
+      "name": "hotel"
+    },
+    {
+      "name": "restaurant"
+    },
+    {
+      "name": "matériel informatique"
+    },
+    {
+      "name": "matériel de bureau"
+    }
+  ],
   "Mission": [
     {
       "id": 0,
