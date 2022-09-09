@@ -19,7 +19,8 @@ import { AddNatureComponent } from './add-nature/add-nature.component';
   ],
   exports: [
     CreationNatureComponent,
-    ModifyNatureComponent
+    ModifyNatureComponent,
+    AddNatureComponent
   ]
 })
 export class NatureMissionModule { }
