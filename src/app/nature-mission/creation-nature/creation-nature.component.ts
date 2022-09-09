@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faCheck, faPencilAlt, faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { NaturesService } from 'src/app/service/natures.service';
 
 
 @Component({
@@ -16,10 +17,10 @@ export class CreationNatureComponent implements OnInit {
   faTimes = faTimes
 
 
-
-  constructor() { }
+  constructor(private srvNature: NaturesService) { }
 
   ngOnInit(): void {
   }
+
 
 }

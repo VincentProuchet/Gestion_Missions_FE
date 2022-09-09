@@ -1,0 +1,28 @@
+<div class="container d-flex align-items-center flex-column">
+  <h1>Natures de mission</h1>
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nature</th>
+        <th scope="col">Facturée</th>
+        <th scope="col">Prime</th>
+        <th scope="col">TJM (€)</th>
+        <th scope="col">%Prime</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let nature of natures">
+        <th scope="row">{{ nature.description }}</th>
+        <td>{{ nature.charged }}</td>
+        <td>{{ nature.givesBonus }}</td>
+        <td>{{ nature.tjm }}</td>
+        <td>{{ nature.bonusPercentage }}</td>
+        <td>
+          <button (click)="update(nature)" class="btn btn-primary">Modifier</button>
+          <button (click)="delete(nature)" class="btn btn-danger">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

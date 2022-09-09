@@ -4,35 +4,43 @@ import { LoginComponent } from './login/login.component';
 import { AllMissionsComponent } from './missions/all-missions/all-missions.component';
 import { CreateMissionComponent } from './missions/create-mission/create-mission.component';
 import { UpdateMissionComponent } from './missions/update-mission/update-mission.component';
-import { AddNatureComponent } from './nature-mission/add-nature/add-nature.component';
 import { CreationNatureComponent } from './nature-mission/creation-nature/creation-nature.component';
+import { NatureMissionComponent } from './nature-mission/nature-mission.component';
 import { NatureMissionModule } from './nature-mission/nature-mission.module';
 
 
 const routes: Routes = [
   {
+    // Acceuil
     path: 'login',
     component: LoginComponent,
   },
+
   {
-    path: 'natureMission',
-    component: CreationNatureComponent,
-  },
-  {
-    path: 'addNatureMission',
-    component: AddNatureComponent,
-  },
-  {
-    path: 'mission/new',
-    component: CreateMissionComponent,
-  },
-  {
-    path: 'mission/:id',
-    component: UpdateMissionComponent,
-  },
-  {
-    path: 'mission',
+    // page de gestion des mission
+    // creation/modification/supression
+    path: 'gestionMission',
     component: AllMissionsComponent,
+  },
+  {
+    // page de consultation du planning des missions
+    path: 'planningMission',
+    component: AllMissionsComponent,
+  },
+  {
+    // page de consultation des primes
+    path: 'primes',
+    component: AllMissionsComponent,
+  },
+  {
+    // page de saisie des frais
+    path: 'saisieFrais',
+    component: AllMissionsComponent,
+  },
+  {
+    // page de gestion des natures de missions
+    path: 'gestionDesNatures',
+    component: NatureMissionComponent,
   }
 ];
 
@@ -40,4 +48,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

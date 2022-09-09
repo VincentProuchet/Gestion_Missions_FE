@@ -1,6 +1,7 @@
 {
   "Natures": [
     {
+      "id": 0,
       "description": "Developpement",
       "dateOfValidity": "2022-01-04",
       "endOfValidity": "undefined",
@@ -10,6 +11,7 @@
       "bonusPercentage": 5
     },
     {
+      "id": 0,
       "description": "Management",
       "dateOfValidity": "2021-11-01",
       "endOfValidity": "undefined",
@@ -19,6 +21,7 @@
       "bonusPercentage": 2
     },
     {
+      "id": 0,
       "description": "Concept Artist",
       "dateOfValidity": "2022-01-04",
       "endOfValidity": "undefined",
@@ -28,6 +31,7 @@
       "bonusPercentage": 4
     },
     {
+      "id": 0,
       "description": "manutention",
       "dateOfValidity": "2022-02-04",
       "endOfValidity": "undefined",
@@ -37,6 +41,7 @@
       "bonusPercentage": 10
     },
     {
+      "id": 0,
       "description": "manutention",
       "dateOfValidity": "2021-02-04",
       "endOfValidity": "2022-02-04",

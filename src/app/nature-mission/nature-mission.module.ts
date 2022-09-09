@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreationNatureComponent } from './creation-nature/creation-nature.component';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreationNatureComponent } from './creation-nature/creation-nature.component';
 import { ModifyNatureComponent } from './modify-nature/modify-nature.component';
-import { AddNatureComponent } from './add-nature/add-nature.component';
+import { NatureMissionComponent } from './nature-mission.component';
 
 
 
@@ -11,7 +11,7 @@ import { AddNatureComponent } from './add-nature/add-nature.component';
   declarations: [
     CreationNatureComponent,
     ModifyNatureComponent,
-    AddNatureComponent
+    NatureMissionComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +20,11 @@ import { AddNatureComponent } from './add-nature/add-nature.component';
   exports: [
     CreationNatureComponent,
     ModifyNatureComponent,
-    AddNatureComponent
+    NatureMissionComponent
+
   ]
 })
-export class NatureMissionModule { }
+export class NatureMissionModule {
+
+
+}
