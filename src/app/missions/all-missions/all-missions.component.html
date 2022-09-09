@@ -1,0 +1,35 @@
+<div class="container d-flex flex-column flex-nowrap">
+  <h1 class="row">Gestion des Missions</h1>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date de début</th>
+          <th scope="col">Date de fin</th>
+          <th scope="col">Nature</th>
+          <th scope="col">Départ</th>
+          <th scope="col">Arrivée</th>
+          <th scope="col">Transport</th>
+          <th scope="col">Statut</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <!--ngfor-->
+          <td>{{missions[0].startDate}}</td>
+          <td>{{missions[0].endDate}}</td>
+          <td>{{missions[0].nature}}</td>
+          <td>{{missions[0].startCity}}</td>
+          <td>{{missions[0].endCity}}</td>
+          <td>{{missions[0].transport}}</td>
+          <td>{{missions[0].status}}</td>
+          <td><a class="btn btn-primary">+</a><a class="btn btn-danger">+</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row d-flex justify-content-end align-items-center">Demander une mission<a class="btn btn-primary">+</a>
+  </div>
+  <!--[routerlink] toward the component new mission, find an icon-->
+</div>

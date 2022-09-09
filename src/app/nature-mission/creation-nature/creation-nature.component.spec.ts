@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+
 import { CreationNatureComponent } from './creation-nature.component';
 
 describe('CreationNatureComponent', () => {
@@ -9,12 +10,15 @@ describe('CreationNatureComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ CreationNatureComponent ]
+
     })
     .compileComponents();
   });
 
   beforeEach(() => {
+
     fixture = TestBed.createComponent(CreationNatureComponent);
+
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
