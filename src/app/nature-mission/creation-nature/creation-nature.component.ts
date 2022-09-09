@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faPencilAlt, faTrashAlt, faTimes, faCheck, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faPencilAlt, faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
