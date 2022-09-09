@@ -2,7 +2,7 @@
  *  Strucutre des données pour le travail des service et la communication avec l'API
  */
 export interface Collaborator {
-  /** */
+  /** identifiant du collaborateur */
   id: number;
   /** Nom */
   lastName: string;

@@ -1,2 +1,5 @@
+/**
+ * Mission
+ */
 export interface Mission {
 }
