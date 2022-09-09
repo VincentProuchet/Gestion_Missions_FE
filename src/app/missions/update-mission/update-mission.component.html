@@ -1,1 +1,104 @@
-<p>update-mission works!</p>
+<div class="container d-flex align-items-center flex-column">
+  <h1>Modification de Mission</h1>
+  <div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="d-flex align-items-center flex-column">
+      <div class="form-group row d-flex justify-content-center">
+        <label for="startDate" class="col-sm-6 col-form-label text-right">Date de début</label>
+        <div class="col-sm-6">
+          <input type="date" formControlName="startDateControl" id="startDate" [(ngModel)]="mission.startDate"/>
+        </div>
+        <div
+          *ngIf="formGroup.controls['startDateControl'].invalid && (formGroup.controls['startDateControl'].dirty || formGroup.controls['startDateControl'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="formGroup.controls['startDateControl'].errors?.['required']">
+            Saisie invalide, a preciser
+          </div>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-center">
+        <label for="endDate" class="col-sm-6 col-form-label text-right">Date de fin</label>
+        <div class="col-sm-6">
+          <input type="date" formControlName="endDateControl" id="endDate" [(ngModel)]="mission.endDate"/>
+        </div>
+        <div
+          *ngIf="formGroup.controls['endDateControl'].invalid && (formGroup.controls['endDateControl'].dirty || formGroup.controls['endDateControl'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="formGroup.controls['endDateControl'].errors?.['required']">
+            Saisie invalide, a preciser
+          </div>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-center">
+        <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
+        <div class="col-sm-6">
+          <select formControlName="natureControl" class="form-control" id="nature" [(ngModel)]="mission.nature">
+            <option>
+              <!--ngfor-->
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="formGroup.controls['natureControl'].invalid && (formGroup.controls['natureControl'].dirty || formGroup.controls['natureControl'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="formGroup.controls['natureControl'].errors?.['required']">
+            Saisie invalide, a preciser
+          </div>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-center">
+        <label for="startCity" class="col-sm-6 col-form-label text-right">Ville de départ</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="startCityControl" class="form-control" id="startCity" [(ngModel)]="mission.startCity">
+        </div>
+        <div
+          *ngIf="formGroup.controls['startCityControl'].invalid && (formGroup.controls['startCityControl'].dirty || formGroup.controls['startCityControl'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="formGroup.controls['startCityControl'].errors?.['required']">
+            Saisie invalide, a preciser
+          </div>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-center">
+        <label for="endCity" class="col-sm-6 col-form-label text-right">Ville d'arrivée</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="endCityControl" class="form-control" id="endCity" [(ngModel)]="mission.endCity">
+        </div>
+        <div
+          *ngIf="formGroup.controls['endCityControl'].invalid && (formGroup.controls['endCityControl'].dirty || formGroup.controls['endCityControl'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="formGroup.controls['endCityControl'].errors?.['required']">
+            Saisie invalide, a preciser
+          </div>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-center">
+        <label for="transport" class="col-sm-6 col-form-label text-right">Transport</label>
+        <div class="col-sm-6">
+          <select formControlName="transportControl" class="form-control" id="transport" [(ngModel)]="mission.transport">
+            <option>
+              <!--ngfor-->
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="formGroup.controls['transportControl'].invalid && (formGroup.controls['transportControl'].dirty || formGroup.controls['transportControl'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="formGroup.controls['transportControl'].errors?.['required']">
+            Saisie invalide, a preciser
+          </div>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-center">
+        <label for="bonusEstimee" class="col-sm-6 col-form-label text-right">Estimation de la prime</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="bonusEstimeeControl" class="form-control-plaintext" id="bonusEstimee"
+            [(ngModel)]="mission.bonusEstimee" readonly>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-between">
+        <button class="btn btn-danger col-sm-6" type="button">Annuler</button>
+        <button class="btn btn-success col-sm-6" type="submit">Valider</button>
+      </div>
+    </form>
+  </div>
+</div>
