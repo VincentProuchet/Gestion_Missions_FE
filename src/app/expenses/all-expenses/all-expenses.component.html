@@ -1,5 +1,7 @@
-<div class="container">
-  <h1 class="row">Gestion des Missions</h1>
+<div class="container d-flex flex-column flex-nowrap">
+  <div class="row d-flex flex-column flex-nowrap align-items-center">
+    <h1>Gestion des notes de frais</h1>
+  </div>
   <div class="row">
     <table class="table table-striped">
       <thead>
@@ -10,25 +12,22 @@
           <th scope="col">Départ</th>
           <th scope="col">Arrivée</th>
           <th scope="col">Transport</th>
-          <th scope="col">Statut</th>
+          <th scope="col">Frais</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let mission of missions, let index = index">
+        <tr *ngFor="let mission of missions; let index = index">
           <td>{{mission.startDate}}</td>
           <td>{{mission.endDate}}</td>
           <td>{{mission.nature}}</td>
           <td>{{mission.startCity}}</td>
           <td>{{mission.endCity}}</td>
           <td>{{mission.transport}}</td>
-          <td>{{mission.status}}</td>
-          <td><a (click)="onEdit(index)" class="btn btn-primary">edit</a><a class="btn btn-danger">+</a></td>
+          <td>{{mission.charges}}</td>
+          <td><a (click)="onEdit(index)" class="btn btn-primary">edit</a><a (click)="onExport(index)" class="btn btn-danger">export</a></td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="row">Demander une mission<a (click)="onCreate()" class="btn btn-primary">+</a>
-  </div>
-  <!--[routerlink] toward the component new mission, find an icon-->
 </div>

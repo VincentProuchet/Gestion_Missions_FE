@@ -1,6 +1,8 @@
-<div class="container d-flex align-items-center flex-column">
-  <h1>Demande de Mission</h1>
-  <div>
+<div class="container d-flex flex-column flex-nowrap align-items-center">
+  <div class="row">
+    <h1>Demande de Mission</h1>
+  </div>
+  <div class="row">
     <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="d-flex align-items-center flex-column">
       <div class="form-group row d-flex justify-content-center">
         <label for="startDate" class="col-sm-6 col-form-label text-right">Date de début</label>
