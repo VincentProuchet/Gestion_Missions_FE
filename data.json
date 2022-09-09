@@ -1,82 +1,90 @@
 {
   "Natures": [
     {
-      "libelle": "Developpement",
-      "dateCreation": "2022-01-04",
-      "dateFin": "undefined",
-      "prime": true,
-      "facture": true,
-      "tauxJournalier": 250,
-      "pourcentagePrime": 5
+      "description": "Developpement",
+      "dateOfValidity": "2022-01-04",
+      "endOfValidity": "undefined",
+      "givesBonus": true,
+      "charged": true,
+      "tjm": 250,
+      "bonusPercentage": 5
     },
     {
-      "libelle": "Management",
-      "dateCreation": "2021-11-01",
-      "dateFin": "undefined",
-      "prime": true,
-      "facture": true,
-      "tauxJournalier": 150,
-      "pourcentagePrime": 2
+      "description": "Management",
+      "dateOfValidity": "2021-11-01",
+      "endOfValidity": "undefined",
+      "givesBonus": true,
+      "charged": true,
+      "tjm": 150,
+      "bonusPercentage": 2
     },
     {
-      "libelle": "Concept Artist",
-      "dateCreation": "2022-01-04",
-      "dateFin": "undefined",
-      "prime": true,
-      "facture": true,
-      "tauxJournalier": 180,
-      "pourcentagePrime": 4
+      "description": "Concept Artist",
+      "dateOfValidity": "2022-01-04",
+      "endOfValidity": "undefined",
+      "givesBonus": true,
+      "charged": true,
+      "tjm": 180,
+      "bonusPercentage": 4
     },
     {
-      "libelle": "manutention",
-      "dateCreation": "2022-02-04",
-      "dateFin": "undefined",
-      "prime": true,
-      "facture": true,
-      "tauxJournalier": 280,
-      "pourcentagePrime": 10
+      "description": "manutention",
+      "dateOfValidity": "2022-02-04",
+      "endOfValidity": "undefined",
+      "givesBonus": true,
+      "charged": true,
+      "tjm": 280,
+      "bonusPercentage": 10
     },
     {
-      "libelle": "manutention",
-      "dateCreation": "2021-02-04",
-      "dateFin": "2022-02-04",
-      "prime": true,
-      "facture": true,
-      "tauxJournalier": 280,
-      "pourcentagePrime": 10
+      "description": "manutention",
+      "dateOfValidity": "2021-02-04",
+      "endOfValidity": "2022-02-04",
+      "givesBonus": true,
+      "charged": true,
+      "tjm": 280,
+      "bonusPercentage": 10
     }
   ],
   "frais": [],
   "Mission": [
     {
-      "prime": 0,
-      "statut": "VALIDEE",
+      "id": 0,
+      "bonus": 0,
+      "status": "VALIDEE",
       "transport": "voiture",
-      "dateDebut": "2021-02-04",
-      "dateFin": "2021-04-24",
-      "villeDepart": "Montpellier",
-      "villeArrivee": "Montpellier",
+      "start": "2021-02-04",
+      "end": "2021-04-24",
+      "startCity": "Montpellier",
+      "arrivalCity": "Montpellier",
       "nature": "manutention",
       "collaborateur": 0,
-      "lignesFrais": [
+      "expenses": [
         {
+          "id": 0,
+          "idMission": 0,
           "date": "2021-04-21",
-          "montant": 12,
-          "pourcentageTVA": 20,
-          "typeFrais": "Type"
+          "value": 12,
+          "TVA": 20,
+          "ExpenseType": "Type"
         }
       ]
     }
   ],
   "Collaborateur": [
     {
-      "nom": "nom",
-      "prenom": "prenom",
+      "id": 0,
+      "lastName": "nom",
+      "firstName": "prenom",
       "email": "email",
-      "password": "password",
-      "authToken": "authToken",
       "role": "role",
       "manager": "manager"
+    }
+  ],
+  "auth": [
+    {
+      "bearer": 165040968400894064565468904,
+      "time": 15644987654968749849189735465
     }
   ]
 }
