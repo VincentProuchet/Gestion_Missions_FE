@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./all-missions.component.css']
 })
 export class AllMissionsComponent implements OnInit {
+  
   missions:Array<any>
 
   constructor() {
