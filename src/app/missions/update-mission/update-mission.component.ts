@@ -1,6 +1,7 @@
 import { formatDate, getLocaleId } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-mission',
@@ -10,9 +11,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class UpdateMissionComponent implements OnInit {
 
   formGroup: FormGroup;
-  mission:any;
+  mission: any;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
     this.formGroup = formBuilder.group({
       startDateControl: ['', Validators.required],
       endDateControl: ['', Validators.required],
@@ -35,9 +36,16 @@ export class UpdateMissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => console.log(params['id']))//get mission with id and fill the form
   }
 
   onSubmit(): void {
     console.log("start date control " + this.formGroup.controls["startDateControl"].value);
+    //register the new data, if valid
+    this.router.navigate(['mission'])
+  }
+  onCancel(): void {
+    //register the new mission, if valid
+    this.router.navigate(['mission'])
   }
 }
