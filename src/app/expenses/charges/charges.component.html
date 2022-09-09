@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row d-flex flex-column flex-nowrap align-items-center">
+    <h1>Saisie des notes de frais</h1>
+  </div>
+  <form class="container">
+    <div class="form-group row">
+      <label for="startDate" class="col-sm-2 text-right col-form-label">Date de début</label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="startDate" [value]="mission.startDate">
+      </div>
+      <label for="bonusEstimee" class="col-sm-2 col-form-label">Estimation prime</label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="bonusEstimee" [value]="mission.bonusEstimee">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="endDate" class="col-sm-2 text-right col-form-label">Date de fin</label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="endDate" [value]="mission.endDate">
+      </div>
+      <label for="startCity" class="col-sm-2 col-form-label">Ville de départ</label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="startCity" [value]="mission.startCity">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="nature" class="col-sm-2 text-right col-form-label">Nature</label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="nature" [value]="mission.nature">
+      </div>
+      <label for="endCity" class="col-sm-2 col-form-label">Ville d'arrivée</label>
+      <div class="col-sm-4">
+        <input type="text" readonly class="form-control-plaintext" id="endCity" [value]="mission.endCity">
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Nature</th>
+          <th scope="col">Montant</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let expenseLine of mission.expenses; let index = index">
+          <td>{{expenseLine.date}}</td>
+          <td>{{expenseLine.expenseType}}</td>
+          <td>{{expenseLine.value}}</td>
+          <td><a (click)="onEdit(index)" class="btn btn-primary">edit</a><a (click)="onRemove(index)"
+              class="btn btn-danger">export</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row d-flex justify-content-end">Ajouter un frais <a (click)="onAdd()" class="btn btn-primary">+</a></div>
+</div>

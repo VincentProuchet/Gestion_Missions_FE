@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AllExpensesComponent } from './expenses/all-expenses/all-expenses.component';
+import { ChargesComponent } from './expenses/charges/charges.component';
 import { LoginComponent } from './login/login.component';
 import { AllMissionsComponent } from './missions/all-missions/all-missions.component';
 import { CreateMissionComponent } from './missions/create-mission/create-mission.component';
@@ -42,6 +44,7 @@ const routes: Routes = [
     path: 'gestionDesNatures',
     component: NatureMissionComponent,
   }
+
 ];
 
 @NgModule({

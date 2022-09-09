@@ -14,6 +14,7 @@ import { CollaboratorService } from './service/collaborator.service';
 import { ExpensesService } from './service/expenses.service';
 import { CityService } from './service/city.service';
 import { TransportService } from './service/transport.service';
+import { ExpensesModule } from './expenses/expenses.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TransportService } from './service/transport.service';
     AppRoutingModule,
     ReactiveFormsModule,
     NatureMissionModule,
-    HttpClientModule
+    HttpClientModule,
+    ExpensesModule
   ],
   providers: [
     CityService,
