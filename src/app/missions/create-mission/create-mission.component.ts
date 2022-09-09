@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-mission',
@@ -10,7 +11,7 @@ export class CreateMissionComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router:Router) {
     this.formGroup = formBuilder.group({
       startDateControl: ['', Validators.required],
       endDateControl: ['', Validators.required],
@@ -26,6 +27,11 @@ export class CreateMissionComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log("start date control " + this.formGroup.controls["startDateControl"].value);
+    //register the new mission, if valid
+    this.router.navigate(['mission'])
+  }
+  onCancel(): void {
+    //register the new mission, if valid
+    this.router.navigate(['mission'])
   }
 }
