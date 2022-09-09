@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { MissionsModule } from './missions/missions.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NatureMissionModule } from './nature-mission/nature-mission.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     MissionsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NatureMissionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
