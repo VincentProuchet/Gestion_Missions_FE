@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Nature } from '../model/nature';
 
@@ -17,11 +17,6 @@ import { Nature } from '../model/nature';
  *
  */
 export class NaturesService implements OnDestroy {
-  //création d'une instance de Subject
-  // le subject est privé
-  // le tableau des natures les subjects sont abandonnés pour le moment
-  private natures: Nature[] = new Array<Nature>();
-
   // ça c'est pour tester si votre json-server est online
   private COMPLET_URL = `http://localhost:3000/Natures`;
   // le terme à placer après l'URL de base  pour faire ses requêtes
@@ -36,23 +31,11 @@ export class NaturesService implements OnDestroy {
    *
    * @returns Subject
    */
-  getNatures(): Nature[] {
-    let natureObs = this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`);
-    natureObs.subscribe(
-      {
-        next: (data: Nature[]) => {
-          this.natures = data;
-          console.log(data);
-        }
-        ,
-        error: (err: any) => { console.log(err) }
-      }
-    );
+  getNatures(): Observable<Nature[]> {
     // exemple de filtre pour la partie ou l'on ne devras afficher que les
     // natures ACTIVES
     //return this.natures.filter(valuer => valuer.endOfValidity == null);
-
-    return this.natures;
+    return this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`);
   }
 
   creationNature(nature: Nature) {
@@ -61,7 +44,7 @@ export class NaturesService implements OnDestroy {
         {
           next: (data: Nature) => {
             console.log("Création ok");
-            this.natures.push(nature);
+            // this.natures.push(nature);
           },
           error: (error: any) => {
             console.log("erreur lors de la création")
@@ -70,39 +53,12 @@ export class NaturesService implements OnDestroy {
       )
   }
 
-  modifierNature(nature: Nature) {
-    this.http.patch<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/:${nature.id}`, nature)
-      .subscribe(
-        {
-          next: (data: Nature) => {
-            console.log("Modification ok");
-          }
-          ,
-          error: (error: any) => {
-            console.log("erreur lors de la modification");
-          }
-        }
-      )
+  modifierNature(nature: Nature): Observable<Nature> {
+    return this.http.patch<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/:${nature.id}`, nature);
   }
 
 
-  supprimerNature(nature: Nature) {
-    this.http.delete<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/:${nature.id}`).subscribe(
-      {
-        next: () => {
-          // met à jour la liste locale
-          this.natures.forEach((element: Nature, index: number) => {
-            if (element.id == nature.id) {
-              this.natures.splice(index, 1);
-              console.log("suppresion", nature)
-            }
-          });
-        }
-        ,
-        error: (err: any) => {
-          console.log(err);
-        }
-      }
-    )
+  supprimerNature(nature: Nature): Observable<Nature> {
+    return this.http.delete<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${nature.id}`)
   }
 }
