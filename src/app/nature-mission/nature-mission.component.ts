@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Nature } from '../model/nature';
 import { MissionsService } from '../service/missions.service';
 import { NaturesService } from '../service/natures.service';
@@ -15,14 +16,14 @@ export class NatureMissionComponent implements OnInit {
   //public creationform: ReactiveFormsModule;
   public natures: Nature[] = new Array();
 
-  constructor(private srvNature: NaturesService) {
+  constructor(private srvNature: NaturesService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.refreshNatures();
   }
   /**
-   * 
+   *
    */
   refreshNatures() {
     this.srvNature.getNatures().subscribe(
@@ -77,6 +78,9 @@ export class NatureMissionComponent implements OnInit {
   creation(nature: Nature): void {
     this.srvNature.creationNature(nature);
     this.refreshNatures();
+  }
+  onCreateNature(){
+    this.router.navigate(['ajouteNatures']);
   }
 
 }

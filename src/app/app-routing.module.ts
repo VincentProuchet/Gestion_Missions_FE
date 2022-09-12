@@ -58,6 +58,11 @@ const routes: Routes = [
     // page de gestion des natures de missions
     path: 'gestionDesNatures',
     component: NatureMissionComponent,
+  },
+    // page de gestion des natures de missions
+  {
+    path: 'ajouteNatures',
+    component: CreationNatureComponent,
   }
 
 ];
