@@ -21,7 +21,7 @@ export class NatureMissionComponent implements OnInit {
       {
         id: 0,
         description: "une Nature",
-        dateOfValidity: Date.now(),
+        dateOfValidity: new Date(Date.now()),
         endOfValidity: null,
         bonusPercentage: 2,
         givesBonus: true,

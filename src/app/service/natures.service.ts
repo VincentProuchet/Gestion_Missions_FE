@@ -34,9 +34,6 @@ export class NaturesService implements OnDestroy {
    * @returns Subject de Natures
    */
   getNatures(): Subject<Nature[]> {
-    // exemple de filtre pour la partie ou l'on ne devras afficher que les
-    // natures ACTIVES
-    //return this.natures.filter(valuer => valuer.endOfValidity == null);
     this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`)
       .subscribe(
         {
@@ -49,8 +46,8 @@ export class NaturesService implements OnDestroy {
     return this.natures;
   }
   /**applique un filtre sur le tableau de nature passé en paramètre
-   * @param data
-   * @returns
+   * @param data tableau de natures
+   * @returns seuelement les nature dont la date de validité est nulle
    */
   getValidNatures(data: Nature[]): Nature[] {
     return data.filter(value => value.endOfValidity == null)
