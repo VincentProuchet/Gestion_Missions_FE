@@ -5,18 +5,18 @@
 
   <div class="row">
     <!--ajouter une formulaires  d'ajouter -->
-    <form (ngSubmit) ="onSubmit()" [formGroup]="formGroupNature" class="d-flex align-items-center flex-column">
+    <form (ngSubmit)="onSubmit()" [formGroup]="formGroupNature" class="d-flex align-items-center flex-column">
       <div class="form-group row d-flex justify-content-center">
         <!-- ajouter nature d'un mission -->
         <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="ajouterNature" placeholderclass="form-control" id="ajouterNature">
+          <input type="text" formControlName="descriptionControl" placeholderclass="form-control" id="ajouterNature">
         </div>
         <!-- fin ajouter nature d'un mission -->
         <!--ajouter facturee -->
         <label for="facturee" class="col-sm-6 col-form-label text-right">Facturée</label>
         <div class="col-sm-6">
-          <select formControlName="factureeControl" class="form-control" id="facturee">
+          <select formControlName="chargedControl" class="form-control" id="facturee">
             <option>OUI</option>
             <option>NON</option>
           </select>
@@ -25,7 +25,7 @@
         <!-- ajouter versementPrime -->
         <label for="versementPrime" class="col-sm-6 col-form-label text-right">Versement Prime</label>
         <div class="col-sm-6">
-          <select formControlName="versementPrimeControl" class="form-control" id="versementPrime">
+          <select formControlName="giveBonusControl" class="form-control" id="versementPrime">
             <option>OUI</option>
             <option>NON</option>
           </select>
@@ -34,19 +34,19 @@
         <!-- ajouter TMJ nature d'un mission -->
         <label for="tjm" class="col-sm-6 col-form-label text-right">TJM</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="tmj" placeholderclass="form-control" id="tmj">
+          <input type="text" formControlName="tjmControl" placeholderclass="form-control" id="tmj">
         </div>
         <!--  fin ajouter TMJ nature d'un mission -->
         <!-- ajouter Prime nature d'un mission -->
         <label for="prime" class="col-sm-6 col-form-label text-right">% Prime</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="prime" placeholderclass="form-control" id="prime">
+          <input type="text" formControlName="bonusControl" placeholderclass="form-control" id="prime">
         </div>
         <!-- fin ajouter Prime nature d'un mission -->
         <!-- ajouter 2 buttons Annuler et Valider-->
         <div class="d-flex justify-content-around">
           <button (click)="onCancel()" class="btn btn-danger col-sm-6" type="button">Annuler</button>
-          <button class="btn btn-success col-sm-6" type="submit">Valider</button>
+          <button (click)="onSubmit()" class="btn btn-success col-sm-6" type="submit">Valider</button>
         </div>
         <!-- fin ajouter 2 buttons Annuler et Valider-->
       </div>
@@ -54,4 +54,3 @@
     <!-- fin ajouter une formulaires  d'ajouter -->
   </div>
 </div>
-

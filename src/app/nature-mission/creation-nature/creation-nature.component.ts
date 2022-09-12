@@ -23,8 +23,14 @@ export class CreationNatureComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router) {
+    private router: Router, private srvNature: NaturesService
+  ) {
     this.formGroupNature = formBuilder.group({
+      descriptionControl: [''],
+      giveBonusControl: [''],
+      chargedControl: [''],
+      tjmControl: [''],
+      bonusControl: ['']
     })
   }
 
@@ -33,18 +39,23 @@ export class CreationNatureComponent implements OnInit {
   onSubmit(): void {
     let nature: Nature = {
       id: null,
-      description: this.formGroupNature.controls["ajouterNature"].value,
+      description: this.formGroupNature.controls["descriptionControl"].value,
       dateOfValidity: new Date(Date.now()),
       endOfValidity: null,
-      givesBonus: this.formGroupNature.controls["versementPrime"].value,
-      charged: this.formGroupNature.controls["factureeControl"].value,
-      tjm: this.formGroupNature.controls["factureeControl"].value,
-      bonusPercentage: this.formGroupNature.controls["factureeControl"].value,
+      givesBonus: this.formGroupNature.controls["giveBonusControl"].value,
+      charged: this.formGroupNature.controls["chargedControl"].value,
+      tjm: this.formGroupNature.controls["tjmControl"].value,
+      bonusPercentage: this.formGroupNature.controls["bonusControl"].value,
     };
 
-
-    this.formGroupNature
-
+    this.srvNature.creationNature(nature).subscribe(
+      {
+        next: () => { }
+        ,
+        error: (err) => {
+          console.log(err);
+        }
+      });
     this.router.navigate(['/ajouterMission']);
   }
 

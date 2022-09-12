@@ -38,15 +38,7 @@ export class NaturesService implements OnDestroy {
     // natures ACTIVES
     //return this.natures.filter(valuer => valuer.endOfValidity == null);
     return this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`)
-    /*.subscribe(
-      {
-        next: (data) => { this.natures.next(data) }
-        , error: (err) => {
-          console.log(err);
-        }
-      }
-    )
-  return this.natures;*/
+
   }
   /**applique un filtre sur le tableau de nature passé en paramètre
    * @param data tableau de natures
@@ -62,18 +54,6 @@ export class NaturesService implements OnDestroy {
    */
   creationNature(nature: Nature): Observable<Nature> {
     return this.http.post<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`, nature)
-    /*
-      .subscribe(
-        {
-          next: (data: Nature) => {
-            console.log("Création ok");
-            // this.natures.push(nature);
-          },
-          error: (error: any) => {
-            console.log("erreur lors de la création")
-          }
-        }
-      )*/
   }
   /**
    * à mettre à jour une nature
