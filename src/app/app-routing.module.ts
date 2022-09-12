@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AllExpensesComponent } from './expenses/all-expenses/all-expenses.component';
-import { ChargesComponent } from './expenses/charges/charges.component';
 import { ExpensesModule } from './expenses/expenses.module';
+import { UpdateExpensesComponent } from './expenses/update-expenses/update-expenses.component';
 import { LoginComponent } from './login/login.component';
 import { AllMissionsComponent } from './missions/all-missions/all-missions.component';
 import { CreateMissionComponent } from './missions/create-mission/create-mission.component';
@@ -52,12 +52,17 @@ const routes: Routes = [
   },
   {
     path: 'modifierFrais/:id',
-    component: ChargesComponent,
+    component: UpdateExpensesComponent,
   },
   {
     // page de gestion des natures de missions
     path: 'gestionDesNatures',
     component: NatureMissionComponent,
+  },
+    // page de gestion des natures de missions
+  {
+    path: 'ajouteNatures',
+    component: CreationNatureComponent,
   }
 
 ];

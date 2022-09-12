@@ -1,25 +1,45 @@
-<div class="container d-flex align-items-center flex-column">
-  <h1>Natures de mission</h1>
-  <table class="table table-striped table-bordered">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Nature</th>
-        <th scope="col">Facturée</th>
-        <th scope="col">Prime</th>
-        <th scope="col">TJM (€)</th>
-        <th scope="col">%Prime</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Conseil</th>
-        <td>OUI</td>
-        <td>OUI</td>
-        <td>750</td>
-        <td>3.5</td>
-        <td>Unknow</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container d-flex flex-column flex-nowrap align-items-center">
+  <div class="container d-flex align-items-center flex-column">
+    <h1>Ajouter d'un mission</h1>
+  </div>
+
+  <div class="row">
+    <!--ajouter une formulaires  d'ajouter -->
+    <form (ngSubmit) ="onSubmit()" [formGroup]="formGroupNature" class="d-flex align-items-center flex-column">
+      <div class="form-group row d-flex justify-content-center">
+        <!-- ajouter nature d'un mission -->
+        <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="ajouterNature" placeholderclass="form-control" id="ajouterNature">
+        </div>
+        <!-- fin ajouter nature d'un mission -->
+        <!--ajouter facturee -->
+        <label for="facturee" class="col-sm-6 col-form-label text-right">Facturée</label>
+        <div class="col-sm-6">
+          <select formControlName="factureeControl" class="form-control" id="facturee">
+            <option>OUI</option>
+            <option>NON</option>
+          </select>
+        </div>
+        <!-- fin ajouter facturee -->
+        <!-- ajouter versementPrime -->
+        <label for="versementPrime" class="col-sm-6 col-form-label text-right">Versement Prime</label>
+        <div class="col-sm-6">
+          <select formControlName="versementPrimeControl" class="form-control" id="versementPrime">
+            <option>OUI</option>
+            <option>NON</option>
+          </select>
+        </div>
+        <!-- fin ajouter versementPrime -->
+        <!-- ajouter 2 buttons Annuler et Valider-->
+        <div class="row d-flex justify-content-between">
+          <button (click)="onCancel()" class="btn btn-danger col-sm-6" type="button">Annuler</button>
+          <button class="btn btn-success col-sm-6" type="submit">Valider</button>
+        </div>
+        <!-- fin ajouter 2 buttons Annuler et Valider-->
+      </div>
+    </form>
+    <!-- fin ajouter une formulaires  d'ajouter -->
+  </div>
 </div>
+
