@@ -32,8 +32,8 @@
         <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
         <div class="col-sm-6">
           <select formControlName="natureControl" class="form-control" id="nature" [(ngModel)]="mission.nature">
-            <option>
-              <!--ngfor-->
+            <option *ngFor="let nature of natures">
+              <!--ngfor-->{{nature.description}}
             </option>
           </select>
         </div>

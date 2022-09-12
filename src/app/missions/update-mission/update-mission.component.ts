@@ -15,7 +15,7 @@ export class UpdateMissionComponent implements OnInit {
 
   formGroup: FormGroup;
   mission: any;
-  natures: Nature[];
+  natures: Nature[] = new Array();
 
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private srvMission: MissionsService, private srvNature: NaturesService) {    /**formulaire */
@@ -29,7 +29,8 @@ export class UpdateMissionComponent implements OnInit {
       bonusEstimeeControl: ['', Validators.required]
 
     });
-    this.natures = this.srvNature.getValidNatures();
+    this.updateNatures();
+
     //fake values to test display
     this.mission = {
       startDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'), // retrieve the locale of the user
@@ -70,5 +71,17 @@ export class UpdateMissionComponent implements OnInit {
   onCancel(): void {
     //register the new mission, if valid
     this.router.navigate(['gestionMission'])
+  }
+
+  updateNatures() {
+    this.srvNature.getNatures().subscribe(
+      {
+        next: (data) => { this.natures = this.srvNature.getValidNatures(data) }
+        ,
+        error: () => { }
+      }
+    );
+    console.log("les natures ", this.natures);
+
   }
 }
