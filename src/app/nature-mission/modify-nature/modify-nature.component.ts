@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modify-nature',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModifyNatureComponent implements OnInit {
 
-  constructor() { }
+  formGroupModifyNature: FormGroup;
 
-  ngOnInit(): void {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router) {
+    this.formGroupModifyNature = formBuilder.group({
+    })
+  }
+
+  ngOnInit(): void { }
+
+  onSubmit(): void {
+    this.router.navigate(['modifierNature']);
+  }
+
+  onCancel(): void {
+    //register the new mission, if valid
+    this.router.navigate(['modifierNature']);
   }
 
 }
