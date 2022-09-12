@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Mission } from '../model/mission';
 
@@ -14,7 +14,10 @@ export class MissionsService {
 
   constructor(private http: HttpClient) { }
 
-  getMissions(): Subject<Mission[]> {
+
+
+  getMissions(): Observable<Mission[]> {
+    /*
     this.http.get<Mission[]>(environment.baseUrl + environment.port + this.API_AFTER_URL)
       .subscribe(
         {
@@ -26,14 +29,17 @@ export class MissionsService {
           error: (err: any) => { console.log(err) }
         }
       )
-    return this.missions;
+    return this.missions;*/
+    return this.http.get<Mission[]>(environment.baseUrl + environment.port + this.API_AFTER_URL);
+
   }
   /**get the mission Data with the provideed id
    *
    * @param id mission id
    * @returns a subject that you can make a subscribe on it
    */
-  getMission(id: number): Subject<Mission> {
+  getMission(id: number): Observable<Mission> {
+    /*
     let mission = new Subject<Mission>();
     this.http.get<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${id}`)
       .subscribe(
@@ -46,7 +52,9 @@ export class MissionsService {
         }
       )
 
-    return mission;
+    return mission;*/
+    return this.http.get<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${id}`);
+
   }
 
 }
