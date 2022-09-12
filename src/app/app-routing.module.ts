@@ -26,6 +26,18 @@ const routes: Routes = [
     component: AllMissionsComponent,
   },
   {
+    // page de gestion des mission
+    // creation/modification/supression
+    path: 'ajouterMission',
+    component: CreateMissionComponent,
+  },
+  {
+    // page de gestion des mission
+    // creation/modification/supression
+    path: 'modifierMission/:id',
+    component: UpdateMissionComponent,
+  },
+  {
     // page de consultation du planning des missions
     path: 'planningMission',
     component: AllMissionsComponent,
@@ -39,6 +51,10 @@ const routes: Routes = [
     // page de saisie des frais
     path: 'saisieFrais',
     component: AllExpensesComponent,
+  },
+  {
+    path: 'modifierFrais/:id',
+    component: ChargesComponent,
   },
   {
     // page de gestion des natures de missions
