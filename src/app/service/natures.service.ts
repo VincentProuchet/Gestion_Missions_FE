@@ -92,8 +92,8 @@ export class NaturesService implements OnDestroy {
   supprimerNature(nature: Nature): Observable<Nature> {
     return this.http.delete<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${nature.id}`)
   }
-
+/*
   getNaturesAsString():Observable<String[]> {
     return this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`).pipe(map(natures => natures.map(nature => nature.description)));
-  }
+  }*/
 }
