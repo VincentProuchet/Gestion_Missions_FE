@@ -52,13 +52,33 @@
     },
     {
       "id": 5,
-      "description": "regfsegsdfgsfg",
-      "dateOfValidity": "2022-09-12T14:37:09.578Z",
+      "description": "",
+      "dateOfValidity": "2022-09-12T14:41:33.602Z",
+      "endOfValidity": null,
+      "givesBonus": "",
+      "charged": "",
+      "tjm": "",
+      "bonusPercentage": ""
+    },
+    {
+      "id": 6,
+      "description": "",
+      "dateOfValidity": "2022-09-12T14:41:44.607Z",
+      "endOfValidity": null,
+      "givesBonus": "",
+      "charged": "",
+      "tjm": "",
+      "bonusPercentage": ""
+    },
+    {
+      "id": 7,
+      "description": "test",
+      "dateOfValidity": "2022-09-12T15:37:50.119Z",
       "endOfValidity": null,
       "givesBonus": "OUI",
       "charged": "OUI",
-      "tjm": "0",
-      "bonusPercentage": "0"
+      "tjm": "750",
+      "bonusPercentage": "4.5"
     }
   ],
   "frais": [],
