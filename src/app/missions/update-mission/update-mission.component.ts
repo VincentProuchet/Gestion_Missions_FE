@@ -2,6 +2,7 @@ import { formatDate, getLocaleId } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MissionsService } from 'src/app/service/missions.service';
 
 @Component({
   selector: 'app-update-mission',
@@ -13,7 +14,8 @@ export class UpdateMissionComponent implements OnInit {
   formGroup: FormGroup;
   mission: any;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private srvMission: MissionsService) {
+    /**formulaire */
     this.formGroup = formBuilder.group({
       startDateControl: ['', Validators.required],
       endDateControl: ['', Validators.required],
@@ -34,9 +36,23 @@ export class UpdateMissionComponent implements OnInit {
       bonusEstimee: "test"
     }
   }
-
+  /**
+   * on récupére les données de la mission à modifier dés l'initialisation
+   */
   ngOnInit(): void {
-    this.route.params.subscribe(params => console.log(params['id']))//get mission with id and fill the form
+
+    this.route.params.subscribe(params => {
+      console.log(params['id'])
+      //get mission with id and fill the form
+      this.srvMission.getMission(params['id']).subscribe(
+        {
+          next: (data) => { this.mission = data }// the form is filled here
+          , error: (err) => {
+            console.log(err);// here is to display an error in case something went wrong
+          }
+        }
+      )
+    })
   }
 
   onSubmit(): void {
