@@ -38,19 +38,11 @@ export class NaturesService implements OnDestroy {
     // natures ACTIVES
     //return this.natures.filter(valuer => valuer.endOfValidity == null);
     return this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`)
-      /*.subscribe(
-        {
-          next: (data) => { this.natures.next(data) }
-          , error: (err) => {
-            console.log(err);
-          }
-        }
-      )
-    return this.natures;*/
+
   }
   /**applique un filtre sur le tableau de nature passé en paramètre
-   * @param data
-   * @returns
+   * @param data tableau de natures
+   * @returns seuelement les nature dont la date de validité est nulle
    */
   getValidNatures(data: Nature[]): Nature[] {
     return data.filter(value => value.endOfValidity == null)
@@ -60,20 +52,8 @@ export class NaturesService implements OnDestroy {
    * créer une nouvelle nature
    * @param nature la nature à créer
    */
-  creationNature(nature: Nature) : Observable<Nature> {
+  creationNature(nature: Nature): Observable<Nature> {
     return this.http.post<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`, nature)
-    /*
-      .subscribe(
-        {
-          next: (data: Nature) => {
-            console.log("Création ok");
-            // this.natures.push(nature);
-          },
-          error: (error: any) => {
-            console.log("erreur lors de la création")
-          }
-        }
-      )*/
   }
   /**
    * à mettre à jour une nature
@@ -92,8 +72,8 @@ export class NaturesService implements OnDestroy {
   supprimerNature(nature: Nature): Observable<Nature> {
     return this.http.delete<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${nature.id}`)
   }
-/*
-  getNaturesAsString():Observable<String[]> {
-    return this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`).pipe(map(natures => natures.map(nature => nature.description)));
-  }*/
+  /*
+    getNaturesAsString():Observable<String[]> {
+      return this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`).pipe(map(natures => natures.map(nature => nature.description)));
+    }*/
 }

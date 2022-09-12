@@ -1,10 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-/*import {
-  faCheck,
-  faPencilAlt,
-  faTimes,
-  faTrashAlt,
-} from '@fortawesome/free-solid-svg-icons';*/
 import { Nature } from 'src/app/model/nature';
 import { NaturesService } from 'src/app/service/natures.service';
 import { Router } from '@angular/router';
@@ -29,21 +23,45 @@ export class CreationNatureComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router) {
+    private router: Router, private srvNature: NaturesService
+  ) {
     this.formGroupNature = formBuilder.group({
-
-
+      descriptionControl: [''],
+      giveBonusControl: [''],
+      chargedControl: [''],
+      tjmControl: [''],
+      bonusControl: ['']
     })
   }
 
   ngOnInit(): void { }
 
   onSubmit(): void {
+    let nature: Nature = {
+      id: null,
+      description: this.formGroupNature.controls["descriptionControl"].value,
+      dateOfValidity: new Date(Date.now()),
+      endOfValidity: null,
+      givesBonus: this.formGroupNature.controls["giveBonusControl"].value,
+      charged: this.formGroupNature.controls["chargedControl"].value,
+      tjm: this.formGroupNature.controls["tjmControl"].value,
+      bonusPercentage: this.formGroupNature.controls["bonusControl"].value,
+    };
+
+    this.srvNature.creationNature(nature).subscribe(
+      {
+        next: () => { }
+        ,
+        error: (err) => {
+          console.log(err);
+        }
+      });
     this.router.navigate(['/ajouterMission']);
   }
 
   onCancel(): void {
     //register the new mission, if valid
-    this.router.navigate(['/ajouterMission']);
+    this.router.navigate(['modifierNature']);
   }
+
 }

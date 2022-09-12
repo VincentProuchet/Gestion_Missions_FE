@@ -1,1 +1,56 @@
-<p>modify-nature works!</p>
+<div class="container d-flex flex-column flex-nowrap align-items-center">
+  <div class="container d-flex align-items-center flex-column">
+    <h1>Modification d'un nature de mission</h1>
+  </div>
+
+  <div class="row">
+    <!--ajouter une formulaires  de modification -->
+    <form (ngSubmit)="onSubmit()" [formGroup]="formGroupModifyNature" class="d-flex align-items-center flex-column">
+      <div class="form-group row d-flex justify-content-center">
+        <!-- modification nature d'un mission -->
+        <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="modifierNature" placeholderclass="form-control" id="ajouterNature">
+        </div>
+        <!-- fin modification nature d'un mission -->
+        <!--modification facturee -->
+        <label for="facturee" class="col-sm-6 col-form-label text-right">Facturée</label>
+        <div class="col-sm-6">
+          <select formControlName="factureeControl" class="form-control" id="facturee">
+            <option>OUI</option>
+            <option>NON</option>
+          </select>
+        </div>
+        <!-- fin modificationfacturee -->
+        <!-- modification versementPrime -->
+        <label for="versementPrime" class="col-sm-6 col-form-label text-right">Versement Prime</label>
+        <div class="col-sm-6">
+          <select formControlName="versementPrimeControl" class="form-control" id="versementPrime">
+            <option>OUI</option>
+            <option>NON</option>
+          </select>
+        </div>
+        <!-- fin modification versementPrime -->
+        <!-- modification TMJ nature d'un mission -->
+        <label for="tjm" class="col-sm-6 col-form-label text-right">TJM</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="modifierNature" placeholderclass="form-control" id="modifierNature">
+        </div>
+        <!-- modification TMJ nature d'un mission -->
+        <!-- modification TMJ nature d'un mission -->
+        <label for="prime" class="col-sm-6 col-form-label text-right">% Prime</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="modifierNature" placeholderclass="form-control" id="modifierNature">
+        </div>
+        <!-- modification TMJ nature d'un mission -->
+        <!-- ajouter 2 buttons Annuler et Valider-->
+        <div class="row d-flex justify-content-between">
+          <button (click)="onCancel()" class="btn btn-danger col-sm-6" type="button">Annuler</button>
+          <button class="btn btn-success col-sm-6" type="submit">Valider</button>
+        </div>
+        <!-- fin ajouter 2 buttons Annuler et Valider-->
+      </div>
+    </form>
+    <!-- fin ajouter une formulaires  d'ajouter -->
+  </div>
+</div>
