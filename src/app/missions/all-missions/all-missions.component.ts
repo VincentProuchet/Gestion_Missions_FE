@@ -30,10 +30,10 @@ export class AllMissionsComponent implements OnInit {
 
   onEdit(missionIndex: number) {
     console.log(missionIndex);
-    this.router.navigate(['mission', this.missions[missionIndex].id])
+    this.router.navigate(['modifierMission', this.missions[missionIndex].id])
   }
 
   onCreate(){
-    this.router.navigate(['mission/new']);
+    this.router.navigate(['ajouterMission']);
   }
 }
