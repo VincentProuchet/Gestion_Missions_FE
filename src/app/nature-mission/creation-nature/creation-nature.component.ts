@@ -20,7 +20,7 @@ export class CreationNatureComponent implements OnInit {
   formGroupNature: FormGroup;
 
   /*
- //icons
+  //icons
   faPencilAlt = faPencilAlt
   faTrashAlt = faTrashAlt
   faCheck = faCheck
@@ -39,6 +39,20 @@ export class CreationNatureComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
+    let nature: Nature = {
+      id: null,
+      description: this.formGroupNature.controls["ajouterNature"].value,
+      dateOfValidity: new Date(Date.now()),
+      endOfValidity: null,
+      givesBonus: this.formGroupNature.controls["versementPrime"].value,
+      charged: this.formGroupNature.controls["factureeControl"].value,
+      tjm: this.formGroupNature.controls["factureeControl"].value,
+      bonusPercentage: this.formGroupNature.controls["factureeControl"].value,
+    };
+
+
+    this.formGroupNature
+
     this.router.navigate(['/ajouterMission']);
   }
 
