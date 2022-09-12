@@ -6,17 +6,17 @@
     <div class="form-group row">
       <label for="startDate" class="col-sm-2 text-right col-form-label">Date de début</label>
       <div class="col-sm-4">
-        <input type="text" readonly class="form-control-plaintext" id="startDate" [value]="mission.startDate">
+        <input type="text" readonly class="form-control-plaintext" id="startDate" [value]="mission.start">
       </div>
       <label for="bonusEstimee" class="col-sm-2 col-form-label">Estimation prime</label>
       <div class="col-sm-4">
-        <input type="text" readonly class="form-control-plaintext" id="bonusEstimee" [value]="mission.bonusEstimee">
+        <input type="text" readonly class="form-control-plaintext" id="bonusEstimee" [value]="mission.bonus">
       </div>
     </div>
     <div class="form-group row">
       <label for="endDate" class="col-sm-2 text-right col-form-label">Date de fin</label>
       <div class="col-sm-4">
-        <input type="text" readonly class="form-control-plaintext" id="endDate" [value]="mission.endDate">
+        <input type="text" readonly class="form-control-plaintext" id="endDate" [value]="mission.end">
       </div>
       <label for="startCity" class="col-sm-2 col-form-label">Ville de départ</label>
       <div class="col-sm-4">
@@ -30,7 +30,7 @@
       </div>
       <label for="endCity" class="col-sm-2 col-form-label">Ville d'arrivée</label>
       <div class="col-sm-4">
-        <input type="text" readonly class="form-control-plaintext" id="endCity" [value]="mission.endCity">
+        <input type="text" readonly class="form-control-plaintext" id="endCity" [value]="mission.arrivalCity">
       </div>
     </div>
   </form>
@@ -45,10 +45,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let expenseLine of mission.expenses; let index = index">
+        <tr *ngFor="let expenseLine of expenses; let index = index">
           <td>{{expenseLine.date}}</td>
-          <td>{{expenseLine.expenseType}}</td>
-          <td>{{expenseLine.value}}</td>
+          <td>{{expenseLine.type}}</td>
+          <td>{{expenseLine.cost}}</td>
           <td><app-modify-expense [expenseToModify]="expenseLine"></app-modify-expense>
             <app-remove-expense [expenseToRemove]="expenseLine"></app-remove-expense>
           </td>
@@ -56,5 +56,5 @@
       </tbody>
     </table>
   </div>
-  <div class="row d-flex justify-content-end"><app-create-expense></app-create-expense></div>
+  <div class="row d-flex justify-content-end"><app-create-expense [missionID]="mission.id" ></app-create-expense></div>
 </div>
