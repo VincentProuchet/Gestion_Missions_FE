@@ -31,7 +31,7 @@ export class AllExpensesComponent implements OnInit {
 
   onEdit(missionIndex: number) {
     console.log(missionIndex);
-    this.router.navigate(['expenses', this.missions[missionIndex].id])
+    this.router.navigate(['modifierFrais', this.missions[missionIndex].id])
   }
 
   onExport(missionIndex: number){

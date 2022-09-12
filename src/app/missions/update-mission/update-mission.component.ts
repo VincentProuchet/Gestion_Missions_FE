@@ -42,10 +42,10 @@ export class UpdateMissionComponent implements OnInit {
   onSubmit(): void {
     console.log("start date control " + this.formGroup.controls["startDateControl"].value);
     //register the new data, if valid
-    this.router.navigate(['mission'])
+    this.router.navigate(['gestionMission'])
   }
   onCancel(): void {
     //register the new mission, if valid
-    this.router.navigate(['mission'])
+    this.router.navigate(['gestionMission'])
   }
 }

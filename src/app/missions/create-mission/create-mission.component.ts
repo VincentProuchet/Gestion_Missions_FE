@@ -28,10 +28,10 @@ export class CreateMissionComponent implements OnInit {
 
   onSubmit(): void {
     //register the new mission, if valid
-    this.router.navigate(['mission'])
+    this.router.navigate(['gestionMission'])
   }
   onCancel(): void {
     //register the new mission, if valid
-    this.router.navigate(['mission'])
+    this.router.navigate(['gestionMission'])
   }
 }
