@@ -21,11 +21,11 @@ export interface Mission {
   /**date début de la mission
    * ici le type any est pour le devellopement seuelement
   */
-  start: any;
+  start: Date;
   /** date de fin de la mission
    * ici le type any est pour le devellopement seuelement
    */
-  end: any;
+  end: Date;
   /** */
   startCity: City;
   /** */

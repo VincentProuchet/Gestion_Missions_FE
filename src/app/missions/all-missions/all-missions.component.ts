@@ -19,8 +19,8 @@ export class AllMissionsComponent implements OnInit {
   constructor(private router: Router, private srvMission: MissionsService) {
     // données de test à supprimer en fin de dev
     this.missions = [{
-      start: formatDate(new Date(), 'yyyy-MM-dd', 'en'), // retrieve the locale of the user
-      end: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
+      start: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')), // retrieve the locale of the user
+      end: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')),
       nature: "Commercial",
       startCity: "test",
       arrivalCity: "test",

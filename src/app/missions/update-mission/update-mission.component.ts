@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Nature } from 'src/app/model/nature';
+import { Transport } from 'src/app/model/transport';
 import { MissionsService } from 'src/app/service/missions.service';
 import { NaturesService } from 'src/app/service/natures.service';
+import { TransportService } from 'src/app/service/transport.service';
 
 @Component({
   selector: 'app-update-mission',
@@ -16,9 +18,16 @@ export class UpdateMissionComponent implements OnInit {
   formGroup: FormGroup;
   mission: any;
   natures: Nature[] = new Array();
+  transports: any;
 
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private srvMission: MissionsService, private srvNature: NaturesService) {    /**formulaire */
+
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router
+    , private srvMission: MissionsService, private srvNature: NaturesService, private srvTransport: TransportService) {
+    this.transports = srvTransport.getTransportList()
+
+
+    /**formulaire */
     this.formGroup = formBuilder.group({
       startDateControl: ['', Validators.required],
       endDateControl: ['', Validators.required],
@@ -29,12 +38,13 @@ export class UpdateMissionComponent implements OnInit {
       bonusEstimeeControl: ['', Validators.required]
 
     });
+
     this.updateNatures();
 
     //fake values to test display
     this.mission = {
-      startDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'), // retrieve the locale of the user
-      endDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
+      startDate: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')), // retrieve the locale of the user
+      endDate: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')),
       nature: "",
       startCity: "test",
       endCity: "test",
