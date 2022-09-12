@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, LOCALE_ID, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { Nature } from '../model/nature';
 import { MissionsService } from '../service/missions.service';
 import { NaturesService } from '../service/natures.service';
@@ -15,6 +17,8 @@ export class NatureMissionComponent implements OnInit {
 
   //public creationform: ReactiveFormsModule;
   public natures: Nature[] = new Array();
+  private datePipe: DatePipe = new DatePipe(environment.dateLocale);
+  private dateFormat: string = environment.dateFormat
 
   constructor(private srvNature: NaturesService, private router: Router) {
     this.natures = [
@@ -96,6 +100,16 @@ export class NatureMissionComponent implements OnInit {
   }
   onModifierNature() {
     this.router.navigate(['modifierNatures']);
+  }
+
+  dateFormatted(date: Date | null) {
+    if (date != null) {
+      return this.datePipe.transform(date, this.dateFormat)
+    };
+
+    return "";
+
+
   }
 
 }
