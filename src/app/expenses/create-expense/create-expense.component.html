@@ -1,0 +1,50 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+  Ajouter un frais
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createModalLabel">Ajout d'une ligne de frais</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formGroup">
+          <div class="form-group row">
+            <label for="date" class="col-sm-6 col-form-label text-right">Date</label>
+            <div class="col-sm-6">
+              <input type="date" formControlName="dateControl" id="date" />
+            </div>
+
+          </div>
+          <div class="form-group row">
+
+            <label for="type" class="col-sm-6 col-form-label text-right">Nature</label>
+            <div class="col-sm-6">
+              <select formControlName="typeControl" class="form-control" id="type">
+                <option>
+                  <!--ngfor-->
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="value" class="col-sm-6 col-form-label text-right">Montant</label>
+            <div class="col-sm-6">
+              <input type="text" formControlName="valueControl" class="form-control" id="value">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="onCreate()">Valider</button>
+      </div>
+    </div>
+  </div>
+</div>

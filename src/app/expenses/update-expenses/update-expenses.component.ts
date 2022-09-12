@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-charges',
-  templateUrl: './charges.component.html',
-  styleUrls: ['./charges.component.css']
+  selector: 'app-update-expenses',
+  templateUrl: './update-expenses.component.html',
+  styleUrls: ['./update-expenses.component.css']
 })
-export class ChargesComponent implements OnInit {
+export class UpdateExpensesComponent implements OnInit {
 
   mission: any;
 
@@ -38,7 +38,6 @@ export class ChargesComponent implements OnInit {
   }
 
   onEdit(expenseIndex: number) { }
-  onRemove(expenseIndex: number) { }
   onAdd() { }
 
 }

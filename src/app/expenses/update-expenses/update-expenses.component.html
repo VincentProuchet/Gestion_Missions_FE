@@ -49,11 +49,12 @@
           <td>{{expenseLine.date}}</td>
           <td>{{expenseLine.expenseType}}</td>
           <td>{{expenseLine.value}}</td>
-          <td><a (click)="onEdit(index)" class="btn btn-primary">edit</a><a (click)="onRemove(index)"
-              class="btn btn-danger">export</a></td>
+          <td><app-modify-expense [expenseToModify]="expenseLine"></app-modify-expense>
+            <app-remove-expense [expenseToRemove]="expenseLine"></app-remove-expense>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="row d-flex justify-content-end">Ajouter un frais <a (click)="onAdd()" class="btn btn-primary">+</a></div>
+  <div class="row d-flex justify-content-end"><app-create-expense></app-create-expense></div>
 </div>
