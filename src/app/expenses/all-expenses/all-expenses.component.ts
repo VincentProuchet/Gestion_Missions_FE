@@ -1,6 +1,9 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Expense } from 'src/app/model/expense';
+import { Mission } from 'src/app/model/mission';
+import { MissionsService } from 'src/app/service/missions.service';
 
 @Component({
   selector: 'app-all-expenses',
@@ -9,9 +12,10 @@ import { Router } from '@angular/router';
 })
 export class AllExpensesComponent implements OnInit {
 
-  missions: Array<any>
+  missions !: Array<Mission>;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private missionService: MissionsService) {
+    /*
     this.missions = [{
       startDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'), // retrieve the locale of the user
       endDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
@@ -23,19 +27,26 @@ export class AllExpensesComponent implements OnInit {
       bonusEstimee: "test",
       id: 0,
       charges: 0
-    }]
+    }]*/
   }
 
   ngOnInit(): void {
+    this.missionService.getMissions().subscribe(missions => this.missions = missions);
   }
 
   onEdit(missionIndex: number) {
-    console.log(missionIndex);
     this.router.navigate(['modifierFrais', this.missions[missionIndex].id])
   }
 
-  onExport(missionIndex: number){
+  onExport(missionIndex: number) {
     //this.router.navigate(['mission/new']);
     console.log(missionIndex);
   }
+
+  //this is an utility function... maybe place it somewhere else
+  sumExpenses(expenses: Expense[]): number {
+    return expenses.map(expense => expense.cost).reduce((currSum, currElement) => currSum + currElement);
+  }
+
+
 }

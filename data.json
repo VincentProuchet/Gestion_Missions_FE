@@ -81,7 +81,32 @@
       "bonusPercentage": "4.5"
     }
   ],
-  "frais": [],
+  "frais": [
+    {
+      "date": "2022-09-08",
+      "type": "",
+      "cost": "52",
+      "id": 2,
+      "idMission": 0,
+      "tva": 0
+    },
+    {
+      "date": "2022-09-11",
+      "type": "",
+      "cost": "100",
+      "id": 3,
+      "idMission": 0,
+      "tva": 0
+    },
+    {
+      "date": "2022-09-30",
+      "type": "",
+      "cost": "8698",
+      "id": 4,
+      "idMission": 0,
+      "tva": 0
+    }
+  ],
   "expenseTypes": [
     {
       "name": "transport"
@@ -116,9 +141,11 @@
           "id": 0,
           "idMission": 0,
           "date": "2021-04-21",
-          "value": 12,
+          "cost": 12,
           "TVA": 20,
-          "ExpenseType": "Type"
+          "ExpenseType": {
+            "name": "Type"
+          }
         }
       ]
     }
