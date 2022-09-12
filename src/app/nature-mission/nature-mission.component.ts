@@ -21,7 +21,9 @@ export class NatureMissionComponent implements OnInit {
   ngOnInit(): void {
     this.refreshNatures();
   }
-
+  /**
+   * 
+   */
   refreshNatures() {
     this.srvNature.getNatures().subscribe(
       {

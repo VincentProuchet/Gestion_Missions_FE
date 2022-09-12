@@ -26,14 +26,12 @@ const routes: Routes = [
     component: AllMissionsComponent,
   },
   {
-    // page de gestion des mission
-    // creation/modification/supression
+
     path: 'ajouterMission',
     component: CreateMissionComponent,
   },
   {
-    // page de gestion des mission
-    // creation/modification/supression
+
     path: 'modifierMission/:id',
     component: UpdateMissionComponent,
   },

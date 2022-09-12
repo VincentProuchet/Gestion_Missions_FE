@@ -71,7 +71,7 @@
   ],
   "Mission": [
     {
-      "id": 0,
+      "id": 1,
       "bonus": 0,
       "status": "VALIDEE",
       "transport": "voiture",
@@ -81,6 +81,28 @@
       "arrivalCity": "Montpellier",
       "nature": "manutention",
       "collaborateur": 0,
+      "expenses": [
+        {
+          "id": 0,
+          "idMission": 0,
+          "date": "2021-04-21",
+          "value": 12,
+          "TVA": 20,
+          "ExpenseType": "Type"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "bonus": 0,
+      "status": "VALIDEE",
+      "transport": "voiture",
+      "start": "2021-02-04",
+      "end": "2021-04-24",
+      "startCity": "Montpellier",
+      "arrivalCity": "Montpellier",
+      "nature": "manutention",
+      "collaborator": 0,
       "expenses": [
         {
           "id": 0,
