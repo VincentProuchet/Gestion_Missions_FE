@@ -42,26 +42,61 @@
     },
     {
       "id": 5,
-      "description": "comptabilité",
-      "dateOfValidity": "2022-09-12T15:00:43.242Z",
+      "description": "",
+      "dateOfValidity": "2022-09-12T14:41:33.602Z",
       "endOfValidity": null,
-      "givesBonus": "NON",
-      "charged": "OUI",
-      "tjm": "254",
-      "bonusPercentage": "2"
+      "givesBonus": "",
+      "charged": "",
+      "tjm": "",
+      "bonusPercentage": ""
     },
     {
       "id": 6,
-      "description": "comptabilité",
-      "dateOfValidity": "2022-09-12T16:19:01.094Z",
+      "description": "",
+      "dateOfValidity": "2022-09-12T14:41:44.607Z",
       "endOfValidity": null,
-      "givesBonus": true,
-      "charged": true,
-      "tjm": 0,
-      "bonusPercentage": 0
+      "givesBonus": "",
+      "charged": "",
+      "tjm": "",
+      "bonusPercentage": ""
+    },
+    {
+      "id": 7,
+      "description": "test",
+      "dateOfValidity": "2022-09-12T15:37:50.119Z",
+      "endOfValidity": null,
+      "givesBonus": "NON",
+      "charged": "OUI",
+      "tjm": "750",
+      "bonusPercentage": "4.5"
     }
   ],
-  "frais": [],
+  "frais": [
+    {
+      "date": "2022-09-08",
+      "type": "",
+      "cost": "52",
+      "id": 2,
+      "idMission": 0,
+      "tva": 0
+    },
+    {
+      "date": "2022-09-11",
+      "type": "",
+      "cost": "100",
+      "id": 3,
+      "idMission": 0,
+      "tva": 0
+    },
+    {
+      "date": "2022-09-30",
+      "type": "",
+      "cost": "8698",
+      "id": 4,
+      "idMission": 0,
+      "tva": 0
+    }
+  ],
   "expenseTypes": [
     {
       "name": "transport"
@@ -96,9 +131,11 @@
           "id": 0,
           "idMission": 0,
           "date": "2021-04-21",
-          "value": 12,
+          "cost": 12,
           "TVA": 20,
-          "ExpenseType": "Type"
+          "ExpenseType": {
+            "name": "Type"
+          }
         }
       ]
     }
