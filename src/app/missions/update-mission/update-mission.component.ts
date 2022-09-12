@@ -2,7 +2,9 @@ import { formatDate, getLocaleId } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Nature } from 'src/app/model/nature';
 import { MissionsService } from 'src/app/service/missions.service';
+import { NaturesService } from 'src/app/service/natures.service';
 
 @Component({
   selector: 'app-update-mission',
@@ -13,9 +15,10 @@ export class UpdateMissionComponent implements OnInit {
 
   formGroup: FormGroup;
   mission: any;
+  natures: Nature[];
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private srvMission: MissionsService) {
-    /**formulaire */
+
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private srvMission: MissionsService, private srvNature: NaturesService) {    /**formulaire */
     this.formGroup = formBuilder.group({
       startDateControl: ['', Validators.required],
       endDateControl: ['', Validators.required],
@@ -24,7 +27,9 @@ export class UpdateMissionComponent implements OnInit {
       endCityControl: ['', Validators.required],
       transportControl: ['', Validators.required],
       bonusEstimeeControl: ['', Validators.required]
+
     });
+    this.natures = this.srvNature.getValidNatures();
     //fake values to test display
     this.mission = {
       startDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'), // retrieve the locale of the user
@@ -40,6 +45,8 @@ export class UpdateMissionComponent implements OnInit {
    * on récupére les données de la mission à modifier dés l'initialisation
    */
   ngOnInit(): void {
+
+
 
     this.route.params.subscribe(params => {
       console.log(params['id'])

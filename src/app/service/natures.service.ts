@@ -23,6 +23,8 @@ export class NaturesService implements OnDestroy {
   private API_AFTER_URL: string = "/Natures"
   private natures: Subject<Nature[]> = new Subject()
   constructor(private http: HttpClient) {
+
+
   }
   ngOnDestroy(): void {
 
@@ -46,6 +48,26 @@ export class NaturesService implements OnDestroy {
       )
     return this.natures;
   }
+  getValidNatures(): Nature[] {
+    let validNatures = new Array()
+    // c'est un subject
+    this.getNatures().subscribe({
+      // donc on doit tout faire dans un next
+      next: (data) => {
+        // on filtre les valeur par une date ede fin de validité nulle
+        validNatures = data.filter(value => value.endOfValidity == null)
+      }
+      , error: (err) => {
+        console.log(err);
+      }
+    }
+    )
+    return validNatures;
+
+
+
+  }
+
   /**
    * créer une nouvelle nature
    * @param nature la nature à créer

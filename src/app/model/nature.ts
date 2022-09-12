@@ -6,12 +6,17 @@ export interface Nature {
   id: number;
   /** libellé */
   description: string;
-  /** date début de validité */
-  dateOfValidity: Date;
+  /** date début de validité
+   * le type any est utilisé pour le dev parce que ça part dans tous
+   * les sens
+   */
+  dateOfValidity: any;
   /** date de fin, une valeur nulle indique
    * une nature en cours de validité
+   * le type any est utilisé pour le dev parce que ça part dans tous
+   * les sens
    */
-  endOfValidity: Date;
+  endOfValidity: any;
   /**
    * est-ce que la nature
    * donne un bonus

@@ -16,13 +16,25 @@ export class NatureMissionComponent implements OnInit {
   public natures: Nature[] = new Array();
 
   constructor(private srvNature: NaturesService) {
+    this.natures = [
+      {
+        id: 0,
+        description: "une Nature",
+        dateOfValidity: Date.now(),
+        endOfValidity: null,
+        bonusPercentage: 2,
+        givesBonus: true,
+        charged: true,
+        tjm: 250,
+      }
+    ]
   }
 
   ngOnInit(): void {
     this.refreshNatures();
   }
   /**
-   * 
+   *
    */
   refreshNatures() {
     this.srvNature.getNatures().subscribe(
