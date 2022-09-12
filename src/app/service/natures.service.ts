@@ -48,24 +48,12 @@ export class NaturesService implements OnDestroy {
       )
     return this.natures;
   }
-  getValidNatures(): Nature[] {
-    let validNatures = new Array()
-    // c'est un subject
-    this.getNatures().subscribe({
-      // donc on doit tout faire dans un next
-      next: (data) => {
-        // on filtre les valeur par une date ede fin de validité nulle
-        validNatures = data.filter(value => value.endOfValidity == null)
-      }
-      , error: (err) => {
-        console.log(err);
-      }
-    }
-    )
-    return validNatures;
-
-
-
+  /**applique un filtre sur le tableau de nature passé en paramètre
+   * @param data
+   * @returns
+   */
+  getValidNatures(data: Nature[]): Nature[] {
+    return data.filter(value => value.endOfValidity == null)
   }
 
   /**

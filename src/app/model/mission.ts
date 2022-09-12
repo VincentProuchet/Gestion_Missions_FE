@@ -18,10 +18,14 @@ export interface Mission {
   status: Status,
   /** */
   transport: Transport;
-  /** */
-  start: Date;
-  /** */
-  end: Date;
+  /**date début de la mission
+   * ici le type any est pour le devellopement seuelement
+  */
+  start: any;
+  /** date de fin de la mission
+   * ici le type any est pour le devellopement seuelement
+   */
+  end: any;
   /** */
   startCity: City;
   /** */
