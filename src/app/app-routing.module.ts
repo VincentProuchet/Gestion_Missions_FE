@@ -8,6 +8,7 @@ import { AllMissionsComponent } from './missions/all-missions/all-missions.compo
 import { CreateMissionComponent } from './missions/create-mission/create-mission.component';
 import { UpdateMissionComponent } from './missions/update-mission/update-mission.component';
 import { CreationNatureComponent } from './nature-mission/creation-nature/creation-nature.component';
+import { ModifyNatureComponent } from './nature-mission/modify-nature/modify-nature.component';
 import { NatureMissionComponent } from './nature-mission/nature-mission.component';
 import { NatureMissionModule } from './nature-mission/nature-mission.module';
 
@@ -63,6 +64,10 @@ const routes: Routes = [
   {
     path: 'ajouteNatures',
     component: CreationNatureComponent,
+  },
+  {
+    path: 'modifierNatures',
+    component: ModifyNatureComponent,
   }
 
 ];

@@ -1,10 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-/*import {
-  faCheck,
-  faPencilAlt,
-  faTimes,
-  faTrashAlt,
-} from '@fortawesome/free-solid-svg-icons';*/
 import { Nature } from 'src/app/model/nature';
 import { NaturesService } from 'src/app/service/natures.service';
 import { Router } from '@angular/router';
@@ -20,7 +14,7 @@ export class CreationNatureComponent implements OnInit {
   formGroupNature: FormGroup;
 
   /*
-  //icons
+ //icons
   faPencilAlt = faPencilAlt
   faTrashAlt = faTrashAlt
   faCheck = faCheck
@@ -31,8 +25,6 @@ export class CreationNatureComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router) {
     this.formGroupNature = formBuilder.group({
-
-
     })
   }
 
@@ -58,6 +50,7 @@ export class CreationNatureComponent implements OnInit {
 
   onCancel(): void {
     //register the new mission, if valid
-    this.router.navigate(['/ajouterMission']);
+    this.router.navigate(['modifierNature']);
   }
+
 }

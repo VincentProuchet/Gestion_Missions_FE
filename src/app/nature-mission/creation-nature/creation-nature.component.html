@@ -1,6 +1,6 @@
 <div class="container d-flex flex-column flex-nowrap align-items-center">
   <div class="container d-flex align-items-center flex-column">
-    <h1>Ajouter d'un mission</h1>
+    <h1>Ajouter d'un nature de mission</h1>
   </div>
 
   <div class="row">
@@ -31,8 +31,20 @@
           </select>
         </div>
         <!-- fin ajouter versementPrime -->
+        <!-- ajouter TMJ nature d'un mission -->
+        <label for="tjm" class="col-sm-6 col-form-label text-right">TJM</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="tmj" placeholderclass="form-control" id="tmj">
+        </div>
+        <!--  fin ajouter TMJ nature d'un mission -->
+        <!-- ajouter Prime nature d'un mission -->
+        <label for="prime" class="col-sm-6 col-form-label text-right">% Prime</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="prime" placeholderclass="form-control" id="prime">
+        </div>
+        <!-- fin ajouter Prime nature d'un mission -->
         <!-- ajouter 2 buttons Annuler et Valider-->
-        <div class="row d-flex justify-content-between">
+        <div class="d-flex justify-content-around">
           <button (click)="onCancel()" class="btn btn-danger col-sm-6" type="button">Annuler</button>
           <button class="btn btn-success col-sm-6" type="submit">Valider</button>
         </div>

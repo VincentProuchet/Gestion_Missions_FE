@@ -94,5 +94,8 @@ export class NatureMissionComponent implements OnInit {
   onCreateNature() {
     this.router.navigate(['ajouteNatures']);
   }
+  onModifierNature() {
+    this.router.navigate(['modifierNatures']);
+  }
 
 }
