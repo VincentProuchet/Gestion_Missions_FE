@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Nature } from '../model/nature';
 
@@ -21,23 +21,35 @@ export class NaturesService implements OnDestroy {
   private COMPLET_URL = `http://localhost:3000/Natures`;
   // le terme à placer après l'URL de base  pour faire ses requêtes
   private API_AFTER_URL: string = "/Natures"
-
+  private natures: Subject<Nature[]> = new Subject()
   constructor(private http: HttpClient) {
   }
   ngOnDestroy(): void {
 
   }
   /**
-   *
-   * @returns Subject
+   *pour obtenir la liste des natures
+   * @returns Subject de Natures
    */
-  getNatures(): Observable<Nature[]> {
+  getNatures(): Subject<Nature[]> {
     // exemple de filtre pour la partie ou l'on ne devras afficher que les
     // natures ACTIVES
     //return this.natures.filter(valuer => valuer.endOfValidity == null);
-    return this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`);
+    this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`)
+      .subscribe(
+        {
+          next: (data) => { this.natures.next(data) }
+          , error: (err) => {
+            console.log(err);
+          }
+        }
+      )
+    return this.natures;
   }
-
+  /**
+   * créer une nouvelle nature
+   * @param nature la nature à créer
+   */
   creationNature(nature: Nature) {
     this.http.post<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`, nature)
       .subscribe(
@@ -52,12 +64,20 @@ export class NaturesService implements OnDestroy {
         }
       )
   }
-
+  /**
+   * à mettre à jour une nature
+   * @param nature à mettre à jour
+   * @returns
+   */
   modifierNature(nature: Nature): Observable<Nature> {
     return this.http.patch<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/:${nature.id}`, nature);
   }
 
-
+  /**
+   * supprimer un nature
+   * @param nature à supprimer
+   * @returns
+   */
   supprimerNature(nature: Nature): Observable<Nature> {
     return this.http.delete<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${nature.id}`)
   }

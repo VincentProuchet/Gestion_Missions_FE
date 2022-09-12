@@ -28,4 +28,25 @@ export class MissionsService {
       )
     return this.missions;
   }
+  /**get the mission Data with the provideed id
+   *
+   * @param id mission id
+   * @returns a subject that you can make a subscribe on it
+   */
+  getMission(id: number): Subject<Mission> {
+    let mission = new Subject<Mission>();
+    this.http.get<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${id}`)
+      .subscribe(
+        {
+          next: (data) => { mission.next(data) }
+          ,
+          error: (err) => {
+            console.log(err);
+          }
+        }
+      )
+
+    return mission;
+  }
+
 }

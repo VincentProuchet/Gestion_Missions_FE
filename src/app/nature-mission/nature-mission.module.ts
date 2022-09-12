@@ -11,7 +11,8 @@ import { NatureMissionComponent } from './nature-mission.component';
   declarations: [
     CreationNatureComponent,
     ModifyNatureComponent,
-    NatureMissionComponent
+    NatureMissionComponent,
+    CreationNatureComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +21,8 @@ import { NatureMissionComponent } from './nature-mission.component';
   exports: [
     CreationNatureComponent,
     ModifyNatureComponent,
-    NatureMissionComponent
+    NatureMissionComponent,
+    CreationNatureComponent
 
   ]
 })
