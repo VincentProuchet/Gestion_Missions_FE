@@ -60,12 +60,12 @@ export class CreationNatureComponent implements OnInit {
           console.log(err);
         }
       });
-    this.router.navigate(['/ajouterMission']);
+    this.router.navigate(['/gestionDesNatures']);
   }
 
   onCancel(): void {
     //register the new mission, if valid
-    this.router.navigate(['modifierNature']);
+    this.router.navigate(['/gestionDesNatures']);
   }
 
 
