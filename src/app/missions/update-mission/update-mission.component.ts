@@ -47,9 +47,10 @@ export class UpdateMissionComponent implements OnInit {
       endDate: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')),
       nature: "",
       startCity: "test",
+      status: "Validée",
       endCity: "test",
       transport: "",
-      bonusEstimee: "test"
+      bonus: "test"
     }
   }
   /**
