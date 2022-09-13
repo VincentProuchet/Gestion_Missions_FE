@@ -49,40 +49,22 @@
       "charged": true,
       "tjm": 280,
       "bonusPercentage": 10
-    },
-    {
-      "id": 5,
-      "description": "regfsegsdfgsfg",
-      "dateOfValidity": "2022-09-12T14:37:09.578Z",
-      "endOfValidity": null,
-      "givesBonus": "OUI",
-      "charged": "OUI",
-      "tjm": "0",
-      "bonusPercentage": "0"
     }
   ],
   "frais": [
     {
-      "date": "2022-09-08",
+      "date": "2018-10-04",
       "type": "",
-      "cost": "52",
-      "id": 2,
+      "cost": "1000",
+      "id": 12,
       "idMission": 0,
       "tva": 0
     },
     {
-      "date": "2022-09-11",
+      "date": "",
       "type": "",
-      "cost": "100",
-      "id": 3,
-      "idMission": 0,
-      "tva": 0
-    },
-    {
-      "date": "2022-09-30",
-      "type": "",
-      "cost": "8698",
-      "id": 4,
+      "cost": "33",
+      "id": 14,
       "idMission": 0,
       "tva": 0
     }

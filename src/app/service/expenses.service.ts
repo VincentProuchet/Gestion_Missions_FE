@@ -15,6 +15,9 @@ export class ExpensesService {
   getMissionExpenses(missionID: number): Observable<Expense[]> {
     return this.http.get<Expense[]>(this.FULL_URL).pipe(map(expenses => expenses.filter(expense => expense.idMission == missionID)));
   }
+  getExpense(expenseID: number): Observable<Expense> {
+    return this.http.get<Expense>(this.FULL_URL + '/' + expenseID);
+  }
 
   addExpense(expense: Expense): Observable<Expense> {
     return this.http.post<Expense>(this.FULL_URL, expense);

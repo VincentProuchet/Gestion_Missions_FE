@@ -1,10 +1,10 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#removeModal">
+<button type="button" class="btn btn-danger" data-toggle="modal" attr.data-target="{{'#removeModal'+expenseToRemove.id}}">
   Supprimer
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
+<div class="modal fade" [id]="'removeModal'+expenseToRemove.id" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

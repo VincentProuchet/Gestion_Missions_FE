@@ -15,9 +15,11 @@ export class RemoveExpenseComponent implements OnInit {
   constructor(private expensesService: ExpensesService, private router: Router) { }
 
   ngOnInit(): void {
+    //this.expensesService.getExpense(this.dataExpenseToRemove).subscribe(expense => this.expenseToRemove = expense);
+
   }
 
   onRemovalConfirmed() {
-    this.expensesService.removeExpense(this.expenseToRemove).subscribe(() => console.log("removed"));
+    this.expensesService.removeExpense(this.expenseToRemove).subscribe(() => console.log("removed : " + this.expenseToRemove.id));
   }
 }

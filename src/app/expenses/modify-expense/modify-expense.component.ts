@@ -35,7 +35,7 @@ export class ModifyExpenseComponent implements OnInit {
       cost: this.formGroup.controls['costControl'].value,
       tva: 0,
       type: this.formGroup.controls['typeControl'].value
-    }).subscribe(() => console.log("modified"));
-    
+    }).subscribe(() => console.log("modified : " + this.expenseToModify.id));
+
   }
 }
