@@ -24,7 +24,7 @@
         <td>{{ nature.bonusPercentage }}</td>
         <td>
           <button (click)="onModifierNature()" class="btn btn-primary">Modifier</button>
-          <button (click)="delete(nature)" class="btn btn-danger">Supprimer</button>
+          <app-delete-nature [natureMissionToDelete]="nature"></app-delete-nature>
         </td>
       </tr>
     </tbody>

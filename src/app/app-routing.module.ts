@@ -8,10 +8,10 @@ import { AllMissionsComponent } from './missions/all-missions/all-missions.compo
 import { CreateMissionComponent } from './missions/create-mission/create-mission.component';
 import { UpdateMissionComponent } from './missions/update-mission/update-mission.component';
 import { CreationNatureComponent } from './nature-mission/creation-nature/creation-nature.component';
+import { DeleteNatureComponent } from './nature-mission/delete-nature/delete-nature.component';
 import { ModifyNatureComponent } from './nature-mission/modify-nature/modify-nature.component';
 import { NatureMissionComponent } from './nature-mission/nature-mission.component';
 import { NatureMissionModule } from './nature-mission/nature-mission.module';
-
 
 const routes: Routes = [
   {
@@ -27,12 +27,10 @@ const routes: Routes = [
     component: AllMissionsComponent,
   },
   {
-
     path: 'ajouterMission',
     component: CreateMissionComponent,
   },
   {
-
     path: 'modifierMission/:id',
     component: UpdateMissionComponent,
   },
@@ -60,7 +58,7 @@ const routes: Routes = [
     path: 'gestionDesNatures',
     component: NatureMissionComponent,
   },
-    // page de gestion des natures de missions
+  // page de gestion des natures de missions
   {
     path: 'ajouteNatures',
     component: CreationNatureComponent,
@@ -68,12 +66,15 @@ const routes: Routes = [
   {
     path: 'modifierNatures',
     component: ModifyNatureComponent,
-  }
-
+  },
+  {
+    path: 'supprimerNatures',
+    component: DeleteNatureComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

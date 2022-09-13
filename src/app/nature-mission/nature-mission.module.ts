@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CreationNatureComponent } from './creation-nature/creation-nature.component';
 import { ModifyNatureComponent } from './modify-nature/modify-nature.component';
 import { NatureMissionComponent } from './nature-mission.component';
+import { DeleteNatureComponent } from './delete-nature/delete-nature.component';
 
 
 
@@ -12,7 +13,8 @@ import { NatureMissionComponent } from './nature-mission.component';
     CreationNatureComponent,
     ModifyNatureComponent,
     NatureMissionComponent,
-    CreationNatureComponent
+    CreationNatureComponent,
+    DeleteNatureComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { NatureMissionComponent } from './nature-mission.component';
     CreationNatureComponent,
     ModifyNatureComponent,
     NatureMissionComponent,
-    CreationNatureComponent
+    CreationNatureComponent,
+    DeleteNatureComponent
 
   ]
 })
