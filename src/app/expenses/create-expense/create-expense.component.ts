@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Mission } from 'src/app/model/mission';
+import { ExpenseType } from 'src/app/model/expense-type';
 import { ExpensesService } from 'src/app/service/expenses.service';
+import { NaturesService } from 'src/app/service/natures.service';
+import { CustomValidators } from 'src/app/shared/custom-validators';
 
 @Component({
   selector: 'app-create-expense',
@@ -11,31 +15,46 @@ export class CreateExpenseComponent implements OnInit {
 
   formGroup !: FormGroup;
 
-  @Input() missionID !: number;
+  @Input() mission !: Mission;
+  types!: ExpenseType[];
 
-  constructor(private formBuilder : FormBuilder, private expensesService:ExpensesService) {
-    this.formGroup = formBuilder.group({
-      dateControl : '',
-      typeControl : '',
-      costControl : ''
-    })
+  constructor(private formBuilder: FormBuilder, private expensesService: ExpensesService, private naturesService : NaturesService) {
   }
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      dateControl: ['', [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
+      typeControl: ['', Validators.required],
+      costControl: ['', [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
+    })
+
+    this.expensesService.getExpenseTypes().subscribe(types => this.types = types);
+
+
   }
 
   onCreate() {
     //register the new expense here
-    console.log(this.formGroup.controls['dateControl'].value);
+    console.log(this.formGroup.controls['typeControl'].value.name);
 
     this.expensesService.addExpense({
       date: this.formGroup.controls['dateControl'].value,
-      type: this.formGroup.controls['typeControl'].value,
+      type: this.types[this.formGroup.controls['typeControl'].value],
       cost: this.formGroup.controls['costControl'].value,
       id: 0,
-      idMission: this.missionID,
+      idMission: this.mission.id,
       tva: 0
-    }).subscribe(() => console.log("added"));
+    }).subscribe((expense) => console.log("added " + expense.type.name));
+  }
+
+  getDate() {
+    return this.formGroup.controls['dateControl'];
+  }
+  getType() {
+    return this.formGroup.controls['typeControl'];
+  }
+  getCost() {
+    return this.formGroup.controls['costControl'];
   }
 
 }

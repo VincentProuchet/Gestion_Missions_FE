@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Expense } from 'src/app/model/expense';
+import { ExpenseType } from 'src/app/model/expense-type';
+import { Mission } from 'src/app/model/mission';
 import { ExpensesService } from 'src/app/service/expenses.service';
+import { CustomValidators } from 'src/app/shared/custom-validators';
 
 @Component({
   selector: 'app-modify-expense',
@@ -13,18 +16,21 @@ export class ModifyExpenseComponent implements OnInit {
   formGroup!: FormGroup;
 
   @Input() expenseToModify!: Expense;
+  @Input() mission !: Mission;
+  types!: ExpenseType[];
 
   //To ask : the tva seems to not to be used
 
   constructor(private formBuilder: FormBuilder, private expensesService: ExpensesService) {
-    this.formGroup = formBuilder.group({
-      dateControl: '',
-      typeControl: '',
-      costControl: ''
-    });
   }
 
   ngOnInit(): void {
+    this.formGroup = this.formBuilder.group({
+      dateControl: ['', [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
+      typeControl: ['', Validators.required],
+      costControl: ['', [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
+    });
+    this.expensesService.getExpenseTypes().subscribe(types => this.types = types);
   }
 
   onUpdate() {
@@ -37,5 +43,16 @@ export class ModifyExpenseComponent implements OnInit {
       type: this.formGroup.controls['typeControl'].value
     }).subscribe(() => console.log("modified : " + this.expenseToModify.id));
 
+  }
+
+
+  getDate() {
+    return this.formGroup.controls['dateControl'];
+  }
+  getType() {
+    return this.formGroup.controls['typeControl'];
+  }
+  getCost() {
+    return this.formGroup.controls['costControl'];
   }
 }

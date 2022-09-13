@@ -47,10 +47,10 @@
       <tbody>
         <tr *ngFor="let expenseLine of expenses; let index = index">
           <td>{{expenseLine.date}}</td>
-          <td>{{expenseLine.type}}</td>
+          <td>{{expenseLine.type.name}}</td>
           <td>{{expenseLine.cost}}</td>
           <td>
-            <app-modify-expense [expenseToModify]="expenseLine"></app-modify-expense>
+            <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission"></app-modify-expense>
             <app-remove-expense [expenseToRemove]="expenseLine"></app-remove-expense>
           </td>
         </tr>
@@ -58,6 +58,6 @@
     </table>
   </div>
   <div class="row d-flex justify-content-end">
-    <app-create-expense [missionID]="mission.id"></app-create-expense>
+    <app-create-expense [mission]="mission"></app-create-expense>
   </div>
 </div>
