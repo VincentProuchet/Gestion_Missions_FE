@@ -59,16 +59,6 @@
       "charged": true,
       "tjm": "4500",
       "bonusPercentage": "50"
-    },
-    {
-      "id": 9,
-      "description": "tapotage",
-      "dateOfValidity": "2022-09-13T09:22:20.312Z",
-      "endOfValidity": null,
-      "givesBonus": true,
-      "charged": true,
-      "tjm": "450",
-      "bonusPercentage": "15"
     }
   ],
   "frais": [
