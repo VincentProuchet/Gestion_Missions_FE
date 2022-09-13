@@ -10,15 +10,16 @@
         <!-- ajouter nature d'un mission -->
         <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="descriptionControl" placeholderclass="form-control" id="ajouterNature">
+          <input type="text" formControlName="descriptionControl" placeholderclass="form-control" id="ajouterNature"
+            placeholder="description">
         </div>
         <!-- fin ajouter nature d'un mission -->
         <!--ajouter facturee -->
         <label for="facturee" class="col-sm-6 col-form-label text-right">Facturée</label>
         <div class="col-sm-6">
           <select formControlName="chargedControl" class="form-control" id="facturee">
-            <option>OUI</option>
-            <option>NON</option>
+            <option value="true" selected>OUI</option>
+            <option value="false">NON</option>
           </select>
         </div>
         <!-- fin ajouter facturee -->
@@ -26,21 +27,21 @@
         <label for="versementPrime" class="col-sm-6 col-form-label text-right">Versement Prime</label>
         <div class="col-sm-6">
           <select formControlName="giveBonusControl" class="form-control" id="versementPrime">
-            <option>OUI</option>
-            <option>NON</option>
+            <option value="true" selected>OUI</option>
+            <option value="false">NON</option>
           </select>
         </div>
         <!-- fin ajouter versementPrime -->
         <!-- ajouter TMJ nature d'un mission -->
         <label for="tjm" class="col-sm-6 col-form-label text-right">TJM</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="tjmControl" placeholderclass="form-control" id="tmj">
+          <input type="text" formControlName="tjmControl" placeholderclass="form-control" id="tmj" placeholder="0">
         </div>
         <!--  fin ajouter TMJ nature d'un mission -->
         <!-- ajouter Prime nature d'un mission -->
         <label for="prime" class="col-sm-6 col-form-label text-right">% Prime</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="bonusControl" placeholderclass="form-control" id="prime">
+          <input type="text" formControlName="bonusControl" placeholderclass="form-control" id="prime" placeholder="0">
         </div>
         <!-- fin ajouter Prime nature d'un mission -->
         <!-- ajouter 2 buttons Annuler et Valider-->

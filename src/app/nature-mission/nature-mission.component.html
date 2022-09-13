@@ -16,8 +16,8 @@
     <tbody>
       <tr *ngFor="let nature of natures">
         <th scope="row">{{ nature.description }}</th>
-        <td>{{ nature.dateOfValidity }}</td>
-        <td>{{ nature.endOfValidity }}</td>
+        <td>{{dateFormatted(nature.dateOfValidity) }}</td>
+        <td>{{dateFormatted(nature.endOfValidity)}}</td>
         <td>{{ nature.charged }}</td>
         <td>{{ nature.givesBonus }}</td>
         <td>{{ nature.tjm }}</td>

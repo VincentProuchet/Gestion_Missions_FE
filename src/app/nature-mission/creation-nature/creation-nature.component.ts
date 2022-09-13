@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Nature } from 'src/app/model/nature';
 import { NaturesService } from 'src/app/service/natures.service';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-creation-nature',
@@ -32,6 +32,10 @@ export class CreationNatureComponent implements OnInit {
       tjmControl: [''],
       bonusControl: ['']
     })
+
+
+    this.formGroupNature.controls['giveBonusControl'].setValue(true);
+    this.formGroupNature.controls['chargedControl'].setValue(true);
   }
 
   ngOnInit(): void { }
@@ -40,12 +44,12 @@ export class CreationNatureComponent implements OnInit {
     let nature: Nature = {
       id: null,
       description: this.formGroupNature.controls["descriptionControl"].value,
-      dateOfValidity: new Date(Date.now()),
+      dateOfValidity: new Date(),
       endOfValidity: null,
-      givesBonus: this.formGroupNature.controls["giveBonusControl"].value,
-      charged: this.formGroupNature.controls["chargedControl"].value,
-      tjm: this.formGroupNature.controls["tjmControl"].value,
-      bonusPercentage: this.formGroupNature.controls["bonusControl"].value,
+      givesBonus: this.formGroupNature.controls["giveBonusControl"].value || true,
+      charged: this.formGroupNature.controls["chargedControl"].value || true,
+      tjm: this.formGroupNature.controls["tjmControl"].value || 0,
+      bonusPercentage: this.formGroupNature.controls["bonusControl"].value || 0,
     };
 
     this.srvNature.creationNature(nature).subscribe(
@@ -56,12 +60,13 @@ export class CreationNatureComponent implements OnInit {
           console.log(err);
         }
       });
-    this.router.navigate(['/ajouterMission']);
+    this.router.navigate(['/gestionDesNatures']);
   }
 
   onCancel(): void {
     //register the new mission, if valid
-    this.router.navigate(['modifierNature']);
+    this.router.navigate(['/gestionDesNatures']);
   }
+
 
 }

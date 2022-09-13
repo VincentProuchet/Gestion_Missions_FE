@@ -49,12 +49,15 @@
           <td>{{expenseLine.date}}</td>
           <td>{{expenseLine.type}}</td>
           <td>{{expenseLine.cost}}</td>
-          <td><app-modify-expense [expenseToModify]="expenseLine"></app-modify-expense>
+          <td>
+            <app-modify-expense [expenseToModify]="expenseLine"></app-modify-expense>
             <app-remove-expense [expenseToRemove]="expenseLine"></app-remove-expense>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="row d-flex justify-content-end"><app-create-expense [missionID]="mission.id" ></app-create-expense></div>
+  <div class="row d-flex justify-content-end">
+    <app-create-expense [missionID]="mission.id"></app-create-expense>
+  </div>
 </div>

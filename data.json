@@ -1,16 +1,6 @@
 {
   "Natures": [
     {
-      "id": 0,
-      "description": "manutention",
-      "dateOfValidity": "2021-02-04",
-      "endOfValidity": null,
-      "givesBonus": true,
-      "charged": true,
-      "tjm": 280,
-      "bonusPercentage": 10
-    },
-    {
       "id": 1,
       "description": "manutention",
       "dateOfValidity": "2021-02-04",
@@ -49,6 +39,36 @@
       "charged": true,
       "tjm": 280,
       "bonusPercentage": 10
+    },
+    {
+      "id": 7,
+      "description": "test",
+      "dateOfValidity": "2022-09-12T15:37:50.119Z",
+      "endOfValidity": null,
+      "givesBonus": "NON",
+      "charged": "OUI",
+      "tjm": "750",
+      "bonusPercentage": "4.5"
+    },
+    {
+      "id": 8,
+      "description": "parachutage",
+      "dateOfValidity": "2022-09-13T09:20:09.029Z",
+      "endOfValidity": null,
+      "givesBonus": true,
+      "charged": true,
+      "tjm": "4500",
+      "bonusPercentage": "50"
+    },
+    {
+      "id": 9,
+      "description": "tapotage",
+      "dateOfValidity": "2022-09-13T09:22:20.312Z",
+      "endOfValidity": null,
+      "givesBonus": true,
+      "charged": true,
+      "tjm": "450",
+      "bonusPercentage": "15"
     }
   ],
   "frais": [

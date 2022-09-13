@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "Gestion_Missions_FE": {
+      "i18n": {
+        "sourceLocale": "fr-FR"
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
