@@ -39,48 +39,16 @@
       "charged": true,
       "tjm": 280,
       "bonusPercentage": 10
-    }
-  ],
-  "frais": [
-    {
-      "date": "2021-02-10",
-      "type": {
-        "name": "restaurant"
-      },
-      "cost": "50",
-      "id": 15,
-      "idMission": 0,
-      "tva": 0
-    },
-      "cost": "50",
-      "id": 15,
-      "idMission": 0,
-      "tva": 0
     },
     {
-      "id": 7,
-      "description": "test",
-      "dateOfValidity": "2022-09-12T15:37:50.119Z",
-      "endOfValidity": null,
-      "givesBonus": "NON",
-      "charged": "OUI",
-      "tjm": "750",
-      "bonusPercentage": "4.5"
-    },
-      "cost": "6314",
-      "id": 18,
-      "idMission": 0,
-      "tva": 0
-    },
-    {
-      "id": 8,
-      "description": "parachutage",
-      "dateOfValidity": "2022-09-13T09:20:09.029Z",
+      "id": 6,
+      "description": "hinissi",
+      "dateOfValidity": "2022-09-14T12:52:07.099Z",
       "endOfValidity": null,
       "givesBonus": true,
       "charged": true,
-      "tjm": "4500",
-      "bonusPercentage": "50"
+      "tjm": 0,
+      "bonusPercentage": 0
     }
   ],
   "frais": [

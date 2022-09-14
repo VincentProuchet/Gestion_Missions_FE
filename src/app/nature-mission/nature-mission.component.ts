@@ -20,7 +20,7 @@ export class NatureMissionComponent implements OnInit {
   private dateFormat: string = environment.dateFormat;
 
   constructor(private srvNature: NaturesService, private router: Router) {
-    this.natures = [
+    /*this.natures = [
       {
         id: 0,
         description: 'une Nature',
@@ -31,7 +31,7 @@ export class NatureMissionComponent implements OnInit {
         charged: true,
         tjm: 250,
       },
-    ];
+    ];*/
   }
 
   ngOnInit(): void {
@@ -49,6 +49,10 @@ export class NatureMissionComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  remove(nature: Nature): void {
+    this.natures = this.natures.filter((n: Nature) => n !== nature);
   }
 
   delete(nature: Nature) {

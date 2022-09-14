@@ -54,13 +54,13 @@ export class CreationNatureComponent implements OnInit {
 
     this.srvNature.creationNature(nature).subscribe(
       {
-        next: () => { }
+        next: () => {this.router.navigate(['/gestionDesNatures']);}
         ,
         error: (err) => {
           console.log(err);
         }
       });
-    this.router.navigate(['/gestionDesNatures']);
+
   }
 
   onCancel(): void {
