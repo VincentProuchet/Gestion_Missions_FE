@@ -11,7 +11,7 @@ import { Transport } from "./transport";
  */
 export interface Mission {
   /** */
-  id: number;
+  id: number | null;
   /** */
   bonus: number;
   /** */
@@ -33,7 +33,7 @@ export interface Mission {
   /** */
   nature: Nature;
   /** */
-  collaborator: Collaborator;
+  collaborator: Collaborator | null;
   /** */
   expenses: Expense[];
 
