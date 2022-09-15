@@ -2,6 +2,8 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Mission } from 'src/app/model/mission';
+import { Status } from 'src/app/model/status';
+import { Transport } from 'src/app/model/transport';
 import { MissionsService } from 'src/app/service/missions.service';
 
 @Component({
@@ -14,11 +16,13 @@ import { MissionsService } from 'src/app/service/missions.service';
  */
 export class AllMissionsComponent implements OnInit {
 
-  missions: Array<any>
+  missions: Array<Mission> = [];
+  statusEnum: typeof Status = Status;
+  transportEnum = Transport;
 
   constructor(private router: Router, private srvMission: MissionsService) {
     // données de test à supprimer en fin de dev
-    this.missions = [{
+    /*this.missions = [{
       start: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')), // retrieve the locale of the user
       end: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')),
       nature: "Commercial",
@@ -29,8 +33,9 @@ export class AllMissionsComponent implements OnInit {
       bonus: 100,
       collaborator: 0,
       id: 0
-    }]
+    }]*/
     //
+    console.log(this.transportEnum);
   }
 
   ngOnInit(): void {
@@ -62,5 +67,9 @@ export class AllMissionsComponent implements OnInit {
    */
   onCreate() {
     this.router.navigate(['ajouterMission']);
+  }
+
+  getTransportValue(key: string): string {
+    return this.transportEnum[key as keyof typeof this.transportEnum];
   }
 }

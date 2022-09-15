@@ -21,8 +21,8 @@
           <td>{{mission.nature}}</td>
           <td>{{mission.startCity}}</td>
           <td>{{mission.arrivalCity}}</td>
-          <td>{{mission.transport}}</td>
-          <td>{{mission.status}}</td>
+          <td>{{getTransportValue(mission.transport)}}</td>
+          <td>{{statusEnum[mission.status]}}</td>
           <td><a (click)="onEdit(index)" class="btn btn-primary">edit</a><a class="btn btn-danger">+</a></td>
         </tr>
       </tbody>
