@@ -64,7 +64,7 @@ const routes: Routes = [
     component: CreationNatureComponent,
   },
   {
-    path: 'modifierNatures',
+    path: 'modifierNatures/:id',
     component: ModifyNatureComponent,
   },
   {

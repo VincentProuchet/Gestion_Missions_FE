@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Nature } from 'src/app/model/nature';
 import { NaturesService } from 'src/app/service/natures.service';
@@ -12,6 +12,8 @@ export class DeleteNatureComponent implements OnInit {
 
   @Input() natureMissionToDelete!: Nature;
 
+  @Output() onDeleteEvt: EventEmitter<Nature> = new EventEmitter;
+
   constructor(private natureService: NaturesService, private router: Router) {}
 
   ngOnInit(): void {}
@@ -19,6 +21,8 @@ export class DeleteNatureComponent implements OnInit {
   onDeleteConfirmed() {
     this.natureService
       .supprimerNature(this.natureMissionToDelete)
-      .subscribe(() => console.log('removed : ' +  this.natureMissionToDelete.id));
+      .subscribe(() => {
+      this.onDeleteEvt.emit(this.natureMissionToDelete);
+    });
   }
 }
