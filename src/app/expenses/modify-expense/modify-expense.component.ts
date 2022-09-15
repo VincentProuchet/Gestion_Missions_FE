@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Expense } from 'src/app/model/expense';
 import { ExpenseType } from 'src/app/model/expense-type';
@@ -17,6 +17,7 @@ export class ModifyExpenseComponent implements OnInit {
 
   @Input() expenseToModify!: Expense;
   @Input() mission !: Mission;
+  @Output() onUpdateEvt: EventEmitter<Expense> = new EventEmitter();
   types!: ExpenseType[];
 
   //To ask : the tva seems to not to be used
@@ -26,9 +27,9 @@ export class ModifyExpenseComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      dateControl: ['', [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
-      typeControl: ['', Validators.required],
-      costControl: ['', [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
+      dateControl: [this.expenseToModify.date, [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
+      typeControl: [this.expenseToModify.type.name, Validators.required],
+      costControl: [this.expenseToModify.cost, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
     });
     this.expensesService.getExpenseTypes().subscribe(types => this.types = types);
   }
@@ -40,8 +41,13 @@ export class ModifyExpenseComponent implements OnInit {
       date: this.formGroup.controls['dateControl'].value,
       cost: this.formGroup.controls['costControl'].value,
       tva: 0,
-      type: this.formGroup.controls['typeControl'].value
-    }).subscribe(() => console.log("modified : " + this.expenseToModify.id));
+      type: {
+        name: this.formGroup.controls['typeControl'].value
+      }
+    }).subscribe(
+      (expense) => {
+        this.onUpdateEvt.emit(expense);
+      });
 
   }
 
@@ -54,5 +60,11 @@ export class ModifyExpenseComponent implements OnInit {
   }
   getCost() {
     return this.formGroup.controls['costControl'];
+  }
+
+  resetForm() {
+    this.formGroup.controls['dateControl'].setValue(this.expenseToModify.date);
+    this.formGroup.controls['typeControl'].setValue(this.expenseToModify.type.name);
+    this.formGroup.controls['costControl'].setValue(this.expenseToModify.cost);
   }
 }

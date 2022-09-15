@@ -36,8 +36,14 @@ export class UpdateExpensesComponent implements OnInit {
     this.expenses.push(expense);
   }
 
+  onUpdate(expense: Expense) {
+    let idx: number = this.expenses.indexOf(this.expenses.filter((exp) => exp.id === expense.id)[0]);
+    this.expenses[idx] = expense;
+  }
+
   onDelete(expense: Expense) {
     this.expenses = this.expenses.filter((exp) => exp !== expense);
   }
+
 
 }

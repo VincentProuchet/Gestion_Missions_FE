@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal"
-  attr.data-target="{{'#modifyModal'+expenseToModify.id}}">
+  attr.data-target="{{'#modifyModal'+expenseToModify.id}}" (click)="resetForm()">
   Editer
 </button>
 
@@ -20,7 +20,7 @@
           <div class="form-group row">
             <label for="date" class="col-sm-6 col-form-label text-right">Date</label>
             <div class="col-sm-6">
-              <input type="date" formControlName="dateControl" id="date" [(ngModel)]="expenseToModify.date" />
+              <input type="date" formControlName="dateControl" id="date" />
             </div>
 
           </div>
@@ -36,7 +36,7 @@
             <label for="type" class="col-sm-6 col-form-label text-right">Nature</label>
             <div class="col-sm-6">
               <select formControlName="typeControl" class="form-control" id="type">
-                <option *ngFor="let type of types, let index = index" [value]="index">
+                <option *ngFor="let type of types, let index = index" [value]="type.name">
                   <!--ngfor-->{{type.name}}
                 </option>
               </select>
@@ -52,8 +52,7 @@
           <div class="form-group row">
             <label for="cost" class="col-sm-6 col-form-label text-right">Montant</label>
             <div class="col-sm-6">
-              <input type="text" formControlName="costControl" class="form-control" id="cost"
-                [(ngModel)]="expenseToModify.cost">
+              <input type="text" formControlName="costControl" class="form-control" id="cost">
             </div>
           </div>
           <div *ngIf="getCost().invalid && (getCost().dirty || getCost().touched)"
@@ -72,7 +71,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" (click)="onUpdate()">Valider</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onUpdate()">Valider</button>
       </div>
     </div>
   </div>
