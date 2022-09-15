@@ -51,7 +51,7 @@
           <td>{{expenseLine.cost}}</td>
           <td>
             <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission"></app-modify-expense>
-            <app-remove-expense [expenseToRemove]="expenseLine"></app-remove-expense>
+            <app-remove-expense [expenseToRemove]="expenseLine" (onDeleteEvt)="onDelete($event)"></app-remove-expense>
           </td>
         </tr>
       </tbody>

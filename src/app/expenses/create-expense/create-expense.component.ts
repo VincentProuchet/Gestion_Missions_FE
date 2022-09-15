@@ -47,8 +47,8 @@ export class CreateExpenseComponent implements OnInit {
       tva: 0
     }
     this.expensesService.addExpense(newExpense).subscribe((expense) => {
-      console.log("added " + expense.type.name);
-      this.onCreateEvt.emit(newExpense);
+      this.onCreateEvt.emit(expense);
+      this.formGroup.reset();
     });
   }
 

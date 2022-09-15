@@ -36,4 +36,8 @@ export class UpdateExpensesComponent implements OnInit {
     this.expenses.push(expense);
   }
 
+  onDelete(expense: Expense) {
+    this.expenses = this.expenses.filter((exp) => exp !== expense);
+  }
+
 }
