@@ -58,6 +58,6 @@
     </table>
   </div>
   <div class="row d-flex justify-content-end">
-    <app-create-expense [mission]="mission"></app-create-expense>
+    <app-create-expense [mission]="mission" (onCreateEvt)="onCreate($event)"></app-create-expense>
   </div>
 </div>

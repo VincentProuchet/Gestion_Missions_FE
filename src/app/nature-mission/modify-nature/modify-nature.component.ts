@@ -66,10 +66,10 @@ export class ModifyNatureComponent implements OnInit {
       description: this.formGroupModifyNature.controls["descriptionControl"].value || this.natureToUpdate.description,
       dateOfValidity: this.natureToUpdate.dateOfValidity,
       endOfValidity: this.natureToUpdate.endOfValidity,
-      givesBonus: typeof this.formGroupModifyNature.controls["giveBonusControl"].value == "boolean" ? this.formGroupModifyNature.controls["giveBonusControl"].value : this.natureToUpdate.givesBonus,
-      charged: typeof this.formGroupModifyNature.controls["chargedControl"].value == "boolean" ? this.formGroupModifyNature.controls["chargedControl"].value : this.natureToUpdate.charged,
+      givesBonus: this.formGroupModifyNature.controls["giveBonusControl"].value || this.natureToUpdate.givesBonus,
+      charged: this.formGroupModifyNature.controls["chargedControl"].value || this.natureToUpdate.charged,
       tjm: !isNaN(this.formGroupModifyNature.controls["tjmControl"].value) ? this.formGroupModifyNature.controls["tjmControl"].value : this.natureToUpdate.tjm,
-      bonusPercentage: !isNaN(this.formGroupModifyNature.controls["bonusControl"].value) ? this.formGroupModifyNature.controls["bonusControl"].value : this.natureToUpdate.tjm,
+      bonusPercentage: !isNaN(this.formGroupModifyNature.controls["bonusControl"].value) ? this.formGroupModifyNature.controls["bonusControl"].value : this.natureToUpdate.bonusPercentage,
     };
 
     this.natureService.modifierNature(this.natureToUpdate.id!, nature).subscribe(

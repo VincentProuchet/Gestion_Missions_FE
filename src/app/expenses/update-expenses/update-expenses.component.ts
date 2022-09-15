@@ -31,4 +31,9 @@ export class UpdateExpensesComponent implements OnInit {
 
 
   }
+
+  onCreate(expense: Expense) {
+    this.expenses.push(expense);
+  }
+
 }

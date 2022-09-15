@@ -4,8 +4,8 @@
     <thead class="thead-dark">
       <tr>
         <th scope="col">Nature</th>
-        <th scope="col">date de début</th>
-        <th scope="col">date de fin</th>
+        <th scope="col">Date de début</th>
+        <th scope="col">Date de fin</th>
         <th scope="col">Facturée</th>
         <th scope="col">Prime</th>
         <th scope="col">TJM (€)</th>
@@ -16,8 +16,8 @@
     <tbody>
       <tr *ngFor="let nature of natures">
         <th scope="row">{{ nature.description }}</th>
-        <td>{{dateFormatted(nature.dateOfValidity) }}</td>
-        <td>{{dateFormatted(nature.endOfValidity)}}</td>
+        <td>{{ dateFormatted(nature.dateOfValidity) }}</td>
+        <td>{{ dateFormatted(nature.endOfValidity) || 'ー'}}</td>
         <td>{{ nature.charged }}</td>
         <td>{{ nature.givesBonus }}</td>
         <td>{{ nature.tjm }}</td>
@@ -29,5 +29,5 @@
       </tr>
     </tbody>
   </table>
-  <button (click)="onCreateNature()" type=" button">Créer nouvelle nature </button>
+  <button (click)="onCreateNature()" type="button">Créer nouvelle nature </button>
 </div>
