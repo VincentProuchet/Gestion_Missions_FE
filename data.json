@@ -39,6 +39,16 @@
       "charged": true,
       "tjm": 280,
       "bonusPercentage": 10
+    },
+    {
+      "id": 5,
+      "description": "test",
+      "dateOfValidity": "2022-09-16T09:46:49.643Z",
+      "endOfValidity": null,
+      "givesBonus": true,
+      "charged": true,
+      "tjm": "850",
+      "bonusPercentage": "6.3"
     }
   ],
   "frais": [

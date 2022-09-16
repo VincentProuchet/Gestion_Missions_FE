@@ -3,21 +3,23 @@
     <h1>Ajouter d'un nature de mission</h1>
   </div>
 
-  <div class="row g-1 align-items-center">
+  <div>
     <!--ajouter une formulaires  d'ajouter -->
-    <form (ngSubmit)="onSubmit()" [formGroup]="formGroupNature" class="row mb-4">
+    <form (ngSubmit)="onSubmit()" [formGroup]="formGroupNature" class="px-4 py-4">
       <!-- ajouter nature d'un mission -->
-      <div class="d-flex justify-content-center">
-        <label for="nature" class="col-sm-1 col-form-label">Nature</label>
-        <input type="text" formControlName="descriptionControl" placeholderclass="form-control" id="ajouterNature"
-          placeholder="description" />
+      <div class="row mb-3">
+        <label for="nature" class="col-sm-3 col-form-label">Nature</label>
+        <div class="col-sm-6">
+            <input type="text" formControlName="descriptionControl" placeholderclass="form-control" id="ajouterNature"
+          placeholder="description"/>
+        </div>
       </div>
       <!-- fin ajouter nature d'un mission -->
       <!--ajouter facturee -->
-      <div class="d-flex justify-content-center">
-        <label for="facturee" class="col-sm-1 col-form-label">Facturée</label>
-        <div class="col-sm-2 col-form-label">
-          <select formControlName="chargedControl" class="form-control" id="facturee">
+      <div class="row mb-3">
+        <label for="facturee" class="col-sm-4 col-form-label">Facturée</label>
+        <div class="col-sm-6">
+          <select formControlName="chargedControl" class="form-select" id="facturee">
             <option value="true" selected>OUI</option>
             <option value="false">NON</option>
           </select>
@@ -25,36 +27,42 @@
       </div>
       <!-- fin ajouter facturee -->
       <!-- ajouter versementPrime -->
-      <div class="d-flex justify-content-center">
-        <label for="versementPrime" class="col-sm-1 col-form-label">Versement Prime</label>
-        <div class="col-sm-2 col-form-label">
-          <select formControlName="giveBonusControl" class="form-control" id="versementPrime">
+      <div class="row mb-3">
+        <label for="versementPrime" class="col-sm-4 col-form-label">Versement Prime</label>
+        <div class="col-sm-6">
+          <select formControlName="giveBonusControl" class="form-select" id="versementPrime">
             <option value="true" selected>OUI</option>
             <option value="false">NON</option>
           </select>
         </div>
-        <!-- fin ajouter versementPrime -->
-        <!-- ajouter TMJ nature d'un mission -->
-        <div class="d-flex justify-content-center">
-          <label for="tjm" class="col-sm-1 col-form-label">TJM</label>
-          <input type="text" formControlName="tjmControl" placeholderclass="form-control" id="tmj" placeholder="0">
-        </div>
-        <!--  fin ajouter TMJ nature d'un mission -->
-        <!-- ajouter Prime nature d'un mission -->
-        <div class="d-flex justify-content-center">
-          <label for="bonus" class="col-sm-1 col-form-label">% Prime</label>
-          <input type="text" formControlName="bonusControl" placeholderclass="form-control" id="bonus" placeholder="0">
-        </div>
-        <!-- fin ajouter Prime nature d'un mission -->
-        <!-- ajouter 2 buttons Annuler et Valider-->
-        <div class="d-flex justify-content-center">
-          <button (click)="onCancel()" class="btn btn-danger" type="button">
-            Annuler
-          </button>
-          <button class="btn btn-success col-sm-6" type="submit">Valider</button>
-        </div>
-        <!-- fin ajouter 2 buttons Annuler et Valider-->
       </div>
+      <!-- fin ajouter versementPrime -->
+      <!-- ajouter TMJ nature d'un mission -->
+      <div class="row mb-3">
+        <label for="tmj" class="col-sm-3 col-form-label">TMJ</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="tjmControl" placeholderclass="form-control" id="tmj" placeholder="0" />
+        </div>
+      </div>
+      <!--  fin ajouter TMJ nature d'un mission -->
+      <!-- ajouter Prime nature d'un mission -->
+      <div class="row mb-3">
+        <label for="prime" class="col-sm-3 col-form-label">Prime</label>
+        <div class="col-sm-6">
+          <input type="text" formControlName="primeControl" placeholderclass="form-control" id="prime" placeholder="0" />
+        </div>
+      </div>
+      <!-- fin ajouter Prime nature d'un mission -->
+      <!-- ajouter 2 buttons Annuler et Valider-->
+      <div class="text-center">
+        <button (click)="onCancel()" class="btn btn-danger" type="button" style="margin: 5px">
+          Annuler
+        </button>
+        <button class="btn btn-success" type="submit" style="margin: 5px">
+          Valider
+        </button>
+      </div>
+      <!-- fin ajouter 2 buttons Annuler et Valider-->
     </form>
     <!-- fin ajouter une formulaires  d'ajouter -->
   </div>
