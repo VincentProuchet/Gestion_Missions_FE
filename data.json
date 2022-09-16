@@ -42,13 +42,23 @@
     },
     {
       "id": 5,
-      "description": "test",
+      "description": "test1",
       "dateOfValidity": "2022-09-16T09:46:49.643Z",
       "endOfValidity": null,
-      "givesBonus": true,
-      "charged": true,
-      "tjm": "850",
+      "givesBonus": "false",
+      "charged": "false",
+      "tjm": "90",
       "bonusPercentage": "6.3"
+    },
+    {
+      "id": 6,
+      "description": "aaa",
+      "dateOfValidity": "2022-09-16T10:03:38.191Z",
+      "endOfValidity": null,
+      "givesBonus": true,
+      "charged": "false",
+      "tjm": "888",
+      "bonusPercentage": 0
     }
   ],
   "frais": [
