@@ -13,6 +13,15 @@
           <input type="text" formControlName="descriptionControl" placeholderclass="form-control" id="ajouterNature"
             placeholder="description" />
         </div>
+        <div *ngIf="formGroupNature.controls['descriptionControl'].invalid && (formGroupNature.controls['descriptionControl'].dirty || formGroupNature.controls['descriptionControl'].touched)"
+          class="alert alert-danger row d-flex">
+          <div class="text-danger" *ngIf="formGroupNature.controls['descriptionControl'].errors?.['required']">
+            Requis
+          </div>
+          <div class="text-danger" *ngIf="formGroupNature.controls['descriptionControl'].errors?.['maxlength']">
+            30 caractères max.
+          </div>
+        </div>
       </div>
       <!-- fin ajouter nature d'un mission -->
       <!--ajouter facturee -->
@@ -41,16 +50,27 @@
       <div class="row mb-3">
         <label for="tmj" class="col-sm-3 col-form-label">TMJ</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="tjmControl" placeholderclass="form-control" id="tmj" placeholder="0" />
+          <input type="number" formControlName="tjmControl" placeholderclass="form-control" id="tmj" step="0.5" />
+        </div>
+        <div *ngIf="formGroupNature.controls['tjmControl'].invalid && (formGroupNature.controls['tjmControl'].dirty || formGroupNature.controls['tjmControl'].touched)"
+          class="alert alert-danger row d-flex">
+          <div class="text-danger" *ngIf="formGroupNature.controls['tjmControl'].errors?.['min'] || formGroupNature.controls['tjmControl'].errors?.['required']">
+            Doit être un nombre supérieur ou égal à 0
+          </div>
         </div>
       </div>
       <!--  fin ajouter TMJ nature d'un mission -->
       <!-- ajouter Prime nature d'un mission -->
       <div class="row mb-3">
-        <label for="prime" class="col-sm-3 col-form-label">Prime</label>
+        <label for="bonus" class="col-sm-3 col-form-label">Prime</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="primeControl" placeholderclass="form-control" id="prime"
-            placeholder="0" />
+          <input type="number" formControlName="bonusControl" placeholderclass="form-control" id="bonus"/>
+        </div>
+        <div *ngIf="formGroupNature.controls['bonusControl'].invalid && (formGroupNature.controls['bonusControl'].dirty || formGroupNature.controls['tjmControl'].touched)"
+          class="alert alert-danger row d-flex">
+          <div class="text-danger" *ngIf="formGroupNature.controls['bonusControl'].errors?.['min'] || formGroupNature.controls['bonusControl'].errors?.['required']">
+            Doit être un nombre supérieur ou égal à 0
+          </div>
         </div>
       </div>
       <!-- fin ajouter Prime nature d'un mission -->
@@ -59,7 +79,7 @@
         <button (click)="onCancel()" class="btn btn-danger" type="button" style="margin: 5px">
           Annuler
         </button>
-        <button class="btn btn-success" type="submit" style="margin: 5px">
+        <button class="btn btn-success" type="submit" style="margin: 5px" [disabled]="!formGroupNature.valid">
           Valider
         </button>
       </div>

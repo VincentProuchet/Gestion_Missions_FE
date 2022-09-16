@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Nature } from 'src/app/model/nature';
 import { NaturesService } from 'src/app/service/natures.service';
+import { CustomValidators } from 'src/app/shared/custom-validators';
 
 @Component({
   selector: 'app-creation-nature',
@@ -26,12 +27,12 @@ export class CreationNatureComponent implements OnInit {
     private router: Router, private srvNature: NaturesService
   ) {
     this.formGroupNature = formBuilder.group({
-      descriptionControl: [''],
+      descriptionControl: ['', [Validators.required, Validators.maxLength(30)]],
       giveBonusControl: [''],
       chargedControl: [''],
-      tjmControl: [''],
-      bonusControl: ['']
-    })
+      tjmControl: [0, [Validators.required, Validators.min(0)]],
+      bonusControl: [0, [Validators.required, Validators.min(0)]]
+    });
 
 
     this.formGroupNature.controls['giveBonusControl'].setValue(true);
@@ -41,6 +42,9 @@ export class CreationNatureComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
+    if (this.formGroupNature.invalid) {
+      return;
+    }
     let nature: Nature = {
       id: null,
       description: this.formGroupNature.controls["descriptionControl"].value,
