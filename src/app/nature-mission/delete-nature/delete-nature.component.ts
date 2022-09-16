@@ -12,7 +12,7 @@ export class DeleteNatureComponent implements OnInit {
 
   @Input() natureMissionToDelete!: Nature;
 
-  @Output() onDeleteEvt: EventEmitter<Nature> = new EventEmitter;
+  @Output() onDeleteEvt: EventEmitter<Nature> = new EventEmitter();
 
   constructor(private natureService: NaturesService, private router: Router) {}
 

@@ -43,7 +43,6 @@ export class AllMissionsComponent implements OnInit {
    * @param missionIndex
    */
   onEdit(missionIndex: number) {
-    console.log(missionIndex);
     this.router.navigate(['modifierMission', this.missions[missionIndex].id])
   }
   /**
@@ -51,6 +50,12 @@ export class AllMissionsComponent implements OnInit {
    */
   onCreate() {
     this.router.navigate(['ajouterMission']);
+  }
+
+  onDelete(mission: Mission) {
+    console.log("OO");
+
+    this.missions = this.missions.filter((m: Mission) => m !== mission);
   }
 
   getTransportValue(key: string): string {

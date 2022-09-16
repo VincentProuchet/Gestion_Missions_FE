@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal"
-  attr.data-target="{{'#modifyModal'+expenseToModify.id}}" (click)="resetForm()">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+  attr.data-bs-target="{{'#modifyModal'+expenseToModify.id}}" (click)="resetForm()">
   Editer
 </button>
 
@@ -11,7 +11,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modifyModalLabel">Modification d'une ligne de frais</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -70,8 +70,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onUpdate()">Valider</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onUpdate()">Valider</button>
       </div>
     </div>
   </div>

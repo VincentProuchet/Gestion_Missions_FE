@@ -25,7 +25,8 @@
           <td>{{ statusEnum[mission.status] }}</td>
           <td>
             <a (click)="onEdit(index)" class="btn btn-primary">edit</a
-            ><a class="btn btn-danger">+</a>
+            >
+            <app-remove-mission [missionToDelete]="mission" (onDeleteEvt)="onDelete($event)"></app-remove-mission>
           </td>
         </tr>
       </tbody>
