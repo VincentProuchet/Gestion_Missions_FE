@@ -78,8 +78,8 @@
         <div class="col-sm-6">
           <select formControlName="transportControl" class="form-control" id="transport"
             [(ngModel)]="mission.transport">
-            <option *ngFor="let item of transports" value="{{item}}">
-              {{item}}
+            <option *ngFor="let transport of transports | keyvalue" value="{{transport.key}}">
+              {{transport.value}}
               <!--ngfor-->
             </option>
           </select>

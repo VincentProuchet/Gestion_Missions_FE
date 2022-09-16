@@ -5,6 +5,7 @@ import { Mission } from 'src/app/model/mission';
 import { Status } from 'src/app/model/status';
 import { Transport } from 'src/app/model/transport';
 import { MissionsService } from 'src/app/service/missions.service';
+import { TransportService } from 'src/app/service/transport.service';
 
 @Component({
   selector: 'app-all-missions',
@@ -18,9 +19,8 @@ export class AllMissionsComponent implements OnInit {
 
   missions: Array<Mission> = [];
   statusEnum: typeof Status = Status;
-  transportEnum = Transport;
 
-  constructor(private router: Router, private srvMission: MissionsService) { }
+  constructor(private router: Router, private srvMission: MissionsService, private srvTransport: TransportService) { }
 
   ngOnInit(): void {
     this.updateMission();
@@ -54,7 +54,7 @@ export class AllMissionsComponent implements OnInit {
   }
 
   getTransportValue(key: string): string {
-    return this.transportEnum[key as keyof typeof this.transportEnum];
+    return this.srvTransport.getTransportValue(key);
   }
 
 }

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Mission } from 'src/app/model/mission';
 import { Nature } from 'src/app/model/nature';
+import { Transport } from 'src/app/model/transport';
 import { MissionsService } from 'src/app/service/missions.service';
 import { NaturesService } from 'src/app/service/natures.service';
 import { TransportService } from 'src/app/service/transport.service';
@@ -18,13 +19,13 @@ export class UpdateMissionComponent implements OnInit {
   formGroup: FormGroup;
   mission!: Mission;
   natures: Nature[] = new Array();
-  transports: any;
+  transports: Record<keyof typeof Transport, Transport>;
 
 
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router
     , private srvMission: MissionsService, private srvNature: NaturesService, private srvTransport: TransportService) {
-    this.transports = srvTransport.getTransportList()
+    this.transports = srvTransport.getTransportMap();
 
 
     /**formulaire */
@@ -50,7 +51,7 @@ export class UpdateMissionComponent implements OnInit {
       //get mission with id and fill the form
       this.srvMission.getMission(params['id']).subscribe(
         {
-          next: (data) => { this.mission = data }// the form is filled here
+          next: (data) => { this.mission = data; console.log(this.mission.transport) }// the form is filled here
           , error: (err) => {
             console.log(err);// here is to display an error in case something went wrong
           }

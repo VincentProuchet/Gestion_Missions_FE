@@ -77,8 +77,8 @@
         <label for="transport" class="col-sm-6 col-form-label text-right">Transport</label>
         <div class="col-sm-6">
           <select formControlName="transportControl" class="form-control" id="transport">
-            <option *ngFor="let enum of transportEnum | keyvalue" value="{{enum.key}}">
-              {{enum.value}}
+            <option *ngFor="let transport of transports | keyvalue" value="{{transport.key}}">
+              {{transport.value}}
             </option>
           </select>
         </div>
