@@ -51,7 +51,7 @@ export class UpdateMissionComponent implements OnInit {
       //get mission with id and fill the form
       this.srvMission.getMission(params['id']).subscribe(
         {
-          next: (data) => { this.mission = data; console.log(this.mission.transport) }// the form is filled here
+          next: (data) => { this.mission = data; }// the form is filled here
           , error: (err) => {
             console.log(err);// here is to display an error in case something went wrong
           }
@@ -61,9 +61,14 @@ export class UpdateMissionComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log("start date control " + this.formGroup.controls["startDateControl"].value);
+    console.log();
+    this.srvMission.updateMission(this.mission).subscribe({
+      next: (data) => {
+        this.router.navigate(['gestionMission']);
+      },
+      error: (err) => console.log(err)
+    })
     //register the new data, if valid
-    this.router.navigate(['gestionMission'])
   }
   onCancel(): void {
     //register the new mission, if valid
