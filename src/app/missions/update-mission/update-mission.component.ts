@@ -1,9 +1,9 @@
-import { formatDate, getLocaleId } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Mission } from 'src/app/model/mission';
 import { Nature } from 'src/app/model/nature';
-import { Transport } from 'src/app/model/transport';
 import { MissionsService } from 'src/app/service/missions.service';
 import { NaturesService } from 'src/app/service/natures.service';
 import { TransportService } from 'src/app/service/transport.service';
@@ -16,7 +16,7 @@ import { TransportService } from 'src/app/service/transport.service';
 export class UpdateMissionComponent implements OnInit {
 
   formGroup: FormGroup;
-  mission: any;
+  mission!: Mission;
   natures: Nature[] = new Array();
   transports: any;
 
@@ -40,26 +40,11 @@ export class UpdateMissionComponent implements OnInit {
     });
 
     this.updateNatures();
-
-    //fake values to test display
-    this.mission = {
-      startDate: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')), // retrieve the locale of the user
-      endDate: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')),
-      nature: "",
-      startCity: "test",
-      status: "Validée",
-      endCity: "test",
-      transport: "",
-      bonus: "test"
-    }
   }
   /**
    * on récupére les données de la mission à modifier dés l'initialisation
    */
   ngOnInit(): void {
-
-
-
     this.route.params.subscribe(params => {
       console.log(params['id'])
       //get mission with id and fill the form

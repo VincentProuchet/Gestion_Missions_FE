@@ -20,23 +20,7 @@ export class AllMissionsComponent implements OnInit {
   statusEnum: typeof Status = Status;
   transportEnum = Transport;
 
-  constructor(private router: Router, private srvMission: MissionsService) {
-    // données de test à supprimer en fin de dev
-    /*this.missions = [{
-      start: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')), // retrieve the locale of the user
-      end: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')),
-      nature: "Commercial",
-      startCity: "test",
-      arrivalCity: "test",
-      transport: "flyingBrooms",
-      status: "test",
-      bonus: 100,
-      collaborator: 0,
-      id: 0
-    }]*/
-    //
-    console.log(this.transportEnum);
-  }
+  constructor(private router: Router, private srvMission: MissionsService) { }
 
   ngOnInit(): void {
     this.updateMission();
@@ -72,4 +56,5 @@ export class AllMissionsComponent implements OnInit {
   getTransportValue(key: string): string {
     return this.transportEnum[key as keyof typeof this.transportEnum];
   }
+
 }

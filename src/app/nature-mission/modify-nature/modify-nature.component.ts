@@ -39,7 +39,6 @@ export class ModifyNatureComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      console.log(params['id'])
       //get mission with id and fill the form
       this.natureService.getNature(params['id']).subscribe(
         {

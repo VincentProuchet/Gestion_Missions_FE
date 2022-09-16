@@ -9,7 +9,6 @@ export class TransportService {
   transports = Object.values(Transport);
 
   constructor() {
-    this.transports.splice(this.transports.length / 2)
   }
 
   getTransportList() {
