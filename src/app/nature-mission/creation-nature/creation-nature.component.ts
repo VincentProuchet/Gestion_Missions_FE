@@ -28,16 +28,14 @@ export class CreationNatureComponent implements OnInit {
   ) {
     this.formGroupNature = formBuilder.group({
       descriptionControl: ['', [Validators.required, Validators.maxLength(30)]],
-      giveBonusControl: [''],
-      chargedControl: [''],
+      giveBonusControl: [true],
+      chargedControl: [true],
       tjmControl: [0, [Validators.required, Validators.min(0)]],
       bonusControl: [0, [Validators.required, Validators.min(0)]]
     });
 
 
-    this.formGroupNature.controls['giveBonusControl'].setValue(true);
-    this.formGroupNature.controls['chargedControl'].setValue(true);
-  }
+    }
 
   ngOnInit(): void { }
 

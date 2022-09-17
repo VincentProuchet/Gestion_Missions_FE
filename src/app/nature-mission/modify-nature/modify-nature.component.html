@@ -8,10 +8,19 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="formGroupModifyNature" class="px-4 py-4">
       <!-- modification nature d'un mission -->
       <div class="row mb-3">
-        <label for="nature" class="col-sm-3 col-form-label">Nature</label>
+        <label for="description" class="col-sm-3 col-form-label">Nature</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="descriptionControl" placeholderclass="form-control" id="ajouterNature"
-            placeholder="description" />
+          <input type="text" formControlName="descriptionControl" placeholderclass="form-control" id="description"
+            placeholder="description" [(ngModel)]="natureToUpdate.description"/>
+        </div>
+        <div *ngIf="formGroupModifyNature.controls['descriptionControl'].invalid && (formGroupModifyNature.controls['descriptionControl'].dirty || formGroupModifyNature.controls['descriptionControl'].touched)"
+          class="alert alert-danger row d-flex">
+          <div class="text-danger" *ngIf="formGroupModifyNature.controls['descriptionControl'].errors?.['required']">
+            Requis
+          </div>
+          <div class="text-danger" *ngIf="formGroupModifyNature.controls['descriptionControl'].errors?.['maxlength']">
+            30 caractères max.
+          </div>
         </div>
       </div>
       <!-- fin modification nature d'un mission -->
@@ -19,7 +28,7 @@
       <div class="row mb-3">
         <label for="facturee" class="col-sm-4 col-form-label">Facturée</label>
         <div class="col-sm-6">
-          <select formControlName="chargedControl" class="form-select" id="facturee">
+          <select formControlName="chargedControl" class="form-select" id="facturee" [(ngModel)]="natureToUpdate.charged">
             <option value="true" selected>OUI</option>
             <option value="false">NON</option>
           </select>
@@ -30,7 +39,7 @@
       <div class="row mb-3">
         <label for="versementPrime" class="col-sm-4 col-form-label">Versement Prime</label>
         <div class="col-sm-6">
-          <select formControlName="giveBonusControl" class="form-select" id="versementPrime">
+          <select formControlName="giveBonusControl" class="form-select" id="versementPrime" [(ngModel)]="natureToUpdate.givesBonus">
             <option value="true" selected>OUI</option>
             <option value="false">NON</option>
           </select>
@@ -41,23 +50,34 @@
       <div class="row mb-3">
         <label for="tmj" class="col-sm-3 col-form-label">TMJ</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="tjmControl" placeholderclass="form-control" id="modifierNature" placeholder="0" />
+          <input type="number" formControlName="tjmControl" placeholderclass="form-control" id="tjm" step="0.5" [(ngModel)]="natureToUpdate.tjm"/>
+        </div>
+        <div *ngIf="formGroupModifyNature.controls['tjmControl'].invalid && (formGroupModifyNature.controls['tjmControl'].dirty || formGroupModifyNature.controls['tjmControl'].touched)"
+          class="alert alert-danger row d-flex">
+          <div class="text-danger" *ngIf="formGroupModifyNature.controls['tjmControl'].errors?.['min'] || formGroupModifyNature.controls['tjmControl'].errors?.['required']">
+            Doit être un nombre supérieur ou égal à 0
+          </div>
         </div>
       </div>
       <!-- modification TMJ nature d'un mission -->
       <!-- modification TMJ nature d'un mission -->
       <div class="row mb-3">
-        <label for="prime" class="col-sm-3 col-form-label">%Prime</label>
+        <label for="bonus" class="col-sm-3 col-form-label">%Prime</label>
         <div class="col-sm-6">
-          <input type="text" formControlName="bonusControl" placeholderclass="form-control" id="modifierNature"
-            placeholder="0" />
+          <input type="number" formControlName="bonusControl" placeholderclass="form-control" id="bonus" step="0.5" [(ngModel)]="natureToUpdate.bonusPercentage" />
+        </div>
+        <div *ngIf="formGroupModifyNature.controls['bonusControl'].invalid && (formGroupModifyNature.controls['bonusControl'].dirty || formGroupModifyNature.controls['tjmControl'].touched)"
+          class="alert alert-danger row d-flex">
+          <div class="text-danger" *ngIf="formGroupModifyNature.controls['bonusControl'].errors?.['min'] || formGroupModifyNature.controls['bonusControl'].errors?.['required']">
+            Doit être un nombre supérieur ou égal à 0
+          </div>
         </div>
       </div>
       <!-- modification TMJ nature d'un mission -->
       <!-- ajouter 2 buttons Annuler et Valider-->
       <div class="text-center">
         <button (click)="onCancel()" class="btn btn-danger" type="button" style="margin: 5px">Annuler</button>
-        <button class="btn btn-success" type="submit" style="margin: 5px">Valider</button>
+        <button class="btn btn-success" type="submit" style="margin: 5px" [disabled]="!formGroupModifyNature.valid">Valider</button>
       </div>
       <!-- fin ajouter 2 buttons Annuler et Valider-->
     </form>

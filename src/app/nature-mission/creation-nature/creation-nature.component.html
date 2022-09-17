@@ -64,7 +64,7 @@
       <div class="row mb-3">
         <label for="bonus" class="col-sm-3 col-form-label">Prime</label>
         <div class="col-sm-6">
-          <input type="number" formControlName="bonusControl" placeholderclass="form-control" id="bonus"/>
+          <input type="number" formControlName="bonusControl" placeholderclass="form-control" id="bonus" step="0.5"/>
         </div>
         <div *ngIf="formGroupNature.controls['bonusControl'].invalid && (formGroupNature.controls['bonusControl'].dirty || formGroupNature.controls['tjmControl'].touched)"
           class="alert alert-danger row d-flex">
