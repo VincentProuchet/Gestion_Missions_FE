@@ -31,7 +31,7 @@ export class CreateMissionComponent implements OnInit {
       startCityControl: ['', [Validators.required, Validators.maxLength(50)]],
       endCityControl: ['', [Validators.required, Validators.maxLength(50)]],
       transportControl: ['', [Validators.required]],
-      bonusEstimeeControl: ['', [Validators.required]]
+      bonusEstimeeControl: ['']
     }, {validators: [CustomValidators.startEndDateValidator()]});
     this.natureService.getNatures().subscribe(
       (data) => this.natures = data

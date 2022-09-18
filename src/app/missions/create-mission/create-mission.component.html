@@ -79,7 +79,7 @@
           <div *ngIf="formGroup.controls['endCityControl'].errors?.['required']">
             Saisie invalide, a preciser
           </div>
-          <div *ngIf="formGroup.controls['startCityControl'].errors?.['maxlength']">
+          <div *ngIf="formGroup.controls['endCityControl'].errors?.['maxlength']">
             50 caractères max.
           </div>
         </div>
@@ -110,7 +110,7 @@
       </div>
       <div class="row d-flex justify-content-between">
         <button (click)="onCancel()" class="btn btn-danger col-sm-6" type="button">Annuler</button>
-        <button class="btn btn-success col-sm-6" type="submit">Valider</button>
+        <button class="btn btn-success col-sm-6" type="submit" [disabled]="!formGroup.valid">Valider</button>
       </div>
     </form>
   </div>

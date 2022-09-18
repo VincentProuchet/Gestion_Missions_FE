@@ -8,6 +8,7 @@ import { Transport } from 'src/app/model/transport';
 import { MissionsService } from 'src/app/service/missions.service';
 import { NaturesService } from 'src/app/service/natures.service';
 import { TransportService } from 'src/app/service/transport.service';
+import { CustomValidators } from 'src/app/shared/custom-validators';
 
 @Component({
   selector: 'app-update-mission',
@@ -30,15 +31,14 @@ export class UpdateMissionComponent implements OnInit {
 
     /**formulaire */
     this.formGroup = formBuilder.group({
-      startDateControl: ['', Validators.required],
-      endDateControl: ['', Validators.required],
-      natureControl: ['', Validators.required],
-      startCityControl: ['', Validators.required],
-      endCityControl: ['', Validators.required],
-      transportControl: ['', Validators.required],
-      bonusEstimeeControl: ['', Validators.required]
-
-    });
+      startDateControl: ['', [Validators.required]],
+      endDateControl: ['', [Validators.required]],
+      natureControl: ['', [Validators.required]],
+      startCityControl: ['', [Validators.required, Validators.maxLength(50)]],
+      endCityControl: ['', [Validators.required, Validators.maxLength(50)]],
+      transportControl: ['', [Validators.required]],
+      bonusEstimeeControl: ['']
+    }, {validators: [CustomValidators.startEndDateValidator()]});
 
     this.updateNatures();
   }
@@ -61,7 +61,9 @@ export class UpdateMissionComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log();
+    if (this.formGroup.invalid) {
+      return;
+    }
     this.srvMission.updateMission(this.mission).subscribe({
       next: (data) => {
         this.router.navigate(['gestionMission']);
@@ -80,10 +82,9 @@ export class UpdateMissionComponent implements OnInit {
       {
         next: (data) => { this.natures = this.srvNature.getValidNatures(data) }
         ,
-        error: () => { }
+        error: (err) => { console.log(err); }
       }
     );
-    console.log("les natures ", this.natures);
 
   }
 }
