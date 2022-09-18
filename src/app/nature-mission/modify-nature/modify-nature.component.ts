@@ -33,7 +33,7 @@ export class ModifyNatureComponent implements OnInit {
 
 
       this.formGroupModifyNature = formBuilder.group({
-        descriptionControl: ['', [Validators.required, Validators.maxLength(30)]],
+        descriptionControl: ['', [Validators.required, Validators.maxLength(50)]],
         giveBonusControl: [''],
         chargedControl: [''],
         tjmControl: ['', [Validators.required, Validators.min(0)]],

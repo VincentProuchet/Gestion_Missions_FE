@@ -23,11 +23,16 @@
           <input type="date" formControlName="endDateControl" id="endDate" />
         </div>
         <div
-          *ngIf="formGroup.controls['endDateControl'].invalid && (formGroup.controls['endDateControl'].dirty || formGroup.controls['endDateControl'].touched)"
+          *ngIf="(formGroup.controls['endDateControl'].invalid && (formGroup.controls['endDateControl'].dirty || formGroup.controls['endDateControl'].touched)) || formGroup.getError('startEndDateValidator')"
           class="alert alert-danger">
-          <div *ngIf="formGroup.controls['endDateControl'].errors?.['required']">
+          <div *ngIf="formGroup.controls['endDateControl'].errors?.['required'], else elseif1">
             Saisie invalide, a preciser
           </div>
+          <ng-template #elseif1>
+            <div *ngIf="formGroup.getError('startEndDateValidator')">
+              La date de fin ne peut pas être antérieure à la date de début
+            </div>
+          </ng-template>
         </div>
       </div>
       <div class="form-group row d-flex justify-content-center">
@@ -58,6 +63,9 @@
           <div *ngIf="formGroup.controls['startCityControl'].errors?.['required']">
             Saisie invalide, a preciser
           </div>
+          <div *ngIf="formGroup.controls['startCityControl'].errors?.['maxlength']">
+            50 caractères max.
+          </div>
         </div>
       </div>
       <div class="form-group row d-flex justify-content-center">
@@ -70,6 +78,9 @@
           class="alert alert-danger">
           <div *ngIf="formGroup.controls['endCityControl'].errors?.['required']">
             Saisie invalide, a preciser
+          </div>
+          <div *ngIf="formGroup.controls['startCityControl'].errors?.['maxlength']">
+            50 caractères max.
           </div>
         </div>
       </div>

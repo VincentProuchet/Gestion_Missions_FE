@@ -12,4 +12,13 @@ export class CustomValidators {
     }
 
   }
+
+  static startEndDateValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const start = control.get("startDateControl")!.value;
+      const end = control.get("endDateControl")!.value;
+      return start <= end ? null : { startEndDateValidator: true };
+    }
+  }
+
 }

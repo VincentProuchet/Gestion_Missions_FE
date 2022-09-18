@@ -27,7 +27,7 @@ export class CreationNatureComponent implements OnInit {
     private router: Router, private srvNature: NaturesService
   ) {
     this.formGroupNature = formBuilder.group({
-      descriptionControl: ['', [Validators.required, Validators.maxLength(30)]],
+      descriptionControl: ['', [Validators.required, Validators.maxLength(50)]],
       giveBonusControl: [true],
       chargedControl: [true],
       tjmControl: [0, [Validators.required, Validators.min(0)]],

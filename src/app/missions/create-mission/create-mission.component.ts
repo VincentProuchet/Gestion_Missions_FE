@@ -8,6 +8,7 @@ import { Transport } from 'src/app/model/transport';
 import { MissionsService } from 'src/app/service/missions.service';
 import { NaturesService } from 'src/app/service/natures.service';
 import { TransportService } from 'src/app/service/transport.service';
+import { CustomValidators } from 'src/app/shared/custom-validators';
 
 @Component({
   selector: 'app-create-mission',
@@ -24,14 +25,14 @@ export class CreateMissionComponent implements OnInit {
     this.transports = transportService.getTransportMap();
 
     this.formGroup = formBuilder.group({
-      startDateControl: ['', Validators.required],
-      endDateControl: ['', Validators.required],
-      natureControl: ['', Validators.required],
-      startCityControl: ['', Validators.required],
-      endCityControl: ['', Validators.required],
-      transportControl: ['', Validators.required],
-      bonusEstimeeControl: ['', Validators.required]
-    });
+      startDateControl: ['', [Validators.required]],
+      endDateControl: ['', [Validators.required]],
+      natureControl: ['', [Validators.required]],
+      startCityControl: ['', [Validators.required, Validators.maxLength(50)]],
+      endCityControl: ['', [Validators.required, Validators.maxLength(50)]],
+      transportControl: ['', [Validators.required]],
+      bonusEstimeeControl: ['', [Validators.required]]
+    }, {validators: [CustomValidators.startEndDateValidator()]});
     this.natureService.getNatures().subscribe(
       (data) => this.natures = data
     );
@@ -41,6 +42,9 @@ export class CreateMissionComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.formGroup.invalid) {
+      return;
+    }
     let newMission: Mission = {
       id: null,
       bonus: this.formGroup.controls["bonusEstimeeControl"].value,
