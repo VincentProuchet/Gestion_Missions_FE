@@ -35,6 +35,9 @@ export class ModifyExpenseComponent implements OnInit {
   }
 
   onUpdate() {
+    if (this.formGroup.invalid) {
+      return;
+    }
     this.expensesService.updateExpense({
       id: this.expenseToModify.id,
       idMission: this.expenseToModify.idMission,
