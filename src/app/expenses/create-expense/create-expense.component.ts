@@ -27,7 +27,7 @@ export class CreateExpenseComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       dateControl: ['', [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
       typeControl: ['', Validators.required],
-      costControl: ['', [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
+      costControl: [0, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
     })
 
     this.expensesService.getExpenseTypes().subscribe(types => this.types = types);
@@ -37,7 +37,9 @@ export class CreateExpenseComponent implements OnInit {
 
   onCreate() {
     //register the new expense here
-    console.log(this.formGroup.controls['typeControl'].value.name);
+    if (this.formGroup.invalid) {
+      return;
+    }
     let newExpense: Expense = {
       date: this.formGroup.controls['dateControl'].value,
       type: this.types[this.formGroup.controls['typeControl'].value],

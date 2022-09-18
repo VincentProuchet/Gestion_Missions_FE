@@ -26,7 +26,7 @@
                 Requis
               </div>
               <div class="text-danger" *ngIf="getDate().errors?.['dateBetweenValidator']">
-                Doit être dans la période de la mission
+                Doit être dans la période de la mission ({{mission.start}} - {{mission.end}})
               </div>
             </div>
 
@@ -45,7 +45,7 @@
             <div *ngIf="getType().invalid && (getType().dirty || getType().touched)"
               class="alert alert-danger row d-flex">
               <div *ngIf="getType().errors?.['required']">
-                Required
+                Requis
               </div>
             </div>
 
@@ -53,20 +53,13 @@
           <div class="form-group row">
             <label for="cost" class="col-sm-6 col-form-label text-right">Montant</label>
             <div class="col-sm-6">
-              <input type="text" formControlName="costControl" class="form-control" id="cost">
+              <input type="number" formControlName="costControl" class="form-control" id="cost" step="0.5">
             </div>
-
           </div>
           <div *ngIf="getCost().invalid && (getCost().dirty || getCost().touched)"
             class="alert alert-danger row d-flex">
-            <div *ngIf="getCost().errors?.['required']">
-              Requis
-            </div>
-            <div *ngIf="getCost().errors?.['min']">
-              Doit être positif
-            </div>
-            <div *ngIf="getCost().errors?.['pattern']">
-              Doit être de la forme nombre.nombre ou nombre
+            <div *ngIf="getCost().errors?.['min'] || getCost().errors?.['required']">
+              Doit être un nombre supérieur ou égal à 0
             </div>
           </div>
         </form>
