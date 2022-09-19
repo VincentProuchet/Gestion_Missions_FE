@@ -6,6 +6,7 @@ import { UpdateMissionComponent } from './update-mission/update-mission.componen
 import { AllMissionsComponent } from './all-missions/all-missions.component';
 import { RemoveMissionComponent } from './remove-mission/remove-mission.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ValidationMissionComponent } from './validation-mission/validation-mission.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CreateMissionComponent,
     UpdateMissionComponent,
     AllMissionsComponent,
-    RemoveMissionComponent
+    RemoveMissionComponent,
+    ValidationMissionComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,37 @@
+<div class="container">
+  <h1 class="row">Validation des Missions</h1>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Date de début</th>
+          <th scope="col">Date de fin</th>
+          <th scope="col">Nature</th>
+          <th scope="col">Départ</th>
+          <th scope="col">Arrivée</th>
+          <th scope="col">Transport</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mission of missions, let index = index">
+          <td>{{ mission.start }}</td>
+          <td>{{ mission.end }}</td>
+          <td>{{ mission.nature }}</td>
+          <td>{{ mission.startCity }}</td>
+          <td>{{ mission.arrivalCity }}</td>
+          <td>{{ getTransportValue(mission.transport) }}</td>
+          <td class="d-flex row-cols-3 gap-1">
+            <a class="btn btn-success">
+              <fa-icon icon="check"></fa-icon>
+            </a>
+            <a class="btn btn-danger">
+              <fa-icon icon="times"></fa-icon>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--[routerlink] toward the component new mission, find an icon-->
+</div>
