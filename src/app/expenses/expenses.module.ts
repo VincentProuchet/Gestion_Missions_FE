@@ -6,6 +6,7 @@ import { RemoveExpenseComponent } from './remove-expense/remove-expense.componen
 import { CreateExpenseComponent } from './create-expense/create-expense.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModifyExpenseComponent } from './modify-expense/modify-expense.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -19,7 +20,8 @@ import { ModifyExpenseComponent } from './modify-expense/modify-expense.componen
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   exports:[]
 })

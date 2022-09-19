@@ -5,6 +5,7 @@ import { CreationNatureComponent } from './creation-nature/creation-nature.compo
 import { ModifyNatureComponent } from './modify-nature/modify-nature.component';
 import { NatureMissionComponent } from './nature-mission.component';
 import { DeleteNatureComponent } from './delete-nature/delete-nature.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -18,7 +19,8 @@ import { DeleteNatureComponent } from './delete-nature/delete-nature.component';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   exports: [
     CreationNatureComponent,
