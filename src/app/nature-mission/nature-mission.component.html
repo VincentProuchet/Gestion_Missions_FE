@@ -4,8 +4,8 @@
     <thead class="thead-dark">
       <tr>
         <th scope="col">Nature</th>
-        <th scope="col">date de début</th>
-        <th scope="col">date de fin</th>
+        <th scope="col">Date de début</th>
+        <th scope="col">Date de fin</th>
         <th scope="col">Facturée</th>
         <th scope="col">Prime</th>
         <th scope="col">TJM (€)</th>
@@ -16,18 +16,20 @@
     <tbody>
       <tr *ngFor="let nature of natures">
         <th scope="row">{{ nature.description }}</th>
-        <td>{{dateFormatted(nature.dateOfValidity) }}</td>
-        <td>{{dateFormatted(nature.endOfValidity)}}</td>
+        <td>{{ dateFormatted(nature.dateOfValidity) }}</td>
+        <td>{{ dateFormatted(nature.endOfValidity) || 'ー'}}</td>
         <td>{{ nature.charged }}</td>
         <td>{{ nature.givesBonus }}</td>
         <td>{{ nature.tjm }}</td>
         <td>{{ nature.bonusPercentage }}</td>
         <td>
-          <button (click)="onModifierNature()" class="btn btn-primary">Modifier</button>
-          <app-delete-nature [natureMissionToDelete]="nature"></app-delete-nature>
+          <button (click)="onModifierNature(nature.id)" class="btn btn-primary" style="margin: 5px">
+            Modifier
+          </button>
+          <app-delete-nature [natureMissionToDelete]="nature" (onDeleteEvt)="remove($event)"></app-delete-nature>
         </td>
       </tr>
     </tbody>
   </table>
-  <button (click)="onCreateNature()" type=" button">Créer nouvelle nature </button>
+  <button (click)="onCreateNature()" class="btn btn-success" type="button">Créer nouvelle nature </button>
 </div>

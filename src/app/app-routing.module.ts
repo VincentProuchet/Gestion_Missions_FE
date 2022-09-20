@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { AllMissionsComponent } from './missions/all-missions/all-missions.component';
 import { CreateMissionComponent } from './missions/create-mission/create-mission.component';
 import { UpdateMissionComponent } from './missions/update-mission/update-mission.component';
+import { ValidationMissionComponent } from './missions/validation-mission/validation-mission.component';
 import { CreationNatureComponent } from './nature-mission/creation-nature/creation-nature.component';
 import { DeleteNatureComponent } from './nature-mission/delete-nature/delete-nature.component';
 import { ModifyNatureComponent } from './nature-mission/modify-nature/modify-nature.component';
@@ -64,13 +65,17 @@ const routes: Routes = [
     component: CreationNatureComponent,
   },
   {
-    path: 'modifierNatures',
+    path: 'modifierNatures/:id',
     component: ModifyNatureComponent,
   },
   {
     path: 'supprimerNatures',
     component: DeleteNatureComponent,
   },
+  {
+    path: 'validationMission',
+    component: ValidationMissionComponent
+  }
 ];
 
 @NgModule({

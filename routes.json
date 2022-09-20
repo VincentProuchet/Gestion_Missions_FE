@@ -1,0 +1,5 @@
+{
+  "/Mission/:id/valider": "/Mission/:id",
+  "/Mission/:id/rejeter": "/Mission/:id",
+  "/Mission/:id/reset": "/Mission/:id"
+}

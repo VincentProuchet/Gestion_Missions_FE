@@ -50,14 +50,14 @@
           <td>{{expenseLine.type.name}}</td>
           <td>{{expenseLine.cost}}</td>
           <td>
-            <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission"></app-modify-expense>
-            <app-remove-expense [expenseToRemove]="expenseLine"></app-remove-expense>
+            <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission" (onUpdateEvt)="onUpdate($event)"></app-modify-expense>
+            <app-remove-expense [expenseToRemove]="expenseLine" (onDeleteEvt)="onDelete($event)"></app-remove-expense>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
   <div class="row d-flex justify-content-end">
-    <app-create-expense [mission]="mission"></app-create-expense>
+    <app-create-expense [mission]="mission" (onCreateEvt)="onCreate($event)"></app-create-expense>
   </div>
 </div>

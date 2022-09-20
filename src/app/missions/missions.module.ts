@@ -4,17 +4,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CreateMissionComponent } from './create-mission/create-mission.component';
 import { UpdateMissionComponent } from './update-mission/update-mission.component';
 import { AllMissionsComponent } from './all-missions/all-missions.component';
+import { RemoveMissionComponent } from './remove-mission/remove-mission.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ValidationMissionComponent } from './validation-mission/validation-mission.component';
 
 
 @NgModule({
   declarations: [
     CreateMissionComponent,
     UpdateMissionComponent,
-    AllMissionsComponent
+    AllMissionsComponent,
+    RemoveMissionComponent,
+    ValidationMissionComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   exports:[CreateMissionComponent, UpdateMissionComponent, AllMissionsComponent]
 })

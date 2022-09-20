@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Expense } from 'src/app/model/expense';
 import { ExpensesService } from 'src/app/service/expenses.service';
@@ -11,6 +11,7 @@ import { ExpensesService } from 'src/app/service/expenses.service';
 export class RemoveExpenseComponent implements OnInit {
 
   @Input() expenseToRemove !: Expense;
+  @Output() onDeleteEvt: EventEmitter<Expense> = new EventEmitter();
 
   constructor(private expensesService: ExpensesService, private router: Router) { }
 
@@ -20,6 +21,10 @@ export class RemoveExpenseComponent implements OnInit {
   }
 
   onRemovalConfirmed() {
-    this.expensesService.removeExpense(this.expenseToRemove).subscribe(() => console.log("removed : " + this.expenseToRemove.id));
+    this.expensesService.removeExpense(this.expenseToRemove).subscribe(
+      () => {
+        this.onDeleteEvt.emit(this.expenseToRemove);
+      }
+    );
   }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Nature } from 'src/app/model/nature';
 import { NaturesService } from 'src/app/service/natures.service';
+import { CustomValidators } from 'src/app/shared/custom-validators';
 
 @Component({
   selector: 'app-creation-nature',
@@ -26,21 +27,22 @@ export class CreationNatureComponent implements OnInit {
     private router: Router, private srvNature: NaturesService
   ) {
     this.formGroupNature = formBuilder.group({
-      descriptionControl: [''],
-      giveBonusControl: [''],
-      chargedControl: [''],
-      tjmControl: [''],
-      bonusControl: ['']
-    })
+      descriptionControl: ['', [Validators.required, Validators.maxLength(50)]],
+      giveBonusControl: [true],
+      chargedControl: [true],
+      tjmControl: [0, [Validators.required, Validators.min(0)]],
+      bonusControl: [0, [Validators.required, Validators.min(0)]]
+    });
 
 
-    this.formGroupNature.controls['giveBonusControl'].setValue(true);
-    this.formGroupNature.controls['chargedControl'].setValue(true);
-  }
+    }
 
   ngOnInit(): void { }
 
   onSubmit(): void {
+    if (this.formGroupNature.invalid) {
+      return;
+    }
     let nature: Nature = {
       id: null,
       description: this.formGroupNature.controls["descriptionControl"].value,
@@ -54,13 +56,13 @@ export class CreationNatureComponent implements OnInit {
 
     this.srvNature.creationNature(nature).subscribe(
       {
-        next: () => { }
+        next: () => {this.router.navigate(['/gestionDesNatures'])}
         ,
         error: (err) => {
           console.log(err);
         }
       });
-    this.router.navigate(['/gestionDesNatures']);
+
   }
 
   onCancel(): void {

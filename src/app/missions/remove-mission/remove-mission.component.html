@@ -1,6 +1,6 @@
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" attr.data-bs-target="{{'#removeModal'+natureMissionToDelete.id}}">Supprimer</button>
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" attr.data-bs-target="{{'#removeModal'+missionToDelete.id}}">Supprimer</button>
 <!-- Modal -->
-<div class="modal fade" id="{{'removeModal'+natureMissionToDelete.id}}" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
+<div class="modal fade" id="{{'removeModal'+missionToDelete.id}}" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,13 +8,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Confirmez-vous la suppression de la nature de mission ? </p>
-        <ul>
-          <li>
-            Nature: {{ natureMissionToDelete.description }}
-          </li>
-        </ul>
-
+        <p>Confirmez-vous la suppression de la mission ? </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>

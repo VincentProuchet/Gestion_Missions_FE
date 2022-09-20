@@ -20,7 +20,7 @@ export class NatureMissionComponent implements OnInit {
   private dateFormat: string = environment.dateFormat;
 
   constructor(private srvNature: NaturesService, private router: Router) {
-    this.natures = [
+    /*this.natures = [
       {
         id: 0,
         description: 'une Nature',
@@ -31,7 +31,7 @@ export class NatureMissionComponent implements OnInit {
         charged: true,
         tjm: 250,
       },
-    ];
+    ];*/
   }
 
   ngOnInit(): void {
@@ -51,46 +51,15 @@ export class NatureMissionComponent implements OnInit {
     });
   }
 
-  delete(nature: Nature) {
-    this.srvNature.supprimerNature(nature).subscribe({
-      next: () => {
-        // mise à jour la liste locale
-        this.natures.forEach((element: Nature, index: number) => {
-          if (element.id == nature.id) {
-            this.natures.splice(index, 1);
-            console.log('suppresion', nature);
-          }
-        });
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-    });
-    this.refreshNatures();
+  remove(nature: Nature): void {
+    this.natures = this.natures.filter((n: Nature) => n !== nature);
   }
-  update(nature: Nature) {
-    this.srvNature.modifierNature(nature).subscribe({
-      next: (data: Nature) => {
-        console.log('Modification ok');
-      },
-      error: (error: any) => {
-        console.log('erreur lors de la modification');
-      },
-    });
-    this.refreshNatures();
-  }
-  creation(nature: Nature): void {
-    this.srvNature.creationNature(nature);
-    this.refreshNatures();
-  }
+
   onCreateNature() {
     this.router.navigate(['ajouteNatures']);
   }
-  onModifierNature() {
-    this.router.navigate(['modifierNatures']);
-  }
-  onDeleteNature() {
-    this.router.navigate(['supprimerNatures']);
+  onModifierNature(id: number | null) {
+    this.router.navigate(['modifierNatures', id]);
   }
 
   dateFormatted(date: Date | null) {

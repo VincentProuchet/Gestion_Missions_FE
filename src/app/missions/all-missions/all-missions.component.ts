@@ -2,7 +2,10 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Mission } from 'src/app/model/mission';
+import { Status } from 'src/app/model/status';
+import { Transport } from 'src/app/model/transport';
 import { MissionsService } from 'src/app/service/missions.service';
+import { TransportService } from 'src/app/service/transport.service';
 
 @Component({
   selector: 'app-all-missions',
@@ -14,24 +17,10 @@ import { MissionsService } from 'src/app/service/missions.service';
  */
 export class AllMissionsComponent implements OnInit {
 
-  missions: Array<any>
+  missions: Array<Mission> = [];
+  statusEnum: typeof Status = Status;
 
-  constructor(private router: Router, private srvMission: MissionsService) {
-    // données de test à supprimer en fin de dev
-    this.missions = [{
-      start: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')), // retrieve the locale of the user
-      end: new Date(formatDate(new Date(), 'yyyy-MM-dd', 'en')),
-      nature: "Commercial",
-      startCity: "test",
-      arrivalCity: "test",
-      transport: "flyingBrooms",
-      status: "test",
-      bonus: 100,
-      collaborator: 0,
-      id: 0
-    }]
-    //
-  }
+  constructor(private router: Router, private srvMission: MissionsService, private srvTransport: TransportService) { }
 
   ngOnInit(): void {
     this.updateMission();
@@ -54,7 +43,6 @@ export class AllMissionsComponent implements OnInit {
    * @param missionIndex
    */
   onEdit(missionIndex: number) {
-    console.log(missionIndex);
     this.router.navigate(['modifierMission', this.missions[missionIndex].id])
   }
   /**
@@ -63,4 +51,15 @@ export class AllMissionsComponent implements OnInit {
   onCreate() {
     this.router.navigate(['ajouterMission']);
   }
+
+  onDelete(mission: Mission) {
+    console.log("OO");
+
+    this.missions = this.missions.filter((m: Mission) => m !== mission);
+  }
+
+  getTransportValue(key: string): string {
+    return this.srvTransport.getTransportValue(key);
+  }
+
 }

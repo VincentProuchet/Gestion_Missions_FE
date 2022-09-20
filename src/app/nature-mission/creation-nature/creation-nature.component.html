@@ -3,54 +3,87 @@
     <h1>Ajouter d'un nature de mission</h1>
   </div>
 
-  <div class="row">
+  <div>
     <!--ajouter une formulaires  d'ajouter -->
-    <form (ngSubmit)="onSubmit()" [formGroup]="formGroupNature" class="d-flex align-items-center flex-column">
-      <div class="form-group row d-flex justify-content-center">
-        <!-- ajouter nature d'un mission -->
-        <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
+    <form (ngSubmit)="onSubmit()" [formGroup]="formGroupNature" class="px-4 py-4">
+      <!-- ajouter nature d'un mission -->
+      <div class="row mb-3">
+        <label for="nature" class="col-sm-3 col-form-label">Nature</label>
         <div class="col-sm-6">
           <input type="text" formControlName="descriptionControl" placeholderclass="form-control" id="ajouterNature"
-            placeholder="description">
+            placeholder="description" />
         </div>
-        <!-- fin ajouter nature d'un mission -->
-        <!--ajouter facturee -->
-        <label for="facturee" class="col-sm-6 col-form-label text-right">Facturée</label>
-        <div class="col-sm-6">
-          <select formControlName="chargedControl" class="form-control" id="facturee">
-            <option value="true" selected>OUI</option>
-            <option value="false">NON</option>
-          </select>
+        <div *ngIf="formGroupNature.controls['descriptionControl'].invalid && (formGroupNature.controls['descriptionControl'].dirty || formGroupNature.controls['descriptionControl'].touched)"
+          class="alert alert-danger row d-flex">
+          <div class="text-danger" *ngIf="formGroupNature.controls['descriptionControl'].errors?.['required']">
+            Requis
+          </div>
+          <div class="text-danger" *ngIf="formGroupNature.controls['descriptionControl'].errors?.['maxlength']">
+            50 caractères max.
+          </div>
         </div>
-        <!-- fin ajouter facturee -->
-        <!-- ajouter versementPrime -->
-        <label for="versementPrime" class="col-sm-6 col-form-label text-right">Versement Prime</label>
-        <div class="col-sm-6">
-          <select formControlName="giveBonusControl" class="form-control" id="versementPrime">
-            <option value="true" selected>OUI</option>
-            <option value="false">NON</option>
-          </select>
-        </div>
-        <!-- fin ajouter versementPrime -->
-        <!-- ajouter TMJ nature d'un mission -->
-        <label for="tjm" class="col-sm-6 col-form-label text-right">TJM</label>
-        <div class="col-sm-6">
-          <input type="text" formControlName="tjmControl" placeholderclass="form-control" id="tmj" placeholder="0">
-        </div>
-        <!--  fin ajouter TMJ nature d'un mission -->
-        <!-- ajouter Prime nature d'un mission -->
-        <label for="prime" class="col-sm-6 col-form-label text-right">% Prime</label>
-        <div class="col-sm-6">
-          <input type="text" formControlName="bonusControl" placeholderclass="form-control" id="prime" placeholder="0">
-        </div>
-        <!-- fin ajouter Prime nature d'un mission -->
-        <!-- ajouter 2 buttons Annuler et Valider-->
-        <div class="d-flex justify-content-around">
-          <button (click)="onCancel()" class="btn btn-danger col-sm-6" type="button">Annuler</button>
-          <button (click)="onSubmit()" class="btn btn-success col-sm-6" type="submit">Valider</button>
-        </div>
-        <!-- fin ajouter 2 buttons Annuler et Valider-->
       </div>
+      <!-- fin ajouter nature d'un mission -->
+      <!--ajouter facturee -->
+      <div class="row mb-3">
+        <label for="facturee" class="col-sm-4 col-form-label">Facturée</label>
+        <div class="col-sm-6">
+          <select formControlName="chargedControl" class="form-select" id="facturee">
+            <option value="true" selected>OUI</option>
+            <option value="false">NON</option>
+          </select>
+        </div>
+      </div>
+      <!-- fin ajouter facturee -->
+      <!-- ajouter versementPrime -->
+      <div class="row mb-3">
+        <label for="versementPrime" class="col-sm-4 col-form-label">Versement Prime</label>
+        <div class="col-sm-6">
+          <select formControlName="giveBonusControl" class="form-select" id="versementPrime">
+            <option value="true" selected>OUI</option>
+            <option value="false">NON</option>
+          </select>
+        </div>
+      </div>
+      <!-- fin ajouter versementPrime -->
+      <!-- ajouter TMJ nature d'un mission -->
+      <div class="row mb-3">
+        <label for="tmj" class="col-sm-3 col-form-label">TMJ</label>
+        <div class="col-sm-6">
+          <input type="number" formControlName="tjmControl" placeholderclass="form-control" id="tmj" step="0.5" />
+        </div>
+        <div *ngIf="formGroupNature.controls['tjmControl'].invalid && (formGroupNature.controls['tjmControl'].dirty || formGroupNature.controls['tjmControl'].touched)"
+          class="alert alert-danger row d-flex">
+          <div class="text-danger" *ngIf="formGroupNature.controls['tjmControl'].errors?.['min'] || formGroupNature.controls['tjmControl'].errors?.['required']">
+            Doit être un nombre supérieur ou égal à 0
+          </div>
+        </div>
+      </div>
+      <!--  fin ajouter TMJ nature d'un mission -->
+      <!-- ajouter Prime nature d'un mission -->
+      <div class="row mb-3">
+        <label for="bonus" class="col-sm-3 col-form-label">Prime</label>
+        <div class="col-sm-6">
+          <input type="number" formControlName="bonusControl" placeholderclass="form-control" id="bonus" step="0.5"/>
+        </div>
+        <div *ngIf="formGroupNature.controls['bonusControl'].invalid && (formGroupNature.controls['bonusControl'].dirty || formGroupNature.controls['tjmControl'].touched)"
+          class="alert alert-danger row d-flex">
+          <div class="text-danger" *ngIf="formGroupNature.controls['bonusControl'].errors?.['min'] || formGroupNature.controls['bonusControl'].errors?.['required']">
+            Doit être un nombre supérieur ou égal à 0
+          </div>
+        </div>
+      </div>
+      <!-- fin ajouter Prime nature d'un mission -->
+      <!-- ajouter 2 buttons Annuler et Valider-->
+      <div class="text-center">
+        <button (click)="onCancel()" class="btn btn-danger" type="button" style="margin: 5px">
+          Annuler
+        </button>
+        <button class="btn btn-success" type="submit" style="margin: 5px" [disabled]="!formGroupNature.valid">
+          Valider
+        </button>
+      </div>
+      <!-- fin ajouter 2 buttons Annuler et Valider-->
     </form>
     <!-- fin ajouter une formulaires  d'ajouter -->
   </div>

@@ -40,6 +40,16 @@ export class NaturesService implements OnDestroy {
     return this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`)
 
   }
+
+  /**get the mission nature Data with the provideed id
+   *
+   * @param id nature id
+   * @returns a subject that you can make a subscribe on it
+   */
+  getNature(id: number): Observable<Nature> {
+    return this.http.get<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${id}`);
+  }
+
   /**applique un filtre sur le tableau de nature passé en paramètre
    * @param data tableau de natures
    * @returns seuelement les nature dont la date de validité est nulle
@@ -60,8 +70,8 @@ export class NaturesService implements OnDestroy {
    * @param nature à mettre à jour
    * @returns
    */
-  modifierNature(nature: Nature): Observable<Nature> {
-    return this.http.patch<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/:${nature.id}`, nature);
+  modifierNature(id: number, nature: Nature): Observable<Nature> {
+    return this.http.put<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${id}`, nature);
   }
 
   /**

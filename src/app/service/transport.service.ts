@@ -6,13 +6,28 @@ import { Transport } from '../model/transport';
 })
 export class TransportService {
 
-  transports = Object.values(Transport);
-
   constructor() {
-    this.transports.splice(this.transports.length / 2)
   }
 
-  getTransportList() {
-    return this.transports;
+  getTransportValues(): Transport[] {
+    return Object.values(Transport);
+  }
+
+  getTransportKeys(): (keyof typeof Transport)[] {
+    return Object.keys(Transport) as (keyof typeof Transport)[];
+  }
+
+  getTransportMap(): Record<keyof typeof Transport, Transport> {
+    let keys = this.getTransportKeys();
+    let values = this.getTransportValues();
+    return values.reduce(
+      (result: any, field: any, index: any) => {
+        result[keys[index]] = field;
+        return result;
+      }, {} as any);
+  }
+
+  getTransportValue(key: string): Transport {
+    return Transport[key as keyof typeof Transport];
   }
 }

@@ -6,7 +6,7 @@ export interface Expense {
   /**identifiant */
   id: number;
   /** identifiant de la mission à lauqelle est rattaché la ligne de frais */
-  idMission: number;
+  idMission: number | null;
   /** date du frais */
   date: Date;
   /** valeur */

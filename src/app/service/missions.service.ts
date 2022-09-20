@@ -12,6 +12,7 @@ export class MissionsService {
   private API_AFTER_URL: string = "/mission";
   private API_URL_VALIDATE: string = '/valider';
   private API_URL_REJETER: string = '/rejeter';
+  private API_URL_RESET: string = '/reset';
 
   constructor(private http: HttpClient) { }
 
@@ -63,16 +64,25 @@ export class MissionsService {
    * @returns
    */
   validateMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${mission.id}/${this.API_URL_VALIDATE}`, mission);
+    return this.http.put<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${mission.id}${this.API_URL_VALIDATE}`, mission);
   }
   /**
    * envoie une demande de rejet de la mission à l'API
-   * avec les données de la mission à valider
+   * avec les données de la mission à rejeter
    * @param mission
    * @returns
    */
   rejectMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${mission.id}/${this.API_URL_REJETER}`, mission);
+    return this.http.put<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${mission.id}${this.API_URL_REJETER}`, mission);
+  }
+  /**
+   * envoie une demande de réinitialisation de la mission à l'API
+   * avec les données de la mission à réinitialiser
+   * @param mission
+   * @returns
+   */
+  resetMission(mission: Mission): Observable<Mission> {
+    return this.http.put<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${mission.id}${this.API_URL_RESET}`, mission);
   }
 
 }

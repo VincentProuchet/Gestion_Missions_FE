@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal"
-  attr.data-target="{{'#modifyModal'+expenseToModify.id}}">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+  attr.data-bs-target="{{'#modifyModal'+expenseToModify.id}}" (click)="resetForm()">
   Editer
 </button>
 
@@ -11,37 +11,34 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modifyModalLabel">Modification d'une ligne de frais</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="formGroup">
           <div class="form-group row">
             <label for="date" class="col-sm-6 col-form-label text-right">Date</label>
             <div class="col-sm-6">
-              <input type="date" formControlName="dateControl" id="date" [(ngModel)]="expenseToModify.date" />
+              <input type="date" formControlName="dateControl" id="date" />
             </div>
-
           </div>
-
-          <div *ngIf="getType().invalid && (getType().dirty || getType().touched)"
+          <div *ngIf="getDate().invalid && (getDate().dirty || getDate().touched)"
             class="alert alert-danger row d-flex">
-            <div class="text-danger" *ngIf="!getDate().valid">
+            <div class="text-danger" *ngIf="getDate().errors?.['required']">
               Requis
             </div>
-          </div>
+            <div class="text-danger" *ngIf="getDate().errors?.['dateBetweenValidator']">
+              Doit être dans la période de la mission ({{mission.start}} - {{mission.end}})
+            </div>
+            </div>
           <div class="form-group row">
-
             <label for="type" class="col-sm-6 col-form-label text-right">Nature</label>
             <div class="col-sm-6">
               <select formControlName="typeControl" class="form-control" id="type">
-                <option *ngFor="let type of types, let index = index" [value]="index">
+                <option *ngFor="let type of types, let index = index" [value]="type.name">
                   <!--ngfor-->{{type.name}}
                 </option>
               </select>
             </div>
-
             <div *ngIf="getType().invalid && (getType().dirty || getType().touched)"
               class="alert alert-danger row d-flex">
               <div *ngIf="getType().errors?.['required']">
@@ -52,27 +49,20 @@
           <div class="form-group row">
             <label for="cost" class="col-sm-6 col-form-label text-right">Montant</label>
             <div class="col-sm-6">
-              <input type="text" formControlName="costControl" class="form-control" id="cost"
-                [(ngModel)]="expenseToModify.cost">
+              <input type="number" formControlName="costControl" class="form-control" id="cost" step="0.5">
             </div>
           </div>
           <div *ngIf="getCost().invalid && (getCost().dirty || getCost().touched)"
             class="alert alert-danger row d-flex">
-            <div *ngIf="getCost().errors?.['required']">
-              Requis
-            </div>
-            <div *ngIf="getCost().errors?.['min']">
-              Doit être positif
-            </div>
-            <div *ngIf="getCost().errors?.['pattern']">
-              Doit être de la forme nombre.nombre ou nombre
+            <div *ngIf="getCost().errors?.['min'] || getCost().errors?.['required']">
+              Doit être un nombre supérieur ou égal à 0
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" (click)="onUpdate()">Valider</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onUpdate()" [disabled]="!formGroup.valid">Valider</button>
       </div>
     </div>
   </div>
