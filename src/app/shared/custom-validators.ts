@@ -17,6 +17,9 @@ export class CustomValidators {
     return (control: AbstractControl): ValidationErrors | null => {
       const start = control.get("startDateControl")!.value;
       const end = control.get("endDateControl")!.value;
+      if (start == "" || end == "") {
+        return null;
+      }
       return start <= end ? null : { startEndDateValidator: true };
     }
   }

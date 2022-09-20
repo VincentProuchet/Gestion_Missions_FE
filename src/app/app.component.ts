@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faCheck, faPenToSquare, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faPenToSquare, faPlus, faRotateLeft, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,7 @@ export class AppComponent {
       faCheck, //validate
       faPenToSquare, //edit
       faPlus, //add
+      faRotateLeft, //reload
       faTimes, //cancel
       faTrash //delete
     );
