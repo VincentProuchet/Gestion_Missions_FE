@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { map, Observable, Subject, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -70,8 +70,25 @@ export class NaturesService implements OnDestroy {
    * @returns
    */
   supprimerNature(nature: Nature): Observable<Nature> {
-    return this.http.delete<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${nature.id}`)
+    const option = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+
+        Collaborator: {
+          id: 0,
+
+        },
+        token: {
+          refreshToken: "qffqsdfqsdfsdfqsfd"
+        }
+      }
+    }
+    return this.http.delete<Nature>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${nature.id}`, option);
   }
+
+
   /*
     getNaturesAsString():Observable<String[]> {
       return this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`).pipe(map(natures => natures.map(nature => nature.description)));

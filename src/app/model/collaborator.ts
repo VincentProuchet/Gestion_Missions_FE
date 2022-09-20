@@ -20,6 +20,6 @@ export interface Collaborator {
    * puisque me manager n'est pas une valeur de controle coté FE
    * et qu'il est inutile d'exposer la valeur à un utilisateur
    */
-  manager: Collaborator;
+  manager: Collaborator | null;
 
 }
