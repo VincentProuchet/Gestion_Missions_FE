@@ -85,7 +85,7 @@
       "id": 0,
       "bonus": 0,
       "status": 1,
-      "transport": "voiture",
+      "transport": "Car",
       "start": "2021-02-04",
       "end": "2021-04-24",
       "startCity": "Montpellier",

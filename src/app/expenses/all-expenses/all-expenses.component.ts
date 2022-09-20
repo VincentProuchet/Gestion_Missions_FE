@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
 import { MissionsService } from 'src/app/service/missions.service';
+import { TransportService } from 'src/app/service/transport.service';
 
 @Component({
   selector: 'app-all-expenses',
@@ -14,7 +15,7 @@ export class AllExpensesComponent implements OnInit {
 
   missions !: Array<Mission>;
 
-  constructor(private router: Router, private missionService: MissionsService) {
+  constructor(private router: Router, private missionService: MissionsService, private transportService: TransportService) {
     /*
     this.missions = [{
       startDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'), // retrieve the locale of the user
@@ -45,8 +46,11 @@ export class AllExpensesComponent implements OnInit {
 
   //this is an utility function... maybe place it somewhere else
   sumExpenses(expenses: Expense[]): number {
-    return expenses.map(expense => expense.cost).reduce((currSum, currElement) => currSum + currElement);
+    return expenses.map(expense => expense.cost).reduce((currSum, currElement) => currSum + currElement, 0);
   }
 
+  getTransportValue(key: string): string {
+    return this.transportService.getTransportValue(key);
+  }
 
 }

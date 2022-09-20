@@ -34,11 +34,9 @@ export class ValidationMissionComponent implements OnInit {
   onValidate(mission: Mission) {
     //TODO: retirer ligne suivante une fois relié au back end
     mission.status = this.statusEnum.VALIDATED;
-    console.log(mission.id);
 
     this.missionService.validateMission(mission).subscribe({
       next: (data) => {
-        console.log(data);
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
@@ -49,11 +47,9 @@ export class ValidationMissionComponent implements OnInit {
   onReject(mission: Mission) {
     //TODO: retirer ligne suivante une fois relié au back end
     mission.status = this.statusEnum.REJECTED;
-    console.log(mission.id);
 
     this.missionService.rejectMission(mission).subscribe({
       next: (data) => {
-        console.log(data);
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
@@ -64,12 +60,9 @@ export class ValidationMissionComponent implements OnInit {
   onReset(mission: Mission) {
     //TODO: retirer ligne suivante une fois relié au back end
     mission.status = this.statusEnum.WAITING_VALIDATION;
-    console.log(mission.id);
-
 
     this.missionService.resetMission(mission).subscribe({
       next: (data) => {
-        console.log(data);
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
