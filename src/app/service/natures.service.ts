@@ -38,7 +38,7 @@ export class NaturesService implements OnDestroy {
     // exemple de filtre pour la partie ou l'on ne devras afficher que les
     // natures ACTIVES
     //return this.natures.filter(valuer => valuer.endOfValidity == null);
-    return this.http.get<Nature[]>(`${environment.baseUrl}${this.API_AFTER_URL}`)
+    return this.http.get<Nature[]>(`${environment.baseUrl}/${this.API_AFTER_URL}`)
 
   }
 
@@ -48,7 +48,7 @@ export class NaturesService implements OnDestroy {
    * @returns a subject that you can make a subscribe on it
    */
   getNature(id: number): Observable<Nature> {
-    return this.http.get<Nature>(`${environment.baseUrl}${this.API_AFTER_URL}/${id}`);
+    return this.http.get<Nature>(`${environment.baseUrl}/${this.API_AFTER_URL}/${id}`);
   }
 
   /**applique un filtre sur le tableau de nature passé en paramètre
@@ -64,7 +64,7 @@ export class NaturesService implements OnDestroy {
    * @param nature la nature à créer
    */
   creationNature(nature: Nature): Observable<Nature> {
-    return this.http.post<Nature>(`${environment.baseUrl}${this.API_AFTER_URL}`, nature)
+    return this.http.post<Nature>(`${environment.baseUrl}/${this.API_AFTER_URL}`, nature)
   }
   /**
    * à mettre à jour une nature
@@ -72,7 +72,7 @@ export class NaturesService implements OnDestroy {
    * @returns
    */
   modifierNature(id: number, nature: Nature): Observable<Nature> {
-    return this.http.put<Nature>(`${environment.baseUrl}${this.API_AFTER_URL}/${id}`, nature);
+    return this.http.put<Nature>(`${environment.baseUrl}/${this.API_AFTER_URL}/${id}`, nature);
   }
 
   /**
@@ -96,7 +96,7 @@ export class NaturesService implements OnDestroy {
         }
       }
     }
-    return this.http.delete<Nature>(`${environment.baseUrl}${this.API_AFTER_URL}/${nature.id}`, option);
+    return this.http.delete<Nature>(`${environment.baseUrl}/${this.API_AFTER_URL}/${nature.id}`, option);
   }
 
 

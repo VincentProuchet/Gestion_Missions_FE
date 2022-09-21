@@ -25,11 +25,11 @@ export const API_Route = {
    *  to backEnd
    */
   /** for mission validation */
-  VALIDER: "/valider",
+  VALIDER: "valider",
   /** for mission rejection */
-  REJETER: "/rejeter",
+  REJETER: "rejeter",
   /** for mission reset */
-  RESET: "/reset",
+  RESET: "reset",
   /** for expense Service */
   EXPENSE: "expense",
   /** for expense service type */
