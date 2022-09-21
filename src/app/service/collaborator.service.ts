@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Collaborator } from '../model/collaborator';
 
 /**
- * Description placeholder
+ * Service collaborator
+ * Non utilisé
  * @date 21/09/2022 - 12:12:32
  *
  * @export
@@ -13,11 +15,13 @@ import { Injectable } from '@angular/core';
 })
 export class CollaboratorService {
 
-  /**
-   * Creates an instance of CollaboratorService.
-   * @date 21/09/2022 - 12:12:32
-   *
-   * @constructor
-   */
+  private user: Collaborator = {
+    id: 0,
+    lastName: "",
+    firstName: "",
+    email: "",
+    role: "ROLE_USER",
+    manager: null,
+  };
   constructor() { }
 }

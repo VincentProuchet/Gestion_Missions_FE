@@ -26,7 +26,7 @@ export class ExpensesService {
    * @private
    * @type {string}
    */
-  private FULL_URL_EXPENSES = `http://localhost:3000/frais`;
+  private FULL_URL_EXPENSES = `http://localhost:3000/expense`;
   /**
    * Description placeholder
    * @date 21/09/2022 - 12:12:45
@@ -34,7 +34,7 @@ export class ExpensesService {
    * @private
    * @type {string}
    */
-  private FULL_URL_EXPENSES_TYPES = `http://localhost:3000/expenseTypes`;
+  private FULL_URL_EXPENSES_TYPES = `http://localhost:3000/expense_type`;
   /**
    * Description placeholder
    * @date 21/09/2022 - 12:12:45
@@ -62,17 +62,18 @@ export class ExpensesService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Description placeholder
+   * Demande les lignes de frais d'une mission
    * @date 21/09/2022 - 12:12:45
    *
    * @param {number} missionID
    * @returns {Observable<Expense[]>}
    */
   getMissionExpenses(missionID: number): Observable<Expense[]> {
+    //TODO readapter pour que ce soit le BackEnd qui n'envoi que les lignes de frais de la mission demandée
     return this.http.get<Expense[]>(`${environment.baseUrl}${this.API_AFTER_URL}`).pipe(map(expenses => expenses.filter(expense => expense.idMission == missionID)));
   }
   /**
-   * Description placeholder
+   * Demande une ligne de frais à la base de donées d'après son identifiant
    * @date 21/09/2022 - 12:12:45
    *
    * @param {number} expenseID
@@ -83,7 +84,7 @@ export class ExpensesService {
   }
 
   /**
-   * demande
+   * demande d'ajouter une ligne de frais à la base de données
    * @date 21/09/2022 - 12:12:45
    *
    * @param {Expense} expense
@@ -104,8 +105,10 @@ export class ExpensesService {
     return this.http.delete<Expense>(`${environment.baseUrl}${this.API_AFTER_URL}/${expense.id}`);
   }
 
-  /** demande une
-   * mise à jour la ligne de frais dans la base de donnée
+  /**
+   * demande une
+   * mise à jour de la ligne de frais
+   * dans la base de donnée
    * @date 21/09/2022 - 12:12:45
    *
    * @param {Expense} expense

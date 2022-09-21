@@ -5,18 +5,18 @@ import { API_Route } from 'src/environments/API_route';
 import { environment } from 'src/environments/environment';
 import { Mission } from '../model/mission';
 
+@Injectable({
+  providedIn: 'root'
+})
+
 /**
- * Description placeholder
+ * Communique avec l'API pour les Missions et leurs gestion
  * @date 21/09/2022 - 11:48:21
  *
  * @export
  * @class MissionsService
  * @typedef {MissionsService}
  */
-@Injectable({
-  providedIn: 'root'
-})
-
 export class MissionsService {
   // url de test du json-server
   /**
