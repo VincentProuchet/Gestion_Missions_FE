@@ -137,6 +137,7 @@
       "id": 0,
       "lastName": "nom",
       "firstName": "prenom",
+      "username": "username",
       "email": "email",
       "role": [
         {

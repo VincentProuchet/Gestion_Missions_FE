@@ -10,6 +10,8 @@ export interface Collaborator {
   lastName: string;
   /** Prenom */
   firstName: string;
+  /** Username */
+  userName: String;
   /** email */
   email: string;
   /** Role */
