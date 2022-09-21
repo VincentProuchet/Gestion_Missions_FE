@@ -1,5 +1,5 @@
 {
-  "Natures": [
+  "nature": [
     {
       "id": 1,
       "description": "manutention",
@@ -41,7 +41,7 @@
       "bonusPercentage": 10
     }
   ],
-  "frais": [
+  "expense": [
     {
       "id": 22,
       "idMission": 0,
@@ -63,7 +63,7 @@
       "tva": 0
     }
   ],
-  "expenseTypes": [
+  "expense_type": [
     {
       "name": "transport"
     },
@@ -80,7 +80,7 @@
       "name": "matériel de bureau"
     }
   ],
-  "Mission": [
+  "mission": [
     {
       "id": 0,
       "bonus": 0,
@@ -140,12 +140,6 @@
       "email": "email",
       "role": "role",
       "manager": "manager"
-    }
-  ],
-  "auth": [
-    {
-      "bearer": 1.6504096840089405e+26,
-      "time": 1.564498765496875e+28
     }
   ]
 }

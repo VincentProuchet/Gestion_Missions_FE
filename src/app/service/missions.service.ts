@@ -1,25 +1,57 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { API_Route } from 'src/environments/API_route';
 import { environment } from 'src/environments/environment';
 import { Mission } from '../model/mission';
 
+/**
+ * Description placeholder
+ * @date 21/09/2022 - 11:48:21
+ *
+ * @export
+ * @class MissionsService
+ * @typedef {MissionsService}
+ */
 @Injectable({
   providedIn: 'root'
 })
+
 export class MissionsService {
+  // url de test du json-server
+  /**
+   * Description placeholder
+   * @date 21/09/2022 - 11:48:21
+   *
+   * @private
+   * @type {string}
+   */
+  private FULL_URL = `http://localhost:3000/mission`;
 
-  private API_AFTER_URL: string = "/mission";
-  private API_URL_VALIDATE: string = '/valider';
-  private API_URL_REJETER: string = '/rejeter';
-  private API_URL_RESET: string = '/reset';
+  private API_AFTER_URL = API_Route.MISSION;
+  private API_VALIDATE = API_Route.VALIDER;
+  private API_REJECT = API_Route.REJETER;
+  private API_RESET = "/reject";
 
+  /**
+   * Creates an instance of MissionsService.
+   * @date 21/09/2022 - 11:48:21
+   *
+   * @constructor
+   * @param {HttpClient} http
+   */
   constructor(private http: HttpClient) { }
 
 
 
+  /**
+   * Description placeholder
+   * @date 21/09/2022 - 11:48:21
+   *
+   * @returns {Observable<Mission[]>}
+   */
   getMissions(): Observable<Mission[]> {
-    return this.http.get<Mission[]>(environment.baseUrl + environment.port + this.API_AFTER_URL);
+    return this.http.get<Mission[]>(`${environment.baseUrl}${this.API_AFTER_URL}`);
 
   }
   /**get the mission Data with the provideed id
@@ -28,7 +60,7 @@ export class MissionsService {
    * @returns a subject that you can make a subscribe on it
    */
   getMission(id: number): Observable<Mission> {
-    return this.http.get<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${id}`);
+    return this.http.get<Mission>(`${environment.baseUrl}${this.API_AFTER_URL}/${id}`);
   }
   /**
    * envoie une demande d'ajout d'une mission à l'API
@@ -37,7 +69,7 @@ export class MissionsService {
    * @returns
    */
   createMission(mission: Mission): Observable<Mission> {
-    return this.http.post<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`, mission);
+    return this.http.post<Mission>(`${environment.baseUrl}${this.API_AFTER_URL}`, mission);
   }
   /**
    * envoi une demande de modification de mission à l'API
@@ -46,7 +78,7 @@ export class MissionsService {
    * @returns
    */
   updateMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${mission.id}`, mission);
+    return this.http.put<Mission>(`${environment.baseUrl}${this.API_AFTER_URL}/${mission.id}`, mission);
   }
 
   /**
@@ -55,7 +87,7 @@ export class MissionsService {
    * @returns mission suprimée
    */
   deleteMission(mission: Mission): Observable<Mission> {
-    return this.http.delete<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${mission.id}`);
+    return this.http.delete<Mission>(`${environment.baseUrl}${this.API_AFTER_URL}/${mission.id}`);
   }
   /**
    * envoi une demande de validation à l'API
@@ -64,7 +96,7 @@ export class MissionsService {
    * @returns
    */
   validateMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${mission.id}${this.API_URL_VALIDATE}`, mission);
+    return this.http.put<Mission>(`${environment.baseUrl}${this.API_AFTER_URL}/${mission.id}${this.API_VALIDATE}`, mission);
   }
   /**
    * envoie une demande de rejet de la mission à l'API
@@ -73,16 +105,17 @@ export class MissionsService {
    * @returns
    */
   rejectMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${mission.id}${this.API_URL_REJETER}`, mission);
+    return this.http.put<Mission>(`${environment.baseUrl}${this.API_AFTER_URL}/${mission.id}${this.API_REJECT}`, mission);
   }
+
   /**
-   * envoie une demande de réinitialisation de la mission à l'API
-   * avec les données de la mission à réinitialiser
-   * @param mission
-   * @returns
-   */
+    * envoie une demande de réinitialisation de la mission à l'API
+    * avec les données de la mission à réinitialiser
+    * @param mission
+    * @returns
+    */
   resetMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}/${mission.id}${this.API_URL_RESET}`, mission);
+    return this.http.put<Mission>(`${environment.baseUrl}${this.API_AFTER_URL}/${mission.id}${this.API_RESET}`, mission);
   }
 
 }
