@@ -11,22 +11,24 @@
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
               <h2 class="display-4">GDM</h2>
               <h4 class="text-muted mb-4">Gestion des mission</h4>
-              <form>
-                <div class="form-group mb-4">
-                  <input id="inputEmail" type="email" placeholder="Email" required="" autofocus=""
-                    class="form-control rounded-pill border-0 shadow-sm px-4">
+              <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+                <div class="form-group has-validation mb-4">
+                  <input id="inputUsername" type="text" placeholder="Nom d'utilisateur" formControlName="usernameControl" required=""
+                    class="form-control rounded-pill shadow-sm px-4" [class.is-invalid]="inputIsInvalid('usernameControl')" [class.border-0]="!inputIsInvalid('usernameControl')">
+                    <small class="text-danger" *ngIf="inputIsInvalid('usernameControl')">L'adresse mail est obligatoire</small>
                 </div>
-                <div class="form-group mb-4">
-                  <input id="inputPassword" type="password" placeholder="Mot de passe" required=""
-                    class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                <div class="form-group has-validation mb-4">
+                  <input id="inputPassword" type="password" placeholder="Mot de passe" formControlName="passwordControl" required=""
+                    class="form-control rounded-pill shadow-sm px-4 text-primary" [class.is-invalid]="inputIsInvalid('passwordControl')" [class.border-0]="!inputIsInvalid('passwordControl')">
+                    <small class="text-danger" *ngIf="inputIsInvalid('passwordControl')">Le mot de passe est obligatoire</small>
                 </div>
                 <div class="form-check">
-                  <input id="customCheck1" type="checkbox" checked class="form-check-input">
+                  <input id="customCheck1" type="checkbox" formControlName="rememberMeCheckbox" class="form-check-input">
                   <label for="customCheck1" class="form-check-label">Se souvenir du mot de passe</label>
                 </div>
                 <div class="form-group mb-4">
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary btn-lg btn-block">
                   Se connecter
                 </button>
               </form>
