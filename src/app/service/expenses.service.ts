@@ -80,7 +80,7 @@ export class ExpensesService {
    * @returns {Observable<Expense>}
    */
   getExpense(expenseID: number): Observable<Expense> {
-    return this.http.get<Expense>(`${environment.baseUrl}${this.API_AFTER_URL}/${expenseID}`);
+    return this.http.get<Expense>(`${environment.baseUrl}/${this.API_AFTER_URL}/${expenseID}`);
   }
 
   /**
@@ -102,7 +102,7 @@ export class ExpensesService {
    * @returns {Observable<Expense>}
    */
   removeExpense(expense: Expense): Observable<Expense> {
-    return this.http.delete<Expense>(`${environment.baseUrl}${this.API_AFTER_URL}/${expense.id}`);
+    return this.http.delete<Expense>(`${environment.baseUrl}/${this.API_AFTER_URL}/${expense.id}`);
   }
 
   /**
@@ -115,7 +115,7 @@ export class ExpensesService {
    * @returns {Observable<Expense>}
    */
   updateExpense(expense: Expense): Observable<Expense> {
-    return this.http.put<Expense>(`${environment.baseUrl}${this.API_AFTER_URL}/${expense.id}`, expense);
+    return this.http.put<Expense>(`${environment.baseUrl}/${this.API_AFTER_URL}/${expense.id}`, expense);
 
   }
 
@@ -126,7 +126,7 @@ export class ExpensesService {
    * @returns {Observable<ExpenseType[]>}
    */
   getExpenseTypes(): Observable<ExpenseType[]> {
-    return this.http.get<ExpenseType[]>(`${environment.baseUrl}${this.API_AFTER_URL}${this.API_EXPENSE_TYPE}`);
+    return this.http.get<ExpenseType[]>(`${environment.baseUrl}/${this.API_AFTER_URL}${this.API_EXPENSE_TYPE}`);
   }
 
 
