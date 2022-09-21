@@ -18,7 +18,7 @@ import { Collaborator } from '../model/collaborator';
 })
 export class CollaboratorService {
 
-  private API_AFTER_URL: Readonly<string> = "Collaborateur";
+  private API_AFTER_URL: Readonly<string> = "collaborateur";
 
   /**
    * Creates an instance of CollaboratorService.
@@ -28,7 +28,7 @@ export class CollaboratorService {
    */
   constructor(private http: HttpClient) { }
 
-  private FULL_URL_EXPENSES: Readonly<string> = `http://localhost:3000/Collaborateur`;
+  private FULL_URL_EXPENSES: Readonly<string> = `http://localhost:3000/collaborateur`;
 
   getCollaborators(): Observable<Collaborator[]> {
     return this.http.get<Collaborator[]>(`${environment.baseUrl}/${this.API_AFTER_URL}`);

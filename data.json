@@ -132,13 +132,22 @@
       "expenses": []
     }
   ],
-  "Collaborateur": [
+  "collaborateur": [
     {
       "id": 0,
       "lastName": "nom",
       "firstName": "prenom",
       "email": "email",
-      "role": "role",
+      "role": [
+        {
+          "id": 1,
+          "label": "ROLE_ADMINISTRATOR"
+        },
+        {
+          "id": 3000,
+          "label": "ROLE_COLLABORATOR"
+        }
+      ],
       "manager": "manager"
     }
   ]
