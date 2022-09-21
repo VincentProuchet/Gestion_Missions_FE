@@ -11,7 +11,7 @@ export interface Collaborator {
   /** Prenom */
   firstName: string;
   /** Username */
-  userName: String;
+  username: String;
   /** email */
   email: string;
   /** Role */

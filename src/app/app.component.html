@@ -29,6 +29,23 @@
         </a>
       </li>
     </ul>
+    <div *ngIf="user">
+      <div class="d-flex gap-3">
+        <div class="d-flex align-self-center">
+          <span class="fw-bold">
+            <fa-icon icon="user-circle"></fa-icon>
+            Bienvenue, {{user.firstName}} !
+          </span>
+        </div>
+        <div>
+          <button (click)="onLogout()" class="btn btn-link">
+            Se déconnecter
+            <fa-icon icon="right-from-bracket"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </nav>
 <div class="container">

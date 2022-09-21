@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Collaborator } from '../model/collaborator';
 
@@ -35,16 +35,15 @@ export class CollaboratorService {
   }
 
   //TODO: Refactoriser une fois connecté au back-end;
-  getCollaboratorByEmail(email: string): Collaborator | null {
-    let collaborators: Collaborator[] = [];
-    this.getCollaborators().subscribe({
-      next: (data) => {
+  getCollaboratorByUsername(username: string): Observable<Collaborator | null> {
+    let collaborators: Collaborator[];
+    return this.getCollaborators().pipe(map(
+      (data) => {
         collaborators = data;
-      },
-      error: (err) => console.log(err)
-    });
-    let collaborator = collaborators.filter((c) => c.email === email);
-    return collaborator.length ? collaborator[0] : null;
+        console.log(data);
+        let collaborator = collaborators.filter((c) => c.username === username);
+        return collaborator.length ? collaborator[0] : null;
+      }
+    ));
   }
-
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginCredentials } from '../model/login-credentials';
+import { AuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private authenticationService: AuthenticationService) {
     this.loginForm = formBuilder.group({
       usernameControl: ['', [Validators.required]],
       passwordControl: ['', [Validators.required]],
@@ -27,6 +30,24 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+    let loginCred: LoginCredentials = {
+      "username": this.loginForm.controls['usernameControl'].value,
+      "password": this.loginForm.controls['passwordControl'].value
+    };
+    let loginAttempt: boolean;
+    this.authenticationService.login(loginCred).subscribe({
+      next: (data) => {
+        loginAttempt = data;
+        if (loginAttempt) {
+          console.log("login OK");
+          window.location.reload();
+        } else {
+          console.log("login fail");
+          this.incorrectCredentials = true;
+        }
+      },
+      error: (err) => console.log(err)
+    });
   }
 
   inputIsInvalid(inputName: string) {
