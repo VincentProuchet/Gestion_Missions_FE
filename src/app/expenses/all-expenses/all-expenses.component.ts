@@ -13,7 +13,7 @@ import { TransportService } from 'src/app/service/transport.service';
 })
 export class AllExpensesComponent implements OnInit {
 
-  missions !: Array<Mission>;
+  missions: Array<Mission> = [];
 
   constructor(private router: Router, private missionService: MissionsService, private transportService: TransportService) {
     /*
@@ -41,7 +41,10 @@ export class AllExpensesComponent implements OnInit {
 
   onExport(missionIndex: number) {
     //this.router.navigate(['mission/new']);
+    localStorage.setItem("mission", this.missions[0].toString());
     console.log(missionIndex);
+    console.log("saved to storage");
+
   }
 
   //this is an utility function... maybe place it somewhere else

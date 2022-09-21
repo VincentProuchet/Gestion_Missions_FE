@@ -25,7 +25,10 @@
           <td>{{mission.arrivalCity}}</td>
           <td>{{getTransportValue(mission.transport)}}</td>
           <td>{{sumExpenses(mission.expenses)}}</td>
-          <td><a (click)="onEdit(index)" class="btn btn-primary">edit</a><a (click)="onExport(index)" class="btn btn-danger">export</a></td>
+          <td>
+            <a (click)="onEdit(index)" class="btn btn-primary">edit</a>
+            <a (click)="onExport(index)" class="btn btn-danger">export</a>
+          </td>
         </tr>
       </tbody>
     </table>

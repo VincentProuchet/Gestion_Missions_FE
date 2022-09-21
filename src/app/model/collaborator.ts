@@ -1,3 +1,5 @@
+import { Role } from "./role";
+
 /**
  *  Strucutre des données pour le travail des service et la communication avec l'API
  */
@@ -10,11 +12,8 @@ export interface Collaborator {
   firstName: string;
   /** email */
   email: string;
-  /** Role, il faut encore définir
-   * si l'on utilise l'énumération ou une simple chaine
-   * dans tous les cas cela ne rempplace pas les controle de sécurité coté BE
-   */
-  role: string;
+  /** Role */
+  role: Role;
   /**
    * tous les Manager auront un id à 0
    * puisque me manager n'est pas une valeur de controle coté FE
