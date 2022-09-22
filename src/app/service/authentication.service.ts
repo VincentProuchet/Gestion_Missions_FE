@@ -46,12 +46,20 @@ export class AuthenticationService {
    * @returns
    */
   loginfromdb(loginCred: LoginCredentials): Observable<Object> {
-    let urlSearchParams = new FormData();
-    urlSearchParams.append('username', loginCred.username);
-    urlSearchParams.append('password', loginCred.password);
+    console.log("login from db");
 
-    return this.http.post(`${environment.baseUrl}/${API_Route.SIGNIN}`,
-      urlSearchParams
+    let loginformParam = new FormData();
+    loginformParam.append('username', loginCred.username);
+    loginformParam.append('password', loginCred.password);
+    let header = new HttpHeaders();
+    //header.append("Access-Control-Allow-Origin", environment.angularServingUrl);
+
+
+    return this.http.post(`api/${API_Route.SIGNIN}`,
+      loginformParam,
+      // {
+      //   headers: header,
+      // }
     );
 
   }

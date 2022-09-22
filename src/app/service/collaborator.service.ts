@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -34,7 +34,15 @@ export class CollaboratorService {
    * @returns Observable<Collaborator>
    */
   getConnectedUser(): Observable<Collaborator> {
-    return this.http.get<Collaborator>(`/${this.API_AFTER_URL}`);
+    // let header = new HttpHeaders();
+    // header.append("Access-Control-Allow-Origin", environment.baseUrl);
+
+    return this.http.get<Collaborator>(`api/${this.API_AFTER_URL}`
+
+      //, {
+      //   headers: header,
+      // }
+    );
   }
   getCollaborators(): Observable<Collaborator[]> {
     return this.http.get<Collaborator[]>(`${environment.baseUrl}/${this.API_AFTER_URL}`);

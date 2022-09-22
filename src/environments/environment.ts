@@ -5,6 +5,7 @@
 export const environment = {
   port: 3000,
   baseUrl: `http://localhost:8080`,
+  angularServingUrl: `http://localhost:4200`,
   dateLocale: 'fr-FR',
   dateFormat: "YYYY MMM dd",
   production: false,
