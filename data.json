@@ -49,12 +49,14 @@
       "cost": "150",
       "tva": 0,
       "type": {
+        "id": 2,
         "name": "restaurant"
       }
     },
     {
       "date": "2021-02-10",
       "type": {
+        "id": 2,
         "name": "restaurant"
       },
       "cost": "650",
@@ -65,18 +67,23 @@
   ],
   "expense_type": [
     {
+      "id": 0,
       "name": "transport"
     },
     {
+      "id": 1,
       "name": "hotel"
     },
     {
+      "id": 2,
       "name": "restaurant"
     },
     {
+      "id": 3,
       "name": "matériel informatique"
     },
     {
+      "id": 4,
       "name": "matériel de bureau"
     }
   ],
