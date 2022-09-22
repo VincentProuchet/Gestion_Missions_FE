@@ -13,6 +13,7 @@ import { DeleteNatureComponent } from './nature-mission/delete-nature/delete-nat
 import { ModifyNatureComponent } from './nature-mission/modify-nature/modify-nature.component';
 import { NatureMissionComponent } from './nature-mission/nature-mission.component';
 import { NatureMissionModule } from './nature-mission/nature-mission.module';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -26,55 +27,67 @@ const routes: Routes = [
     // creation/modification/supression
     path: 'gestionMission',
     component: AllMissionsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'ajouterMission',
     component: CreateMissionComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'modifierMission/:id',
     component: UpdateMissionComponent,
+    canActivate: [AuthGuard]
   },
   {
     // page de consultation du planning des missions
     path: 'planningMission',
     component: AllMissionsComponent,
+    canActivate: [AuthGuard]
   },
   {
     // page de consultation des primes
     path: 'primes',
     component: AllMissionsComponent,
+    canActivate: [AuthGuard]
   },
   {
     // page de saisie des frais
     path: 'saisieFrais',
     component: AllExpensesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'modifierFrais/:id',
     component: UpdateExpensesComponent,
+    canActivate: [AuthGuard]
   },
   {
     // page de gestion des natures de missions
     path: 'gestionDesNatures',
     component: NatureMissionComponent,
+    canActivate: [AuthGuard]
   },
   // page de gestion des natures de missions
   {
     path: 'ajouteNatures',
     component: CreationNatureComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'modifierNatures/:id',
     component: ModifyNatureComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'supprimerNatures',
     component: DeleteNatureComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'validationMission',
-    component: ValidationMissionComponent
+    component: ValidationMissionComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
