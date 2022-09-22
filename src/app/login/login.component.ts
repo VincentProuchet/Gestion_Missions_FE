@@ -60,10 +60,11 @@ export class LoginComponent implements OnInit {
     });
   }
   /**
-   *
-   * @returns
+   * method for connecting the loginform to backEnd
+  made in parrallel to not mess with FE dev that still need to use the json-server
+   * @returns void
    */
-  onSubmitProd(): void {
+  onSubmitToBE(): void {
     if (this.loginForm.invalid) {
       return;
     }

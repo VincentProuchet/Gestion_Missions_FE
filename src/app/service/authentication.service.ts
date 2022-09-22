@@ -1,9 +1,11 @@
-import { HttpClient, HttpClientModule, HttpContext } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { map, Observable } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
 import { environment } from 'src/environments/environment';
+
 import { Collaborator } from '../model/collaborator';
 import { LoginCredentials } from '../model/login-credentials';
 import { Role } from '../model/role';
@@ -38,31 +40,17 @@ export class AuthenticationService {
     ));
   }
   /**
-   *
+   * tih method is the one to post formdata to backend
    * @param loginCred
    * @returns
    */
   loginfromdb(loginCred: LoginCredentials): Observable<Object> {
-    console.log("sending");
-    return this.http.post(`${environment.baseUrl}/${API_Route.SIGNIN}`,
-      //return this.http.head(`api/${API_Route.SIGNIN}`,
-      {
-        username: loginCred.username,
-        password: loginCred.password
-      }
-      // {
-      //   headers: {
-      //     'Access-Control-Allow-Origin': environment.baseUrl,
-      //     'username': loginCred.username,
-      //     'password': loginCred.password
-      //   },
-      //   params: {
+    let urlSearchParams = new FormData();
+    urlSearchParams.append('username', loginCred.username);
+    urlSearchParams.append('password', loginCred.password);
 
-      //   },
-      //   observe: "events",
-      //   responseType: "json",
-      //   withCredentials: false
-      // }
+    return this.http.post(`${environment.baseUrl}/${API_Route.SIGNIN}`,
+      urlSearchParams
     );
 
   }
