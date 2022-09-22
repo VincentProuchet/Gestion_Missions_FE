@@ -47,6 +47,8 @@ export class LoginComponent implements OnInit {
     let loginAttempt: boolean;
     this.authenticationService.login(loginCred).subscribe({
       next: (data) => {
+        console.log("data received");
+        console.log(data);
         loginAttempt = data;
         if (loginAttempt) {
           window.location.reload();
@@ -65,6 +67,7 @@ export class LoginComponent implements OnInit {
    * @returns void
    */
   onSubmitToBE(): void {
+    console.log("onsubmitprod");
     if (this.loginForm.invalid) {
       return;
     }
@@ -94,10 +97,24 @@ export class LoginComponent implements OnInit {
         }
         , error: (error) => {
           console.log("no login");
+          this.srvCollab.getConnectedUser().subscribe(
+            {
+              next: (data) => {
+                console.log("asking user");
+                console.log(data);
 
-          sessionStorage.setItem("loginerr", "incorrect");
+                sessionStorage.setItem("user", JSON.stringify(data));
+              }
+              ,
+              error: () => {
+                console.log("no user");
+              }
+            }
+          );
+
+          /*sessionStorage.setItem("loginerr", "incorrect");
           sessionStorage.setItem("username", this.loginForm.controls['usernameControl'].value);
-          window.location.reload();
+          window.location.reload();*/
         }
       }
     );

@@ -10,6 +10,7 @@ import { Collaborator } from '../model/collaborator';
 import { LoginCredentials } from '../model/login-credentials';
 import { Role } from '../model/role';
 import { CollaboratorService } from './collaborator.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

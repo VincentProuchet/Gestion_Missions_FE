@@ -18,7 +18,7 @@ import { Collaborator } from '../model/collaborator';
 })
 export class CollaboratorService {
 
-  private API_AFTER_URL: Readonly<string> = "collaborateur";
+  private API_AFTER_URL: Readonly<string> = "collaborator";
 
   /**
    * Creates an instance of CollaboratorService.
@@ -28,14 +28,13 @@ export class CollaboratorService {
    */
   constructor(private http: HttpClient) { }
 
-  private FULL_URL_EXPENSES: Readonly<string> = `http://localhost:3000/collaborateur`;
   /**
    * is supporsed to give you the user connected to the server
   by asking the back-end data for its curently connected user
    * @returns Observable<Collaborator>
    */
   getConnectedUser(): Observable<Collaborator> {
-    return this.http.get<Collaborator>(`api/${this.API_AFTER_URL}`);
+    return this.http.get<Collaborator>(`/${this.API_AFTER_URL}`);
   }
   getCollaborators(): Observable<Collaborator[]> {
     return this.http.get<Collaborator[]>(`${environment.baseUrl}/${this.API_AFTER_URL}`);
@@ -43,7 +42,9 @@ export class CollaboratorService {
 
   //TODO: Refactoriser une fois connecté au back-end;
   getCollaboratorByUsername(username: string): Observable<Collaborator | null> {
-    let collaborators: Collaborator[];
+    console.log(`${environment.baseUrl}/login`);
+    return this.http.head<Collaborator>(`${environment.baseUrl}/login`);
+    /*
     return this.getCollaborators().pipe(map(
       (data) => {
         collaborators = data;
@@ -51,6 +52,6 @@ export class CollaboratorService {
         let collaborator = collaborators.filter((c) => c.username === username);
         return collaborator.length ? collaborator[0] : null;
       }
-    ));
+    ));*/
   }
 }
