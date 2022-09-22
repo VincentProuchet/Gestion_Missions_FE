@@ -28,7 +28,6 @@ export class CollaboratorService {
    */
   constructor(private http: HttpClient) { }
 
-  private FULL_URL_EXPENSES: Readonly<string> = `http://localhost:3000/collaborateur`;
   /**
    * is supporsed to give you the user connected to the server
   by asking the back-end data for its curently connected user
@@ -43,7 +42,9 @@ export class CollaboratorService {
 
   //TODO: Refactoriser une fois connecté au back-end;
   getCollaboratorByUsername(username: string): Observable<Collaborator | null> {
-    let collaborators: Collaborator[];
+    console.log(`${environment.baseUrl}/login`);
+    return this.http.head<Collaborator>(`${environment.baseUrl}/login`);
+    /*
     return this.getCollaborators().pipe(map(
       (data) => {
         collaborators = data;
@@ -51,6 +52,6 @@ export class CollaboratorService {
         let collaborator = collaborators.filter((c) => c.username === username);
         return collaborator.length ? collaborator[0] : null;
       }
-    ));
+    ));*/
   }
 }

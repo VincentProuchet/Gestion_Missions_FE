@@ -47,6 +47,8 @@ export class LoginComponent implements OnInit {
     let loginAttempt: boolean;
     this.authenticationService.login(loginCred).subscribe({
       next: (data) => {
+        console.log("data received");
+        console.log(data);
         loginAttempt = data;
         if (loginAttempt) {
           window.location.reload();
