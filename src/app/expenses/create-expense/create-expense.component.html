@@ -12,41 +12,37 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="formGroup" (ngSubmit)="onCreate()">
+        <form [formGroup]="formGroup" (ngSubmit)="onCreate()" class="d-flex flex-column gap-3">
           <div class="form-group row">
             <label for="date" class="col-sm-6 col-form-label text-right">Date</label>
             <div class="col-sm-6">
-              <input type="date" formControlName="dateControl" id="date" />
+              <input class="form-control" type="date" formControlName="dateControl" id="date" />
             </div>
             <div *ngIf="getDate().invalid && (getDate().dirty || getDate().touched)"
-              class="alert alert-danger row d-flex">
-              <div class="text-danger" *ngIf="getDate().errors?.['required']">
+              class="alert alert-danger mx-3">
+              <div *ngIf="getDate().errors?.['required']">
                 Requis
               </div>
-              <div class="text-danger" *ngIf="getDate().errors?.['dateBetweenValidator']">
+              <div *ngIf="getDate().errors?.['dateBetweenValidator']">
                 Doit être dans la période de la mission ({{mission.start}} - {{mission.end}})
               </div>
             </div>
-
           </div>
           <div class="form-group row">
-
             <label for="type" class="col-sm-6 col-form-label text-right">Nature</label>
             <div class="col-sm-6">
               <select formControlName="typeControl" class="form-control" id="type">
                 <option *ngFor="let type of types, let index = index" [value]="index">
-                  <!--ngfor-->{{type.name}}
+                  {{type.name}}
                 </option>
               </select>
             </div>
-
             <div *ngIf="getType().invalid && (getType().dirty || getType().touched)"
-              class="alert alert-danger row d-flex">
+              class="alert alert-danger mx-3">
               <div *ngIf="getType().errors?.['required']">
                 Requis
               </div>
             </div>
-
           </div>
           <div class="form-group row">
             <label for="cost" class="col-sm-6 col-form-label text-right">Montant</label>
@@ -55,7 +51,7 @@
             </div>
           </div>
           <div *ngIf="getCost().invalid && (getCost().dirty || getCost().touched)"
-            class="alert alert-danger row d-flex">
+            class="alert alert-danger mx-3">
             <div *ngIf="getCost().errors?.['min'] || getCost().errors?.['required']">
               Doit être un nombre supérieur ou égal à 0
             </div>
@@ -64,8 +60,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-        <button type="submit" (click)="onCreate()" class="btn btn-primary"  data-bs-dismiss="modal"
-          [disabled]="!formGroup.valid">Valider</button>
+        <button type="button" (click)="onCreate()" class="btn btn-success"  data-bs-dismiss="modal" [disabled]="!formGroup.valid">Valider</button>
       </div>
     </div>
   </div>

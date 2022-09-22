@@ -1,5 +1,13 @@
-<div class="container">
-  <h1 class="row">Gestion des Missions</h1>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-end">
+    <h1>Gestion des Missions</h1>
+    <div>
+      Demander une mission
+      <button (click)="onCreate()" class="btn btn-primary">
+        <fa-icon icon="plus"></fa-icon>
+      </button>
+    </div>
+  </div>
   <div class="row">
     <table class="table table-striped">
       <thead>
@@ -24,19 +32,11 @@
           <td>{{ getTransportValue(mission.transport) }}</td>
           <td>{{ statusEnum[mission.status] }}</td>
           <td class="d-flex gap-2">
-            <a (click)="onEdit(index)" class="btn btn-primary">Modifier</a
-            >
+            <a (click)="onEdit(index)" class="btn btn-primary">Modifier</a>
             <app-remove-mission [missionToDelete]="mission" (onDeleteEvt)="onDelete($event)"></app-remove-mission>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="d-grid gap-2 d-md-block">
-    Demander une mission
-    <a (click)="onCreate()" class="btn btn-primary">
-      <fa-icon icon="plus"></fa-icon>
-    </a>
-  </div>
-  <!--[routerlink] toward the component new mission, find an icon-->
 </div>
