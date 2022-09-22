@@ -34,7 +34,7 @@ export class CollaboratorService {
    * @returns Observable<Collaborator>
    */
   getConnectedUser(): Observable<Collaborator> {
-    return this.http.get<Collaborator>(`${environment.baseUrl}/${this.API_AFTER_URL}`);
+    return this.http.get<Collaborator>(`api/${this.API_AFTER_URL}`);
   }
   getCollaborators(): Observable<Collaborator[]> {
     return this.http.get<Collaborator[]>(`${environment.baseUrl}/${this.API_AFTER_URL}`);
