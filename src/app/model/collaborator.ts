@@ -15,7 +15,7 @@ export interface Collaborator {
   /** email */
   email: string;
   /** Role */
-  role: Role;
+  roles: Role[];
   /**
    * tous les Manager auront un id à 0
    * puisque me manager n'est pas une valeur de controle coté FE

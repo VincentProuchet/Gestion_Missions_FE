@@ -48,9 +48,9 @@ export class AuthenticationService {
     return user ? JSON.parse(user) : null;
   }
 
-  userRole(): Role | null {
+  userHasRole(role: Role): boolean {
     let user: Collaborator | null = this.currentUser();
-    return user ? user.role : null;
+    return user ? user.roles.some((r) => r.label === role.label) : false;
   }
 
 }

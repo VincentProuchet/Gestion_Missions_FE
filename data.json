@@ -139,10 +139,28 @@
       "firstName": "prenom",
       "username": "username",
       "email": "email",
-      "role": [
+      "roles": [
         {
           "id": 1,
           "label": "ROLE_ADMINISTRATOR"
+        },
+        {
+          "id": 3000,
+          "label": "ROLE_COLLABORATOR"
+        }
+      ],
+      "manager": "manager"
+    },
+    {
+      "id": 1,
+      "lastName": "ager",
+      "firstName": "man",
+      "username": "manager",
+      "email": "email",
+      "roles": [
+        {
+          "id": 2000,
+          "label": "ROLE_MANAGER"
         },
         {
           "id": 3000,

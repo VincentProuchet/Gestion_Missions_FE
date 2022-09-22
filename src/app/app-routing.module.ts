@@ -8,18 +8,22 @@ import { AllMissionsComponent } from './missions/all-missions/all-missions.compo
 import { CreateMissionComponent } from './missions/create-mission/create-mission.component';
 import { UpdateMissionComponent } from './missions/update-mission/update-mission.component';
 import { ValidationMissionComponent } from './missions/validation-mission/validation-mission.component';
+import { ROLES } from './model/role';
 import { CreationNatureComponent } from './nature-mission/creation-nature/creation-nature.component';
 import { DeleteNatureComponent } from './nature-mission/delete-nature/delete-nature.component';
 import { ModifyNatureComponent } from './nature-mission/modify-nature/modify-nature.component';
 import { NatureMissionComponent } from './nature-mission/nature-mission.component';
 import { NatureMissionModule } from './nature-mission/nature-mission.module';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { BeforeAuthGuard } from './shared/guards/before-auth.guard';
+import { RoleGuard } from './shared/guards/role.guard';
 
 const routes: Routes = [
   {
     // Acceuil
     path: 'login',
     component: LoginComponent,
+    canActivate: [BeforeAuthGuard]
   },
 
   {
@@ -66,28 +70,53 @@ const routes: Routes = [
     // page de gestion des natures de missions
     path: 'gestionDesNatures',
     component: NatureMissionComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: [
+        ROLES.ADMINISTRATOR
+      ]
+    }
   },
   // page de gestion des natures de missions
   {
     path: 'ajouteNatures',
     component: CreationNatureComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: [
+        ROLES.ADMINISTRATOR
+      ]
+    }
   },
   {
     path: 'modifierNatures/:id',
     component: ModifyNatureComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: [
+        ROLES.ADMINISTRATOR
+      ]
+    }
   },
   {
     path: 'supprimerNatures',
     component: DeleteNatureComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: [
+        ROLES.ADMINISTRATOR
+      ]
+    }
   },
   {
     path: 'validationMission',
     component: ValidationMissionComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: [
+        ROLES.MANAGER
+      ]
+    }
   }
 ];
 
