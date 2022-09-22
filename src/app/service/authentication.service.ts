@@ -8,6 +8,7 @@ import { Collaborator } from '../model/collaborator';
 import { LoginCredentials } from '../model/login-credentials';
 import { Role } from '../model/role';
 import { CollaboratorService } from './collaborator.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,9 @@ export class AuthenticationService {
    */
   loginfromdb(loginCred: LoginCredentials): Observable<Object> {
     console.log("sending");
+
+    const headers= new HttpHeaders()
+    .set('Access-Control-Allow-Origin', '*');
     return this.http.post(`${environment.baseUrl}/${API_Route.SIGNIN}`,
       //return this.http.head(`api/${API_Route.SIGNIN}`,
       {
@@ -63,7 +67,7 @@ export class AuthenticationService {
       //   responseType: "json",
       //   withCredentials: false
       // }
-    );
+    , {"headers":headers});
 
   }
 

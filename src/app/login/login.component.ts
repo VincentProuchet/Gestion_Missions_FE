@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
    * @returns
    */
   onSubmitProd(): void {
+    console.log("onsubmitprod");
     if (this.loginForm.invalid) {
       return;
     }
@@ -95,10 +96,24 @@ export class LoginComponent implements OnInit {
         }
         , error: (error) => {
           console.log("no login");
+          this.srvCollab.getConnectedUser().subscribe(
+            {
+              next: (data) => {
+                console.log("asking user");
+                console.log(data);
 
-          sessionStorage.setItem("loginerr", "incorrect");
+                sessionStorage.setItem("user", JSON.stringify(data));
+              }
+              ,
+              error: () => {
+                console.log("no user");
+              }
+            }
+          );
+
+          /*sessionStorage.setItem("loginerr", "incorrect");
           sessionStorage.setItem("username", this.loginForm.controls['usernameControl'].value);
-          window.location.reload();
+          window.location.reload();*/
         }
       }
     );
