@@ -1,4 +1,8 @@
 <div class="container-fluid py-5 h-100">
+  <div *ngIf="incorrectCredentials" class="alert alert-danger alert-dismissible row d-flex">
+    Nom d'utilisateur ou mot de passe incorrect.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <div class="row no-gutter">
     <!-- image -->
     <div class="col-md-7 d-none d-md-flex bg-image"></div>

@@ -24,6 +24,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("loginerr")) {
+      this.incorrectCredentials = true;
+    }
+    if (sessionStorage.getItem("username")) {
+      this.loginForm.controls['usernameControl'].setValue(sessionStorage.getItem("username"));
+    }
+    sessionStorage.removeItem("loginerr");
+    sessionStorage.removeItem("username");
   }
 
   onSubmit(): void {
@@ -39,11 +47,11 @@ export class LoginComponent implements OnInit {
       next: (data) => {
         loginAttempt = data;
         if (loginAttempt) {
-          console.log("login OK");
           window.location.reload();
         } else {
-          console.log("login fail");
-          this.incorrectCredentials = true;
+          sessionStorage.setItem("loginerr", "incorrect");
+          sessionStorage.setItem("username", this.loginForm.controls['usernameControl'].value);
+          window.location.reload();
         }
       },
       error: (err) => console.log(err)
