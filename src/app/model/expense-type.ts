@@ -2,6 +2,8 @@
  * type de frais
  */
 export interface ExpenseType {
-  /** identifiant du frais */
-  name: string
+  /** identifiant du type de frais */
+  id?: number;
+  /** nom du type de frais */
+  name: string;
 }
