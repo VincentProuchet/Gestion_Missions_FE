@@ -4,10 +4,11 @@
 
 export const environment = {
   port: 3000,
-  baseUrl: `http://localhost:3000`,
+  baseUrl: `http://localhost:8080`,
   dateLocale: 'fr-FR',
   dateFormat: "YYYY MMM dd",
   production: false,
+  AccessControlAllowOrigin: "*",
 
 };
 

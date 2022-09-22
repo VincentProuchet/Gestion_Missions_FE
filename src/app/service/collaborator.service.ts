@@ -29,7 +29,14 @@ export class CollaboratorService {
   constructor(private http: HttpClient) { }
 
   private FULL_URL_EXPENSES: Readonly<string> = `http://localhost:3000/collaborateur`;
-
+  /**
+   * is supporsed to give you the user connected to the server
+  by asking the back-end data for its curently connected user
+   * @returns Observable<Collaborator>
+   */
+  getConnectedUser(): Observable<Collaborator> {
+    return this.http.get<Collaborator>(`${environment.baseUrl}/${this.API_AFTER_URL}`);
+  }
   getCollaborators(): Observable<Collaborator[]> {
     return this.http.get<Collaborator[]>(`${environment.baseUrl}/${this.API_AFTER_URL}`);
   }

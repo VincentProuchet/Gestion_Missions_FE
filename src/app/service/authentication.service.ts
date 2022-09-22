@@ -1,6 +1,9 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
+import { API_Route } from 'src/environments/API_route';
+import { environment } from 'src/environments/environment';
 import { Collaborator } from '../model/collaborator';
 import { LoginCredentials } from '../model/login-credentials';
 import { Role } from '../model/role';
@@ -16,7 +19,7 @@ export class AuthenticationService {
 
   private STORAGE_KEY: string = "user";
 
-  constructor(private router: Router, private collaboratorService: CollaboratorService) {
+  constructor(private router: Router, private collaboratorService: CollaboratorService, private http: HttpClient) {
 
   }
 
@@ -33,6 +36,12 @@ export class AuthenticationService {
         return false;
       }
     ));
+  }
+  loginfromdb(loginCred: LoginCredentials): Observable<Object> {
+    console.log("sending");
+    this.http.options.arguments;
+    this.http.options.bind(loginCred);
+    return this.http.head(`${environment.baseUrl}/${API_Route.SIGNIN}`);
   }
 
   logout(): void {
