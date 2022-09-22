@@ -108,9 +108,9 @@
             value="0" readonly>
         </div>
       </div>
-      <div class="row d-flex justify-content-between">
-        <button (click)="onCancel()" class="btn btn-danger col-sm-6" type="button">Annuler</button>
-        <button class="btn btn-success col-sm-6" type="submit" [disabled]="!formGroup.valid">Valider</button>
+      <div class="d-flex justify-content-between gap-2 mt-3">
+        <button (click)="onCancel()" class="btn btn-danger" type="button">Annuler</button>
+        <button class="btn btn-success" type="submit" [disabled]="!formGroup.valid">Valider</button>
       </div>
     </form>
   </div>

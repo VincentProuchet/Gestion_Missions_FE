@@ -49,7 +49,7 @@
           <td>{{expenseLine.date}}</td>
           <td>{{expenseLine.type.name}}</td>
           <td>{{expenseLine.cost}}</td>
-          <td>
+          <td class="d-flex gap-2">
             <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission" (onUpdateEvt)="onUpdate($event)"></app-modify-expense>
             <app-remove-expense [expenseToRemove]="expenseLine" (onDeleteEvt)="onDelete($event)"></app-remove-expense>
           </td>

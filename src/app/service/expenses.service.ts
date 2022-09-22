@@ -69,8 +69,8 @@ export class ExpensesService {
    * @returns {Observable<Expense[]>}
    */
   getMissionExpenses(missionID: number): Observable<Expense[]> {
-    //TODO readapter pour que ce soit le BackEnd qui n'envoi que les lignes de frais de la mission demandée
-    return this.http.get<Expense[]>(`${environment.baseUrl}${this.API_AFTER_URL}`).pipe(map(expenses => expenses.filter(expense => expense.idMission == missionID)));
+    //TODO: readapter pour que ce soit le BackEnd qui n'envoi que les lignes de frais de la mission demandée
+    return this.http.get<Expense[]>(`${environment.baseUrl}/${this.API_AFTER_URL}`).pipe(map(expenses => expenses.filter(expense => expense.idMission == missionID)));
   }
   /**
    * Demande une ligne de frais à la base de donées d'après son identifiant
