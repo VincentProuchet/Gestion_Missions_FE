@@ -23,8 +23,8 @@
           <td>{{ mission.arrivalCity }}</td>
           <td>{{ getTransportValue(mission.transport) }}</td>
           <td>{{ statusEnum[mission.status] }}</td>
-          <td>
-            <a (click)="onEdit(index)" class="btn btn-primary">edit</a
+          <td class="d-flex gap-2">
+            <a (click)="onEdit(index)" class="btn btn-primary">Modifier</a
             >
             <app-remove-mission [missionToDelete]="mission" (onDeleteEvt)="onDelete($event)"></app-remove-mission>
           </td>
