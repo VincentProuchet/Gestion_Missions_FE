@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
@@ -37,11 +37,34 @@ export class AuthenticationService {
       }
     ));
   }
+  /**
+   *
+   * @param loginCred
+   * @returns
+   */
   loginfromdb(loginCred: LoginCredentials): Observable<Object> {
     console.log("sending");
-    this.http.options.arguments;
-    this.http.options.bind(loginCred);
-    return this.http.head(`${environment.baseUrl}/${API_Route.SIGNIN}`);
+    return this.http.post(`${environment.baseUrl}/${API_Route.SIGNIN}`,
+      //return this.http.head(`api/${API_Route.SIGNIN}`,
+      {
+        username: loginCred.username,
+        password: loginCred.password
+      }
+      // {
+      //   headers: {
+      //     'Access-Control-Allow-Origin': environment.baseUrl,
+      //     'username': loginCred.username,
+      //     'password': loginCred.password
+      //   },
+      //   params: {
+
+      //   },
+      //   observe: "events",
+      //   responseType: "json",
+      //   withCredentials: false
+      // }
+    );
+
   }
 
   logout(): void {

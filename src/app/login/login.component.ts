@@ -85,11 +85,15 @@ export class LoginComponent implements OnInit {
                 sessionStorage.setItem("user", JSON.stringify(data));
               }
               ,
-              error: () => { }
+              error: () => {
+                console.log("no user");
+              }
             }
           );
         }
         , error: (error) => {
+          console.log("no login");
+
           sessionStorage.setItem("loginerr", "incorrect");
           sessionStorage.setItem("username", this.loginForm.controls['usernameControl'].value);
           window.location.reload();
