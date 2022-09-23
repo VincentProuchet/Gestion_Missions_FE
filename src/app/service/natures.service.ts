@@ -3,7 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { map, Observable, Subject, Subscription } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
 import { AP_Vars } from 'src/environments/API_Vars';
-import { environment } from 'src/environments/environment';
+
 import { Nature } from '../model/nature';
 
 
