@@ -59,7 +59,7 @@ export class ValidationMissionComponent implements OnInit {
 
   onReset(mission: Mission) {
     //TODO: retirer ligne suivante une fois relié au back end
-    mission.status = this.statusEnum.WAITING_VALIDATION;
+    //mission.status = this.statusEnum.WAITING_VALIDATION;
 
     this.missionService.resetMission(mission).subscribe({
       next: (data) => {
