@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DateTools } from 'src/app/model/date-tools';
 import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
 import { ExpensesService } from 'src/app/service/expenses.service';
@@ -15,6 +16,7 @@ export class UpdateExpensesComponent implements OnInit {
 
   mission!: Mission;
   expenses!: Expense[];
+  dates: DateTools = new DateTools();
 
   constructor(private route: ActivatedRoute, private router: Router, private expensesService: ExpensesService, private missionsService: MissionsService) { }
 

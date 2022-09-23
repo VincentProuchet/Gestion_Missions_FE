@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DateTools } from 'src/app/model/date-tools';
 import { Expense } from 'src/app/model/expense';
 import { ExpenseType } from 'src/app/model/expense-type';
 import { Mission } from 'src/app/model/mission';
@@ -14,6 +15,7 @@ import { CustomValidators } from 'src/app/shared/custom-validators';
 export class ModifyExpenseComponent implements OnInit {
 
   formGroup!: FormGroup;
+  dates: DateTools = new DateTools();
 
   @Input() expenseToModify!: Expense;
   @Input() mission !: Mission;

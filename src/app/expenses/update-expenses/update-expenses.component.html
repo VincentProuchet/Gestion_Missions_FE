@@ -17,7 +17,8 @@
             <td>{{expenseLine.type.name}}</td>
             <td>{{expenseLine.cost}}</td>
             <td class="d-flex gap-2">
-              <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission" (onUpdateEvt)="onUpdate($event)"></app-modify-expense>
+              <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission" (onUpdateEvt)="onUpdate($event)">
+              </app-modify-expense>
               <app-remove-expense [expenseToRemove]="expenseLine" (onDeleteEvt)="onDelete($event)"></app-remove-expense>
             </td>
           </tr>
@@ -32,23 +33,23 @@
       <ul class="list-group row justify-content-around">
         <li class="list-group-item row d-flex align-self-end">
           <span class="col-sm-6 fw-semibold">Date de début :</span>
-          <span class="col-sm-6 text-end">{{mission.start}}</span>
+          <span class="col-sm-6 text-end">{{dates.format(mission.start)}}</span>
         </li>
         <li class="list-group-item row d-flex align-self-end">
           <span class="col-sm-6 fw-semibold">Date de fin :</span>
-          <span class="col-sm-6 text-end">{{mission.end}}</span>
+          <span class="col-sm-6 text-end">{{dates.format(mission.end)}}</span>
         </li>
         <li class="list-group-item row d-flex align-self-end">
           <span class="col-sm-6 fw-semibold">Nature :</span>
-          <span class="col-sm-6 text-end">{{mission.nature}}</span>
+          <span class="col-sm-6 text-end">{{mission.nature.description}}</span>
         </li>
         <li class="list-group-item row d-flex align-self-end">
           <span class="col-sm-6 fw-semibold">Ville de départ :</span>
-          <span class="col-sm-6 text-end">{{mission.startCity}}</span>
+          <span class="col-sm-6 text-end">{{mission.startCity.name}}</span>
         </li>
         <li class="list-group-item row d-flex align-self-end">
           <span class="col-sm-6 fw-semibold">Ville d'arrivée :</span>
-          <span class="col-sm-6 text-end">{{mission.arrivalCity}}</span>
+          <span class="col-sm-6 text-end">{{mission.arrivalCity.name}}</span>
         </li>
         <li class="list-group-item row d-flex align-self-end">
           <span class="col-sm-6 fw-semibold">Estimation prime :</span>

@@ -21,26 +21,25 @@
               <input class="form-control" type="date" formControlName="dateControl" id="date" />
             </div>
           </div>
-          <div *ngIf="getDate().invalid && (getDate().dirty || getDate().touched)"
-            class="alert alert-danger mx-3">
+          <div *ngIf="getDate().invalid && (getDate().dirty || getDate().touched)" class="alert alert-danger mx-3">
             <div *ngIf="getDate().errors?.['required']">
               Requis
             </div>
             <div *ngIf="getDate().errors?.['dateBetweenValidator']">
-              Doit être dans la période de la mission ({{mission.start}} - {{mission.end}})
+              Doit être dans la période de la mission
+              {{ dates.format(mission.start) }} - {{ dates.format(mission.end) }}
             </div>
-            </div>
+          </div>
           <div class="form-group row">
             <label for="type" class="col-sm-6 col-form-label text-right">Nature</label>
             <div class="col-sm-6">
               <select formControlName="typeControl" class="form-control" id="type">
-                <option *ngFor="let type of types, let index = index" [value]="type.name">
+                <option *ngFor="let type of types, let index = index" [value]="type">
                   {{type.name}}
                 </option>
               </select>
             </div>
-            <div *ngIf="getType().invalid && (getType().dirty || getType().touched)"
-              class="alert alert-danger mx-3">
+            <div *ngIf="getType().invalid && (getType().dirty || getType().touched)" class="alert alert-danger mx-3">
               <div *ngIf="getType().errors?.['required']">
                 Requis
               </div>
@@ -52,8 +51,7 @@
               <input type="number" formControlName="costControl" class="form-control" id="cost" step="0.5">
             </div>
           </div>
-          <div *ngIf="getCost().invalid && (getCost().dirty || getCost().touched)"
-            class="alert alert-danger mx-3">
+          <div *ngIf="getCost().invalid && (getCost().dirty || getCost().touched)" class="alert alert-danger mx-3">
             <div *ngIf="getCost().errors?.['min'] || getCost().errors?.['required']">
               Doit être un nombre supérieur ou égal à 0
             </div>
@@ -62,7 +60,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="onUpdate()" [disabled]="!formGroup.valid">Valider</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="onUpdate()"
+          [disabled]="!formGroup.valid">Valider</button>
       </div>
     </div>
   </div>
