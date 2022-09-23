@@ -70,12 +70,12 @@ const routes: Routes = [
     // page de gestion des natures de missions
     path: 'gestionDesNatures',
     component: NatureMissionComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: {
+    //canActivate: [AuthGuard, RoleGuard],
+    /*data: {
       roles: [
         ROLES.ADMINISTRATOR
       ]
-    }
+    }*/
   },
   // page de gestion des natures de missions
   {

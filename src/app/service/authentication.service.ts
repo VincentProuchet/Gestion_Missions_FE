@@ -44,25 +44,35 @@ export class AuthenticationService {
    */
   loginfromdb(loginCred: LoginCredentials): Observable<Object> {
     console.log("sending");
-    return this.http.post(`${environment.baseUrl}/${API_Route.SIGNIN}`,
+    let urlSearchParams = new FormData();
+    urlSearchParams.append('username', loginCred.username);
+    urlSearchParams.append('password', loginCred.password);
+    return this.http.head(`${environment.baseUrl}/${API_Route.SIGNIN}`,
       //return this.http.head(`api/${API_Route.SIGNIN}`,
-      {
-        username: loginCred.username,
-        password: loginCred.password
-      }
-      // {
-      //   headers: {
-      //     'Access-Control-Allow-Origin': environment.baseUrl,
-      //     'username': loginCred.username,
-      //     'password': loginCred.password
-      //   },
-      //   params: {
 
-      //   },
-      //   observe: "events",
-      //   responseType: "json",
-      //   withCredentials: false
+      // {
+      //   "Authorization": "Basic bWFyaW86MTExMQ=="
+        /*"Basic " + btoa(
+          unescape(
+            encodeURIComponent("mario" + ':' + "1111")
+          )
+        )*/
       // }
+      {
+        headers: {
+          "Authorization": "Basic bWFyaW86MTExMQ==",
+          //urlSearchParams,
+          'Access-Control-Allow-Origin': environment.baseUrl,
+          //'username': loginCred.username,
+          //'password': loginCred.password
+        },
+        params: {
+
+        },
+        observe: "events",
+        responseType: "json",
+        withCredentials: true
+      }
     );
 
   }
@@ -70,7 +80,6 @@ export class AuthenticationService {
   logout(): void {
     if (this.currentUser()) {
       localStorage.removeItem(this.STORAGE_KEY);
-      console.log("hello, hi");
       window.location.reload();
     }
   }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginCredentials } from '../model/login-credentials';
 import { AuthenticationService } from '../service/authentication.service';
 import { CollaboratorService } from '../service/collaborator.service';
+import { NaturesService } from '../service/natures.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private authenticationService: AuthenticationService,
-    private srvCollab: CollaboratorService) {
+    private srvCollab: CollaboratorService, private nat: NaturesService) {
     this.loginForm = formBuilder.group({
       usernameControl: ['', [Validators.required]],
       passwordControl: ['', [Validators.required]],
@@ -74,7 +75,8 @@ export class LoginComponent implements OnInit {
     let loginAttempt: boolean;
     this.authenticationService.loginfromdb(loginCred).subscribe(
       {
-        next: () => {
+        next: (data) => {
+          console.log(data);
           console.log("server responded");
 
           this.srvCollab.getConnectedUser().subscribe(
@@ -85,7 +87,14 @@ export class LoginComponent implements OnInit {
                 sessionStorage.setItem("user", JSON.stringify(data));
               }
               ,
-              error: () => {
+              error: (err) => {
+                this.nat.getNatures().subscribe(
+                  {
+                    next: (data) => console.log(data),
+                    error: (err) => console.log(err)
+                  }
+                )
+                console.log(err)
                 console.log("no user");
               }
             }
@@ -96,7 +105,7 @@ export class LoginComponent implements OnInit {
 
           sessionStorage.setItem("loginerr", "incorrect");
           sessionStorage.setItem("username", this.loginForm.controls['usernameControl'].value);
-          window.location.reload();
+          //window.location.reload();
         }
       }
     );

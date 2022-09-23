@@ -35,6 +35,7 @@ export class CollaboratorService {
    * @returns Observable<Collaborator>
    */
   getConnectedUser(): Observable<Collaborator> {
+    console.log(`api/${this.API_AFTER_URL}`);
     return this.http.get<Collaborator>(`api/${this.API_AFTER_URL}`);
   }
   getCollaborators(): Observable<Collaborator[]> {
@@ -46,6 +47,8 @@ export class CollaboratorService {
     let collaborators: Collaborator[];
     return this.getCollaborators().pipe(map(
       (data) => {
+        console.log("l49");
+        console.log(data);
         collaborators = data;
         console.log(data);
         let collaborator = collaborators.filter((c) => c.username === username);
