@@ -24,8 +24,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let mission of missions, let index = index">
-          <td>{{ dates.dateFormatted(mission.start) }}</td>
-          <td>{{ dates.dateFormatted(mission.end) }}</td>
+          <td>{{ dates.format(mission.start) }}</td>
+          <td>{{ dates.format(mission.end) }}</td>
           <td>{{ mission.nature.description }}</td>
           <td>{{ mission.startCity.name }}</td>
           <td>{{ mission.arrivalCity.name }}</td>

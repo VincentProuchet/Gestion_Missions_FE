@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DateTools } from 'src/app/model/date-tools';
 import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
 import { MissionsService } from 'src/app/service/missions.service';
@@ -14,7 +15,7 @@ import { TransportService } from 'src/app/service/transport.service';
 export class AllExpensesComponent implements OnInit {
 
   missions: Array<Mission> = [];
-
+  dates: DateTools = new DateTools();
   constructor(private router: Router, private missionService: MissionsService, private transportService: TransportService) {
     /*
     this.missions = [{
@@ -35,14 +36,14 @@ export class AllExpensesComponent implements OnInit {
     this.missionService.getMissions().subscribe(missions => this.missions = missions);
   }
 
-  onEdit(missionIndex: number) {
-    this.router.navigate(['modifierFrais', this.missions[missionIndex].id])
+  onEdit(mission: Mission) {
+    this.router.navigate(['modifierFrais', mission.id])
   }
 
-  onExport(missionIndex: number) {
+  onExport(mission: Mission) {
     //this.router.navigate(['mission/new']);
-    localStorage.setItem("mission", this.missions[0].toString());
-    console.log(missionIndex);
+    localStorage.setItem("mission", mission.toString());
+    console.log(mission.id);
     console.log("saved to storage");
 
   }

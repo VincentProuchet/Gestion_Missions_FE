@@ -20,7 +20,7 @@ export class CreateExpenseComponent implements OnInit {
   types!: ExpenseType[];
   @Output() onCreateEvt: EventEmitter<Expense> = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private expensesService: ExpensesService, private naturesService : NaturesService) {
+  constructor(private formBuilder: FormBuilder, private expensesService: ExpensesService, private naturesService: NaturesService) {
   }
 
   ngOnInit(): void {

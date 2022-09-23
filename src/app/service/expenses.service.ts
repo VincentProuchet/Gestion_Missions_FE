@@ -90,7 +90,7 @@ export class ExpensesService {
    * @returns {Observable<ExpenseType[]>}
    */
   getExpenseTypes(): Observable<ExpenseType[]> {
-    return this.http.get<ExpenseType[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}${this.API_EXPENSE_TYPE}`);
+    return this.http.get<ExpenseType[]>(`${AP_Vars.BEConnectionUrl}/${this.API_EXPENSE_TYPE}`);
   }
 
 

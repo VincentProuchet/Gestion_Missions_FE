@@ -15,7 +15,7 @@ export class DateTools {
    * @returns a formated date fonction locale in AP_Vars
    */
 
-  dateFormatted(date: Date | null) {
+  format(date: Date | null) {
     if (date != null) {
       return this.datePipe.transform(date, this.dateFormat);
     }

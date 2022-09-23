@@ -47,7 +47,6 @@ export class AuthenticationService {
    */
   loginfromdb(loginCred: LoginCredentials): Observable<Object> {
     console.log("login from db");
-
     let loginformParam = new FormData();
     loginformParam.append('username', loginCred.username);
     loginformParam.append('password', loginCred.password);
@@ -60,6 +59,8 @@ export class AuthenticationService {
 
   logout(): void {
     if (this.currentUser()) {
+
+      this.http.get(`${AP_Vars.BEConnectionUrl}/${API_Route.LOGOUT}`)
       localStorage.removeItem(this.STORAGE_KEY);
       console.log("hello, hi");
       window.location.reload();
