@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { map, Observable, Subject, Subscription } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
+import { AP_Vars } from 'src/environments/API_Vars';
 import { environment } from 'src/environments/environment';
 import { Nature } from '../model/nature';
 
@@ -38,7 +39,7 @@ export class NaturesService implements OnDestroy {
     // exemple de filtre pour la partie ou l'on ne devras afficher que les
     // natures ACTIVES
     //return this.natures.filter(valuer => valuer.endOfValidity == null);
-    return this.http.get<Nature[]>(`${environment.baseUrl}/${this.API_AFTER_URL}`)
+    return this.http.get<Nature[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`)
 
   }
 
@@ -48,7 +49,7 @@ export class NaturesService implements OnDestroy {
    * @returns a subject that you can make a subscribe on it
    */
   getNature(id: number): Observable<Nature> {
-    return this.http.get<Nature>(`${environment.baseUrl}/${this.API_AFTER_URL}/${id}`);
+    return this.http.get<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${id}`);
   }
 
   /**applique un filtre sur le tableau de nature passé en paramètre
@@ -64,7 +65,7 @@ export class NaturesService implements OnDestroy {
    * @param nature la nature à créer
    */
   creationNature(nature: Nature): Observable<Nature> {
-    return this.http.post<Nature>(`${environment.baseUrl}/${this.API_AFTER_URL}`, nature)
+    return this.http.post<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`, nature)
   }
   /**
    * à mettre à jour une nature
@@ -72,31 +73,18 @@ export class NaturesService implements OnDestroy {
    * @returns
    */
   modifierNature(id: number, nature: Nature): Observable<Nature> {
-    return this.http.put<Nature>(`${environment.baseUrl}/${this.API_AFTER_URL}/${id}`, nature);
+    return this.http.put<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${id}`, nature);
   }
 
   /**
    * supprimer un nature
+    On a plus besoin d'envoyer l'utilisateur connecté
+    c'est srping security qui s'en occupe
    * @param nature à supprimer
    * @returns
    */
   supprimerNature(nature: Nature): Observable<Nature> {
-    const option = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      body: {
-
-        Collaborator: {
-          id: 0,
-
-        },
-        token: {
-          refreshToken: "qffqsdfqsdfsdfqsfd"
-        }
-      }
-    }
-    return this.http.delete<Nature>(`${environment.baseUrl}/${this.API_AFTER_URL}/${nature.id}`, option);
+    return this.http.delete<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${nature.id}`);
   }
 
 

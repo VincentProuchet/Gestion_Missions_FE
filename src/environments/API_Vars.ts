@@ -7,16 +7,38 @@
 * @author Vincent
 */
 
-export const API_Url = {
+import { ROUTER_CONFIGURATION } from "@angular/router";
 
-  angularServingUrl: `http://localhost:4200`,
-  springUrl: `http://localhost:8080`,
-  jsonServerUrl: `http://localhost:3000`,
-  CORS_SafetyUrl: 'api',
-};
+export /**
+ * Vars containing URL
+ * @date 23/09/2022 - 10:58:01
+ *
+ * @type {{ angularServingUrl: string; springUrl: string; jsonServerUrl: string; CORS_SafetyUrl: string; }}
+ */
+  const API_Url = {
+    /** host form npm start */
+    angularServingUrl: `http://localhost:4200`,
+    /** url of self hosted spring API */
+    springUrl: `http://localhost:8080`,
+    /** url of json server
+    that was used to give mock data
+    to FE devs
+    while developing the back-end
+    now I would do it differently
+    */
+    jsonServerUrl: `http://localhost:3000`,
+    /**
+      this is a we had to resort to it
+      because of the way npm serve handle things
+
+    */
+    CORS_SafetyUrl: 'api',
+  };
 /**
- * on vas délocaliser les variables envirronement
-histoire de s'éviter des surprises
+FE vars
+ * we delocalize environement vars
+from environement.ts
+I'm not a fan of those kind of surprises
  */
 export const AP_Vars = {
 
