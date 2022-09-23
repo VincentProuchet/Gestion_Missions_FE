@@ -117,6 +117,12 @@ const routes: Routes = [
         ROLES.MANAGER
       ]
     }
+  },
+  {
+    // Acceuil
+    path: '',
+    component: LoginComponent,
+    canActivate: [BeforeAuthGuard]
   }
 ];
 
