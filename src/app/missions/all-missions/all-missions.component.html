@@ -30,7 +30,7 @@
           <td>{{ mission.startCity.name }}</td>
           <td>{{ mission.arrivalCity.name }}</td>
           <td>{{ getTransportValue(mission.transport) }}</td>
-          <td>{{ statusEnum[mission.status] }}</td>
+          <td>{{ mission.status }}</td>
           <td class="d-flex gap-2">
             <a *ngIf="(mission.status == statusEnum.INIT) || (mission.status == statusEnum.REJECTED)"
               (click)="onEdit(mission)" class="btn btn-primary">Modifier</a>
