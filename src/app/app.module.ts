@@ -17,12 +17,15 @@ import { CityService } from './service/city.service';
 import { TransportService } from './service/transport.service';
 import { ExpensesModule } from './expenses/expenses.module';
 import { AuthMaskComponent } from './shared/auth-mask/auth-mask.component';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    AuthMaskComponent
+    AuthMaskComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { AuthMaskComponent } from './shared/auth-mask/auth-mask.component';
     NatureMissionModule,
     HttpClientModule,
     ExpensesModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+
   ],
   providers: [
     CityService,
@@ -40,7 +44,8 @@ import { AuthMaskComponent } from './shared/auth-mask/auth-mask.component';
     ExpensesService,
     MissionsService,
     NaturesService,
-    TransportService
+    TransportService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

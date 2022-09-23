@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from "ngx-cookie-service";
+
 
 import { map, Observable } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
@@ -22,7 +24,9 @@ export class AuthenticationService {
 
   private STORAGE_KEY: string = "user";
 
-  constructor(private router: Router, private collaboratorService: CollaboratorService, private http: HttpClient) {
+  constructor(private router: Router, private collaboratorService: CollaboratorService, private http: HttpClient
+    , private srvCookies: CookieService
+  ) {
 
   }
 
@@ -63,6 +67,7 @@ export class AuthenticationService {
         next: () => { },
         error: (err) => console.log(err)
       });
+      this.srvCookies.deleteAll();
       localStorage.removeItem(this.STORAGE_KEY);
       window.location.reload();
     }
