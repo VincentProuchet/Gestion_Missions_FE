@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { map, Observable } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
-import { environment } from 'src/environments/environment';
+import { AP_Vars } from 'src/environments/API_Vars';
 
 import { Collaborator } from '../model/collaborator';
 import { LoginCredentials } from '../model/login-credentials';
@@ -51,16 +51,10 @@ export class AuthenticationService {
     let loginformParam = new FormData();
     loginformParam.append('username', loginCred.username);
     loginformParam.append('password', loginCred.password);
-    let header = new HttpHeaders();
-    //header.append("Access-Control-Allow-Origin", environment.angularServingUrl);
 
 
-    return this.http.post(`api/${API_Route.SIGNIN}`,
-      loginformParam,
-      // {
-      //   headers: header,
-      // }
-    );
+
+    return this.http.post(`${AP_Vars.BEConnectionUrl}/${API_Route.SIGNIN}`, loginformParam);
 
   }
 

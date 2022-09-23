@@ -74,8 +74,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Gestion_Missions_FE:build:production",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "Gestion_Missions_FE:build:production"
             },
             "development": {
               "browserTarget": "Gestion_Missions_FE:build:development",

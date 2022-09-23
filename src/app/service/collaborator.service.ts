@@ -34,6 +34,8 @@ export class CollaboratorService {
    * @returns Observable<Collaborator>
    */
   getConnectedUser(): Observable<Collaborator> {
+    console.log("getting connected user");
+
     // let header = new HttpHeaders();
     // header.append("Access-Control-Allow-Origin", environment.baseUrl);
 

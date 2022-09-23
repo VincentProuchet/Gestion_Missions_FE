@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
    * @returns void
    */
   onSubmitToBE(): void {
-    console.log("onsubmitprod");
+    console.log("onsubmittoBE");
     if (this.loginForm.invalid) {
       return;
     }
