@@ -60,8 +60,11 @@ export class AuthenticationService {
 
   logout(): void {
     if (this.currentUser()) {
+      this.http.get(`${AP_Vars.BEConnectionUrl}/${API_Route.LOGOUT}`).subscribe({
+        next: () => {},
+        error: (err) => console.log(err)
+      });
       localStorage.removeItem(this.STORAGE_KEY);
-      console.log("hello, hi");
       window.location.reload();
     }
   }
