@@ -1,63 +1,60 @@
-<div class="container mt-4 mb-3">
-  <div class="row d-flex flex-column flex-nowrap align-items-center">
+<div class="container mt-4 mb-3 row">
+  <div class="row justify-content-between">
     <h1>Saisie des notes de frais</h1>
-  </div>
-  <form class="container">
-    <div class="form-group row">
-      <label for="startDate" class="col-sm-2 text-right col-form-label">Date de début</label>
-      <div class="col-sm-4">
-        <input type="text" readonly class="form-control-plaintext" id="startDate" [value]="mission.start">
-      </div>
-      <label for="bonusEstimee" class="col-sm-2 col-form-label">Estimation prime</label>
-      <div class="col-sm-4">
-        <input type="text" readonly class="form-control-plaintext" id="bonusEstimee" [value]="mission.bonus">
-      </div>
+    <div class="col-sm-7">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Nature</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let expenseLine of expenses; let index = index">
+            <td>{{expenseLine.date}}</td>
+            <td>{{expenseLine.type.name}}</td>
+            <td>{{expenseLine.cost}}</td>
+            <td class="d-flex gap-2">
+              <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission" (onUpdateEvt)="onUpdate($event)"></app-modify-expense>
+              <app-remove-expense [expenseToRemove]="expenseLine" (onDeleteEvt)="onDelete($event)"></app-remove-expense>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-container *ngIf="mission">
+        <app-create-expense [mission]="mission" (onCreateEvt)="onCreate($event)"></app-create-expense>
+      </ng-container>
     </div>
-    <div class="form-group row">
-      <label for="endDate" class="col-sm-2 text-right col-form-label">Date de fin</label>
-      <div class="col-sm-4">
-        <input type="text" readonly class="form-control-plaintext" id="endDate" [value]="mission.end">
-      </div>
-      <label for="startCity" class="col-sm-2 col-form-label">Ville de départ</label>
-      <div class="col-sm-4">
-        <input type="text" readonly class="form-control-plaintext" id="startCity" [value]="mission.startCity">
-      </div>
+    <div class="col-sm-5">
+      <p class="h4">Mission actuelle :</p>
+      <ul class="list-group row justify-content-around">
+        <li class="list-group-item row d-flex align-self-end">
+          <span class="col-sm-6 fw-semibold">Date de début :</span>
+          <span class="col-sm-6 text-end">{{mission.start}}</span>
+        </li>
+        <li class="list-group-item row d-flex align-self-end">
+          <span class="col-sm-6 fw-semibold">Date de fin :</span>
+          <span class="col-sm-6 text-end">{{mission.end}}</span>
+        </li>
+        <li class="list-group-item row d-flex align-self-end">
+          <span class="col-sm-6 fw-semibold">Nature :</span>
+          <span class="col-sm-6 text-end">{{mission.nature}}</span>
+        </li>
+        <li class="list-group-item row d-flex align-self-end">
+          <span class="col-sm-6 fw-semibold">Ville de départ :</span>
+          <span class="col-sm-6 text-end">{{mission.startCity}}</span>
+        </li>
+        <li class="list-group-item row d-flex align-self-end">
+          <span class="col-sm-6 fw-semibold">Ville d'arrivée :</span>
+          <span class="col-sm-6 text-end">{{mission.arrivalCity}}</span>
+        </li>
+        <li class="list-group-item row d-flex align-self-end">
+          <span class="col-sm-6 fw-semibold">Estimation prime :</span>
+          <span class="col-sm-6 text-end">{{mission.bonus}}</span>
+        </li>
+      </ul>
     </div>
-    <div class="form-group row">
-      <label for="nature" class="col-sm-2 text-right col-form-label">Nature</label>
-      <div class="col-sm-4">
-        <input type="text" readonly class="form-control-plaintext" id="nature" [value]="mission.nature">
-      </div>
-      <label for="endCity" class="col-sm-2 col-form-label">Ville d'arrivée</label>
-      <div class="col-sm-4">
-        <input type="text" readonly class="form-control-plaintext" id="endCity" [value]="mission.arrivalCity">
-      </div>
-    </div>
-  </form>
-  <div class="row">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Nature</th>
-          <th scope="col">Montant</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let expenseLine of expenses; let index = index">
-          <td>{{expenseLine.date}}</td>
-          <td>{{expenseLine.type.name}}</td>
-          <td>{{expenseLine.cost}}</td>
-          <td class="d-flex gap-2">
-            <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission" (onUpdateEvt)="onUpdate($event)"></app-modify-expense>
-            <app-remove-expense [expenseToRemove]="expenseLine" (onDeleteEvt)="onDelete($event)"></app-remove-expense>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="row d-flex justify-content-end">
-    <app-create-expense [mission]="mission" (onCreateEvt)="onCreate($event)"></app-create-expense>
   </div>
 </div>

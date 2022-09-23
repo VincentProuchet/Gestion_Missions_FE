@@ -40,7 +40,6 @@ export class CollaboratorService {
     return this.getCollaborators().pipe(map(
       (data) => {
         collaborators = data;
-        console.log(data);
         let collaborator = collaborators.filter((c) => c.username === username);
         return collaborator.length ? collaborator[0] : null;
       }
