@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { DateTools } from 'src/app/model/date-tools';
 import { Mission } from 'src/app/model/mission';
 import { Status } from 'src/app/model/status';
 import { Transport } from 'src/app/model/transport';
@@ -18,6 +19,7 @@ import { TransportService } from 'src/app/service/transport.service';
 export class AllMissionsComponent implements OnInit {
 
   missions: Array<Mission> = [];
+  public dates: DateTools = new DateTools();
   statusEnum: typeof Status = Status;
 
   constructor(private router: Router, private srvMission: MissionsService, private srvTransport: TransportService) { }

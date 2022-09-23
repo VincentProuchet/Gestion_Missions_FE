@@ -24,15 +24,15 @@
       </thead>
       <tbody>
         <tr *ngFor="let mission of missions, let index = index">
-          <td>{{ mission.start }}</td>
-          <td>{{ mission.end }}</td>
+          <td>{{ dates.dateFormatted(mission.start) }}</td>
+          <td>{{ dates.dateFormatted(mission.end) }}</td>
           <td>{{ mission.nature.description }}</td>
           <td>{{ mission.startCity.name }}</td>
           <td>{{ mission.arrivalCity.name }}</td>
           <td>{{ getTransportValue(mission.transport) }}</td>
           <td>{{ mission.status }}</td>
           <td class="d-flex gap-2">
-            <a *ngIf="(mission.status == statusEnum.INIT) || (mission.status == statusEnum.REJECTED)"
+            <a *ngIf="(mission.status == statusEnum.INIT ) || (mission.status == statusEnum.REJECTED) "
               (click)="onEdit(mission)" class="btn btn-primary">Modifier</a>
             <app-remove-mission [missionToDelete]="mission" (onDeleteEvt)="onDelete($event)"></app-remove-mission>
           </td>
