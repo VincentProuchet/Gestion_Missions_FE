@@ -33,7 +33,7 @@ export class ValidationMissionComponent implements OnInit {
 
   onValidate(mission: Mission) {
     //TODO: retirer ligne suivante une fois relié au back end
-    mission.status = this.statusEnum.VALIDATED;
+    //mission.status = this.statusEnum.VALIDATED;
 
     this.missionService.validateMission(mission).subscribe({
       next: (data) => {
@@ -46,7 +46,7 @@ export class ValidationMissionComponent implements OnInit {
 
   onReject(mission: Mission) {
     //TODO: retirer ligne suivante une fois relié au back end
-    mission.status = this.statusEnum.REJECTED;
+    //mission.status = this.statusEnum.REJECTED;
 
     this.missionService.rejectMission(mission).subscribe({
       next: (data) => {
