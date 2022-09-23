@@ -26,13 +26,14 @@
         <tr *ngFor="let mission of missions, let index = index">
           <td>{{ mission.start }}</td>
           <td>{{ mission.end }}</td>
-          <td>{{ mission.nature }}</td>
-          <td>{{ mission.startCity }}</td>
-          <td>{{ mission.arrivalCity }}</td>
+          <td>{{ mission.nature.description }}</td>
+          <td>{{ mission.startCity.name }}</td>
+          <td>{{ mission.arrivalCity.name }}</td>
           <td>{{ getTransportValue(mission.transport) }}</td>
           <td>{{ statusEnum[mission.status] }}</td>
           <td class="d-flex gap-2">
-            <a *ngIf="(mission.status == statusEnum.INIT) || (mission.status == statusEnum.REJECTED)" (click)="onEdit(index)" class="btn btn-primary">Modifier</a>
+            <a *ngIf="(mission.status == statusEnum.INIT) || (mission.status == statusEnum.REJECTED)"
+              (click)="onEdit(index)" class="btn btn-primary">Modifier</a>
             <app-remove-mission [missionToDelete]="mission" (onDeleteEvt)="onDelete($event)"></app-remove-mission>
           </td>
         </tr>

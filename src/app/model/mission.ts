@@ -27,11 +27,11 @@ export interface Mission {
    */
   end: Date;
   /** */
-  startCity: City | String;
+  startCity: City;
   /** */
-  arrivalCity: City | String;
+  arrivalCity: City;
   /** */
-  nature: Nature | String;
+  nature: Nature;
   /** */
   collaborator: Collaborator | null;
   /** */
