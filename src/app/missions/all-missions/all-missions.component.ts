@@ -42,8 +42,8 @@ export class AllMissionsComponent implements OnInit {
    * ouvre le formulaire de modification d'édition d'une mission
    * @param missionIndex
    */
-  onEdit(missionIndex: number) {
-    this.router.navigate(['modifierMission', this.missions[missionIndex].id])
+  onEdit(mission: Mission) {
+    this.router.navigate(['modifierMission', mission.id])
   }
   /**
    * ouvre le formulaire de création de mission
