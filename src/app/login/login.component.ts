@@ -103,11 +103,15 @@ export class LoginComponent implements OnInit {
                 console.log("asking user");
                 console.log(data);
 
-                sessionStorage.setItem("user", JSON.stringify(data));
+                localStorage.setItem("user", JSON.stringify(data));
+                window.location.reload();
               }
               ,
               error: () => {
                 console.log("no user");
+                sessionStorage.setItem("loginerr", "incorrect");
+                sessionStorage.setItem("username", this.loginForm.controls['usernameControl'].value);
+                window.location.reload();
               }
             }
           );
