@@ -19,6 +19,8 @@ export class UpdateMissionComponent implements OnInit {
 
   formGroup: FormGroup;
   mission!: Mission;
+  missionStart: Date = new Date();
+  missionEnd: Date = new Date();
   natures: Nature[] = new Array();
   transports: Record<keyof typeof Transport, Transport>;
 
@@ -38,7 +40,7 @@ export class UpdateMissionComponent implements OnInit {
       endCityControl: ['', [Validators.required, Validators.maxLength(50)]],
       transportControl: ['', [Validators.required]],
       bonusEstimeeControl: ['']
-    }, {validators: [CustomValidators.startEndDateValidator()]});
+    }, { validators: [CustomValidators.startEndDateValidator()] });
 
     this.updateNatures();
   }
@@ -51,7 +53,16 @@ export class UpdateMissionComponent implements OnInit {
       //get mission with id and fill the form
       this.srvMission.getMission(params['id']).subscribe(
         {
-          next: (data) => { this.mission = data; }// the form is filled here
+          next: (data) => {
+            this.mission = data;// the form is filled here
+            this.formGroup.controls["startDateControl"].setValue(this.mission.start);
+            this.formGroup.controls["endDateControl"].setValue(this.mission.end);
+            this.formGroup.controls["natureControl"].setValue(this.mission.nature);
+            this.formGroup.controls["startCityControl"].setValue(this.mission.startCity.name);
+            this.formGroup.controls["endCityControl"].setValue(this.mission.arrivalCity.name);
+            this.formGroup.controls["transportControl"].setValue(this.mission.transport);
+            this.formGroup.controls["bonusEstimeeControl"].setValue(this.mission.bonus);
+          }
           , error: (err) => {
             console.log(err);// here is to display an error in case something went wrong
           }
@@ -64,6 +75,8 @@ export class UpdateMissionComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
+    this.mission.start = this.missionStart;
+    this.mission.end = this.missionEnd;
     this.srvMission.updateMission(this.mission).subscribe({
       next: (data) => {
         this.router.navigate(['gestionMission']);

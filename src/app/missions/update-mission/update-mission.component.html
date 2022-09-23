@@ -8,7 +8,7 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="startDate" class="col-sm-6 col-form-label text-right">Date de début</label>
           <div class="col-sm-6">
-            <input class="form-control" type="date" formControlName="startDateControl" id="startDate" [(ngModel)]="mission.start" />
+            <input class="form-control" type="date" formControlName="startDateControl" id="startDate" />
           </div>
         </div>
         <div
@@ -23,7 +23,7 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="endDate" class="col-sm-6 col-form-label text-right">Date de fin</label>
           <div class="col-sm-6">
-            <input class="form-control" type="date" formControlName="endDateControl" id="endDate" [(ngModel)]="mission.end" />
+            <input class="form-control" type="date" formControlName="endDateControl" id="endDate" />
           </div>
         </div>
         <div
@@ -43,8 +43,8 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
           <div class="col-sm-6">
-            <select formControlName="natureControl" class="form-select" id="nature" [(ngModel)]="mission.nature">
-              <option *ngFor="let nature of natures">
+            <select formControlName="natureControl" class="form-select" id="nature">
+              <option *ngFor="let nature of natures" [ngValue]="nature">
                 <!--ngfor-->{{nature.description}}
               </option>
             </select>
@@ -62,8 +62,7 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="startCity" class="col-sm-6 col-form-label text-right">Ville de départ</label>
           <div class="col-sm-6">
-            <input type="text" formControlName="startCityControl" class="form-control" id="startCity"
-              [(ngModel)]="mission.startCity">
+            <input type="text" formControlName="startCityControl" class="form-control" id="startCity">
           </div>
         </div>
         <div
@@ -81,8 +80,7 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="endCity" class="col-sm-6 col-form-label text-right">Ville d'arrivée</label>
           <div class="col-sm-6">
-            <input type="text" formControlName="endCityControl" class="form-control" id="endCity"
-              [(ngModel)]="mission.arrivalCity">
+            <input type="text" formControlName="endCityControl" class="form-control" id="endCity">
           </div>
         </div>
         <div
@@ -100,9 +98,8 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="transport" class="col-sm-6 col-form-label text-right">Transport</label>
           <div class="col-sm-6">
-            <select formControlName="transportControl" class="form-select" id="transport"
-              [(ngModel)]="mission.transport">
-              <option *ngFor="let transport of transports | keyvalue" value="{{transport.key}}">
+            <select formControlName="transportControl" class="form-select" id="transport">
+              <option *ngFor="let transport of transports | keyvalue" [ngValue]="transport">
                 {{transport.value}}
                 <!--ngfor-->
               </option>
@@ -121,7 +118,7 @@
         <label for="bonusEstimee" class="col-sm-6 col-form-label text-right">Estimation de la prime</label>
         <div class="col-sm-6">
           <input type="text" formControlName="bonusEstimeeControl" class="form-control-plaintext" id="bonusEstimee"
-            [(ngModel)]="mission.bonus" readonly>
+            readonly>
         </div>
       </div>
       <div class="d-flex justify-content-center gap-3 mt-3">

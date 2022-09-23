@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { DateTools } from 'src/app/model/date-tools';
 import { Mission } from 'src/app/model/mission';
 import { Status } from 'src/app/model/status';
 import { MissionsService } from 'src/app/service/missions.service';
@@ -15,6 +16,7 @@ export class ValidationMissionComponent implements OnInit {
 
   missions: Mission[] = [];
   statusEnum: typeof Status = Status;
+  dates: DateTools = new DateTools();
 
   constructor(private router: Router, private missionService: MissionsService, private transportService: TransportService) { }
 

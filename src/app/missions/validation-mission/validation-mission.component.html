@@ -16,101 +16,112 @@
       </thead>
       <tbody>
         <tr *ngFor="let mission of missions, let index = index">
-          <td>{{ mission.start }}</td>
-          <td>{{ mission.end }}</td>
-          <td>{{ mission.nature }}</td>
-          <td>{{ mission.startCity }}</td>
-          <td>{{ mission.arrivalCity }}</td>
+          <td>{{dates.format(mission.start) }}</td>
+          <td>{{dates.format(mission.end) }}</td>
+          <td>{{ mission.nature.description }}</td>
+          <td>{{ mission.startCity.name }}</td>
+          <td>{{ mission.arrivalCity.name }}</td>
           <td>{{ getTransportValue(mission.transport) }}</td>
-          <td [class]="getStatusColor(mission.status)">{{ statusEnum[mission.status] }}</td>
-          <div class="d-flex row-cols-3 gap-1" *ngIf="mission.status === 0 || mission.status === 3, then canUpdate else canReset"></div>
-            <ng-template #canUpdate>
-              <td class="d-flex row-cols-3 gap-1">
-                <a class="btn btn-success d-flex justify-content-center" data-bs-toggle="modal" attr.data-bs-target="{{'#confirmValidateModal'+mission.id}}">
-                  <fa-icon icon="check"></fa-icon>
-                </a>
-                <div class="modal fade" id="{{'confirmValidateModal'+mission.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="confirmValidateModalLabel">Confirmer la validation de cette mission ?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <ul>
-                          <li>Date : {{mission.start}} au {{mission.end}}</li>
-                          <li>Nature : {{ mission.nature }}</li>
-                          <li>Transport : {{ getTransportValue(mission.transport) }}</li>
-                          <li>Départ : {{ mission.startCity }}</li>
-                          <li>Arrivée : {{ mission.arrivalCity }}</li>
-                        </ul>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="onValidate(mission)">Valider la mission</button>
-                      </div>
+          <td [class]="getStatusColor(mission.status)">{{ mission.status}}</td>
+          <div class="d-flex row-cols-3 gasp-1"
+            *ngIf="mission.status === 0 || mission.status === 3, then canUpdate else canReset"></div>
+          <ng-template #canUpdate>
+            <td class="d-flex row-cols-3 gap-1">
+              <a class="btn btn-success d-flex justify-content-center" data-bs-toggle="modal"
+                attr.data-bs-target="{{'#confirmValidateModal'+mission.id}}">
+                <fa-icon icon="check"></fa-icon>
+              </a>
+              <div class="modal fade" id="{{'confirmValidateModal'+mission.id}}" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmValidateModalLabel">Confirmer la validation de cette mission ?
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <ul>
+                        <li>Date : {{dates.format(mission.start)}} au {{dates.format(mission.end)}}</li>
+                        <li>Nature : {{ mission.nature.description }}</li>
+                        <li>Transport : {{ getTransportValue(mission.transport) }}</li>
+                        <li>Départ : {{ mission.startCity.name }}</li>
+                        <li>Arrivée : {{ mission.arrivalCity.name }}</li>
+                      </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                      <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                        (click)="onValidate(mission)">Valider la mission</button>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <a class="btn btn-danger" data-bs-toggle="modal" attr.data-bs-target="{{'#confirmRejectModal'+mission.id}}">
-                  <fa-icon icon="times"></fa-icon>
-                </a>
-                <div class="modal fade" id="{{'confirmRejectModal'+mission.id}}" tabindex="-1" aria-labelledby="confirmRejectModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="confirmRejectModalLabel">Confirmer le refus de cette mission ?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <ul>
-                          <li>Date : {{mission.start}} au {{mission.end}}</li>
-                          <li>Nature : {{ mission.nature }}</li>
-                          <li>Transport : {{ getTransportValue(mission.transport) }}</li>
-                          <li>Départ : {{ mission.startCity }}</li>
-                          <li>Arrivée : {{ mission.arrivalCity }}</li>
-                        </ul>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="onReject(mission)">Refuser la mission</button>
-                      </div>
+              <a class="btn btn-danger" data-bs-toggle="modal"
+                attr.data-bs-target="{{'#confirmRejectModal'+mission.id}}">
+                <fa-icon icon="times"></fa-icon>
+              </a>
+              <div class="modal fade" id="{{'confirmRejectModal'+mission.id}}" tabindex="-1"
+                aria-labelledby="confirmRejectModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmRejectModalLabel">Confirmer le refus de cette mission ?</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <ul>
+                        <li>Date : {{mission.start}} au {{mission.end}}</li>
+                        <li>Nature : {{ mission.nature }}</li>
+                        <li>Transport : {{ getTransportValue(mission.transport) }}</li>
+                        <li>Départ : {{ mission.startCity }}</li>
+                        <li>Arrivée : {{ mission.arrivalCity }}</li>
+                      </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        (click)="onReject(mission)">Refuser la mission</button>
                     </div>
                   </div>
                 </div>
-              </td>
-            </ng-template>
-            <ng-template #canReset>
-              <td class="d-flex row-cols-2 gap-1">
-                <a class="btn btn-primary" data-bs-toggle="modal" attr.data-bs-target="{{'#resetStatusModal'+mission.id}}">
-                  <fa-icon icon="rotate-left"></fa-icon>
-                </a>
-                <div class="modal fade" id="{{'resetStatusModal'+mission.id}}" tabindex="-1" aria-labelledby="resetStatusModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="resetStatusModalLabel">Réinitialiser le statut de cette mission ?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <ul>
-                          <li>Date : {{mission.start}} au {{mission.end}}</li>
-                          <li>Nature : {{ mission.nature }}</li>
-                          <li>Transport : {{ getTransportValue(mission.transport) }}</li>
-                          <li>Départ : {{ mission.startCity }}</li>
-                          <li>Arrivée : {{ mission.arrivalCity }}</li>
-                        </ul>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onReset(mission)" >Confirmer</button>
-                      </div>
+              </div>
+            </td>
+          </ng-template>
+          <ng-template #canReset>
+            <td class="d-flex row-cols-2 gap-1">
+              <a class="btn btn-primary" data-bs-toggle="modal"
+                attr.data-bs-target="{{'#resetStatusModal'+mission.id}}">
+                <fa-icon icon="rotate-left"></fa-icon>
+              </a>
+              <div class="modal fade" id="{{'resetStatusModal'+mission.id}}" tabindex="-1"
+                aria-labelledby="resetStatusModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="resetStatusModalLabel">Réinitialiser le statut de cette mission ?</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <ul>
+                        <li>Date : {{mission.start}} au {{mission.end}}</li>
+                        <li>Nature : {{ mission.nature }}</li>
+                        <li>Transport : {{ getTransportValue(mission.transport) }}</li>
+                        <li>Départ : {{ mission.startCity }}</li>
+                        <li>Arrivée : {{ mission.arrivalCity }}</li>
+                      </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="onReset(mission)">Confirmer</button>
                     </div>
                   </div>
                 </div>
-              </td>
-            </ng-template>
+              </div>
+            </td>
+          </ng-template>
         </tr>
       </tbody>
     </table>

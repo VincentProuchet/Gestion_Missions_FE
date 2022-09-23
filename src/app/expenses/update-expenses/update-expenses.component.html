@@ -13,7 +13,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let expenseLine of expenses; let index = index">
-            <td>{{expenseLine.date}}</td>
+            <td>{{dates.format(expenseLine.date)}}</td>
             <td>{{expenseLine.type.name}}</td>
             <td>{{expenseLine.cost}}</td>
             <td class="d-flex gap-2">

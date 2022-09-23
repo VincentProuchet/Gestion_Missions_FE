@@ -63,7 +63,7 @@ export class AuthenticationService {
 
   logout(): void {
     if (this.currentUser()) {
-      this.http.get(`${AP_Vars.BEConnectionUrl}/${API_Route.LOGOUT}`).subscribe({
+      this.http.post(`${AP_Vars.BEConnectionUrl}/${API_Route.LOGOUT}`, null).subscribe({
         next: () => { },
         error: (err) => console.log(err)
       });

@@ -32,8 +32,8 @@
           <td>{{ getTransportValue(mission.transport) }}</td>
           <td>{{ mission.status }}</td>
           <td class="d-flex gap-2">
-            <a *ngIf="(mission.status == statusEnum.INIT ) || (mission.status == statusEnum.REJECTED) "
-              (click)="onEdit(mission)" class="btn btn-primary">Modifier</a>
+            <a *ngIf="mission.status  == statusEnum.INIT || true " (click)="onEdit(mission)"
+              class="btn btn-primary">Modifier</a>
             <app-remove-mission [missionToDelete]="mission" (onDeleteEvt)="onDelete($event)"></app-remove-mission>
           </td>
         </tr>

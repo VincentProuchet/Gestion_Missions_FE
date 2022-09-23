@@ -23,8 +23,8 @@
                 Requis
               </div>
               <div *ngIf="getDate().errors?.['dateBetweenValidator']">
-                Doit être dans la période de la mission ({{dates.format(mission.start)}} -
-                {{dates.format(mission.end})})
+                Doit être dans la période de la mission
+                ({{dates.format(mission.start)}} - {{dates.format(mission.end)}})
               </div>
             </div>
           </div>
@@ -32,7 +32,7 @@
             <label for="type" class="col-sm-6 col-form-label text-right">Nature</label>
             <div class="col-sm-6">
               <select formControlName="typeControl" class="form-control" id="type">
-                <option *ngFor="let type of types, let index = index" [value]="index">
+                <option *ngFor="let type of types, let index = index" [ngValue]="type">
                   {{type.name}}
                 </option>
               </select>
