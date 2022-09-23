@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
+import { AP_Vars } from 'src/environments/API_Vars';
 import { environment } from 'src/environments/environment';
 import { Mission } from '../model/mission';
 
@@ -51,7 +52,7 @@ export class MissionsService {
    * @returns {Observable<Mission[]>}
    */
   getMissions(): Observable<Mission[]> {
-    return this.http.get<Mission[]>(`${environment.baseUrl}/${this.API_AFTER_URL}`);
+    return this.http.get<Mission[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`);
 
   }
   /**get the mission Data with the provideed id
@@ -60,7 +61,7 @@ export class MissionsService {
    * @returns a subject that you can make a subscribe on it
    */
   getMission(id: number): Observable<Mission> {
-    return this.http.get<Mission>(`${environment.baseUrl}/${this.API_AFTER_URL}/${id}`);
+    return this.http.get<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${id}`);
   }
   /**
    * envoie une demande d'ajout d'une mission à l'API
@@ -69,7 +70,7 @@ export class MissionsService {
    * @returns
    */
   createMission(mission: Mission): Observable<Mission> {
-    return this.http.post<Mission>(`${environment.baseUrl}/${this.API_AFTER_URL}`, mission);
+    return this.http.post<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`, mission);
   }
   /**
    * envoi une demande de modification de mission à l'API
@@ -78,7 +79,7 @@ export class MissionsService {
    * @returns
    */
   updateMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.baseUrl}/${this.API_AFTER_URL}/${mission.id}`, mission);
+    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}`, mission);
   }
 
   /**
@@ -87,7 +88,7 @@ export class MissionsService {
    * @returns mission suprimée
    */
   deleteMission(mission: Mission): Observable<Mission> {
-    return this.http.delete<Mission>(`${environment.baseUrl}/${this.API_AFTER_URL}/${mission.id}`);
+    return this.http.delete<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}`);
   }
   /**
    * envoi une demande de validation à l'API
@@ -96,7 +97,7 @@ export class MissionsService {
    * @returns
    */
   validateMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.baseUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_VALIDATE}`, mission);
+    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_VALIDATE}`, mission);
   }
   /**
    * envoie une demande de rejet de la mission à l'API
@@ -105,7 +106,7 @@ export class MissionsService {
    * @returns
    */
   rejectMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.baseUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_REJECT}`, mission);
+    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_REJECT}`, mission);
   }
 
   /**
@@ -115,7 +116,7 @@ export class MissionsService {
     * @returns
     */
   resetMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${environment.baseUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_RESET}`, mission);
+    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_RESET}`, mission);
   }
 
 }

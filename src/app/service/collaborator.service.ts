@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { AP_Vars } from 'src/environments/API_Vars';
 import { environment } from 'src/environments/environment';
 import { Collaborator } from '../model/collaborator';
 
@@ -39,7 +40,7 @@ export class CollaboratorService {
     // let header = new HttpHeaders();
     // header.append("Access-Control-Allow-Origin", environment.baseUrl);
 
-    return this.http.get<Collaborator>(`api/${this.API_AFTER_URL}`
+    return this.http.get<Collaborator>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`
 
       //, {
       //   headers: header,
@@ -47,13 +48,13 @@ export class CollaboratorService {
     );
   }
   getCollaborators(): Observable<Collaborator[]> {
-    return this.http.get<Collaborator[]>(`${environment.baseUrl}/${this.API_AFTER_URL}`);
+    return this.http.get<Collaborator[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`);
   }
 
   //TODO: Refactoriser une fois connecté au back-end;
   getCollaboratorByUsername(username: string): Observable<Collaborator | null> {
     console.log(`${environment.baseUrl}/login`);
-    return this.http.head<Collaborator>(`${environment.baseUrl}/login`);
+    return this.http.head<Collaborator>(`${AP_Vars.BEConnectionUrl}/login`);
     /*
     return this.getCollaborators().pipe(map(
       (data) => {

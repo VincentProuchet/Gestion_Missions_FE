@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
           );
         }
         , error: (error) => {
-          console.log("no login");
+          console.log("error");
           this.srvCollab.getConnectedUser().subscribe(
             {
               next: (data) => {
