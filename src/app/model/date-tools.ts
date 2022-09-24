@@ -21,4 +21,10 @@ export class DateTools {
     }
     return '';
   }
+  inputFormat(date: Date | null) {
+    if (date != null) {
+      return this.datePipe.transform(date, this.dateFormat);
+    }
+    return '';
+  }
 }
