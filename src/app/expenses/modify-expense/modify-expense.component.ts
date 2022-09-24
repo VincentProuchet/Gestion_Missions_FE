@@ -29,8 +29,8 @@ export class ModifyExpenseComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      dateControl: [this.expenseToModify.date, [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
-      typeControl: [this.expenseToModify.type.name, Validators.required],
+      dateControl: [this.dates.inputFormat(this.expenseToModify.date), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
+      typeControl: [this.expenseToModify.type, Validators.required],
       costControl: [this.expenseToModify.cost, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
     });
     this.expensesService.getExpenseTypes().subscribe(types => this.types = types);
@@ -40,16 +40,7 @@ export class ModifyExpenseComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
-    this.expensesService.updateExpense({
-      id: this.expenseToModify.id,
-      idMission: this.expenseToModify.idMission,
-      date: this.formGroup.controls['dateControl'].value,
-      cost: this.formGroup.controls['costControl'].value,
-      tva: 0,
-      type: {
-        name: this.formGroup.controls['typeControl'].value
-      }
-    }).subscribe(
+    this.expensesService.updateExpense(this.collectForm()).subscribe(
       (expense) => {
         this.onUpdateEvt.emit(expense);
       });
@@ -68,8 +59,26 @@ export class ModifyExpenseComponent implements OnInit {
   }
 
   resetForm() {
-    this.formGroup.controls['dateControl'].setValue(this.expenseToModify.date);
-    this.formGroup.controls['typeControl'].setValue(this.expenseToModify.type.name);
-    this.formGroup.controls['costControl'].setValue(this.expenseToModify.cost);
+    this.formGroup.setValue(
+      {
+        "dateControl": this.dates.inputFormat(this.expenseToModify.date),
+        "typeControl": this.expenseToModify.type,
+        "costControl": this.expenseToModify.cost,
+
+      }
+    );
+  }
+  /** return all of the fomgroup data collected as an Expense */
+  collectForm(): Expense {
+    return {
+      id: this.expenseToModify.id,
+      idMission: this.expenseToModify.idMission,
+      date: this.formGroup.controls['dateControl'].value,
+      cost: this.formGroup.controls['costControl'].value,
+      tva: 0,
+      type: {
+        name: this.formGroup.controls['typeControl'].value
+      }
+    }
   }
 }

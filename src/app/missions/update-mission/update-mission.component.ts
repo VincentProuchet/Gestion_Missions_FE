@@ -78,8 +78,8 @@ export class UpdateMissionComponent implements OnInit {
               "endCityControl": this.mission.arrivalCity.name,
               "transportControl": this.mission.transport,
               "bonusEstimeeControl": this.mission.bonus,
-              "startDateControl": new Date(this.mission.start).toISOString().substring(0, 10),
-              "endDateControl": new Date(this.mission.end).toISOString().substring(0, 10),
+              "startDateControl": this.dates.inputFormat(this.mission.start),
+              "endDateControl": this.dates.inputFormat(this.mission.end),
             });
           }
           , error: (err) => {
