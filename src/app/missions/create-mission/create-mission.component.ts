@@ -24,6 +24,7 @@ export class CreateMissionComponent implements OnInit {
   cities: City[] = [];
   transports: Record<keyof typeof Transport, Transport>;
 
+
   constructor(private formBuilder: FormBuilder, private router: Router, private missionService: MissionsService, private natureService: NaturesService, private transportService: TransportService
     , private srvCity: CityService
   ) {
@@ -35,8 +36,8 @@ export class CreateMissionComponent implements OnInit {
       natureControl: ['', [Validators.required]],
       startCityControl: ['', [Validators.required, Validators.maxLength(50)]],
       endCityControl: ['', [Validators.required, Validators.maxLength(50)]],
-      startCityControlInput: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(50)]],
-      endCityControlInput: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(50)]],
+      //startCityControlInput: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(50)]],
+      //endCityControlInput: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(50)]],
       transportControl: ['', [Validators.required]],
       bonusEstimeeControl: ['']
     }, { validators: [CustomValidators.startEndDateValidator()] });

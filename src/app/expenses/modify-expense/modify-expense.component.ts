@@ -43,7 +43,7 @@ export class ModifyExpenseComponent implements OnInit {
     this.expensesService.updateExpense({
       id: this.expenseToModify.id,
       idMission: this.expenseToModify.idMission,
-      date: this.formGroup.controls['dateControl'].value,
+      date: new Date(this.formGroup.controls['dateControl'].value),
       cost: this.formGroup.controls['costControl'].value,
       tva: 0,
       type: {

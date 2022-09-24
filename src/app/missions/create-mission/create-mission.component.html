@@ -62,7 +62,6 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="startCity" class="col-sm-6 col-form-label text-right">Ville de départ</label>
           <div class="col-sm-6">
-            <input type="text" formControlName="startCityControlInput" class="form-control" id="startCitySearch">
             <select formControlName="startCityControl" class="form-select" id="startCity">
               <option *ngFor="let city of cities" [ngValue]="city">
                 {{city.name}}
@@ -85,7 +84,6 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="endCity" class="col-sm-6 col-form-label text-right">Ville d'arrivée</label>
           <div class="col-sm-6">
-            <input type="text" formControlName="endCityControlInput" class="form-control" id="startCity">
             <select formControlName="endCityControl" class="form-select" id="startCity">
               <option *ngFor="let city of cities" [ngValue]="city">
                 {{city.name}}
