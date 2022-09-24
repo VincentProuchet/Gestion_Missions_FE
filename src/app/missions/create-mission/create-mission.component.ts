@@ -34,6 +34,7 @@ export class CreateMissionComponent implements OnInit {
   cities: City[] = [];
   transports: Record<keyof typeof Transport, Transport>;
 
+
   constructor(private formBuilder: FormBuilder, private router: Router, private missionService: MissionsService, private natureService: NaturesService, private transportService: TransportService
     , private srvCity: CityService
   ) {
