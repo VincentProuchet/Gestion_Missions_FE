@@ -44,8 +44,7 @@ export class UpdateMissionComponent implements OnInit {
   cities: City[] = new Array();
   /** transpoirt list values */
   transports: Record<keyof typeof Transport, Transport>;
-
-
+  //transports = Transport;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router
     , private srvMission: MissionsService,
@@ -69,18 +68,14 @@ export class UpdateMissionComponent implements OnInit {
         {
           next: (data) => {
             this.mission = data;
-            console.log(new Date(this.mission.start).toISOString().substring(0, 10));
-
+            // for debuging
+            console.log(this.mission);
+            console.log(this.srvTransport.getTransportValue(this.mission.transport));
             // the form is filled here
-            this.formGroup.setValue({
-              "natureControl": this.mission.nature,
-              "startCityControl": this.mission.startCity.name,
-              "endCityControl": this.mission.arrivalCity.name,
-              "transportControl": this.mission.transport,
-              "bonusEstimeeControl": this.mission.bonus,
-              "startDateControl": this.dates.inputFormat(this.mission.start),
-              "endDateControl": this.dates.inputFormat(this.mission.end),
-            });
+            console.log(this.srvTransport.getTransport(this.mission.transport));
+            this.initFormValues(data);
+
+
           }
           , error: (err) => {
             console.log(err);// here is to display an error in case something went wrong
@@ -89,7 +84,10 @@ export class UpdateMissionComponent implements OnInit {
       )
     })
   }
-
+  /**
+   * form submit action
+   * @returns
+   */
   onSubmit(): void {
     if (this.formGroup.invalid) {
       return;
@@ -103,6 +101,7 @@ export class UpdateMissionComponent implements OnInit {
     })
     //register the new data, if valid
   }
+  /** form cancel action */
   onCancel(): void {
     //register the new mission, if valid
     this.router.navigate(['gestionMission'])
@@ -130,7 +129,7 @@ export class UpdateMissionComponent implements OnInit {
 
   }
   /**
-   * put all datas from the form in the mission reference
+   * return form's data's as a Mission Type Object
    */
   collectForm(): Mission {
     return {
@@ -138,13 +137,28 @@ export class UpdateMissionComponent implements OnInit {
       bonus: this.mission.bonus,
       status: this.mission.status,
       transport: this.formGroup.controls["transportControl"].value,
-      start: new Date(this.formGroup.controls["startCityControl"].value),
-      end: new Date(this.formGroup.controls["endCityControl"].value),
-      startCity: this.formGroup.controls["startDateControl"].value,
-      arrivalCity: this.formGroup.controls["endDateControl"].value,
+      start: new Date(this.formGroup.controls["startDateControl"].value),
+      end: new Date(this.formGroup.controls["endDateControl"].value),
+      startCity: this.formGroup.controls["startCityControl"].value,
+      arrivalCity: this.formGroup.controls["endCityControl"].value,
       nature: this.formGroup.controls["natureControl"].value,
       collaborator: this.mission.collaborator,
       expenses: this.mission.expenses
     };
   }
+  /** initialize the from with the value
+  of the provided Mission Object
+  */
+  initFormValues(data: Mission): void {
+    this.formGroup.setValue({
+      "natureControl": data.nature,
+      "startCityControl": data.startCity,
+      "endCityControl": data.arrivalCity,
+      "transportControl": data.transport,
+      "bonusEstimeeControl": data.bonus,
+      "startDateControl": this.dates.inputFormat(data.start),
+      "endDateControl": this.dates.inputFormat(data.end),
+    });
+  }
+
 }

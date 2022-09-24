@@ -23,7 +23,9 @@ export class DateTools {
   }
   /**
    * wil give you back the date you gave
-   in a format that can fill in date Form inputs
+   * in a format that can
+   * autoamtically
+   * fill in date Form inputs
    * @param date
    * @returns
    */

@@ -36,14 +36,17 @@ export class CreateExpenseComponent implements OnInit {
 
 
   }
-
+  /**
+   * on Submit of form
+   * @returns
+   */
   onCreate() {
     //register the new expense here
     if (this.formGroup.invalid) {
       return;
     }
     let newExpense: Expense = {
-      date: this.formGroup.controls['dateControl'].value,
+      date: new Date(this.formGroup.controls['dateControl'].value),
       type: this.types[this.formGroup.controls['typeControl'].value],
       cost: this.formGroup.controls['costControl'].value,
       id: 0,
