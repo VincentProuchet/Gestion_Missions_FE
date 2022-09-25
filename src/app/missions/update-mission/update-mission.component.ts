@@ -68,6 +68,7 @@ export class UpdateMissionComponent implements OnInit {
       this.srvMission.getMission(params['id']).subscribe(
         {
           next: (data) => {
+            console.log(data.startCity);
             this.mission = data;// the form is filled here
             this.initFormValues(data);
           }

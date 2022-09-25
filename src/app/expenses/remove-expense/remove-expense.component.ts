@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { DateTools } from 'src/app/model/date-tools';
 import { Expense } from 'src/app/model/expense';
 import { ExpensesService } from 'src/app/service/expenses.service';
 
@@ -13,7 +14,11 @@ export class RemoveExpenseComponent implements OnInit {
   @Input() expenseToRemove !: Expense;
   @Output() onDeleteEvt: EventEmitter<Expense> = new EventEmitter();
 
-  constructor(private expensesService: ExpensesService, private router: Router) { }
+  dates: DateTools;
+
+  constructor(private expensesService: ExpensesService, private router: Router) {
+    this.dates = new DateTools();
+  }
 
   ngOnInit(): void {
     //this.expensesService.getExpense(this.dataExpenseToRemove).subscribe(expense => this.expenseToRemove = expense);

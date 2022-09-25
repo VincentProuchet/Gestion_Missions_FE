@@ -5,6 +5,7 @@ import { API_Route } from 'src/environments/API_route';
 import { AP_Vars } from 'src/environments/API_Vars';
 import { environment } from 'src/environments/environment';
 import { Mission } from '../model/mission';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,7 @@ export class MissionsService {
    * @constructor
    * @param {HttpClient} http
    */
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authenticationService: AuthenticationService) { }
 
 
 
@@ -55,6 +56,11 @@ export class MissionsService {
     return this.http.get<Mission[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`);
 
   }
+
+  getMissionsToValidate(): Observable<Mission[]> {
+    return this.http.get<Mission[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${API_Route.MANAGER}/${this.authenticationService.currentUser()?.id}`);
+  }
+
   /**get the mission Data with the provideed id
    *
    * @param id mission id

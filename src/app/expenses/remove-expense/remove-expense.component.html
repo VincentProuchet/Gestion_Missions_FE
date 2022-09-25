@@ -14,7 +14,7 @@
       <div class="modal-body">
         <p>Confirmez-vous la suppression du frais suivant?</p>
         <ul>
-          <li>Date : {{expenseToRemove.date}}</li>
+          <li>Date : {{dates.format(expenseToRemove.date)}}</li>
           <li>Nature : {{expenseToRemove.type.name}}</li>
           <li>Montant : {{expenseToRemove.cost}}</li>
         </ul>

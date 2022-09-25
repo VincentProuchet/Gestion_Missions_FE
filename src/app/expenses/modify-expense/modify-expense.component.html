@@ -35,7 +35,7 @@
             <div class="col-sm-6">
               <select formControlName="typeControl" class="form-control" id="type">
                 <option [ngValue]="null" disabled >Select expense nature</option>
-                <option *ngFor="let type of types, let index = index" [ngValue]="type">
+                <option *ngFor="let type of types, let index = index" [ngValue]="expenseToModify.type" selected>
                   {{type.name}}
                 </option>
               </select>

@@ -25,8 +25,9 @@ export class ValidationMissionComponent implements OnInit {
   }
 
   updateMission() {
-    this.missionService.getMissions().subscribe({
+    this.missionService.getMissionsToValidate().subscribe({
       next: (data) => {
+        console.log(data);
         this.missions = data;
       },
       error: (err) => console.log(err)
@@ -65,6 +66,7 @@ export class ValidationMissionComponent implements OnInit {
 
     this.missionService.resetMission(mission).subscribe({
       next: (data) => {
+        console.log(data);
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
@@ -74,14 +76,14 @@ export class ValidationMissionComponent implements OnInit {
 
   getStatusColor(status: Status): string {
     let bsClass = "";
-    switch (status) {
-      case 1:
+    switch (status.toString()) {
+      case this.statusEnum[1]:
         bsClass = "text-success";
         break;
-      case 2:
+      case this.statusEnum[2]:
         bsClass = "text-danger";
         break;
-      case 3:
+      case this.statusEnum[3]:
         bsClass = "text-primary";
         break;
       default:

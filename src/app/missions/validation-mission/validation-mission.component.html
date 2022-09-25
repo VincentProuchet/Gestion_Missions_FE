@@ -24,7 +24,7 @@
           <td>{{ getTransportValue(mission.transport) }}</td>
           <td [class]="getStatusColor(mission.status)">{{ mission.status}}</td>
           <div class="d-flex row-cols-3 gasp-1"
-            *ngIf="mission.status === 0 || mission.status === 3, then canUpdate else canReset"></div>
+            *ngIf="mission.status.toString() === 'INIT' || mission.status.toString() === 'WAITING_VALIDATION', then canUpdate else canReset"></div>
           <ng-template #canUpdate>
             <td class="d-flex row-cols-3 gap-1">
               <a class="btn btn-success d-flex justify-content-center" data-bs-toggle="modal"
@@ -72,11 +72,11 @@
                     </div>
                     <div class="modal-body">
                       <ul>
-                        <li>Date : {{mission.start}} au {{mission.end}}</li>
-                        <li>Nature : {{ mission.nature }}</li>
+                        <li>Date : {{dates.format(mission.start)}} au {{dates.format(mission.end)}}</li>
+                        <li>Nature : {{ mission.nature.description }}</li>
                         <li>Transport : {{ getTransportValue(mission.transport) }}</li>
-                        <li>Départ : {{ mission.startCity }}</li>
-                        <li>Arrivée : {{ mission.arrivalCity }}</li>
+                        <li>Départ : {{ mission.startCity.name }}</li>
+                        <li>Arrivée : {{ mission.arrivalCity.name }}</li>
                       </ul>
                     </div>
                     <div class="modal-footer">
@@ -105,11 +105,11 @@
                     </div>
                     <div class="modal-body">
                       <ul>
-                        <li>Date : {{mission.start}} au {{mission.end}}</li>
-                        <li>Nature : {{ mission.nature }}</li>
+                        <li>Date : {{dates.format(mission.start)}} au {{dates.format(mission.end)}}</li>
+                        <li>Nature : {{ mission.nature.description }}</li>
                         <li>Transport : {{ getTransportValue(mission.transport) }}</li>
-                        <li>Départ : {{ mission.startCity }}</li>
-                        <li>Arrivée : {{ mission.arrivalCity }}</li>
+                        <li>Départ : {{ mission.startCity.name }}</li>
+                        <li>Arrivée : {{ mission.arrivalCity.name }}</li>
                       </ul>
                     </div>
                     <div class="modal-footer">
