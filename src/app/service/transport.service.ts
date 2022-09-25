@@ -1,3 +1,4 @@
+import { KeyValuePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Transport } from '../model/transport';
 
@@ -61,7 +62,7 @@ export class TransportService {
   }
 
   /**
-   * retourne l'identifiant d'un trasport depuis sa valeur texte
+   * retourne l'identifiant d'un transport depuis sa valeur texte
    * @date 21/09/2022 - 12:33:08
    *
    * @param {string} key
@@ -70,4 +71,17 @@ export class TransportService {
   getTransportValue(key: string): Transport {
     return Transport[key as keyof typeof Transport];
   }
+  /**
+   * give you a transport instance
+  * of transport enum
+  from its key
+   * @param key
+   * @returns
+   */
+  getTransport(key: String): Transport {
+
+
+    return Transport.Car;
+  }
+
 }

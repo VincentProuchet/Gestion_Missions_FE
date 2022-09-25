@@ -95,10 +95,48 @@
       "transport": "Car",
       "start": "2021-02-04",
       "end": "2021-04-24",
-      "startCity": "Montpellier",
-      "arrivalCity": "Montpellier",
-      "nature": "manutention",
-      "collaborateur": 0,
+      "startCity": {
+        "id": null,
+        "name": "Montpellier"
+      },
+      "arrivalCity": {
+        "id": null,
+        "name": "Montpellier"
+      },
+      "nature": {
+        "id": 1,
+        "description": "manutention",
+        "dateOfValidity": "2021-02-04",
+        "endOfValidity": null,
+        "givesBonus": true,
+        "charged": true,
+        "tjm": 280,
+        "bonusPercentage": 10
+      },
+      "collaborateur": {
+        "id": 0,
+        "lastName": "nom",
+        "firstName": "prenom",
+        "username": "username",
+        "email": "email",
+        "roles": [
+          {
+            "id": 1,
+            "label": "ROLE_ADMINISTRATOR"
+          },
+          {
+            "id": 3000,
+            "label": "ROLE_COLLABORATOR"
+          }
+        ],
+        "manager": {
+          "id": 0,
+          "lastName": "nom",
+          "firstName": "prenom",
+          "username": "username",
+          "email": "email"
+        }
+      },
       "expenses": [
         {
           "id": 0,

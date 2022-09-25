@@ -43,8 +43,8 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
           <div class="col-sm-6">
-            <select formControlName="natureControl" class="form-select" id="nature">
-              <option *ngFor="let nature of natures" [ngValue]="nature">
+            <select formControlName="natureControl" class="form-control" id="nature">
+              <option *ngFor="let nature of natures" [value]="nature">
                 <!--ngfor-->{{nature.description}}
               </option>
             </select>
@@ -62,7 +62,11 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="startCity" class="col-sm-6 col-form-label text-right">Ville de départ</label>
           <div class="col-sm-6">
-            <input type="text" formControlName="startCityControl" class="form-control" id="startCity">
+            <select formControlName="startCityControl" class="form-control" id="startCity">
+              <option *ngFor="let city of cities" [value]="city">
+                <!--ngfor-->{{city.name}}
+              </option>
+            </select>
           </div>
         </div>
         <div
@@ -80,7 +84,11 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="endCity" class="col-sm-6 col-form-label text-right">Ville d'arrivée</label>
           <div class="col-sm-6">
-            <input type="text" formControlName="endCityControl" class="form-control" id="endCity">
+            <select formControlName="endCityControl" class="form-control" id="endCity">
+              <option *ngFor="let city of cities" [value]="city">
+                <!--ngfor-->{{city.name}}
+              </option>
+            </select>
           </div>
         </div>
         <div
@@ -99,16 +107,15 @@
           <label for="transport" class="col-sm-6 col-form-label text-right">Transport</label>
           <div class="col-sm-6">
             <select formControlName="transportControl" class="form-select" id="transport">
-              <option *ngFor="let transport of transports | keyvalue" [ngValue]="transport">
+              <option *ngFor="let transport of transports | keyvalue" value="{{transport.key}}">
                 {{transport.value}}
                 <!--ngfor-->
               </option>
             </select>
           </div>
         </div>
-        <div
-          *ngIf="formGroup.controls['transportControl'].invalid && (formGroup.controls['transportControl'].dirty || formGroup.controls['transportControl'].touched)"
-          class="alert alert-danger mt-2">
+        <div *ngIf=" formGroup.controls['transportControl'].invalid && (formGroup.controls['transportControl'].dirty ||
+                formGroup.controls['transportControl'].touched)" class="alert alert-danger mt-2">
           <div *ngIf="formGroup.controls['transportControl'].errors?.['required']">
             Saisie invalide, a preciser
           </div>

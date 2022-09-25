@@ -15,9 +15,23 @@ export class DateTools {
    * @returns a formated date fonction locale in AP_Vars
    */
 
-  format(date: Date | null) {
+  format(date: Date | null): String | null {
     if (date != null) {
       return this.datePipe.transform(date, this.dateFormat);
+    }
+    return '';
+  }
+  /**
+   * wil give you back the date you gave
+   * in a format that can
+   * autoamtically
+   * fill in date Form inputs
+   * @param date
+   * @returns
+   */
+  inputFormat(date: Date | null): String {
+    if (date != null) {
+      return new Date(date).toISOString().substring(0, 10);
     }
     return '';
   }

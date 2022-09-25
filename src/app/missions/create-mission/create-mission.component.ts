@@ -19,7 +19,17 @@ import { CustomValidators } from 'src/app/shared/custom-validators';
 })
 export class CreateMissionComponent implements OnInit {
 
-  formGroup: FormGroup;
+  /** the form */
+  formGroup: FormGroup = this.formBuilder.group({
+    startDateControl: ['', [Validators.required]],
+    endDateControl: ['', [Validators.required]],
+    natureControl: ['', [Validators.required]],
+    startCityControl: ['', [Validators.required, Validators.maxLength(50)]],
+    endCityControl: ['', [Validators.required, Validators.maxLength(50)]],
+    transportControl: ['', [Validators.required]],
+    bonusEstimeeControl: ['']
+  }, { validators: [CustomValidators.startEndDateValidator()] });;
+
   natures: Nature[] = [];
   cities: City[] = [];
   transports: Record<keyof typeof Transport, Transport>;
@@ -29,18 +39,6 @@ export class CreateMissionComponent implements OnInit {
     , private srvCity: CityService
   ) {
     this.transports = transportService.getTransportMap();
-
-    this.formGroup = formBuilder.group({
-      startDateControl: ['', [Validators.required]],
-      endDateControl: ['', [Validators.required]],
-      natureControl: ['', [Validators.required]],
-      startCityControl: ['', [Validators.required, Validators.maxLength(50)]],
-      endCityControl: ['', [Validators.required, Validators.maxLength(50)]],
-      //startCityControlInput: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(50)]],
-      //endCityControlInput: ['', [Validators.required, Validators.minLength(0), Validators.maxLength(50)]],
-      transportControl: ['', [Validators.required]],
-      bonusEstimeeControl: ['']
-    }, { validators: [CustomValidators.startEndDateValidator()] });
     this.natureService.getNatures().subscribe(
       (data) => this.natures = data
     );
