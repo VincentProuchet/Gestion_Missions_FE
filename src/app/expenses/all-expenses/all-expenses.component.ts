@@ -17,19 +17,7 @@ export class AllExpensesComponent implements OnInit {
   missions: Array<Mission> = [];
   dates: DateTools = new DateTools();
   constructor(private router: Router, private missionService: MissionsService, private transportService: TransportService) {
-    /*
-    this.missions = [{
-      startDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'), // retrieve the locale of the user
-      endDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
-      nature: "",
-      startCity: "test",
-      endCity: "test",
-      transport: "",
-      status: "test",
-      bonusEstimee: "test",
-      id: 0,
-      charges: 0
-    }]*/
+
   }
 
   ngOnInit(): void {

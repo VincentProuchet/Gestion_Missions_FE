@@ -47,7 +47,7 @@ export class CreateExpenseComponent implements OnInit {
     }
     let newExpense: Expense = {
       date: new Date(this.formGroup.controls['dateControl'].value),
-      type:  {
+      type: {
         id: this.formGroup.controls['typeControl'].value.id,
         name: this.formGroup.controls['typeControl'].value.name
       },
@@ -56,6 +56,8 @@ export class CreateExpenseComponent implements OnInit {
       idMission: this.mission.id,
       tva: 0
     }
+    console.log(newExpense);
+
     this.expensesService.addExpense(newExpense).subscribe((expense) => {
       this.onCreateEvt.emit(expense);
       this.formGroup.reset();

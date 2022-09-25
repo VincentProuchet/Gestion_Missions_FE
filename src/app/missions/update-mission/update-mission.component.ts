@@ -69,13 +69,7 @@ export class UpdateMissionComponent implements OnInit {
         {
           next: (data) => {
             this.mission = data;// the form is filled here
-            this.formGroup.controls["startDateControl"].setValue(formatDate(this.mission.start, "yyyy-MM-dd",AP_Vars.dateLocale));
-            this.formGroup.controls["endDateControl"].setValue(formatDate(this.mission.end, "yyyy-MM-dd",AP_Vars.dateLocale));
-            this.formGroup.controls["natureControl"].setValue(this.mission.nature);
-            this.formGroup.controls["startCityControl"].setValue(this.mission.startCity.name);
-            this.formGroup.controls["endCityControl"].setValue(this.mission.arrivalCity.name);
-            this.formGroup.controls["transportControl"].setValue(this.mission.transport);
-            this.formGroup.controls["bonusEstimeeControl"].setValue(this.mission.bonus);
+            this.initFormValues(data);
           }
           , error: (err) => {
             console.log(err);// here is to display an error in case something went wrong
@@ -93,6 +87,8 @@ export class UpdateMissionComponent implements OnInit {
       return;
     }
     this.mission = this.collectForm();
+    console.log(this.mission);
+
     this.srvMission.updateMission(this.mission).subscribe({
       next: (data) => {
         this.router.navigate(['gestionMission']);
@@ -132,6 +128,12 @@ export class UpdateMissionComponent implements OnInit {
    * return form's data's as a Mission Type Object
    */
   collectForm(): Mission {
+
+
+    console.log(this.formGroup.controls["startCityControl"].value);
+    console.log(this.mission.id);
+    console.log(this.mission.collaborator);
+
     return {
       id: this.mission.id,
       bonus: this.mission.bonus,
@@ -139,8 +141,15 @@ export class UpdateMissionComponent implements OnInit {
       transport: this.formGroup.controls["transportControl"].value,
       start: new Date(this.formGroup.controls["startDateControl"].value),
       end: new Date(this.formGroup.controls["endDateControl"].value),
-      startCity: this.formGroup.controls["startCityControl"].value,
-      arrivalCity: this.formGroup.controls["endCityControl"].value,
+      startCity: {
+        id: 0
+        , name: this.formGroup.controls["startCityControl"].value
+      },
+      arrivalCity:
+      {
+        id: 0
+        , name: this.formGroup.controls["endCityControl"].value,
+      },
       nature: this.formGroup.controls["natureControl"].value,
       collaborator: this.mission.collaborator,
       expenses: this.mission.expenses

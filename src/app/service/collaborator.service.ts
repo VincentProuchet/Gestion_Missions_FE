@@ -53,7 +53,7 @@ export class CollaboratorService {
 
   //TODO: Refactoriser une fois connecté au back-end;
   getCollaboratorByUsername(username: string): Observable<Collaborator | null> {
-    console.log(`${environment.baseUrl}/login`);
+    console.log(`${AP_Vars.BEConnectionUrl}/login`);
     return this.http.head<Collaborator>(`${AP_Vars.BEConnectionUrl}/login`);
     /*
     return this.getCollaborators().pipe(map(

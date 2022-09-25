@@ -24,8 +24,8 @@ export class UpdateExpensesComponent implements OnInit {
     this.route.params.subscribe(params => {
 
       const missionID = params["id"];
-      this.missionsService.getMission(missionID).subscribe(mission => {
-        this.mission = mission;
+      this.missionsService.getMission(missionID).subscribe(data => {
+        this.mission = data;
       });
       this.expensesService.getMissionExpenses(missionID).subscribe(expenses => this.expenses = expenses);
     })//get the mission with given id
