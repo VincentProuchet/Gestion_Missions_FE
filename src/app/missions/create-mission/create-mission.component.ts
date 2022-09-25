@@ -40,7 +40,7 @@ export class CreateMissionComponent implements OnInit {
   ) {
     this.transports = transportService.getTransportMap();
     this.natureService.getNatures().subscribe(
-      (data) => this.natures = data
+      (data) => this.natures = this.natureService.getValidNatures(data)
     );
     this.srvCity.getCities().subscribe(
       (data) => this.cities = data
