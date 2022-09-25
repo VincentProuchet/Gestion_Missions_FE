@@ -9,6 +9,7 @@ import { MissionsService } from 'src/app/service/missions.service';
 import { NaturesService } from 'src/app/service/natures.service';
 import { TransportService } from 'src/app/service/transport.service';
 import { CustomValidators } from 'src/app/shared/custom-validators';
+import { AP_Vars } from 'src/environments/API_Vars';
 
 @Component({
   selector: 'app-update-mission',
@@ -55,8 +56,8 @@ export class UpdateMissionComponent implements OnInit {
         {
           next: (data) => {
             this.mission = data;// the form is filled here
-            this.formGroup.controls["startDateControl"].setValue(this.mission.start);
-            this.formGroup.controls["endDateControl"].setValue(this.mission.end);
+            this.formGroup.controls["startDateControl"].setValue(formatDate(this.mission.start, "yyyy-MM-dd",AP_Vars.dateLocale));
+            this.formGroup.controls["endDateControl"].setValue(formatDate(this.mission.end, "yyyy-MM-dd",AP_Vars.dateLocale));
             this.formGroup.controls["natureControl"].setValue(this.mission.nature);
             this.formGroup.controls["startCityControl"].setValue(this.mission.startCity.name);
             this.formGroup.controls["endCityControl"].setValue(this.mission.arrivalCity.name);

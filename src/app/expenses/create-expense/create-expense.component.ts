@@ -43,8 +43,11 @@ export class CreateExpenseComponent implements OnInit {
       return;
     }
     let newExpense: Expense = {
-      date: this.formGroup.controls['dateControl'].value,
-      type: this.types[this.formGroup.controls['typeControl'].value],
+      date: new Date(this.formGroup.controls['dateControl'].value),
+      type:  {
+        id: this.formGroup.controls['typeControl'].value.id,
+        name: this.formGroup.controls['typeControl'].value.name
+      },
       cost: this.formGroup.controls['costControl'].value,
       id: 0,
       idMission: this.mission.id,

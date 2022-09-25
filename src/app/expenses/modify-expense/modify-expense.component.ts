@@ -6,6 +6,8 @@ import { ExpenseType } from 'src/app/model/expense-type';
 import { Mission } from 'src/app/model/mission';
 import { ExpensesService } from 'src/app/service/expenses.service';
 import { CustomValidators } from 'src/app/shared/custom-validators';
+import { formatDate } from '@angular/common';
+import { AP_Vars } from 'src/environments/API_Vars';
 
 @Component({
   selector: 'app-modify-expense',
@@ -30,7 +32,7 @@ export class ModifyExpenseComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       dateControl: [this.expenseToModify.date, [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
-      typeControl: [this.expenseToModify.type.name, Validators.required],
+      typeControl: [this.expenseToModify.type, Validators.required],
       costControl: [this.expenseToModify.cost, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
     });
     this.expensesService.getExpenseTypes().subscribe(types => this.types = types);
@@ -40,6 +42,7 @@ export class ModifyExpenseComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
+    console.log(this.formGroup.controls['typeControl'].value.name);
     this.expensesService.updateExpense({
       id: this.expenseToModify.id,
       idMission: this.expenseToModify.idMission,
@@ -47,7 +50,8 @@ export class ModifyExpenseComponent implements OnInit {
       cost: this.formGroup.controls['costControl'].value,
       tva: 0,
       type: {
-        name: this.formGroup.controls['typeControl'].value
+        id: this.formGroup.controls['typeControl'].value.id,
+        name: this.formGroup.controls['typeControl'].value.name
       }
     }).subscribe(
       (expense) => {
@@ -68,8 +72,20 @@ export class ModifyExpenseComponent implements OnInit {
   }
 
   resetForm() {
-    this.formGroup.controls['dateControl'].setValue(this.expenseToModify.date);
-    this.formGroup.controls['typeControl'].setValue(this.expenseToModify.type.name);
+
+    this.formGroup.controls['dateControl'].setValue(formatDate(this.expenseToModify.date, "yyyy-MM-dd",AP_Vars.dateLocale));
+    this.formGroup.controls['typeControl'].setValue(this.expenseToModify.type);
     this.formGroup.controls['costControl'].setValue(this.expenseToModify.cost);
   }
+/*
+
+  private formatDate(date: Date) {
+    const d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
+  }*/
 }
