@@ -4,6 +4,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th scope="col">Collaborateur</th>
           <th scope="col">Date de début</th>
           <th scope="col">Date de fin</th>
           <th scope="col">Nature</th>
@@ -16,6 +17,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let mission of missions, let index = index">
+          <td>{{mission.collaborator?.firstName}}</td>
           <td>{{dates.format(mission.start) }}</td>
           <td>{{dates.format(mission.end) }}</td>
           <td>{{ mission.nature.description }}</td>
@@ -58,7 +60,7 @@
                 </div>
               </div>
 
-              <a class="btn btn-danger" data-bs-toggle="modal"
+              <a class="btn btn-danger d-flex justify-content-center" data-bs-toggle="modal"
                 attr.data-bs-target="{{'#confirmRejectModal'+mission.id}}">
                 <fa-icon icon="times"></fa-icon>
               </a>
@@ -91,7 +93,7 @@
           </ng-template>
           <ng-template #canReset>
             <td class="d-flex row-cols-2 gap-1">
-              <a class="btn btn-primary" data-bs-toggle="modal"
+              <a class="btn btn-primary d-flex justify-content-center" data-bs-toggle="modal"
                 attr.data-bs-target="{{'#resetStatusModal'+mission.id}}">
                 <fa-icon icon="rotate-left"></fa-icon>
               </a>

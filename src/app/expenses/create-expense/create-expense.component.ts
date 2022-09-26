@@ -29,7 +29,8 @@ export class CreateExpenseComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       dateControl: ['', [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
       typeControl: ['', Validators.required],
-      costControl: [0, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
+      costControl: [0, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
+      tvaControl: [0, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
     })
 
     this.expensesService.getExpenseTypes().subscribe(types => this.types = types);
@@ -54,7 +55,7 @@ export class CreateExpenseComponent implements OnInit {
       cost: this.formGroup.controls['costControl'].value,
       id: 0,
       idMission: this.mission.id,
-      tva: 0
+      tva: this.formGroup.controls['tvaControl'].value
     }
     console.log(newExpense);
 
@@ -72,6 +73,9 @@ export class CreateExpenseComponent implements OnInit {
   }
   getCost() {
     return this.formGroup.controls['costControl'];
+  }
+  getTVA() {
+    return this.formGroup.controls['tvaControl'];
   }
 
 }

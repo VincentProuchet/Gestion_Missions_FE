@@ -33,7 +33,8 @@ export class ModifyExpenseComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       dateControl: [this.dates.inputFormat(this.expenseToModify.date), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
       typeControl: ["", Validators.required],
-      costControl: [this.expenseToModify.cost, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
+      costControl: [this.expenseToModify.cost, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
+      tvaControl: [this.expenseToModify.tva, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
     });
 
     this.expensesService.getExpenseTypes().subscribe(types => {
@@ -63,6 +64,9 @@ export class ModifyExpenseComponent implements OnInit {
   getCost() {
     return this.formGroup.controls['costControl'];
   }
+  getTVA() {
+    return this.formGroup.controls['tvaControl'];
+  }
 
   resetForm() {
     this.formGroup.setValue(
@@ -70,7 +74,7 @@ export class ModifyExpenseComponent implements OnInit {
         "dateControl": this.dates.inputFormat(this.expenseToModify.date),
         "typeControl": this.expenseToModify.type,
         "costControl": this.expenseToModify.cost,
-
+        "tvaControl": this.expenseToModify.tva
       }
     );
   }
@@ -81,7 +85,7 @@ export class ModifyExpenseComponent implements OnInit {
       idMission: this.expenseToModify.idMission,
       date: new Date(this.formGroup.controls['dateControl'].value),
       cost: this.formGroup.controls['costControl'].value,
-      tva: 0,
+      tva: this.formGroup.controls['tvaControl'].value,
       type: this.formGroup.controls['typeControl'].value
     }
   }

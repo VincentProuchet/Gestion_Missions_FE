@@ -8,6 +8,7 @@
             <th scope="col">Date</th>
             <th scope="col">Nature</th>
             <th scope="col">Montant</th>
+            <th scope="col">TVA</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
@@ -16,6 +17,7 @@
             <td>{{dates.format(expenseLine.date)}}</td>
             <td>{{expenseLine.type.name}}</td>
             <td>{{expenseLine.cost}}</td>
+            <td>{{expenseLine.tva}}</td>
             <td class="d-flex gap-2">
               <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission" (onUpdateEvt)="onUpdate($event)">
               </app-modify-expense>

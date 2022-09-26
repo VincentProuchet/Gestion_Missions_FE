@@ -31,7 +31,7 @@
           <div class="form-group row">
             <label for="type" class="col-sm-6 col-form-label text-right">Nature</label>
             <div class="col-sm-6">
-              <select formControlName="typeControl" class="form-control" id="type">
+              <select formControlName="typeControl" class="form-select" id="type">
                 <option *ngFor="let type of types, let index = index" [ngValue]="type">
                   {{type.name}}
                 </option>
@@ -51,6 +51,17 @@
           </div>
           <div *ngIf="getCost().invalid && (getCost().dirty || getCost().touched)" class="alert alert-danger mx-3">
             <div *ngIf="getCost().errors?.['min'] || getCost().errors?.['required']">
+              Doit être un nombre supérieur ou égal à 0
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="cost" class="col-sm-6 col-form-label text-right">TVA</label>
+            <div class="col-sm-6">
+              <input type="number" formControlName="tvaControl" class="form-control" id="cost" step="0.5">
+            </div>
+          </div>
+          <div *ngIf="getTVA().invalid && (getTVA().dirty || getTVA().touched)" class="alert alert-danger mx-3">
+            <div *ngIf="getTVA().errors?.['min'] || getTVA().errors?.['required']">
               Doit être un nombre supérieur ou égal à 0
             </div>
           </div>
