@@ -63,12 +63,10 @@ export class UpdateMissionComponent implements OnInit {
    */
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      console.log(params['id'])
       //get mission with id and fill the form
       this.srvMission.getMission(params['id']).subscribe(
         {
           next: (data) => {
-            console.log(data.startCity);
             this.mission = data;// the form is filled here
             this.initFormValues(data);
           }
@@ -88,7 +86,6 @@ export class UpdateMissionComponent implements OnInit {
       return;
     }
     this.mission = this.collectForm();
-    console.log(this.mission);
 
     this.srvMission.updateMission(this.mission).subscribe({
       next: (data) => {
@@ -129,11 +126,6 @@ export class UpdateMissionComponent implements OnInit {
    * return form's data's as a Mission Type Object
    */
   collectForm(): Mission {
-
-
-    console.log(this.formGroup.controls["startCityControl"].value);
-    console.log(this.mission.id);
-    console.log(this.mission.collaborator);
 
     return {
       id: this.mission.id,

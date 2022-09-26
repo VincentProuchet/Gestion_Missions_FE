@@ -32,10 +32,14 @@ export class ModifyExpenseComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       dateControl: [this.dates.inputFormat(this.expenseToModify.date), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
-      typeControl: [this.expenseToModify.type, Validators.required],
+      typeControl: ["", Validators.required],
       costControl: [this.expenseToModify.cost, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
     });
-    this.expensesService.getExpenseTypes().subscribe(types => this.types = types);
+
+    this.expensesService.getExpenseTypes().subscribe(types => {
+      this.types = types;
+      this.formGroup.controls["typeControl"].setValue(this.expenseToModify.type);
+    });
   }
 
   onUpdate() {
@@ -78,10 +82,11 @@ export class ModifyExpenseComponent implements OnInit {
       date: new Date(this.formGroup.controls['dateControl'].value),
       cost: this.formGroup.controls['costControl'].value,
       tva: 0,
-      type: {
-        id: this.formGroup.controls['typeControl'].value.id,
-        name: this.formGroup.controls['typeControl'].value.name
-      }
+      type: this.formGroup.controls['typeControl'].value
     }
+  }
+
+  compareById(itemOne: any, itemTwo: any) {
+    return itemOne && itemTwo && itemOne.id == itemTwo.id;
   }
 }
