@@ -1,4 +1,4 @@
-import { DatePipe } from "@angular/common";
+import { DatePipe, formatDate } from "@angular/common";
 import { AP_Vars } from "src/environments/API_Vars";
 /**
  * Classe utilitaire
@@ -31,7 +31,7 @@ export class DateTools {
    */
   inputFormat(date: Date | null): String {
     if (date != null) {
-      return new Date(date).toISOString().substring(0, 10);
+      return formatDate(date, "yyyy-MM-dd", AP_Vars.dateLocale);
     }
     return '';
   }
