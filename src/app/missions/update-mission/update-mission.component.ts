@@ -126,7 +126,7 @@ export class UpdateMissionComponent implements OnInit {
    * return form's data's as a Mission Type Object
    */
   collectForm(): Mission {
-
+    console.log(this.formGroup.controls["natureControl"].value);
     return {
       id: this.mission.id,
       bonus: this.mission.bonus,
@@ -134,15 +134,10 @@ export class UpdateMissionComponent implements OnInit {
       transport: this.formGroup.controls["transportControl"].value,
       start: new Date(this.formGroup.controls["startDateControl"].value),
       end: new Date(this.formGroup.controls["endDateControl"].value),
-      startCity: {
-        id: 0
-        , name: this.formGroup.controls["startCityControl"].value
-      },
-      arrivalCity:
-      {
-        id: 0
-        , name: this.formGroup.controls["endCityControl"].value,
-      },
+      startCity: this.formGroup.controls["startCityControl"].value,
+
+      arrivalCity: this.formGroup.controls["endCityControl"].value,
+
       nature: this.formGroup.controls["natureControl"].value,
       collaborator: this.mission.collaborator,
       expenses: this.mission.expenses
