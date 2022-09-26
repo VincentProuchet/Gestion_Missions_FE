@@ -43,7 +43,7 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
           <div class="col-sm-6">
-            <select formControlName="natureControl" class="form-select" id="nature">
+            <select formControlName="natureControl" class="form-select" id="nature" [compareWith]="compareById">
               <option *ngFor="let nature of natures" [ngValue]="nature">
                 <!--ngfor-->{{nature.description}}
               </option>
@@ -62,8 +62,8 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="startCity" class="col-sm-6 col-form-label text-right">Ville de départ</label>
           <div class="col-sm-6">
-            <select formControlName="startCityControl" class="form-select" id="startCity">
-              <option *ngFor="let city of cities" [value]="city">
+            <select formControlName="startCityControl" class="form-select" id="startCity" [compareWith]="compareById">
+              <option *ngFor="let city of cities" [ngValue]="city">
                 <!--ngfor-->{{city.name}}
               </option>
             </select>
@@ -84,8 +84,8 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="endCity" class="col-sm-6 col-form-label text-right">Ville d'arrivée</label>
           <div class="col-sm-6">
-            <select formControlName="endCityControl" class="form-select" id="endCity">
-              <option *ngFor="let city of cities" [value]="city">
+            <select formControlName="endCityControl" class="form-select" id="endCity" [compareWith]="compareById">
+              <option *ngFor="let city of cities" [ngValue]="city">
                 <!--ngfor-->{{city.name}}
               </option>
             </select>

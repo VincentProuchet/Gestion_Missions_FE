@@ -158,4 +158,8 @@ export class UpdateMissionComponent implements OnInit {
     });
   }
 
+  compareById(itemOne: any, itemTwo: any) {
+    return itemOne && itemTwo && itemOne.id == itemTwo.id;
+  }
+
 }
