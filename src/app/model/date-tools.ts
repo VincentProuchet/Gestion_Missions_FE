@@ -7,6 +7,7 @@ contient les outils pour les dates
 export class DateTools {
   private datePipe: DatePipe = new DatePipe(AP_Vars.dateLocale);
   private dateFormat: string = AP_Vars.dateFormat;
+  private formatForDateInputs: string = "yyyy-MM-dd";
 
   /**
    * formate la date passée en paramète
@@ -31,7 +32,7 @@ export class DateTools {
    */
   inputFormat(date: Date | null): String {
     if (date != null) {
-      return formatDate(date, "yyyy-MM-dd", AP_Vars.dateLocale);
+      return formatDate(date, this.formatForDateInputs, AP_Vars.dateLocale);
     }
     return '';
   }

@@ -42,9 +42,10 @@ I'm not a fan of those kind of surprises
  */
 export const AP_Vars = {
 
+  /** proxy BE connection parameter */
   BEConnectionUrl: API_Url.CORS_SafetyUrl,
-  baseUrl: `http://localhost:8080`,
   dateLocale: 'fr-FR',
+  /** format for dipslayed date for humans */
   dateFormat: "YYYY MMM dd",
 
 
