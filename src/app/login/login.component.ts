@@ -1,9 +1,9 @@
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as Notiflix from 'notiflix';
 import { AP_Vars } from 'src/environments/API_Vars';
+import { Collaborator } from '../model/collaborator';
 import { LoginCredentials } from '../model/login-credentials';
 import { AuthenticationService } from '../service/authentication.service';
 import { CollaboratorService } from '../service/collaborator.service';
@@ -29,9 +29,8 @@ export class LoginComponent implements OnInit {
     rememberMeCheckbox: [true]
   });
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private authenticationService: AuthenticationService,
+  constructor(private router: Router, private formBuilder: FormBuilder, private srvAuth: AuthenticationService,
     private srvCollab: CollaboratorService) {
-    this.loginForm
   }
 
   ngOnInit(): void {
@@ -47,15 +46,16 @@ export class LoginComponent implements OnInit {
     }
     let loginCred = this.collectForm();
     let loginAttempt: boolean;
-    this.authenticationService.loginfromdb(loginCred).subscribe(
+    this.srvAuth.loginfromdb(loginCred).subscribe(
       {
-        next: (data) => {
+        next: (pata) => {
           console.log("server said yes");
+          console.log(pata);
+
           this.srvCollab.getConnectedUser().subscribe(
             {
-              next: (data) => {
-                console.log("got user");
-                sessionStorage.setItem(this.loginCookieName, JSON.stringify(data));
+              next: (data: Collaborator) => {
+                this.srvAuth.setUser(data);
               }
               ,
               error: (e: HttpErrorResponse) => {
@@ -69,22 +69,6 @@ export class LoginComponent implements OnInit {
           this.error = e.error;
           //Notiflix.Notify.failure(e.error); // unecessary
           console.log(e);
-
-          this.srvCollab.getConnectedUser().subscribe(
-            {
-              next: (data) => {
-                console.log(data);
-                localStorage.setItem(this.loginCookieName, JSON.stringify(data));
-                window.location.reload();
-              }
-              ,
-              error: (e: HttpErrorResponse) => {
-                console.log(e);
-
-
-              }
-            }
-          );
         }
       }
     );
@@ -108,5 +92,11 @@ export class LoginComponent implements OnInit {
   dismissError() {
     this.incorrectCredentials = false;
   }
+  onLogout() {
+    console.log("login out asked");
+
+    this.srvAuth.logout();
+  }
+
 
 }

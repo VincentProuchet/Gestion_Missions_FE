@@ -1,7 +1,9 @@
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { JsonPipe } from '@angular/common';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from "ngx-cookie-service";
+import * as Notiflix from 'notiflix';
 
 
 import { map, Observable } from 'rxjs';
@@ -19,10 +21,11 @@ import { CollaboratorService } from './collaborator.service';
 })
 export class AuthenticationService {
 
+  private connectedUser!: Collaborator;
   //TODO: temporary global password
   private PW: string = "pass";
 
-  private STORAGE_KEY: string = "user";
+  private STORAGE_KEY: string = AP_Vars.CookiesNameUser;
 
   constructor(private router: Router, private collaboratorService: CollaboratorService, private http: HttpClient
     , private srvCookies: CookieService
@@ -30,22 +33,9 @@ export class AuthenticationService {
 
   }
 
-  //TODO: Refactoriser une fois connecté au back-end;
-  login(loginCred: LoginCredentials): Observable<boolean> {
-    let collaborator: Collaborator | null;
-    return this.collaboratorService.getCollaboratorByUsername(loginCred.username).pipe(map(
-      (data) => {
-        collaborator = data;
-        if (collaborator !== null && loginCred.password === this.PW) {
-          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(collaborator));
-          return true;
-        }
-        return false;
-      }
-    ));
-  }
   /**
-   * tih method is the one to post formdata to backend
+   * this method make a resquest to a BE
+    it post formdata to backend login page
    * @param loginCred
    * @returns
    */
@@ -55,23 +45,45 @@ export class AuthenticationService {
     loginformParam.append('username', loginCred.username);
     loginformParam.append('password', loginCred.password);
 
-
-
     return this.http.post(`${AP_Vars.BEConnectionUrl}/${API_Route.SIGNIN}`, loginformParam);
-
   }
 
   logout(): void {
+    console.log("auth service logout ");
+    console.log(this.currentUser());
+
     if (this.currentUser()) {
       this.http.post(`${AP_Vars.BEConnectionUrl}/${API_Route.LOGOUT}`, null).subscribe({
-        next: () => { },
-        error: (err) => console.log(err)
+        next: (data) => {
+          console.log('server responded yes');
+          console.log(data);
+          this.srvCookies.delete(AP_Vars.CookiesNameSession);
+          localStorage.removeItem(this.STORAGE_KEY);
+          console.log("cookies deleted");
+          //window.location.reload();
+        },
+        error: (e: HttpErrorResponse) => {
+          console.log('server responded no');
+          console.log(e.error)
+        },
+        complete: () => {
+          console.log("fuck you");
+
+        }
+
       });
-      this.srvCookies.deleteAll();
-      localStorage.removeItem(this.STORAGE_KEY);
-      window.location.reload();
+
+    } else {
+      Notiflix.Notify.failure("No current user");
     }
   }
+  setUser(user: Collaborator): void {
+    console.log(user);
+    console.log(JSON.stringify(user, null, 1));
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user, null, 1));
+    sessionStorage.setItem("pourquoi ça marche pas ?", "parce que t'écrit au mauvais endroit ANDOUILLE !");
+  }
+
 
   currentUser(): Collaborator | null {
     let user: string | null = localStorage.getItem(this.STORAGE_KEY);
