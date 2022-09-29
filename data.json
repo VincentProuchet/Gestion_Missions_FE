@@ -145,6 +145,7 @@
           "cost": 12,
           "TVA": 20,
           "ExpenseType": {
+            "id": 1,
             "name": "Type"
           }
         }
@@ -152,29 +153,127 @@
     },
     {
       "id": 1,
-      "bonus": "",
-      "status": 2,
-      "transport": "Carshare",
-      "start": "2020-08-15",
-      "end": "2023-08-15",
-      "startCity": "Montpellier",
-      "arrivalCity": "Montpellier",
-      "nature": "manutention",
-      "collaborator": null,
-      "expenses": []
+      "bonus": 0,
+      "status": 1,
+      "transport": "Car",
+      "start": "2021-02-04",
+      "end": "2021-04-24",
+      "startCity": {
+        "id": 2,
+        "name": "carcasonne"
+      },
+      "arrivalCity": {
+        "id": 1,
+        "name": "Montpellier"
+      },
+      "nature": {
+        "id": 1,
+        "description": "manutention",
+        "dateOfValidity": "2021-02-04",
+        "endOfValidity": null,
+        "givesBonus": true,
+        "charged": true,
+        "tjm": 280,
+        "bonusPercentage": 10
+      },
+      "collaborateur": {
+        "id": 0,
+        "lastName": "nom",
+        "firstName": "prenom",
+        "username": "username",
+        "email": "email",
+        "roles": [
+          {
+            "id": 1,
+            "label": "ROLE_ADMINISTRATOR"
+          },
+          {
+            "id": 3000,
+            "label": "ROLE_COLLABORATOR"
+          }
+        ],
+        "manager": {
+          "id": 0,
+          "lastName": "nom",
+          "firstName": "prenom",
+          "username": "username",
+          "email": "email"
+        }
+      },
+      "expenses": [
+        {
+          "id": 0,
+          "idMission": 0,
+          "date": "2021-04-21",
+          "cost": 12,
+          "TVA": 20,
+          "ExpenseType": {
+            "name": "Type"
+          }
+        }
+      ]
     },
     {
-      "id": 2,
-      "bonus": "",
-      "status": 3,
+      "id": 0,
+      "bonus": 0,
+      "status": 1,
       "transport": "Car",
-      "start": "2021-08-19",
-      "end": "2022-07-19",
-      "startCity": "Montpellier",
-      "arrivalCity": "Montpellier",
-      "nature": "manutention",
-      "collaborator": null,
-      "expenses": []
+      "start": "2021-02-04",
+      "end": "2021-04-24",
+      "startCity": {
+        "id": null,
+        "name": "Montpellier"
+      },
+      "arrivalCity": {
+        "id": null,
+        "name": "Montpellier"
+      },
+      "nature": {
+        "id": 1,
+        "description": "manutention",
+        "dateOfValidity": "2021-02-04",
+        "endOfValidity": null,
+        "givesBonus": true,
+        "charged": true,
+        "tjm": 280,
+        "bonusPercentage": 10
+      },
+      "collaborateur": {
+        "id": 0,
+        "lastName": "nom",
+        "firstName": "prenom",
+        "username": "username",
+        "email": "email",
+        "roles": [
+          {
+            "id": 1,
+            "label": "ROLE_ADMINISTRATOR"
+          },
+          {
+            "id": 3000,
+            "label": "ROLE_COLLABORATOR"
+          }
+        ],
+        "manager": {
+          "id": 0,
+          "lastName": "nom",
+          "firstName": "prenom",
+          "username": "username",
+          "email": "email"
+        }
+      },
+      "expenses": [
+        {
+          "id": 0,
+          "idMission": 0,
+          "date": "2021-04-21",
+          "cost": 12,
+          "TVA": 20,
+          "ExpenseType": {
+            "name": "Type"
+          }
+        }
+      ]
     }
   ],
   "collaborateur": [

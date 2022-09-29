@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Nature } from 'src/app/model/nature';
 import { NaturesService } from 'src/app/service/natures.service';
 import { CustomValidators } from 'src/app/shared/custom-validators';
+import { Notify } from "notiflix";
 
 @Component({
   selector: 'app-creation-nature',
@@ -12,7 +13,13 @@ import { CustomValidators } from 'src/app/shared/custom-validators';
 })
 export class CreationNatureComponent implements OnInit {
 
-  formGroupNature: FormGroup;
+  formGroupNature: FormGroup = this.formBuilder.group({
+    descriptionControl: ['', [Validators.required, Validators.maxLength(50)]],
+    giveBonusControl: [true],
+    chargedControl: [true],
+    tjmControl: [0, [Validators.required, Validators.min(0)]],
+    bonusControl: [0, [Validators.required, Validators.min(0)]]
+  });
 
   /*
  //icons
@@ -21,29 +28,49 @@ export class CreationNatureComponent implements OnInit {
   faCheck = faCheck
   faTimes = faTimes
   */
-
   constructor(
     private formBuilder: FormBuilder,
     private router: Router, private srvNature: NaturesService
   ) {
-    this.formGroupNature = formBuilder.group({
-      descriptionControl: ['', [Validators.required, Validators.maxLength(50)]],
-      giveBonusControl: [true],
-      chargedControl: [true],
-      tjmControl: [0, [Validators.required, Validators.min(0)]],
-      bonusControl: [0, [Validators.required, Validators.min(0)]]
-    });
-
 
   }
 
   ngOnInit(): void { }
-
+  /**
+   * when submiting a new nature to be created
+   */
   onSubmit(): void {
     if (this.formGroupNature.invalid) {
       return;
     }
-    let nature: Nature = {
+    let nature: Nature = this.collectForm();
+
+    this.srvNature.creationNature(nature).subscribe(
+      {
+        next: () => { this.router.navigate(['/gestionDesNatures']) }
+        ,
+        error: (err) => {
+          Notify.failure(err);
+          console.log(err);
+        }
+      });
+
+  }
+  /**
+   * when canceling new nature creation
+   */
+  onCancel(): void {
+    //register the new mission, if valid
+    this.router.navigate(['/gestionDesNatures']);
+  }
+  /**
+   * collect data of the formular
+   *  and give it back in a convenient
+   *   Nature object
+   * @returns  Nature
+   */
+  collectForm(): Nature {
+    return {
       id: null,
       description: this.formGroupNature.controls["descriptionControl"].value,
       dateOfValidity: new Date(),
@@ -53,21 +80,6 @@ export class CreationNatureComponent implements OnInit {
       tjm: this.formGroupNature.controls["tjmControl"].value || 0,
       bonusPercentage: this.formGroupNature.controls["bonusControl"].value || 0,
     };
-
-    this.srvNature.creationNature(nature).subscribe(
-      {
-        next: () => { this.router.navigate(['/gestionDesNatures']) }
-        ,
-        error: (err) => {
-          console.log(err);
-        }
-      });
-
-  }
-
-  onCancel(): void {
-    //register the new mission, if valid
-    this.router.navigate(['/gestionDesNatures']);
   }
 
 

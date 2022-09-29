@@ -1,6 +1,9 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as Notiflix from 'notiflix';
+import { AP_Vars } from 'src/environments/API_Vars';
 import { LoginCredentials } from '../model/login-credentials';
 import { AuthenticationService } from '../service/authentication.service';
 import { CollaboratorService } from '../service/collaborator.service';
@@ -10,56 +13,28 @@ import { CollaboratorService } from '../service/collaborator.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+/**
+Our magnificent login page
+*/
 export class LoginComponent implements OnInit {
-
+  /** if an error as occured  */
+  error !: String
   incorrectCredentials: boolean = false;
-
-  loginForm: FormGroup;
+  /** for setting user data cookies */
+  loginCookieName: string = AP_Vars.CookiesNameUser;
+  /** form controls */
+  loginForm: FormGroup = this.formBuilder.group({
+    usernameControl: ['', [Validators.required]],
+    passwordControl: ['', [Validators.required]],
+    rememberMeCheckbox: [true]
+  });
 
   constructor(private router: Router, private formBuilder: FormBuilder, private authenticationService: AuthenticationService,
     private srvCollab: CollaboratorService) {
-    this.loginForm = formBuilder.group({
-      usernameControl: ['', [Validators.required]],
-      passwordControl: ['', [Validators.required]],
-      rememberMeCheckbox: [true]
-    });
+    this.loginForm
   }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem("loginerr")) {
-      this.incorrectCredentials = true;
-    }
-    if (sessionStorage.getItem("username")) {
-      this.loginForm.controls['usernameControl'].setValue(sessionStorage.getItem("username"));
-    }
-    sessionStorage.removeItem("loginerr");
-    sessionStorage.removeItem("username");
-  }
-
-  onSubmit(): void {
-    if (this.loginForm.invalid) {
-      return;
-    }
-    let loginCred: LoginCredentials = {
-      "username": this.loginForm.controls['usernameControl'].value,
-      "password": this.loginForm.controls['passwordControl'].value
-    };
-    let loginAttempt: boolean;
-    this.authenticationService.login(loginCred).subscribe({
-      next: (data) => {
-        console.log("data received");
-        console.log(data);
-        loginAttempt = data;
-        if (loginAttempt) {
-          window.location.reload();
-        } else {
-          sessionStorage.setItem("loginerr", "incorrect");
-          sessionStorage.setItem("username", this.loginForm.controls['usernameControl'].value);
-          window.location.reload();
-        }
-      },
-      error: (err) => console.log(err)
-    });
   }
   /**
    * method for connecting the loginform to backEnd
@@ -67,67 +42,71 @@ export class LoginComponent implements OnInit {
    * @returns void
    */
   onSubmitToBE(): void {
-    console.log("onsubmittoBE");
     if (this.loginForm.invalid) {
       return;
     }
-    let loginCred: LoginCredentials = {
-      "username": this.loginForm.controls['usernameControl'].value,
-      "password": this.loginForm.controls['passwordControl'].value
-    };
+    let loginCred = this.collectForm();
     let loginAttempt: boolean;
     this.authenticationService.loginfromdb(loginCred).subscribe(
       {
-        next: () => {
-          console.log("server responded");
-
+        next: (data) => {
+          console.log("server said yes");
           this.srvCollab.getConnectedUser().subscribe(
             {
               next: (data) => {
-                console.log("asking user");
-
-                sessionStorage.setItem("user", JSON.stringify(data));
+                console.log("got user");
+                sessionStorage.setItem(this.loginCookieName, JSON.stringify(data));
               }
               ,
-              error: () => {
-                console.log("no user");
+              error: (e: HttpErrorResponse) => {
+                console.log(e);
               }
             }
           );
         }
-        , error: (error) => {
-          console.log("error");
+        , error: (e: HttpErrorResponse) => {
+          this.incorrectCredentials = true;
+          this.error = e.error;
+          //Notiflix.Notify.failure(e.error); // unecessary
+          console.log(e);
+
           this.srvCollab.getConnectedUser().subscribe(
             {
               next: (data) => {
-                console.log("asking user");
                 console.log(data);
-
-                localStorage.setItem("user", JSON.stringify(data));
+                localStorage.setItem(this.loginCookieName, JSON.stringify(data));
                 window.location.reload();
               }
               ,
-              error: () => {
-                console.log("no user");
-                sessionStorage.setItem("loginerr", "incorrect");
-                sessionStorage.setItem("username", this.loginForm.controls['usernameControl'].value);
-                window.location.reload();
+              error: (e: HttpErrorResponse) => {
+                console.log(e);
+
+
               }
             }
           );
-
-          /*sessionStorage.setItem("loginerr", "incorrect");
-          sessionStorage.setItem("username", this.loginForm.controls['usernameControl'].value);
-          window.location.reload();*/
         }
       }
     );
   }
-
   inputIsInvalid(inputName: string) {
     let isTouched: boolean = this.loginForm.controls[inputName].invalid && (this.loginForm.controls[inputName].dirty || this.loginForm.controls[inputName].touched);
     let required: boolean = this.loginForm.controls[inputName].errors?.['required'];
     return isTouched && required;
+  }
+  /**
+   * get all datas form the form
+  and give them back in a convenient loginCredential form
+   * @returns LoginCredential
+   */
+  collectForm(): LoginCredentials {
+    return {
+      "username": this.loginForm.controls['usernameControl'].value,
+      "password": this.loginForm.controls['passwordControl'].value
+    };
+  }
+  dismissError() {
+    this.incorrectCredentials = false;
   }
 
 }

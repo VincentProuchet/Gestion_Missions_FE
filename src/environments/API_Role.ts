@@ -9,7 +9,7 @@
 *  is NOT a thing I fancy
 *  but a TRUE REQUIREMENT for the
 *  spring security to recognize the GrantedAuthorities
-*  the guy who designed that instead of a simple string comparison needs
+*  the guy who designed that instead of a simple string comparison
 *  should be publicly ashamed for is lack of common sense
 * @author Vincent
 */

@@ -44,9 +44,26 @@ export const AP_Vars = {
 
   /** proxy BE connection parameter */
   BEConnectionUrl: API_Url.CORS_SafetyUrl,
+  /** locale value
+  used for converting date formats
+   */
   dateLocale: 'fr-FR',
   /** format for dipslayed date for humans */
   dateFormat: "YYYY MMM dd",
+  /** cookie where we store user datas
+    used for access
+    and completing object on request
+    they are purely UI/UX
+    since all app security is handled on back-end
+    make sure its 'cookieName'
+  */
+  CookiesNameUser: 'user',
+  /**
+    this is where spring place its session info
+    we can erase it for loginOut
+   */
+  CookiesNameSession: 'JSESSIONID',
+
 
 
 }

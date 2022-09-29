@@ -9,7 +9,7 @@ import { Nature } from '../model/nature';
 import { MissionsService } from '../service/missions.service';
 import { NaturesService } from '../service/natures.service';
 import { TransportService } from '../service/transport.service';
-
+import { Notify } from "notiflix";
 @Component({
   selector: 'app-nature-mission',
   templateUrl: './nature-mission.component.html',
@@ -24,18 +24,6 @@ export class NatureMissionComponent implements OnInit {
   private dateFormat: string = AP_Vars.dateFormat;
 
   constructor(private srvNature: NaturesService, private router: Router) {
-    /*this.natures = [
-      {
-        id: 0,
-        description: 'une Nature',
-        dateOfValidity: new Date(Date.now()),
-        endOfValidity: null,
-        bonusPercentage: 2,
-        givesBonus: true,
-        charged: true,
-        tjm: 250,
-      },
-    ];*/
   }
 
   ngOnInit(): void {
@@ -50,32 +38,30 @@ export class NatureMissionComponent implements OnInit {
         this.natures = data;
       },
       error: (err) => {
+        Notify.failure(err);
         console.log(err);
       },
     });
   }
-
+  /**
+   * Remove event for deleting nature
+   * @param nature
+   */
   remove(nature: Nature): void {
     this.natures = this.natures.filter((n: Nature) => n !== nature);
   }
-
+  /**
+   * rerouting to creation-nature formular
+   */
   onCreateNature() {
     this.router.navigate(['ajouteNatures']);
   }
+  /**
+   * rerouting for modifying-nature formular
+   * @param id
+   */
   onModifierNature(id: number | null) {
     this.router.navigate(['modifierNatures', id]);
   }
-  /**
-   * Met en forme les dates
-  pour une meilleure lecture dans les pages
-   * @param date
-   * @returns
-   */
-  dateFormatted(date: Date | null) {
-    if (date != null) {
-      return this.datePipe.transform(date, this.dateFormat);
-    }
 
-    return '';
-  }
 }

@@ -1,18 +1,16 @@
-<div class="container-fluid py-5 h-100">
+<div class="container-fluid ">
   <div *ngIf="incorrectCredentials" class="alert alert-danger alert-dismissible row d-flex">
     Nom d'utilisateur ou mot de passe incorrect.
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <button type="button" class="btn-close" (click)="dismissError()" aria-label="Close"></button>
   </div>
   <div class="row no-gutter">
-    <!-- image -->
-    <div class="col-md-7 d-none d-md-flex bg-image"></div>
     <!-- content  -->
-    <div class="col-md bg-light">
+    <div class="bg-light">
       <div class="login d-flex align-items-center py-4">
         <!-- Demo content-->
-        <div class="container">
+        <div class="container p-3">
           <div class="row">
-            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+            <div class="col-8 offset-xl-1">
               <h2 class="display-4">GDM</h2>
               <h4 class="text-muted mb-4">Gestion des missions</h4>
               <form (ngSubmit)="onSubmitToBE()" [formGroup]="loginForm">
