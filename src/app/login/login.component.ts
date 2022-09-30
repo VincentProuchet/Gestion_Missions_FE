@@ -48,26 +48,13 @@ export class LoginComponent implements OnInit {
     let loginAttempt: boolean;
     this.srvAuth.loginfromdb(loginCred).subscribe(
       {
-        next: (pata) => {
-          console.log("server said yes");
-          console.log(pata);
-
-          this.srvCollab.getConnectedUser().subscribe(
-            {
-              next: (data: Collaborator) => {
-                this.srvAuth.setUser(data);
-              }
-              ,
-              error: (e: HttpErrorResponse) => {
-                console.log(e);
-              }
-            }
-          );
+        next: (pata: Collaborator) => {
+          this.srvAuth.setUser(pata);
+          window.location.reload();
         }
         , error: (e: HttpErrorResponse) => {
           this.incorrectCredentials = true;
           this.error = e.error;
-          //Notiflix.Notify.failure(e.error); // unecessary
           console.log(e);
         }
       }
@@ -93,8 +80,6 @@ export class LoginComponent implements OnInit {
     this.incorrectCredentials = false;
   }
   onLogout() {
-    console.log("login out asked");
-
     this.srvAuth.logout();
   }
 
