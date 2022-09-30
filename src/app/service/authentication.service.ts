@@ -96,12 +96,13 @@ in session and local storage
   }
   /**
    * will look in local storage for a Collaborator type cookie
-   * @returns
+   * @returns nul if the current user doesn't exist
    */
   currentUser(): Collaborator | null {
     let user: string | null = localStorage.getItem(this.STORAGE_KEY);
     return user ? JSON.parse(user) : null;
   }
+
   /**
    * will give out roles of the user in localStorage
    * @param role

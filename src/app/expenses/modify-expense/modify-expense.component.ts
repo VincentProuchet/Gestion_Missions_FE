@@ -8,12 +8,20 @@ import { ExpensesService } from 'src/app/service/expenses.service';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 import { formatDate } from '@angular/common';
 import { AP_Vars } from 'src/environments/API_Vars';
+import * as Notiflix from 'notiflix';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-modify-expense',
   templateUrl: './modify-expense.component.html',
   styleUrls: ['./modify-expense.component.css']
 })
+/**
+its consisting  of a button to make the action
+and a modal containing a confirmation box
+that appears
+
+*/
 export class ModifyExpenseComponent implements OnInit {
 
   formGroup!: FormGroup;
@@ -30,17 +38,23 @@ export class ModifyExpenseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.formGroup = this.formBuilder.group({
       dateControl: [this.dates.inputFormat(this.expenseToModify.date), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
       typeControl: ["", Validators.required],
       costControl: [this.expenseToModify.cost, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
       tvaControl: [this.expenseToModify.tva, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
     });
-
-    this.expensesService.getExpenseTypes().subscribe(types => {
-      this.types = types;
-      this.formGroup.controls["typeControl"].setValue(this.expenseToModify.type);
-    });
+    // fill in of Expenses type
+    this.expensesService.getExpenseTypes().subscribe(
+      {
+        next: (types: ExpenseType[]) => {
+          this.types = types;
+          this.formGroup.controls["typeControl"].setValue(this.expenseToModify.type);
+        }
+        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
+      }
+    );
   }
 
   onUpdate() {
@@ -48,9 +62,14 @@ export class ModifyExpenseComponent implements OnInit {
       return;
     }
     this.expensesService.updateExpense(this.collectForm()).subscribe(
-      (expense) => {
-        this.onUpdateEvt.emit(expense);
-      });
+      {
+        next: (data: Expense) => {
+          this.onUpdateEvt.emit(data);
+          Notiflix.Notify.info(`le frais du ${this.dates.format(data.date)} est modifié `);
+        }
+        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
+      }
+    );
 
   }
 
@@ -67,7 +86,9 @@ export class ModifyExpenseComponent implements OnInit {
   getTVA() {
     return this.formGroup.controls['tvaControl'];
   }
-
+  /**
+   * reset form with original data
+   */
   resetForm() {
     this.formGroup.setValue(
       {
@@ -78,7 +99,9 @@ export class ModifyExpenseComponent implements OnInit {
       }
     );
   }
-  /** return all of the fomgroup data collected as an Expense */
+  /**
+    return all of the fomgroup data collected as an Expense
+   */
   collectForm(): Expense {
     return {
       id: this.expenseToModify.id,
@@ -89,7 +112,13 @@ export class ModifyExpenseComponent implements OnInit {
       type: this.formGroup.controls['typeControl'].value
     }
   }
-
+  /**
+   * compare two items by their id
+  may be refactored to a static tools box class
+   * @param itemOne
+   * @param itemTwo
+   * @returns itemOne instance coresponding to the itemTwo.id
+   */
   compareById(itemOne: any, itemTwo: any) {
     return itemOne && itemTwo && itemOne.id == itemTwo.id;
   }

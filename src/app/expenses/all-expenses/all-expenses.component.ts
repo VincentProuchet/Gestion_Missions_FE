@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as Notiflix from 'notiflix';
 import { DateTools } from 'src/app/model/date-tools';
 import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
@@ -32,7 +33,7 @@ export class AllExpensesComponent implements OnInit {
     //this.router.navigate(['mission/new']);
     localStorage.setItem("mission", mission.toString());
     console.log(mission.id);
-    console.log("saved to storage");
+    Notiflix.Notify.success("saved to storage");
 
   }
 

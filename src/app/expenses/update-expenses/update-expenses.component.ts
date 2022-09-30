@@ -1,6 +1,8 @@
 import { formatDate } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as Notiflix from 'notiflix';
 import { DateTools } from 'src/app/model/date-tools';
 import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
@@ -12,40 +14,86 @@ import { MissionsService } from 'src/app/service/missions.service';
   templateUrl: './update-expenses.component.html',
   styleUrls: ['./update-expenses.component.css']
 })
+/**
+  Component for updating Expenses
+ */
 export class UpdateExpensesComponent implements OnInit {
-
+  /**
+    mission to modify expenses
+   */
   mission!: Mission;
+  /**
+    list of existing expenses
+   */
   expenses!: Expense[];
+  /**
+      tools for formating dates
+      needed by the template
+ */
   dates: DateTools = new DateTools();
 
   constructor(private route: ActivatedRoute, private router: Router, private expensesService: ExpensesService, private missionsService: MissionsService) { }
-
+  /**
+   * component initialisation
+   */
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe(
+      {// we get the param
+        next: (params) => {
+          const missionID = params["id"];//get the mission with given id
+          this.missionsService.getMission(missionID).subscribe(
+            {// we get the mission
+              next: (data: Mission) => {
+                this.mission = data;
+                // we get the expenses of the mission
+                this.expensesService.getMissionExpenses(missionID).subscribe(
+                  {
+                    next: (expenses: Expense[]) => { this.expenses = expenses; }
+                    , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
+                  });
+              },
+              error: (e: HttpErrorResponse) => {
+                Notiflix.Notify.failure(e.error);
+              }
+            });
+        },
+        error: (e: HttpErrorResponse) => {
+          Notiflix.Notify.failure(e.error);
+        }
+      }
 
-      const missionID = params["id"];
-      this.missionsService.getMission(missionID).subscribe(data => {
-        this.mission = data;
-      });
-      this.expensesService.getMissionExpenses(missionID).subscribe(expenses => this.expenses = expenses);
-    })//get the mission with given id
+    )
 
 
 
   }
-
+  /**
+   * Creating a new expense
+  this is a local expense list update
+   * @param expense
+   */
   onCreate(expense: Expense) {
     this.expenses.push(expense);
   }
-
+  /**
+   * updating an existing expense
+    this is a local expense list update
+   * @param expense
+   */
   onUpdate(expense: Expense) {
     let idx: number = this.expenses.indexOf(this.expenses.filter((exp) => exp.id === expense.id)[0]);
     this.expenses[idx] = expense;
   }
 
+  /**
+   * deleting an expense
+  this is a local expense list update
+   * @param expense
+   */
   onDelete(expense: Expense) {
     this.expenses = this.expenses.filter((exp) => exp !== expense);
   }
 
 
 }
+;

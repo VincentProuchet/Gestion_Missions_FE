@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import * as Notiflix from 'notiflix';
 import { DateTools } from 'src/app/model/date-tools';
 import { Expense } from 'src/app/model/expense';
 import { ExpensesService } from 'src/app/service/expenses.service';
@@ -9,26 +11,35 @@ import { ExpensesService } from 'src/app/service/expenses.service';
   templateUrl: './remove-expense.component.html',
   styleUrls: ['./remove-expense.component.css']
 })
+/**
+Remove Expense Componet
+its consisting  of a button to make the action
+and a modal containing a confirmation box
+that appears
+ */
 export class RemoveExpenseComponent implements OnInit {
 
   @Input() expenseToRemove !: Expense;
   @Output() onDeleteEvt: EventEmitter<Expense> = new EventEmitter();
-
-  dates: DateTools;
+  /** DateTool used by the template */
+  dates: DateTools = new DateTools();
 
   constructor(private expensesService: ExpensesService, private router: Router) {
-    this.dates = new DateTools();
   }
 
   ngOnInit(): void {
-    //this.expensesService.getExpense(this.dataExpenseToRemove).subscribe(expense => this.expenseToRemove = expense);
-
   }
-
+  /**
+   * action on deletion confirmation
+   */
   onRemovalConfirmed() {
     this.expensesService.removeExpense(this.expenseToRemove).subscribe(
-      () => {
-        this.onDeleteEvt.emit(this.expenseToRemove);
+      {
+        next: (data: Expense) => {
+          this.onDeleteEvt.emit(this.expenseToRemove);
+          Notiflix.Notify.info(`Expense of type ${data.type.name}  on ${this.dates.format(data.date)} removed`);
+        }
+        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
       }
     );
   }

@@ -43,14 +43,14 @@ export class CreateExpenseComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      dateControl: ['', [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
+      dateControl: [this.dates.inputFormat(this.mission.start), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
       typeControl: ['', Validators.required],
+      tvaControl: [5, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
       costControl: [0, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
-      tvaControl: [0, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
     });
   }
   /**
-   * on Submit of form
+   * on Submit of form to the service
    * @returns
    */
   onCreate() {
@@ -59,12 +59,11 @@ export class CreateExpenseComponent implements OnInit {
       return;
     }
     let newExpense = this.collectForm();
-    console.log(newExpense);
-
     this.expensesService.addExpense(newExpense).subscribe(
       {
         next: (expense) => {
           this.onCreateEvt.emit(expense);
+          Notiflix.Notify.success("frais ajouté avec succés ");
           this.formGroup.reset();
         },
         error: (e: HttpErrorResponse) => {
