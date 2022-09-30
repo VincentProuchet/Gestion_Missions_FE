@@ -18,8 +18,9 @@ and a modal containing a confirmation box
 that appears
  */
 export class RemoveExpenseComponent implements OnInit {
-
+  /** expense to remove  */
   @Input() expenseToRemove !: Expense;
+  /** event to emit */
   @Output() onDeleteEvt: EventEmitter<Expense> = new EventEmitter();
   /** DateTool used by the template */
   dates: DateTools = new DateTools();
@@ -36,8 +37,8 @@ export class RemoveExpenseComponent implements OnInit {
     this.expensesService.removeExpense(this.expenseToRemove).subscribe(
       {
         next: (data: Expense) => {
-          this.onDeleteEvt.emit(this.expenseToRemove);
           Notiflix.Notify.info(`Expense of type ${data.type.name}  on ${this.dates.format(data.date)} removed`);
+          this.onDeleteEvt.emit(this.expenseToRemove);
         }
         , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
       }

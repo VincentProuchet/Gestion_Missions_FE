@@ -16,6 +16,8 @@ import { MissionsService } from 'src/app/service/missions.service';
 })
 /**
   Component for updating Expenses
+  this is the main expense component
+  it contains all expenses of a mission
  */
 export class UpdateExpensesComponent implements OnInit {
   /**

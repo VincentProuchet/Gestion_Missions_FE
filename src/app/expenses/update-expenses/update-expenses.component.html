@@ -1,7 +1,7 @@
 <div class="container mt-4 mb-3 row">
   <div class="row justify-content-between">
     <h1>Saisie des notes de frais</h1>
-    <div class="col-sm-7">
+    <div class="col-sm-12 col-md-6 col-lg-6">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -9,19 +9,20 @@
             <th scope="col">Nature</th>
             <th scope="col">Montant</th>
             <th scope="col">TVA</th>
-            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let expenseLine of expenses; let index = index">
+          <tr *ngFor="let expenseLine of expenses; let index = index ">
             <td>{{dates.format(expenseLine.date)}}</td>
             <td>{{expenseLine.type.name}}</td>
-            <td>{{expenseLine.cost}}</td>
-            <td>{{expenseLine.tva}}</td>
-            <td class="d-flex gap-2">
-              <app-modify-expense [expenseToModify]="expenseLine" [mission]="mission" (onUpdateEvt)="onUpdate($event)">
+            <td>{{expenseLine.cost}} €</td>
+            <td>{{expenseLine.tva}} %</td>
+            <td class="d-flex btn-toolbar">
+              <app-modify-expense class="row col-12" [expenseToModify]="expenseLine" [mission]="mission"
+                (onUpdateEvt)="onUpdate($event)">
               </app-modify-expense>
-              <app-remove-expense [expenseToRemove]="expenseLine" (onDeleteEvt)="onDelete($event)"></app-remove-expense>
+              <app-remove-expense class="row col-12" [expenseToRemove]="expenseLine" (onDeleteEvt)="onDelete($event)">
+              </app-remove-expense>
             </td>
           </tr>
         </tbody>
@@ -30,7 +31,7 @@
         <app-create-expense [mission]="mission" (onCreateEvt)="onCreate($event)"></app-create-expense>
       </ng-container>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-12 col-md-4 col-lg-5">
       <p class="h4">Mission actuelle :</p>
       <ul class="list-group row justify-content-around">
         <li class="list-group-item row d-flex align-self-end">
