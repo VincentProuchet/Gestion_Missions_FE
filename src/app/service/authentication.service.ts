@@ -59,13 +59,18 @@ export class AuthenticationService {
     if (this.currentUser()) {
       this.http.post(`${AP_Vars.BEConnectionUrl}/${API_Route.LOGOUT}`, null).subscribe({
         next: (data) => {
-          this.deleteUser();
-          window.location.reload();
           Notiflix.Notify.success("logged out");
         },
         error: (e: HttpErrorResponse) => {
+          this.deleteUser();
           Notiflix.Notify.failure(e.error);
           console.log(e.error)
+          window.location.reload();
+        },
+        complete: () => {
+          this.deleteUser();
+          window.location.reload();
+
         }
       });
 
@@ -90,6 +95,7 @@ in session and local storage
    */
   deleteUser(): void {
     this.srvCookies.delete(AP_Vars.CookiesNameSession);
+    sessionStorage.removeItem(AP_Vars.CookiesNameSession);
     localStorage.removeItem(this.STORAGE_KEY);
     this.connectedUser = null;
 

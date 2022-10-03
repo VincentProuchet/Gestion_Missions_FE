@@ -1,42 +1,49 @@
 <app-auth-mask [cond]="user !== null">
-  <nav class="navbar navbar-expand-sm bg-light">
+  <nav class="navbar navbar-expand-md bg-light">
     <div class="container-fluid">
-      <ul class="navbar-nav">
-        <app-auth-mask [cond]="user === null">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="navbar-nav">
+          <app-auth-mask [cond]="user === null">
+            <li class="nav-item">
+              <a routerLink="login" class="nav-link" routerLinkActive="active">
+                Login
+              </a>
+            </li>
+          </app-auth-mask>
           <li class="nav-item">
-            <a routerLink="login" class="nav-link" routerLinkActive="active">
-              Login
+            <a routerLink="gestionMission" class="nav-link" routerLinkActive="active">
+              Gestion des missions
             </a>
           </li>
-        </app-auth-mask>
-        <li class="nav-item">
-          <a routerLink="gestionMission" class="nav-link" routerLinkActive="active">
-            Gestion des missions
-          </a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="saisieFrais" class="nav-link" routerLinkActive="active">
-            Saisie des Frais
-          </a>
-        </li>
-        <app-auth-mask [cond]="userHasRole(ROLES.MANAGER)">
           <li class="nav-item">
-            <a routerLink="validationMission" class="nav-link" routerLinkActive="active">
-              Validations des Missions
+            <a routerLink="saisieFrais" class="nav-link" routerLinkActive="active">
+              Saisie des Frais
             </a>
           </li>
-        </app-auth-mask>
-        <app-auth-mask [cond]="userHasRole(ROLES.ADMINISTRATOR)">
-          <li class="nav-item">
-            <a routerLink="gestionDesNatures" class="nav-link" routerLinkActive="active">
-              Nature de missions
-            </a>
-          </li>
-        </app-auth-mask>
-      </ul>
+          <app-auth-mask [cond]="userHasRole(ROLES.MANAGER)">
+            <li class="nav-item">
+              <a routerLink="validationMission" class="nav-link" routerLinkActive="active">
+                Validations des Missions
+              </a>
+            </li>
+          </app-auth-mask>
+          <app-auth-mask [cond]="userHasRole(ROLES.ADMINISTRATOR)">
+            <li class="nav-item">
+              <a routerLink="gestionDesNatures" class="nav-link" routerLinkActive="active">
+                Nature de missions
+              </a>
+            </li>
+          </app-auth-mask>
+        </ul>
+      </div>
       <div *ngIf="user">
         <div class="d-flex gap-3">
-          <div class="d-flex align-self-center">
+          <div class=" align-self-center">
             <span class="fw-bold">
               <fa-icon icon="user-circle"></fa-icon>
               Bienvenue, {{user.firstName}} !
