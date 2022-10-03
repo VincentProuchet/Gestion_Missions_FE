@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="row">
-    <table class="table table-striped">
+    <table class="table table-striped ">
       <thead>
         <tr>
           <th scope="col">Date de début</th>
@@ -31,13 +31,15 @@
           <td>{{ mission.arrivalCity.name }}</td>
           <td>{{ getTransportValue(mission.transport) }}</td>
           <td>{{ mission.status }}</td>
-          <td class="d-flex gap-2">
-            <a *ngIf="mission.status  == statusEnum.INIT || true " (click)="onEdit(mission)"
+          <td class="d-grid gap-1">
+            <a *ngIf="mission.status  == statusEnum.INIT||true " (click)="onEdit(mission)"
               class="btn btn-primary">Modifier</a>
-            <app-remove-mission [missionToDelete]="mission" (onDeleteEvt)="onDelete($event)"></app-remove-mission>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" attr.data-bs-target="{{'#removeModal'}}"
+              (click)="confirmDelete(mission)">Supprimer</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+<app-remove-mission (confirmDeleteEvt)="onDelete($event)" [missionToDelete]="missionToDelete"></app-remove-mission>

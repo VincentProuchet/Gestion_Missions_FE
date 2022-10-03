@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DateTools } from 'src/app/model/date-tools';
 import { Mission } from 'src/app/model/mission';
 import { MissionsService } from 'src/app/service/missions.service';
 
@@ -7,24 +8,34 @@ import { MissionsService } from 'src/app/service/missions.service';
   templateUrl: './remove-mission.component.html',
   styleUrls: ['./remove-mission.component.css']
 })
+/**
+Compposant de suppression d'une mission
+il est un composant subordonnée au
+all-mission component et ne fonctionne que si ce dernier se trouve au dessus de lui
+ */
 export class RemoveMissionComponent implements OnInit {
-
+  /**
+  input venant du composant listant les mission
+  référence à la mission dont la supression est demandée
+   */
   @Input() missionToDelete!: Mission;
+  /** event  de confirmation */
+  @Output() confirmDeleteEvt: EventEmitter<Mission> = new EventEmitter();
+  /** outils de formatage des dates */
+  dates: DateTools = new DateTools();
 
-  @Output() onDeleteEvt: EventEmitter<Mission> = new EventEmitter();
-
-  constructor(private missionService: MissionsService) { }
+  constructor() { }
 
   ngOnInit(): void { }
 
+  /**
+   * action de confirmation
+  emet l'event de confimation
+   */
   onDeleteConfirmed() {
-    this.missionService.deleteMission(this.missionToDelete).subscribe({
-      next: () => {
-        this.onDeleteEvt.emit(this.missionToDelete);
-      },
-      error: (err) => console.log(err)
+    console.log("sending event");
 
-    });
+    this.confirmDeleteEvt.emit(this.missionToDelete);
   }
 
 }
