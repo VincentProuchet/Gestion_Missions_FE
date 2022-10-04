@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import * as Notiflix from 'notiflix';
-import { DateTools } from 'src/app/model/date-tools';
+import { ToolBox } from 'src/app/model/ToolBox';
 import { Mission } from 'src/app/model/mission';
 import { Status } from 'src/app/model/status';
 import { MissionsService } from 'src/app/service/missions.service';
@@ -20,7 +20,7 @@ export class ValidationMissionComponent implements OnInit {
   /** enumeration des status */
   statusEnum: typeof Status = Status;
   /** toolBox */
-  dates: DateTools = new DateTools();
+  dates: ToolBox = new ToolBox();
 
   constructor(private router: Router, private missionService: MissionsService, private transportService: TransportService) { }
 

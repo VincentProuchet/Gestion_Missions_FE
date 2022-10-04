@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { City } from 'src/app/model/city';
-import { DateTools } from 'src/app/model/date-tools';
+import { ToolBox } from 'src/app/model/ToolBox';
 import { Mission } from 'src/app/model/mission';
 import { Nature } from 'src/app/model/nature';
 import { Transport } from 'src/app/model/transport';
@@ -38,7 +38,7 @@ export class UpdateMissionComponent implements OnInit {
   /** mission to update */
   mission!: Mission;
   /** toolbox for date formating */
-  dates: DateTools = new DateTools();
+  date: ToolBox = new ToolBox();
   /** natures list */
   natures: Nature[] = new Array();
   /** cities list  */
@@ -153,8 +153,8 @@ export class UpdateMissionComponent implements OnInit {
       "endCityControl": data.arrivalCity,
       "transportControl": data.transport,
       "bonusEstimeeControl": data.bonus,
-      "startDateControl": this.dates.inputFormat(data.start),
-      "endDateControl": this.dates.inputFormat(data.end),
+      "startDateControl": this.date.inputFormat(data.start),
+      "endDateControl": this.date.inputFormat(data.end),
     });
   }
 

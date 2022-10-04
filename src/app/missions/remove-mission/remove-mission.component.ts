@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DateTools } from 'src/app/model/date-tools';
+import { ToolBox } from 'src/app/model/ToolBox';
 import { Mission } from 'src/app/model/mission';
 import { MissionsService } from 'src/app/service/missions.service';
 
@@ -22,7 +22,7 @@ export class RemoveMissionComponent implements OnInit {
   /** event  de confirmation */
   @Output() confirmDeleteEvt: EventEmitter<Mission> = new EventEmitter();
   /** outils de formatage des dates */
-  dates: DateTools = new DateTools();
+  dates: ToolBox = new ToolBox();
 
   constructor() { }
 

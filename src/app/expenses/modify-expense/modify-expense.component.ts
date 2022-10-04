@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DateTools } from 'src/app/model/date-tools';
+
 import { Expense } from 'src/app/model/expense';
 import { ExpenseType } from 'src/app/model/expense-type';
 import { Mission } from 'src/app/model/mission';
@@ -10,6 +10,7 @@ import { formatDate } from '@angular/common';
 import { AP_Vars } from 'src/environments/API_Vars';
 import * as Notiflix from 'notiflix';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToolBox } from 'src/app/model/ToolBox';
 
 @Component({
   selector: 'app-modify-expense',
@@ -25,7 +26,7 @@ that appears
 export class ModifyExpenseComponent implements OnInit {
 
   formGroup!: FormGroup;
-  dates: DateTools = new DateTools();
+  dates: ToolBox = new ToolBox();
 
   @Input() expenseToModify!: Expense;
   @Input() mission !: Mission;

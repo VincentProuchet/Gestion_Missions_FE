@@ -2,8 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
-import { DateTools } from 'src/app/model/date-tools';
+
 import { Expense } from 'src/app/model/expense';
+import { ToolBox } from 'src/app/model/ToolBox';
 import { ExpensesService } from 'src/app/service/expenses.service';
 
 @Component({
@@ -23,7 +24,7 @@ export class RemoveExpenseComponent implements OnInit {
   /** event to emit */
   @Output() onDeleteEvt: EventEmitter<Expense> = new EventEmitter();
   /** DateTool used by the template */
-  dates: DateTools = new DateTools();
+  dates: ToolBox = new ToolBox();
 
   constructor(private expensesService: ExpensesService, private router: Router) {
   }

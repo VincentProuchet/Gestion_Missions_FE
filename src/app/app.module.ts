@@ -18,6 +18,7 @@ import { TransportService } from './service/transport.service';
 import { ExpensesModule } from './expenses/expenses.module';
 import { AuthMaskComponent } from './shared/auth-mask/auth-mask.component';
 import { CookieService } from 'ngx-cookie-service';
+import { ConfirmActionComponent } from './missions/validation-mission/confirm-action/confirm-action.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { CookieService } from 'ngx-cookie-service';
     AppComponent,
     LoginComponent,
     AuthMaskComponent,
+    ConfirmActionComponent,
 
   ],
   imports: [

@@ -2,9 +2,10 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
-import { DateTools } from 'src/app/model/date-tools';
+
 import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
+import { ToolBox } from 'src/app/model/ToolBox';
 import { MissionsService } from 'src/app/service/missions.service';
 import { TransportService } from 'src/app/service/transport.service';
 
@@ -16,7 +17,7 @@ import { TransportService } from 'src/app/service/transport.service';
 export class AllExpensesComponent implements OnInit {
 
   missions: Array<Mission> = [];
-  dates: DateTools = new DateTools();
+  dates: ToolBox = new ToolBox();
   constructor(private router: Router, private missionService: MissionsService, private transportService: TransportService) {
 
   }

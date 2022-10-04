@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AP_Vars } from 'src/environments/API_Vars';
 import { environment } from 'src/environments/environment';
-import { DateTools } from '../model/date-tools';
+import { ToolBox } from '../model/ToolBox';
 import { Nature } from '../model/nature';
 import { MissionsService } from '../service/missions.service';
 import { NaturesService } from '../service/natures.service';
@@ -26,7 +26,7 @@ export class NatureMissionComponent implements OnInit {
   //public creationform: ReactiveFormsModule;
   public natures: Nature[] = new Array();
   // il nous faut une instance de DateTools pour que le HTML puisse s'en servir
-  public dates: DateTools = new DateTools();
+  dates: ToolBox = new ToolBox();
   /** referenc to a nature to delete */
   public natureToDelete!: Nature;
 

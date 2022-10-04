@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
-import { DateTools } from 'src/app/model/date-tools';
+import { ToolBox } from 'src/app/model/ToolBox';
 import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
 import { ExpensesService } from 'src/app/service/expenses.service';
@@ -32,7 +32,7 @@ export class UpdateExpensesComponent implements OnInit {
       tools for formating dates
       needed by the template
  */
-  dates: DateTools = new DateTools();
+  dates: ToolBox = new ToolBox();
 
   constructor(private route: ActivatedRoute, private router: Router, private expensesService: ExpensesService, private missionsService: MissionsService) { }
   /**

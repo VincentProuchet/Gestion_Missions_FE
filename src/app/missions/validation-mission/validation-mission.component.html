@@ -26,7 +26,8 @@
           <td>{{ getTransportValue(mission.transport) }}</td>
           <td [class]="getStatusColor(mission.status)">{{ mission.status}}</td>
           <div class="d-flex row-cols-3 gasp-1"
-            *ngIf="mission.status.toString() === 'INIT' || mission.status.toString() === 'WAITING_VALIDATION', then canUpdate else canReset"></div>
+            *ngIf="mission.status.toString() === 'INIT' || mission.status.toString() === 'WAITING_VALIDATION', then canUpdate else canReset">
+          </div>
           <ng-template #canUpdate>
             <td class="d-flex row-cols-3 gap-1">
               <a class="btn btn-success d-flex justify-content-center" data-bs-toggle="modal"

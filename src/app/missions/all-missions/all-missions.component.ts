@@ -3,9 +3,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import * as Notiflix from 'notiflix';
-import { DateTools } from 'src/app/model/date-tools';
+
 import { Mission } from 'src/app/model/mission';
 import { Status } from 'src/app/model/status';
+import { ToolBox } from 'src/app/model/ToolBox';
 import { Transport } from 'src/app/model/transport';
 import { MissionsService } from 'src/app/service/missions.service';
 import { TransportService } from 'src/app/service/transport.service';
@@ -25,7 +26,7 @@ export class AllMissionsComponent implements OnInit {
    */
   missions: Array<Mission> = [];
   /** boite à outils  */
-  dates: DateTools = new DateTools();
+  dates: ToolBox = new ToolBox();
   /** enumération des status */
   statusEnum: typeof Status = Status;
   /** référence à l'instance de mission à supprimer

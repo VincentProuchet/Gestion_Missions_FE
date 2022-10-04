@@ -6,7 +6,7 @@ import { ExpensesService } from 'src/app/service/expenses.service';
 import { NaturesService } from 'src/app/service/natures.service';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 import { Expense } from 'src/app/model/expense';
-import { DateTools } from 'src/app/model/date-tools';
+import { ToolBox } from 'src/app/model/ToolBox';
 import * as Notiflix from 'notiflix';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -17,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class CreateExpenseComponent implements OnInit {
   /** tools for formating dates */
-  dates: DateTools = new DateTools();
+  dates: ToolBox = new ToolBox();
   /** control names
   this little object bear the names used in the template's formcontrols
    */

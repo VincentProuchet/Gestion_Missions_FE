@@ -1,0 +1,25 @@
+<div class="modal fade" id="{{'confirmRejectModal'}}" tabindex="-1" aria-labelledby="confirmRejectModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmRejectModalLabel">Confirmer le refus de cette mission ?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>Date : {{date.format(mission.start)}} au {{date.format(mission.end)}}</li>
+          <li>Nature : {{ mission.nature.description }}</li>
+          <li>Transport : {{date.getTransportValue(mission.transport) }}</li>
+          <li>Départ : {{ mission.startCity.name }}</li>
+          <li>Arrivée : {{ mission.arrivalCity.name }}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="onReject(mission)">Refuser la
+          mission</button>
+      </div>
+    </div>
+  </div>
+</div>
