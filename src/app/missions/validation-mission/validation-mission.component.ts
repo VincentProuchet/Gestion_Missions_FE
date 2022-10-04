@@ -14,6 +14,10 @@ import { TransportService } from 'src/app/service/transport.service';
   templateUrl: './validation-mission.component.html',
   styleUrls: ['./validation-mission.component.css']
 })
+/**
+ composant pour le changement des status de mission
+ en dépit de son nom, il gêre aussi bien la validation que le rejet le reset du statut
+ */
 export class ValidationMissionComponent implements OnInit {
   /** liste des missions */
   missions: Mission[] = [];
@@ -27,7 +31,10 @@ export class ValidationMissionComponent implements OnInit {
   ngOnInit(): void {
     this.updateMission();
   }
-
+  /**
+   * fetch missions concerned by the connected manager
+      a user can only see mission of its team members
+   */
   updateMission() {
     this.missionService.getMissionsToValidate().subscribe({
       next: (data) => {
@@ -40,7 +47,10 @@ export class ValidationMissionComponent implements OnInit {
       }
     });
   }
-
+  /**
+      send a demand to
+      validate the  mission to the BE
+  */
   onValidate(mission: Mission) {
     //TODO: retirer ligne suivante une fois relié au back end
     //mission.status = this.statusEnum.VALIDATED;
@@ -57,7 +67,10 @@ export class ValidationMissionComponent implements OnInit {
 
     })
   }
-
+  /**
+      send a demand to
+      reject the  mission to the BE
+  */
   onReject(mission: Mission) {
     //TODO: retirer ligne suivante une fois relié au back end
     //mission.status = this.statusEnum.REJECTED;
@@ -73,7 +86,10 @@ export class ValidationMissionComponent implements OnInit {
       }
     })
   }
-
+  /**
+      send a demand to
+      reset the  mission to the BE
+  */
   onReset(mission: Mission) {
     //TODO: retirer ligne suivante une fois relié au back end
     //mission.status = this.statusEnum.WAITING_VALIDATION;
