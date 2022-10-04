@@ -18,13 +18,13 @@
       <tbody>
         <tr *ngFor="let mission of missions, let index = index">
           <td>{{mission.collaborator?.firstName}}</td>
-          <td>{{dates.format(mission.start) }}</td>
-          <td>{{dates.format(mission.end) }}</td>
+          <td>{{tools.format(mission.start) }}</td>
+          <td>{{tools.format(mission.end) }}</td>
           <td>{{ mission.nature.description }}</td>
           <td>{{ mission.startCity.name }}</td>
           <td>{{ mission.arrivalCity.name }}</td>
-          <td>{{ getTransportValue(mission.transport) }}</td>
-          <td [class]="getStatusColor(mission.status)">{{ mission.status}}</td>
+          <td>{{ tools.getTransportValue(mission.transport) }}</td>
+          <td [class]="tools.getStatusColor(mission.status)">{{ mission.status}}</td>
           <div class="d-flex row-cols-3 gasp-1"
             *ngIf="mission.status.toString() === 'INIT' || mission.status.toString() === 'WAITING_VALIDATION', then canUpdate else canReset">
           </div>
@@ -34,6 +34,7 @@
                 attr.data-bs-target="{{'#confirmValidateModal'+mission.id}}">
                 <fa-icon icon="check"></fa-icon>
               </a>
+              <!-- confirm validate modal-->
               <div class="modal fade" id="{{'confirmValidateModal'+mission.id}}" tabindex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -45,9 +46,9 @@
                     </div>
                     <div class="modal-body">
                       <ul>
-                        <li>Date : {{dates.format(mission.start)}} au {{dates.format(mission.end)}}</li>
+                        <li>Date : {{tools.format(mission.start)}} au {{tools.format(mission.end)}}</li>
                         <li>Nature : {{ mission.nature.description }}</li>
-                        <li>Transport : {{ getTransportValue(mission.transport) }}</li>
+                        <li>Transport : {{ tools.getTransportValue(mission.transport) }}</li>
                         <li>Départ : {{ mission.startCity.name }}</li>
                         <li>Arrivée : {{ mission.arrivalCity.name }}</li>
                       </ul>
@@ -65,6 +66,7 @@
                 attr.data-bs-target="{{'#confirmRejectModal'+mission.id}}">
                 <fa-icon icon="times"></fa-icon>
               </a>
+              <!-- confirm reject modal-->
               <div class="modal fade" id="{{'confirmRejectModal'+mission.id}}" tabindex="-1"
                 aria-labelledby="confirmRejectModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -75,9 +77,9 @@
                     </div>
                     <div class="modal-body">
                       <ul>
-                        <li>Date : {{dates.format(mission.start)}} au {{dates.format(mission.end)}}</li>
+                        <li>Date : {{tools.format(mission.start)}} au {{tools.format(mission.end)}}</li>
                         <li>Nature : {{ mission.nature.description }}</li>
-                        <li>Transport : {{ getTransportValue(mission.transport) }}</li>
+                        <li>Transport : {{tools.getTransportValue(mission.transport) }}</li>
                         <li>Départ : {{ mission.startCity.name }}</li>
                         <li>Arrivée : {{ mission.arrivalCity.name }}</li>
                       </ul>
@@ -98,6 +100,7 @@
                 attr.data-bs-target="{{'#resetStatusModal'+mission.id}}">
                 <fa-icon icon="rotate-left"></fa-icon>
               </a>
+              <!-- confirm reject modal-->
               <div class="modal fade" id="{{'resetStatusModal'+mission.id}}" tabindex="-1"
                 aria-labelledby="resetStatusModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -108,9 +111,9 @@
                     </div>
                     <div class="modal-body">
                       <ul>
-                        <li>Date : {{dates.format(mission.start)}} au {{dates.format(mission.end)}}</li>
+                        <li>Date : {{tools.format(mission.start)}} au {{tools.format(mission.end)}}</li>
                         <li>Nature : {{ mission.nature.description }}</li>
-                        <li>Transport : {{ getTransportValue(mission.transport) }}</li>
+                        <li>Transport : {{tools.getTransportValue(mission.transport) }}</li>
                         <li>Départ : {{ mission.startCity.name }}</li>
                         <li>Arrivée : {{ mission.arrivalCity.name }}</li>
                       </ul>

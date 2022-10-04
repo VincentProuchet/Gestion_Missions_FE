@@ -7,6 +7,7 @@ import { AllMissionsComponent } from './all-missions/all-missions.component';
 import { RemoveMissionComponent } from './remove-mission/remove-mission.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ValidationMissionComponent } from './validation-mission/validation-mission.component';
+import { ConfirmActionComponent } from './validation-mission/confirm-action/confirm-action.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ValidationMissionComponent } from './validation-mission/validation-miss
     UpdateMissionComponent,
     AllMissionsComponent,
     RemoveMissionComponent,
+    ConfirmActionComponent,
     ValidationMissionComponent
   ],
   imports: [
@@ -22,6 +24,6 @@ import { ValidationMissionComponent } from './validation-mission/validation-miss
     ReactiveFormsModule,
     FontAwesomeModule
   ],
-  exports:[CreateMissionComponent, UpdateMissionComponent, AllMissionsComponent]
+  exports: [CreateMissionComponent, UpdateMissionComponent, AllMissionsComponent]
 })
 export class MissionsModule { }

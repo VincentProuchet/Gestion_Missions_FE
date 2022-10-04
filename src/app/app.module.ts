@@ -26,7 +26,7 @@ import { ConfirmActionComponent } from './missions/validation-mission/confirm-ac
     AppComponent,
     LoginComponent,
     AuthMaskComponent,
-    ConfirmActionComponent,
+
 
   ],
   imports: [

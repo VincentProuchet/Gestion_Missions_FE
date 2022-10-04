@@ -20,7 +20,7 @@ export class ValidationMissionComponent implements OnInit {
   /** enumeration des status */
   statusEnum: typeof Status = Status;
   /** toolBox */
-  dates: ToolBox = new ToolBox();
+  tools: ToolBox = new ToolBox();
 
   constructor(private router: Router, private missionService: MissionsService, private transportService: TransportService) { }
 
@@ -91,26 +91,5 @@ export class ValidationMissionComponent implements OnInit {
     })
   }
 
-  getStatusColor(status: Status): string {
-    let bsClass = "";
-    switch (status.toString()) {
-      case this.statusEnum[1]:
-        bsClass = "text-success";
-        break;
-      case this.statusEnum[2]:
-        bsClass = "text-danger";
-        break;
-      case this.statusEnum[3]:
-        bsClass = "text-primary";
-        break;
-      default:
-        break;
-    }
-    return bsClass;
-  }
-
-  getTransportValue(key: string): string {
-    return this.transportService.getTransportValue(key);
-  }
 
 }
