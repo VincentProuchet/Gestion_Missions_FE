@@ -1,13 +1,12 @@
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" attr.data-bs-target="{{'#removeModal'+natureMissionToDelete.id}}">Supprimer</button>
 <!-- Modal -->
-<div class="modal fade" id="{{'removeModal'+natureMissionToDelete.id}}" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
+<div class="modal fade" id="{{'removeModal'}}" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="removeModalLabel">Confirmation de suppression</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div *ngIf="natureMissionToDelete !=null" class="modal-body">
         <p>Confirmez-vous la suppression de la nature de mission ? </p>
         <ul>
           <li>
@@ -18,7 +17,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-danger" (click)="onDeleteConfirmed()" data-bs-dismiss="modal">Supprimer</button>
+        <button type="button" class="btn btn-danger" (click)="onDeleteConfirmed()"
+          data-bs-dismiss="modal">Supprimer</button>
       </div>
     </div>
   </div>

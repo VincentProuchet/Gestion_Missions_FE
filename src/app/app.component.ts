@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faCheck, faPenToSquare, faPlus, faRightFromBracket, faRotateLeft, faTimes, faTrash, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import * as Notiflix from 'notiflix';
 import { Collaborator } from './model/collaborator';
 import { Role, RoleMap, ROLES } from './model/role';
 import { AuthenticationService } from './service/authentication.service';
@@ -26,6 +27,7 @@ export class AppComponent {
       faUserCircle //user
     );
   }
+
 
   onLogout() {
     this.authenticationService.logout();

@@ -27,11 +27,11 @@
           </tr>
         </tbody>
       </table>
-      <ng-container *ngIf="mission">
+      <ng-container *ngIf="mission!=null">
         <app-create-expense [mission]="mission" (onCreateEvt)="onCreate($event)"></app-create-expense>
       </ng-container>
     </div>
-    <div class="col-sm-12 col-md-4 col-lg-5">
+    <div *ngIf="mission!=null" class="col-sm-12 col-md-4 col-lg-5">
       <p class="h4">Mission actuelle :</p>
       <ul class="list-group row justify-content-around">
         <li class="list-group-item row d-flex align-self-end">

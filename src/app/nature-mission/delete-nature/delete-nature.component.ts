@@ -33,15 +33,7 @@ export class DeleteNatureComponent implements OnInit {
    * will ask the service to delete a nature
    */
   onDeleteConfirmed(): void {
-    this.natureService
-      .supprimerNature(this.natureMissionToDelete)
-      .subscribe({
-        next: () => {
-          this.onDeleteEvt.emit(this.natureMissionToDelete)
-        }
-        , error: (err: HttpErrorResponse) => {
-          Notify.failure(err.error.message);
-        }
-      });
+    this.onDeleteEvt.emit(this.natureMissionToDelete)
+
   }
 }

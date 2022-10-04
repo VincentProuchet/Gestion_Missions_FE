@@ -6,9 +6,6 @@
  une valeur de l'autre
 * @author Vincent
 */
-
-import { ROUTER_CONFIGURATION } from "@angular/router";
-
 export /**
  * Vars containing URL
  * @date 23/09/2022 - 10:58:01
@@ -48,8 +45,10 @@ export const AP_Vars = {
   used for converting date formats
    */
   dateLocale: 'fr-FR',
-  /** format for dipslayed date for humans */
+  /** format of date  for humans */
   dateFormat: "YYYY MMM dd",
+  /** format of dates for machine */
+  dateInputFormat: "YYYY-mm-dd",
   /** cookie where we store user datas
     used for access
     and completing object on request
