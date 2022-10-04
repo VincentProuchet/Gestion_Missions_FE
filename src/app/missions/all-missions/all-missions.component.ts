@@ -21,9 +21,17 @@ import { TransportService } from 'src/app/service/transport.service';
  */
 export class AllMissionsComponent implements OnInit {
 
+  /** tableau des mission de l'utilisateur
+   */
   missions: Array<Mission> = [];
+  /** boite à outils  */
   dates: DateTools = new DateTools();
+  /** enumération des status */
   statusEnum: typeof Status = Status;
+  /** référence à l'instance de mission à supprimer
+      celle-ci est passé au composant remove pour qu'il puisse afficher les détails et
+      emettre l'événement
+  */
   missionToDelete !: Mission;
 
 
@@ -71,10 +79,12 @@ export class AllMissionsComponent implements OnInit {
 
     this.srvMission.deleteMission(mission).subscribe({
       next: () => {
+        // mise à jour de la liste
         this.missions = this.missions.filter((m: Mission) => m !== mission);
       },
       error: (err: HttpErrorResponse) => {
         console.log(err)
+        // affichage de la réponse du serveur
         Notiflix.Notify.failure(err.error);
       }
     });

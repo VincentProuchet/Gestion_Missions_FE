@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import * as Notiflix from 'notiflix';
 import { DateTools } from 'src/app/model/date-tools';
 import { Mission } from 'src/app/model/mission';
 import { Status } from 'src/app/model/status';
@@ -13,9 +15,11 @@ import { TransportService } from 'src/app/service/transport.service';
   styleUrls: ['./validation-mission.component.css']
 })
 export class ValidationMissionComponent implements OnInit {
-
+  /** liste des missions */
   missions: Mission[] = [];
+  /** enumeration des status */
   statusEnum: typeof Status = Status;
+  /** toolBox */
   dates: DateTools = new DateTools();
 
   constructor(private router: Router, private missionService: MissionsService, private transportService: TransportService) { }
@@ -30,7 +34,10 @@ export class ValidationMissionComponent implements OnInit {
         console.log(data);
         this.missions = data;
       },
-      error: (err) => console.log(err)
+      error: (err: HttpErrorResponse) => {
+        Notiflix.Notify.failure(err.error);
+        console.log(err)
+      }
     });
   }
 
@@ -43,7 +50,11 @@ export class ValidationMissionComponent implements OnInit {
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
-      error: (err) => console.log(err)
+      error: (err: HttpErrorResponse) => {
+        Notiflix.Notify.failure(err.error);
+        console.log(err)
+      }
+
     })
   }
 
@@ -56,7 +67,10 @@ export class ValidationMissionComponent implements OnInit {
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
-      error: (err) => console.log(err)
+      error: (err: HttpErrorResponse) => {
+        Notiflix.Notify.failure(err.error);
+        console.log(err)
+      }
     })
   }
 
@@ -70,7 +84,10 @@ export class ValidationMissionComponent implements OnInit {
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
-      error: (err) => console.log(err)
+      error: (err) => {
+        Notiflix.Notify.failure(err.error);
+        console.log(err)
+      }
     })
   }
 
