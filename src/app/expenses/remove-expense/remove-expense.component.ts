@@ -35,14 +35,6 @@ export class RemoveExpenseComponent implements OnInit {
    * action on deletion confirmation
    */
   onRemovalConfirmed() {
-    this.expensesService.removeExpense(this.expenseToRemove).subscribe(
-      {
-        next: (data: Expense) => {
-          Notiflix.Notify.info(`Expense of type ${data.type.name}  on ${this.dates.format(data.date)} removed`);
-          this.onDeleteEvt.emit(this.expenseToRemove);
-        }
-        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
-      }
-    );
+    this.onDeleteEvt.emit(this.expenseToRemove);
   }
 }

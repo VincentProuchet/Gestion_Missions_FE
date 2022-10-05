@@ -11,6 +11,8 @@ import { AP_Vars } from 'src/environments/API_Vars';
 import * as Notiflix from 'notiflix';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToolBox } from 'src/app/model/toolBox';
+import { Status } from 'src/app/model/status';
+import { Transport } from 'src/app/model/transport';
 
 @Component({
   selector: 'app-modify-expense',
@@ -25,13 +27,19 @@ that appears
 */
 export class ModifyExpenseComponent implements OnInit {
 
-  formGroup!: FormGroup;
   dates: ToolBox = new ToolBox();
 
   @Input() expenseToModify!: Expense;
-  @Input() mission !: Mission;
+  @Input() mission!: Mission;
   @Output() onUpdateEvt: EventEmitter<Expense> = new EventEmitter();
   types!: ExpenseType[];
+
+  formGroup: FormGroup = this.formBuilder.group({
+    dateControl: ["", [Validators.required]],
+    typeControl: ["", Validators.required],
+    costControl: ["", [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
+    tvaControl: ["", [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
+  });
 
   //To ask : the tva seems to not to be used
 
@@ -39,39 +47,28 @@ export class ModifyExpenseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.formGroup = this.formBuilder.group({
-      dateControl: [this.dates.inputFormat(this.expenseToModify.date), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
-      typeControl: ["", Validators.required],
-      costControl: [this.expenseToModify.cost, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
-      tvaControl: [this.expenseToModify.tva, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
-    });
     // fill in of Expenses type
     this.expensesService.getExpenseTypes().subscribe(
       {
         next: (types: ExpenseType[]) => {
           this.types = types;
-          this.formGroup.controls["typeControl"].setValue(this.expenseToModify.type);
+          if (this.expenseToModify != null) {
+            this.formGroup.controls["typeControl"].setValue(this.expenseToModify.type);
+          }
         }
         , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
       }
     );
   }
-
-  onUpdate() {
+  /**
+   *
+   * @returns
+   */
+  onUpdate(): void {
     if (this.formGroup.invalid) {
       return;
     }
-    this.expensesService.updateExpense(this.collectForm()).subscribe(
-      {
-        next: (data: Expense) => {
-          this.onUpdateEvt.emit(data);
-          Notiflix.Notify.info(`le frais du ${this.dates.format(data.date)} est modifié `);
-        }
-        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
-      }
-    );
-
+    this.onUpdateEvt.emit(this.collectForm());
   }
 
 
@@ -88,17 +85,17 @@ export class ModifyExpenseComponent implements OnInit {
     return this.formGroup.controls['tvaControl'];
   }
   /**
-   * reset form with original data
+  *  set form with validator
+  *  and provided data
    */
-  resetForm() {
-    this.formGroup.setValue(
-      {
-        "dateControl": this.dates.inputFormat(this.expenseToModify.date),
-        "typeControl": this.expenseToModify.type,
-        "costControl": this.expenseToModify.cost,
-        "tvaControl": this.expenseToModify.tva
-      }
-    );
+  initForm(expense: Expense): void {
+    this.expenseToModify = expense;
+    this.formGroup = this.formBuilder.group({
+      dateControl: [this.dates.inputFormat(this.expenseToModify.date), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
+      typeControl: [this.expenseToModify.type, Validators.required],
+      costControl: [this.expenseToModify.cost, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
+      tvaControl: [this.expenseToModify.tva, [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
+    });
   }
   /**
     return all of the fomgroup data collected as an Expense

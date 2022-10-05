@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
 import { ToolBox } from 'src/app/model/toolBox';
@@ -8,6 +8,7 @@ import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
 import { ExpensesService } from 'src/app/service/expenses.service';
 import { MissionsService } from 'src/app/service/missions.service';
+import { ModifyExpenseComponent } from '../modify-expense/modify-expense.component';
 
 @Component({
   selector: 'app-update-expenses',
@@ -27,7 +28,22 @@ export class UpdateExpensesComponent implements OnInit {
   /**
     list of existing expenses
    */
-  expenses!: Expense[];
+  expenses: Expense[] = new Array();
+  /** ici on créer une référence à un composant enfant */
+  @ViewChild(ModifyExpenseComponent)
+  private modify!: ModifyExpenseComponent;
+  /** expense to modify */
+  expenseLine: Expense = {
+    id: 0,
+    idMission: null,
+    date: new Date(),
+    cost: 0,
+    tva: 0,
+    type: {
+      id: 0,
+      name: ""
+    }
+  };
   /**
       tools for formating dates
       needed by the template
@@ -79,12 +95,20 @@ export class UpdateExpensesComponent implements OnInit {
   }
   /**
    * updating an existing expense
-    this is a local expense list update
+    in BE and localy and
    * @param expense
    */
   onUpdate(expense: Expense) {
-    let idx: number = this.expenses.indexOf(this.expenses.filter((exp) => exp.id === expense.id)[0]);
-    this.expenses[idx] = expense;
+    this.expensesService.updateExpense(expense).subscribe(
+      {
+        next: (data: Expense) => {
+          let idx: number = this.expenses.indexOf(this.expenses.filter((exp) => exp.id === expense.id)[0]);
+          this.expenses[idx] = expense;
+          Notiflix.Notify.info(`le frais du ${this.dates.format(data.date)} est modifié `);
+        }
+        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
+      }
+    );
   }
 
   /**
@@ -93,7 +117,20 @@ export class UpdateExpensesComponent implements OnInit {
    * @param expense
    */
   onDelete(expense: Expense) {
-    this.expenses = this.expenses.filter((exp) => exp !== expense);
+    this.expensesService.removeExpense(expense).subscribe(
+      {
+        next: () => {
+          Notiflix.Notify.info(`Expense of type ${expense.type.name}  on ${this.dates.format(expense.date)} removed`);
+          this.expenses = this.expenses.filter((exp) => exp !== expense);
+        }
+        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
+      }
+    );
+  }
+  /** lors d'une action dans le composant  */
+  onAction(expense: Expense): void {
+    this.expenseLine = expense;
+    this.modify.initForm(expense);
   }
 
 

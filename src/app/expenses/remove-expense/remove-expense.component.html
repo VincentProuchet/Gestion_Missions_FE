@@ -1,13 +1,4 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-danger" data-bs-toggle="modal"
-  attr.data-bs-target="{{'#removeModal'+expenseToRemove.id}}">
-  <fa-icon icon="trash"></fa-icon>
-  <p class="visually-hidden">supprimer</p>
-</button>
-
-<!-- Modal -->
-<div class="modal fade" [id]="'removeModal'+expenseToRemove.id" tabindex="-1" aria-labelledby="removeModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="{{'removeModal'}}" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -16,7 +7,7 @@
       </div>
       <div class="modal-body">
         <p>Confirmez-vous la suppression du frais suivant?</p>
-        <ul>
+        <ul *ngIf="expenseToRemove!=null">
           <li>Date : {{dates.format(expenseToRemove.date)}}</li>
           <li>Nature : {{expenseToRemove.type.name}}</li>
           <li>Montant : {{expenseToRemove.cost}}</li>
