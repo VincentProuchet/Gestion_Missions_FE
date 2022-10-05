@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faCheck, faPenToSquare, faPlus, faRightFromBracket, faRotateLeft, faTimes, faTrash, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import * as Notiflix from 'notiflix';
+import { faCheck, faFileArchive, faPenToSquare, faPlus, faRightFromBracket, faRotateLeft, faTimes, faTrash, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Collaborator } from './model/collaborator';
 import { Role, RoleMap, ROLES } from './model/role';
 import { AuthenticationService } from './service/authentication.service';
@@ -16,6 +15,7 @@ export class AppComponent {
   user: Collaborator | null = this.authenticationService.currentUser();
   title = 'Gestion_Missions_FE';
   constructor(private iconLibrary: FaIconLibrary, private authenticationService: AuthenticationService) {
+    // incon l
     iconLibrary.addIcons(
       faCheck, //validate
       faPenToSquare, //edit
@@ -24,7 +24,8 @@ export class AppComponent {
       faRightFromBracket, //logout
       faTimes, //cancel
       faTrash, //delete
-      faUserCircle //user
+      faUserCircle, //user
+      faFileArchive // export
     );
   }
 

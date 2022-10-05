@@ -10,10 +10,8 @@ td {
   text-align: center;
 }
 
-.actions {
-  a {
-    margin: 5px;
-  }
+a:actions {
+  margin: 5px;
 }
 
 .new-mission {
@@ -21,7 +19,8 @@ td {
   justify-content: flex-end;
   align-items: baseline;
 
-  button {
-    margin-left: 10px;
-  }
+}
+
+button:new-mission {
+  margin-left: 10px;
 }

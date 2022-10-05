@@ -45,11 +45,13 @@
                 <a class="btn btn-success justify-content-center" data-bs-toggle="modal"
                   attr.data-bs-target="{{'#confirmModal'}}" (click)="onAction(mission,actions.validate)">
                   <fa-icon icon="check"></fa-icon>
+                  <p class="visually-hidden">valider la mission</p>
                 </a>
                 <!-- reject button-->
                 <a class="btn btn-danger justify-content-center" data-bs-toggle="modal"
                   attr.data-bs-target="{{'#confirmModal'}}" (click)="onAction(mission,actions.reject)">
                   <fa-icon icon="times"></fa-icon>
+                  <p class="visually-hidden">rejeter la mission</p>
                 </a>
               </div>
             </td>
@@ -60,6 +62,7 @@
               <a class="btn btn-primary justify-content-center" data-bs-toggle="modal"
                 attr.data-bs-target="{{'#confirmModal'}}" (click)="onAction(mission,actions.reset)">
                 <fa-icon icon="rotate-left"></fa-icon>
+                <p class="visually-hidden">remettre en état d'attente de validation</p>
               </a>
             </td>
           </ng-template>

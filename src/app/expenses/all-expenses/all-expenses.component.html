@@ -6,8 +6,8 @@
     <table class="table table-striped ">
       <thead>
         <tr>
-          <th scope="col">Date de début</th>
-          <th scope="col">Date de fin</th>
+          <th scope="col">début</th>
+          <th scope="col">fin</th>
           <th scope="col-1">Nature</th>
           <th scope="col-1">Départ</th>
           <th scope="col-1">Arrivée</th>
@@ -25,9 +25,18 @@
           <td>{{mission.arrivalCity.name}}</td>
           <td>{{getTransportValue(mission.transport)}}</td>
           <td>{{sumExpenses(mission.expenses)}}</td>
-          <td class="d-flex btn-group">
-            <a (click)="onEdit(mission)" class="btn btn-primary">Modifier</a>
-            <a (click)="onExport(mission)" class="btn btn-danger">Exporter</a>
+          <td>
+            <div class="btn-group">
+
+              <button (click)="onEdit(mission)" class="btn btn-primary">
+                <fa-icon icon="pen-to-square"></fa-icon>
+                <p class="visually-hidden">modifier</p>
+              </button>
+              <button (click)="onExport(mission)" class="btn btn-danger">
+                <fa-icon icon="file-archive"></fa-icon>
+                <p class="visually-hidden">exporter</p>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
