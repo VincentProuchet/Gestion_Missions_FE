@@ -8,6 +8,7 @@ import { Mission } from 'src/app/model/mission';
 import { Status } from 'src/app/model/status';
 import { MissionsService } from 'src/app/service/missions.service';
 import { TransportService } from 'src/app/service/transport.service';
+import { Actions } from 'src/app/model/actions';
 
 @Component({
   selector: 'app-validation-mission',
@@ -21,6 +22,11 @@ import { TransportService } from 'src/app/service/transport.service';
 export class ValidationMissionComponent implements OnInit {
   /** liste des missions */
   missions: Mission[] = [];
+  /** mission sur laqelle est exécutée une action  elle est passé au composant confirm-Action */
+  mission!: Mission;
+  /** action exécuté passée aussi au composant confirm-action */
+  action !: Actions;
+  actions: typeof Actions = Actions;
   /** enumeration des status */
   statusEnum: typeof Status = Status;
   /** toolBox */
@@ -105,6 +111,10 @@ export class ValidationMissionComponent implements OnInit {
         console.log(err)
       }
     })
+  }
+  onAction(mission: Mission, action: Actions): void {
+    this.action = action;
+    this.mission = mission;
   }
 
 

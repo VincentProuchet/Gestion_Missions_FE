@@ -3,6 +3,7 @@ import { ToolBox } from 'src/app/model/ToolBox';
 import { Mission } from 'src/app/model/mission';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { Actions } from 'src/app/model/actions';
+import * as Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-confirm-action',
@@ -27,7 +28,9 @@ export class ConfirmActionComponent implements OnInit {
       action à réaliser par le composant
       détermineras le bouton visible sur l'interface
   */
-  @Input() action: Actions = Actions.validate;
+  @Input() action: Actions = Actions.reset;
+
+  actions: typeof Actions = Actions;
   /** reject mission event to emit */
   @Output() onRejectEvt: EventEmitter<Mission> = new EventEmitter();
   /** reset mission event to emit */
@@ -41,15 +44,33 @@ export class ConfirmActionComponent implements OnInit {
   }
   /** on validate */
   onValidate(mission: Mission) {
-    this.onValidate(mission);
+    this.onValidateEvt.emit(mission);
   }
 
   /** on reject */
   onReject(mission: Mission) {
-    this.onReject(mission);
+    this.onRejectEvt.emit(mission);
   }
   /** on reset */
   onReset(mission: Mission) {
-    this.onReset(mission);
+    this.onResetEvt.emit(mission);
+  }
+  onConfirm(): void {
+    if (this.mission != null) {
+      switch (this.action) {
+        case Actions.reject:
+          this.onRejectEvt.emit(this.mission);
+          break;
+        case Actions.reset:
+          this.onResetEvt.emit(this.mission);
+          break;
+        case Actions.validate:
+          this.onValidateEvt.emit(this.mission);
+          break;
+        default:
+          Notiflix.Notify.failure("Action inconnue")
+          break;
+      }
+    }
   }
 }

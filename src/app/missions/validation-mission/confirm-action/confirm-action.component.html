@@ -1,64 +1,16 @@
-<!-- Reject Modal-->
-<div class="modal fade" id="{{'confirmRejectModal'}}" tabindex="-1" aria-labelledby="confirmRejectModalLabel"
-  aria-hidden="true">
+<!-- Common modal-->
+<div class="modal fade" id="{{'confirmModal'}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmRejectModalLabel">Confirmer le refus de cette mission ?</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <ul>
-          <li>Date : {{tools.format(mission.start)}} au {{tools.format(mission.end)}}</li>
-          <li>Nature : {{ mission.nature.description }}</li>
-          <li>Transport : {{tools.getTransportValue(mission.transport) }}</li>
-          <li>Départ : {{ mission.startCity.name }}</li>
-          <li>Arrivée : {{ mission.arrivalCity.name }}</li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <div>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="onReject(mission)">Refuser la
-            mission</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Reset Status Modal-->
-<div class="modal fade" id="{{'resetStatusModal'}}" tabindex="-1" aria-labelledby="resetStatusModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="resetStatusModalLabel">Réinitialiser le statut de cette mission ?</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <ul>
-          <li>Date : {{tools.format(mission.start)}} au {{tools.format(mission.end)}}</li>
-          <li>Nature : {{ mission.nature.description }}</li>
-          <li>Transport : {{tools.getTransportValue(mission.transport) }}</li>
-          <li>Départ : {{ mission.startCity.name }}</li>
-          <li>Arrivée : {{ mission.arrivalCity.name }}</li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-          (click)="onReset(mission)">Confirmer</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- validate modal -->
-<div class="modal fade" id="{{'confirmValidateModal'}}" tabindex="-1" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmValidateModalLabel">Confirmer la validation de cette mission ?
+    <div *ngIf="mission!=null" class="modal-content">
+      <div class="modal-header" [ngSwitch]="action">
+        <h5 *ngSwitchCase="actions.validate" class="modal-title" id="confirmValidateModalLabel">
+          Confirmer la validation de cette mission ?
+        </h5>
+        <h5 *ngSwitchCase="actions.reset" class="modal-title" id="resetStatusModalLabel">
+          Réinitialiser le statut de cette mission ?
+        </h5>
+        <h5 *ngSwitchCase="actions.reject" class="modal-title" id="confirmRejectModalLabel">
+          Confirmer le refus de cette mission ?
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -72,9 +24,12 @@
         </ul>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="onValidate(mission)">Valider la
-          mission</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Annuler
+        </button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="onConfirm()">
+          Confirmer
+        </button>
       </div>
     </div>
   </div>
