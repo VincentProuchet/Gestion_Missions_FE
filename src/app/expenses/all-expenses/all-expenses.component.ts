@@ -5,7 +5,7 @@ import * as Notiflix from 'notiflix';
 
 import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
-import { ToolBox } from 'src/app/model/ToolBox';
+import { ToolBox } from 'src/app/model/toolBox';
 import { MissionsService } from 'src/app/service/missions.service';
 import { TransportService } from 'src/app/service/transport.service';
 

@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
 import { AP_Vars } from 'src/environments/API_Vars';
 import * as Notiflix from 'notiflix';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ToolBox } from 'src/app/model/ToolBox';
+import { ToolBox } from 'src/app/model/toolBox';
 
 @Component({
   selector: 'app-modify-expense',

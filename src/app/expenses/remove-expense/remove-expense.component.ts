@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
 
 import { Expense } from 'src/app/model/expense';
-import { ToolBox } from 'src/app/model/ToolBox';
+import { ToolBox } from 'src/app/model/toolBox';
 import { ExpensesService } from 'src/app/service/expenses.service';
 
 @Component({

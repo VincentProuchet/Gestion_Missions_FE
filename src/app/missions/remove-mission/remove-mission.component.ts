@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ToolBox } from 'src/app/model/ToolBox';
+import { ToolBox } from 'src/app/model/toolBox';
 import { Mission } from 'src/app/model/mission';
 import { MissionsService } from 'src/app/service/missions.service';
 

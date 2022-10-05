@@ -1,14 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import * as Notiflix from 'notiflix';
-import { ToolBox } from 'src/app/model/ToolBox';
 import { Mission } from 'src/app/model/mission';
 import { Status } from 'src/app/model/status';
 import { MissionsService } from 'src/app/service/missions.service';
 import { TransportService } from 'src/app/service/transport.service';
 import { Actions } from 'src/app/model/actions';
+import { ToolBox } from 'src/app/model/toolBox';
 
 @Component({
   selector: 'app-validation-mission',

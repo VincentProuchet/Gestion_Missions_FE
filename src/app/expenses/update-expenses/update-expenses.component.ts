@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as Notiflix from 'notiflix';
-import { ToolBox } from 'src/app/model/ToolBox';
+import { ToolBox } from 'src/app/model/toolBox';
 import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
 import { ExpensesService } from 'src/app/service/expenses.service';

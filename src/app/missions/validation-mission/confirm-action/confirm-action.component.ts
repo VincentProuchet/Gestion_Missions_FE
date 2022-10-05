@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ToolBox } from 'src/app/model/ToolBox';
+
 import { Mission } from 'src/app/model/mission';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { Actions } from 'src/app/model/actions';
 import * as Notiflix from 'notiflix';
+import { ToolBox } from 'src/app/model/toolBox';
 
 @Component({
   selector: 'app-confirm-action',

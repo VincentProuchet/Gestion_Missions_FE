@@ -6,7 +6,7 @@ import { ExpensesService } from 'src/app/service/expenses.service';
 import { NaturesService } from 'src/app/service/natures.service';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 import { Expense } from 'src/app/model/expense';
-import { ToolBox } from 'src/app/model/ToolBox';
+import { ToolBox } from 'src/app/model/toolBox';
 import * as Notiflix from 'notiflix';
 import { HttpErrorResponse } from '@angular/common/http';
 

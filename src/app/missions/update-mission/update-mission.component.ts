@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { City } from 'src/app/model/city';
-import { ToolBox } from 'src/app/model/ToolBox';
+import { ToolBox } from 'src/app/model/toolBox';
 import { Mission } from 'src/app/model/mission';
 import { Nature } from 'src/app/model/nature';
 import { Transport } from 'src/app/model/transport';

@@ -6,7 +6,7 @@ import * as Notiflix from 'notiflix';
 
 import { Mission } from 'src/app/model/mission';
 import { Status } from 'src/app/model/status';
-import { ToolBox } from 'src/app/model/ToolBox';
+import { ToolBox } from 'src/app/model/toolBox';
 import { Transport } from 'src/app/model/transport';
 import { MissionsService } from 'src/app/service/missions.service';
 import { TransportService } from 'src/app/service/transport.service';
