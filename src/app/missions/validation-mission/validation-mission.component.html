@@ -1,16 +1,20 @@
 <div class="container mt-4">
   <h1>Validation des Missions</h1>
   <div class="row">
-    <table class="table table-striped">
+    <table class=" table table-striped">
       <thead>
         <tr>
           <th scope="col">Collaborateur</th>
-          <th scope="col">Date de début</th>
-          <th scope="col">Date de fin</th>
+          <th scope="col">début</th>
+          <th scope="col">fin</th>
           <th scope="col">Nature</th>
           <th scope="col">Départ</th>
           <th scope="col">Arrivée</th>
-          <th scope="col">Transport</th>
+          <th class="" scope="col">
+            <div class="d-flex flex-wrap">
+              Transport
+            </div>
+          </th>
           <th scope="col">Statut</th>
           <th scope="col">Actions</th>
         </tr>
@@ -24,28 +28,36 @@
           <td>{{ mission.startCity.name }}</td>
           <td>{{ mission.arrivalCity.name }}</td>
           <td>{{ tools.getTransportValue(mission.transport) }}</td>
-          <td [class]="tools.getStatusColor(mission.status)">{{ mission.status}}</td>
-          <div class="d-flex row-cols-3 gasp-1"
+          <td [class]="tools.getStatusColor(mission.status)">
+            <div class="d-flex flex-wrap">
+
+              {{ mission.status}}
+            </div>
+          </td>
+          <div class="flex-wrap row-cols-2 gasp-1"
             *ngIf="mission.status.toString() === 'INIT' || mission.status.toString() === 'WAITING_VALIDATION', then canUpdate else canReset">
           </div>
+
           <ng-template #canUpdate>
-            <td class="d-flex row-cols-3 gap-1">
-              <!--validate button-->
-              <a class="btn btn-success d-flex justify-content-center" data-bs-toggle="modal"
-                attr.data-bs-target="{{'#confirmModal'}}" (click)="onAction(mission,actions.validate)">
-                <fa-icon icon="check"></fa-icon>
-              </a>
-              <!-- reject button-->
-              <a class="btn btn-danger d-flex justify-content-center" data-bs-toggle="modal"
-                attr.data-bs-target="{{'#confirmModal'}}" (click)="onAction(mission,actions.reject)">
-                <fa-icon icon="times"></fa-icon>
-              </a>
+            <td class="row-cols-1">
+              <div class="btn-group">
+                <!--validate button-->
+                <a class="btn btn-success justify-content-center" data-bs-toggle="modal"
+                  attr.data-bs-target="{{'#confirmModal'}}" (click)="onAction(mission,actions.validate)">
+                  <fa-icon icon="check"></fa-icon>
+                </a>
+                <!-- reject button-->
+                <a class="btn btn-danger justify-content-center" data-bs-toggle="modal"
+                  attr.data-bs-target="{{'#confirmModal'}}" (click)="onAction(mission,actions.reject)">
+                  <fa-icon icon="times"></fa-icon>
+                </a>
+              </div>
             </td>
           </ng-template>
           <ng-template #canReset>
-            <td class="d-flex row-cols-2 gap-1">
+            <td class="row-cols-1">
               <!-- reset button-->
-              <a class="btn btn-primary d-flex justify-content-center" data-bs-toggle="modal"
+              <a class="btn btn-primary justify-content-center" data-bs-toggle="modal"
                 attr.data-bs-target="{{'#confirmModal'}}" (click)="onAction(mission,actions.reset)">
                 <fa-icon icon="rotate-left"></fa-icon>
               </a>
@@ -57,5 +69,6 @@
   </div>
   <!--[routerlink] toward the component new mission, find an icon-->
 </div>
+<!-- modal de validation de l'action -->
 <app-confirm-action (onResetEvt)="onReset($event)" (onRejectEvt)="onReject($event)" (onValidateEvt)="onValidate($event)"
   [mission]="mission" [action]="action"></app-confirm-action>
