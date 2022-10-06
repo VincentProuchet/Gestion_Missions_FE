@@ -6,13 +6,10 @@ import { ExpenseType } from 'src/app/model/expense-type';
 import { Mission } from 'src/app/model/mission';
 import { ExpensesService } from 'src/app/service/expenses.service';
 import { CustomValidators } from 'src/app/shared/custom-validators';
-import { formatDate } from '@angular/common';
-import { AP_Vars } from 'src/environments/API_Vars';
 import * as Notiflix from 'notiflix';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToolBox } from 'src/app/model/toolBox';
-import { Status } from 'src/app/model/status';
-import { Transport } from 'src/app/model/transport';
+
 
 @Component({
   selector: 'app-modify-expense',
@@ -26,14 +23,17 @@ that appears
 
 */
 export class ModifyExpenseComponent implements OnInit {
-
-  dates: ToolBox = new ToolBox();
-
+  /** toolbox  */
+  tools: ToolBox = new ToolBox();
+  /** expense the component work on */
   @Input() expenseToModify!: Expense;
+  /** mission the expense is attached to*/
   @Input() mission!: Mission;
+  /** event of expense updating */
   @Output() onUpdateEvt: EventEmitter<Expense> = new EventEmitter();
+  /** type of expense list for select options */
   types!: ExpenseType[];
-
+  /** formgroup  */
   formGroup: FormGroup = this.formBuilder.group({
     dateControl: ["", [Validators.required]],
     typeControl: ["", Validators.required],
@@ -61,8 +61,10 @@ export class ModifyExpenseComponent implements OnInit {
     );
   }
   /**
+   * this is colled on form's validation
+   * it chacks form validity
+   * collect it and send it in an event
    *
-   * @returns
    */
   onUpdate(): void {
     if (this.formGroup.invalid) {
@@ -71,27 +73,32 @@ export class ModifyExpenseComponent implements OnInit {
     this.onUpdateEvt.emit(this.collectForm());
   }
 
-
+  /** return the date form control */
   getDate() {
     return this.formGroup.controls['dateControl'];
   }
+  /** return the type form control */
   getType() {
     return this.formGroup.controls['typeControl'];
   }
+  /** return the cost form control */
   getCost() {
     return this.formGroup.controls['costControl'];
   }
+  /** return the tva form control */
   getTVA() {
     return this.formGroup.controls['tvaControl'];
   }
   /**
   *  set form with validator
   *  and provided data
+    this is made here instead of inside ngonInit()
+    to avoid errors on non-initialized properties
    */
   initForm(expense: Expense): void {
     this.expenseToModify = expense;
     this.formGroup = this.formBuilder.group({
-      dateControl: [this.dates.inputFormat(this.expenseToModify.date), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
+      dateControl: [this.tools.inputFormat(this.expenseToModify.date), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
       typeControl: [this.expenseToModify.type, Validators.required],
       costControl: [this.expenseToModify.cost, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
       tvaControl: [this.expenseToModify.tva, [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]]
@@ -110,14 +117,5 @@ export class ModifyExpenseComponent implements OnInit {
       type: this.formGroup.controls['typeControl'].value
     }
   }
-  /**
-   * compare two items by their id
-  may be refactored to a static tools box class
-   * @param itemOne
-   * @param itemTwo
-   * @returns itemOne instance coresponding to the itemTwo.id
-   */
-  compareById(itemOne: any, itemTwo: any) {
-    return itemOne && itemTwo && itemOne.id == itemTwo.id;
-  }
+
 }

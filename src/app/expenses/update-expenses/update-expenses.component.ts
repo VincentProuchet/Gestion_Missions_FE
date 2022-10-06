@@ -48,7 +48,7 @@ export class UpdateExpensesComponent implements OnInit {
       tools for formating dates
       needed by the template
  */
-  dates: ToolBox = new ToolBox();
+  tools: ToolBox = new ToolBox();
 
   constructor(private route: ActivatedRoute, private router: Router, private expensesService: ExpensesService, private missionsService: MissionsService) { }
   /**
@@ -67,16 +67,16 @@ export class UpdateExpensesComponent implements OnInit {
                 this.expensesService.getMissionExpenses(missionID).subscribe(
                   {
                     next: (expenses: Expense[]) => { this.expenses = expenses; }
-                    , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
+                    , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.message) }
                   });
               },
               error: (e: HttpErrorResponse) => {
-                Notiflix.Notify.failure(e.error);
+                Notiflix.Notify.failure(e.message);
               }
             });
         },
         error: (e: HttpErrorResponse) => {
-          Notiflix.Notify.failure(e.error);
+          Notiflix.Notify.failure(e.message);
         }
       }
 
@@ -86,16 +86,27 @@ export class UpdateExpensesComponent implements OnInit {
 
   }
   /**
-   * Creating a new expense
-  this is a local expense list update
+  sending BE a request to add a new expense to a mission
+  refreshing the local list on success
    * @param expense
    */
   onCreate(expense: Expense) {
-    this.expenses.push(expense);
+    this.expensesService.addExpense(expense).subscribe(
+      {
+        next: (expense) => {
+          this.expenses.push(expense);
+          Notiflix.Notify.success("frais ajouté avec succés ");
+        },
+        error: (e: HttpErrorResponse) => {
+          Notiflix.Notify.failure(e.error.message);
+        }
+      }
+    );
   }
   /**
    * updating an existing expense
-    in BE and localy and
+    in BE
+    and localy on success
    * @param expense
    */
   onUpdate(expense: Expense) {
@@ -104,7 +115,7 @@ export class UpdateExpensesComponent implements OnInit {
         next: (data: Expense) => {
           let idx: number = this.expenses.indexOf(this.expenses.filter((exp) => exp.id === expense.id)[0]);
           this.expenses[idx] = expense;
-          Notiflix.Notify.info(`le frais du ${this.dates.format(data.date)} est modifié `);
+          Notiflix.Notify.info(`le frais du ${this.tools.format(data.date)} est modifié `);
         }
         , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
       }
@@ -112,22 +123,31 @@ export class UpdateExpensesComponent implements OnInit {
   }
 
   /**
-   * deleting an expense
-  this is a local expense list update
+   * deleting an expense in BE
+  and in local on success
    * @param expense
    */
   onDelete(expense: Expense) {
     this.expensesService.removeExpense(expense).subscribe(
       {
         next: () => {
-          Notiflix.Notify.info(`Expense of type ${expense.type.name}  on ${this.dates.format(expense.date)} removed`);
+          Notiflix.Notify.info(`Expense of type ${expense.type.name}  on ${this.tools.format(expense.date)} removed`);
           this.expenses = this.expenses.filter((exp) => exp !== expense);
         }
         , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
       }
     );
   }
-  /** lors d'une action dans le composant  */
+
+  /** lors d'une action dans le composant
+    this is used to init the expense edit form
+    I add to resort to this trick because the form is inside a modal
+    that already exist in the page
+
+    the main problem was validators who needed values to be set by the formBuilder
+    and couldn't be modify after that even by references
+
+  */
   onAction(expense: Expense): void {
     this.expenseLine = expense;
     this.modify.initForm(expense);

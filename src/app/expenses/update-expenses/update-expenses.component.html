@@ -13,7 +13,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let expenseLine of expenses; let index = index ">
-            <td>{{dates.format(expenseLine.date)}}</td>
+            <td>{{tools.format(expenseLine.date)}}</td>
             <td>{{expenseLine.type.name}}</td>
             <td>{{expenseLine.cost}} €</td>
             <td>{{expenseLine.tva}} %</td>
@@ -47,11 +47,11 @@
       <ul class="list-group row justify-content-around">
         <li class="list-group-item row d-flex align-self-end">
           <span class="col-sm-6 fw-semibold">Date de début :</span>
-          <span class="col-sm-6 text-end">{{dates.format(mission.start)}}</span>
+          <span class="col-sm-6 text-end">{{tools.format(mission.start)}}</span>
         </li>
         <li class="list-group-item row d-flex align-self-end">
           <span class="col-sm-6 fw-semibold">Date de fin :</span>
-          <span class="col-sm-6 text-end">{{dates.format(mission.end)}}</span>
+          <span class="col-sm-6 text-end">{{tools.format(mission.end)}}</span>
         </li>
         <li class="list-group-item row d-flex align-self-end">
           <span class="col-sm-6 fw-semibold">Nature :</span>

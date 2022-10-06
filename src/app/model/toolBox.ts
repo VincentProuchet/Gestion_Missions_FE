@@ -1,10 +1,13 @@
 import { DatePipe, formatDate } from "@angular/common";
 import { AP_Vars } from "src/environments/API_Vars";
+import { Expense } from "./expense";
 import { Status } from "./status";
 import { Transport } from "./transport";
 /**
  * Classe utilitaire
-contient les outils pour les dates
+  contenant des fonctions utilitaires
+  le but est de ne plus trouver
+  la même fonction répliquée un peu partout
  */
 export class ToolBox {
   private datePipe: DatePipe = new DatePipe(AP_Vars.dateLocale);
@@ -122,6 +125,28 @@ export class ToolBox {
 
 
     return Transport.Car;
+  }
+  /**
+  * compare two items by their id
+ may be refactored to a static tools box class
+  used in form to fill in the corrcet value of select input
+  when initializing a form with existing datas
+  * @param itemOne
+  * @param itemTwo
+  * @returns itemOne instance coresponding to the itemTwo.id
+  */
+  compareById(itemOne: any, itemTwo: any) {
+    return itemOne && itemTwo && itemOne.id == itemTwo.id;
+  }
+
+  /**
+   * will sum all expense from a list
+   * @param expenses[] list of expense to sum
+   * @returns the sum off all expenses in the list
+   */
+  sumExpenses(expenses: Expense[]): number {
+    //  create a new list containing only expense.cost   /// then summing all cost.
+    return expenses.map(expense => expense.cost).reduce((currSum, currElement) => currSum + currElement, 0);
   }
 
 }

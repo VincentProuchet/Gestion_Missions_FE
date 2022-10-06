@@ -24,7 +24,7 @@
               </div>
               <div *ngIf="getDate().errors?.['dateBetweenValidator']">
                 Doit être dans la période de la mission<br>
-                ({{dates.format(mission.start)}} - {{dates.format(mission.end)}})
+                ({{tools.format(mission.start)}} - {{tools.format(mission.end)}})
               </div>
             </div>
           </div>

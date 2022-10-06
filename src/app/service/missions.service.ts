@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as Notiflix from 'notiflix';
 import { Observable, Subject } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
 import { AP_Vars } from 'src/environments/API_Vars';
@@ -123,6 +124,17 @@ export class MissionsService {
     */
   resetMission(mission: Mission): Observable<Mission> {
     return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_RESET}`, mission);
+  }
+  /**
+   * is supposed to expot the mission as a pdf document
+   * @param mission
+   */
+  pdfExport(mission: Mission): void {
+
+    localStorage.setItem("mission", mission.toString());
+    console.log(mission);
+    console.log(mission.id);
+    Notiflix.Notify.success("saved to storage");
   }
 
 }

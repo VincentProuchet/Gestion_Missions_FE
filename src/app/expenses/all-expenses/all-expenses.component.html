@@ -18,13 +18,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let mission of missions; let index = index">
-          <td>{{dates.format(mission.start)}}</td>
-          <td>{{dates.format(mission.end)}}</td>
+          <td>{{tools.format(mission.start)}}</td>
+          <td>{{tools.format(mission.end)}}</td>
           <td>{{mission.nature.description }}</td>
           <td>{{mission.startCity.name}}</td>
           <td>{{mission.arrivalCity.name}}</td>
-          <td>{{getTransportValue(mission.transport)}}</td>
-          <td>{{sumExpenses(mission.expenses)}}</td>
+          <td>{{tools.getTransportValue(mission.transport)}}</td>
+          <td>{{tools.sumExpenses(mission.expenses)}}</td>
           <td>
             <div class="btn-group">
 

@@ -8,7 +8,7 @@
       <div class="modal-body">
         <p>Confirmez-vous la suppression du frais suivant?</p>
         <ul *ngIf="expenseToRemove!=null">
-          <li>Date : {{dates.format(expenseToRemove.date)}}</li>
+          <li>Date : {{tools.format(expenseToRemove.date)}}</li>
           <li>Nature : {{expenseToRemove.type.name}}</li>
           <li>Montant : {{expenseToRemove.cost}}</li>
           <li>TVA : {{expenseToRemove.tva}}</li>

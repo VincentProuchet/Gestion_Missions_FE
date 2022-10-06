@@ -24,7 +24,7 @@ export class RemoveExpenseComponent implements OnInit {
   /** event to emit */
   @Output() onDeleteEvt: EventEmitter<Expense> = new EventEmitter();
   /** DateTool used by the template */
-  dates: ToolBox = new ToolBox();
+  tools: ToolBox = new ToolBox();
 
   constructor(private expensesService: ExpensesService, private router: Router) {
   }

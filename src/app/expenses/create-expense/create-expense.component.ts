@@ -16,8 +16,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./create-expense.component.css']
 })
 export class CreateExpenseComponent implements OnInit {
-  /** tools for formating dates */
-  dates: ToolBox = new ToolBox();
+  /** toolbox */
+  tools: ToolBox = new ToolBox();
   /** control names
   this little object bear the names used in the template's formcontrols
    */
@@ -43,7 +43,7 @@ export class CreateExpenseComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      dateControl: [this.dates.inputFormat(this.mission.start), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
+      dateControl: [this.tools.inputFormat(this.mission.start), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
       typeControl: ['', Validators.required],
       tvaControl: [5, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
       costControl: [0, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
@@ -59,18 +59,8 @@ export class CreateExpenseComponent implements OnInit {
       return;
     }
     let newExpense = this.collectForm();
-    this.expensesService.addExpense(newExpense).subscribe(
-      {
-        next: (expense) => {
-          this.onCreateEvt.emit(expense);
-          Notiflix.Notify.success("frais ajouté avec succés ");
-          this.formGroup.reset();
-        },
-        error: (e: HttpErrorResponse) => {
-          Notiflix.Notify.failure(e.error.message);
-        }
-      }
-    );
+    this.onCreateEvt.emit(newExpense);
+
   }
   /** return date of the formcontrolgroup */
   getDate() {
@@ -104,6 +94,15 @@ export class CreateExpenseComponent implements OnInit {
       idMission: this.mission.id,
       tva: this.formGroup.controls[this.controlNames.tva].value
     }
+  }
+  initForm(mission: Mission): void {
+    this.mission = mission;
+    this.formGroup = this.formBuilder.group({
+      dateControl: [this.tools.inputFormat(this.mission.start), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
+      typeControl: ['', Validators.required],
+      tvaControl: [5, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
+      costControl: [0, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
+    });
   }
 
 }
