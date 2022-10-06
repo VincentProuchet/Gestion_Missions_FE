@@ -17,7 +17,9 @@ import { ROLES } from './model/role';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { BeforeAuthGuard } from './shared/guards/before-auth.guard';
 import { RoleGuard } from './shared/guards/role.guard';
-
+/**
+ * 
+ */
 const routes: Routes = [
   {
     // Acceuil

@@ -5,6 +5,7 @@ import { Collaborator } from './model/collaborator';
 import { Role, RoleMap, ROLES } from './model/role';
 import { AuthenticationService } from './service/authentication.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

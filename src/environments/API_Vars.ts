@@ -38,6 +38,8 @@ from environement.ts
 I'm not a fan of those kind of surprises
  */
 export const AP_Vars = {
+  app_Name: "GMD",
+  company_name: "GDM",
 
   /** proxy BE connection parameter */
   BEConnectionUrl: API_Url.proxy_rewrite_keyword,
@@ -45,8 +47,11 @@ export const AP_Vars = {
   used for converting date formats
    */
   dateLocale: 'fr-FR',
-  /** format of date  for humans */
+  /** format of date  for humans and sorting  */
   dateFormat: "YYYY MMM dd",
+  /** format of date for reading */
+  dateFormatFR: "dd MMMM YYYY",
+
   /** format of dates for machine */
   dateInputFormat: "YYYY-mm-dd",
   /** cookie where we store user datas

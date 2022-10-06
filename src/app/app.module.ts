@@ -20,12 +20,12 @@ import { MissionsModule } from './components/missions/missions.module';
 import { ExpensesModule } from './components/expenses/expenses.module';
 import { NatureMissionModule } from './components/nature-mission/nature-mission.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AuthMaskComponent,
+
 
 
   ],
@@ -47,7 +47,8 @@ import { NatureMissionModule } from './components/nature-mission/nature-mission.
     MissionsService,
     NaturesService,
     TransportService,
-    CookieService
+    CookieService,
+
   ],
   bootstrap: [AppComponent]
 })

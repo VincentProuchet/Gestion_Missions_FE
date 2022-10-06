@@ -12,6 +12,7 @@ import { Transport } from "./transport";
 export class ToolBox {
   private datePipe: DatePipe = new DatePipe(AP_Vars.dateLocale);
   private dateFormat: string = AP_Vars.dateFormat;
+  private dateFormatFR: string = AP_Vars.dateFormatFR;
   private formatForDateInputs: string = "yyyy-MM-dd";
   /** enumeration des status */
   private statusEnum: typeof Status = Status;
@@ -29,6 +30,18 @@ export class ToolBox {
     }
     return '';
   }
+  /**
+   * give you back the date in a format convenient for human reading
+   * @param date
+   * @returns a date easy to read if you're human
+   */
+  date(date: Date | null): String | null {
+    if (date != null) {
+      return this.datePipe.transform(date, this.dateFormatFR);
+    }
+    return '';
+  }
+
   /**
    * wil give you back the date you gave
    * in a format that can
@@ -148,5 +161,21 @@ export class ToolBox {
     //  create a new list containing only expense.cost   /// then summing all cost.
     return expenses.map(expense => expense.cost).reduce((currSum, currElement) => currSum + currElement, 0);
   }
-
+  /**
+     * will sum all expense from a list and their TVA
+     * @param expenses[] list of expense to sum
+     * @returns the sum off all expenses in the list
+     */
+  sumExpensesTTC(expenses: Expense[]): number {
+    //  create a new list containing only expense.cost   /// then summing all cost.
+    return expenses.map(expense => (expense.cost * (1 + expense.tva / 100))).reduce((currSum, currElement) => currSum + currElement, 0);
+  }
+  /**
+   * 
+   * @param expense
+   * @returns the TTC value of an expense
+   */
+  expenseTTC(expense: Expense): number {
+    return (expense.cost * (1 + expense.tva / 100))
+  }
 }
