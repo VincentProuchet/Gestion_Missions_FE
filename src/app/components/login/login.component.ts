@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AP_Vars } from 'src/environments/API_Vars';
-import { Collaborator } from '../model/collaborator';
-import { LoginCredentials } from '../model/login-credentials';
-import { AuthenticationService } from '../service/authentication.service';
-import { CollaboratorService } from '../service/collaborator.service';
+import { Collaborator } from '../../model/collaborator';
+import { LoginCredentials } from '../../model/login-credentials';
+import { AuthenticationService } from '../../service/authentication.service';
+import { CollaboratorService } from '../../service/collaborator.service';
 
 @Component({
   selector: 'app-login',

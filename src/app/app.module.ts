@@ -4,8 +4,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { MissionsModule } from './missions/missions.module';
+import { LoginComponent } from './components/login/login.component';
+import { MissionsModule } from './components/missions/missions.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NatureMissionModule } from './nature-mission/nature-mission.module';
 import { MissionsService } from './service/missions.service';
@@ -15,10 +15,10 @@ import { CollaboratorService } from './service/collaborator.service';
 import { ExpensesService } from './service/expenses.service';
 import { CityService } from './service/city.service';
 import { TransportService } from './service/transport.service';
-import { ExpensesModule } from './expenses/expenses.module';
+import { ExpensesModule } from './components/expenses/expenses.module';
 import { AuthMaskComponent } from './shared/auth-mask/auth-mask.component';
 import { CookieService } from 'ngx-cookie-service';
-import { ConfirmActionComponent } from './missions/validation-mission/confirm-action/confirm-action.component';
+import { ConfirmActionComponent } from './components/missions/validation-mission/confirm-action/confirm-action.component';
 
 
 @NgModule({

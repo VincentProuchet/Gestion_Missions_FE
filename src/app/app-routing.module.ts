@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllExpensesComponent } from './expenses/all-expenses/all-expenses.component';
-import { ExpensesModule } from './expenses/expenses.module';
-import { UpdateExpensesComponent } from './expenses/update-expenses/update-expenses.component';
-import { LoginComponent } from './login/login.component';
-import { AllMissionsComponent } from './missions/all-missions/all-missions.component';
-import { CreateMissionComponent } from './missions/create-mission/create-mission.component';
-import { UpdateMissionComponent } from './missions/update-mission/update-mission.component';
-import { ValidationMissionComponent } from './missions/validation-mission/validation-mission.component';
+import { AllExpensesComponent } from './components/expenses/all-expenses/all-expenses.component';
+
+import { UpdateExpensesComponent } from './components/expenses/update-expenses/update-expenses.component';
+import { LoginComponent } from './components/login/login.component';
+import { AllMissionsComponent } from './components/missions/all-missions/all-missions.component';
+import { CreateMissionComponent } from './components/missions/create-mission/create-mission.component';
+import { UpdateMissionComponent } from './components/missions/update-mission/update-mission.component';
+import { ValidationMissionComponent } from './components/missions/validation-mission/validation-mission.component';
 import { ROLES } from './model/role';
 import { CreationNatureComponent } from './nature-mission/creation-nature/creation-nature.component';
 import { DeleteNatureComponent } from './nature-mission/delete-nature/delete-nature.component';
 import { ModifyNatureComponent } from './nature-mission/modify-nature/modify-nature.component';
 import { NatureMissionComponent } from './nature-mission/nature-mission.component';
-import { NatureMissionModule } from './nature-mission/nature-mission.module';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { BeforeAuthGuard } from './shared/guards/before-auth.guard';
 import { RoleGuard } from './shared/guards/role.guard';
@@ -130,4 +129,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
