@@ -75,5 +75,5 @@
 </div>
 <app-modify-expense [mission]="mission" (onUpdateEvt)="onUpdate($event)">
 </app-modify-expense>
-<app-remove-expense [expenseToRemove]="expenseLine" (onDeleteEvt)="onDelete($event)">
+<app-remove-expense (onDeleteEvt)="onDelete($event)">
 </app-remove-expense>

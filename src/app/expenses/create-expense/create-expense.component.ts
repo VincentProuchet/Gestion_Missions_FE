@@ -36,31 +36,29 @@ export class CreateExpenseComponent implements OnInit {
   /** form group */
   formGroup!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private expensesService: ExpensesService, private naturesService: NaturesService) {
-    this.expensesService.getExpenseTypes().subscribe(types => this.types = types);
+  constructor(private formBuilder: FormBuilder, private expensesService: ExpensesService) {
+    this.expensesService.getExpenseTypes().subscribe(
+      {
+        next: (types) => { this.types = types }
+        , error: (error: HttpErrorResponse) => { Notiflix.Notify.failure(error.message); }
+      }
+    );
 
   }
-
+  /**
+   * automatically called angular function
+   */
   ngOnInit(): void {
-    this.formGroup = this.formBuilder.group({
-      dateControl: [this.tools.inputFormat(this.mission.start), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
-      typeControl: ['', Validators.required],
-      tvaControl: [5, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
-      costControl: [0, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
-    });
+    this.initForm(this.mission);
   }
   /**
    * on Submit of form to the service
    * @returns
    */
   onCreate() {
-    //register the new expense here
-    if (this.formGroup.invalid) {
-      return;
+    if (!this.formGroup.invalid) {
+      this.onCreateEvt.emit(this.collectForm());
     }
-    let newExpense = this.collectForm();
-    this.onCreateEvt.emit(newExpense);
-
   }
   /** return date of the formcontrolgroup */
   getDate() {
@@ -95,12 +93,16 @@ export class CreateExpenseComponent implements OnInit {
       tva: this.formGroup.controls[this.controlNames.tva].value
     }
   }
+  /**
+   * initialise the form mith values
+   * @param mission to associate to the new expense
+   */
   initForm(mission: Mission): void {
     this.mission = mission;
     this.formGroup = this.formBuilder.group({
       dateControl: [this.tools.inputFormat(this.mission.start), [Validators.required, CustomValidators.dateBetweenValidator(this.mission.start, this.mission.end)]],
       typeControl: ['', Validators.required],
-      tvaControl: [5, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
+      tvaControl: [5, [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
       costControl: [0, [Validators.required, Validators.min(0), Validators.pattern("^[0-9]+(.[0-9])?[0-9]*$")]],
     });
   }

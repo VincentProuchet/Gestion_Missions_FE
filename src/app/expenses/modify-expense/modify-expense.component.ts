@@ -23,6 +23,16 @@ that appears
 
 */
 export class ModifyExpenseComponent implements OnInit {
+  /** control names
+   this little object bear the names used in the template's formcontrols
+    */
+  controlNames = {
+    date: 'dateControl',
+    type: 'typeControl',
+    cost: 'costControl',
+    tva: 'tvaControl',
+  }
+
   /** toolbox  */
   tools: ToolBox = new ToolBox();
   /** expense the component work on */
@@ -31,6 +41,9 @@ export class ModifyExpenseComponent implements OnInit {
   @Input() mission!: Mission;
   /** event of expense updating */
   @Output() onUpdateEvt: EventEmitter<Expense> = new EventEmitter();
+  /** event to emit */
+  @Output() onDeleteEvt: EventEmitter<Expense> = new EventEmitter();
+
   /** type of expense list for select options */
   types!: ExpenseType[];
   /** formgroup  */
@@ -67,27 +80,37 @@ export class ModifyExpenseComponent implements OnInit {
    *
    */
   onUpdate(): void {
-    if (this.formGroup.invalid) {
-      return;
+    if (!this.formGroup.invalid) {
+      this.onUpdateEvt.emit(this.collectForm());
     }
-    this.onUpdateEvt.emit(this.collectForm());
+  }
+  /**
+    this is a fancy of me
+    since we are displaying a confirm choice
+    why not giving the ability to delete it directly
+    from the updating box ?
+    * action on deletion confirmation
+    @author Vincent
+   */
+  onRemovalConfirmed() {
+    this.onDeleteEvt.emit(this.expenseToModify);
   }
 
   /** return the date form control */
   getDate() {
-    return this.formGroup.controls['dateControl'];
+    return this.formGroup.controls[this.controlNames.date];
   }
   /** return the type form control */
   getType() {
-    return this.formGroup.controls['typeControl'];
+    return this.formGroup.controls[this.controlNames.type];
   }
   /** return the cost form control */
   getCost() {
-    return this.formGroup.controls['costControl'];
+    return this.formGroup.controls[this.controlNames.cost];
   }
   /** return the tva form control */
   getTVA() {
-    return this.formGroup.controls['tvaControl'];
+    return this.formGroup.controls[this.controlNames.tva];
   }
   /**
   *  set form with validator

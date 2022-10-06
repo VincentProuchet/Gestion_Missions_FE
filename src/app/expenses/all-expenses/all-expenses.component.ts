@@ -15,13 +15,17 @@ import { TransportService } from 'src/app/service/transport.service';
   templateUrl: './all-expenses.component.html',
   styleUrls: ['./all-expenses.component.css']
 })
+/**
+this component list all user's missions and expense related to each one
+in a condensed easiers to read table allowing to edit expense for each connected user missions
+ */
 export class AllExpensesComponent implements OnInit {
   /** list of user's missions  */
   missions: Array<Mission> = [];
   /** toolBox */
   tools: ToolBox = new ToolBox();
 
-  constructor(private router: Router, private missionService: MissionsService, private transportService: TransportService) {
+  constructor(private router: Router, private missionService: MissionsService) {
 
   }
   /** on component initalisation */

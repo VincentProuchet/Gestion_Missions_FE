@@ -17,6 +17,8 @@ import { CollaboratorService } from '../service/collaborator.service';
 Our magnificent login page
 */
 export class LoginComponent implements OnInit {
+
+
   /** if an error as occured  */
   error !: String
   incorrectCredentials: boolean = false;

@@ -1,11 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import * as Notiflix from 'notiflix';
+
 
 import { Expense } from 'src/app/model/expense';
 import { ToolBox } from 'src/app/model/toolBox';
-import { ExpensesService } from 'src/app/service/expenses.service';
 
 @Component({
   selector: 'app-remove-expense',
@@ -26,7 +23,7 @@ export class RemoveExpenseComponent implements OnInit {
   /** DateTool used by the template */
   tools: ToolBox = new ToolBox();
 
-  constructor(private expensesService: ExpensesService, private router: Router) {
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -37,4 +34,8 @@ export class RemoveExpenseComponent implements OnInit {
   onRemovalConfirmed() {
     this.onDeleteEvt.emit(this.expenseToRemove);
   }
+  initForm(expense: Expense): void {
+    this.expenseToRemove = expense;
+  }
+
 }

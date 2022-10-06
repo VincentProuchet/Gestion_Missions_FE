@@ -29,7 +29,7 @@ export /**
       because of the way npm serve handle things
 
     */
-    CORS_SafetyUrl: 'api',
+    proxy_rewrite_keyword: 'api',
   };
 /**
 FE vars
@@ -40,7 +40,7 @@ I'm not a fan of those kind of surprises
 export const AP_Vars = {
 
   /** proxy BE connection parameter */
-  BEConnectionUrl: API_Url.CORS_SafetyUrl,
+  BEConnectionUrl: API_Url.proxy_rewrite_keyword,
   /** locale value
   used for converting date formats
    */
@@ -62,7 +62,5 @@ export const AP_Vars = {
     we can erase it for loginOut
    */
   CookiesNameSession: 'JSESSIONID',
-
-
-
 }
+

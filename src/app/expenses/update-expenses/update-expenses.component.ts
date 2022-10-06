@@ -9,6 +9,7 @@ import { Mission } from 'src/app/model/mission';
 import { ExpensesService } from 'src/app/service/expenses.service';
 import { MissionsService } from 'src/app/service/missions.service';
 import { ModifyExpenseComponent } from '../modify-expense/modify-expense.component';
+import { RemoveExpenseComponent } from '../remove-expense/remove-expense.component';
 
 @Component({
   selector: 'app-update-expenses',
@@ -29,28 +30,20 @@ export class UpdateExpensesComponent implements OnInit {
     list of existing expenses
    */
   expenses: Expense[] = new Array();
-  /** ici on créer une référence à un composant enfant */
+  /** ici on créer une référence au composant enfant  d'édition d'un frais */
   @ViewChild(ModifyExpenseComponent)
   private modify!: ModifyExpenseComponent;
-  /** expense to modify */
-  expenseLine: Expense = {
-    id: 0,
-    idMission: null,
-    date: new Date(),
-    cost: 0,
-    tva: 0,
-    type: {
-      id: 0,
-      name: ""
-    }
-  };
+
+  /** ici on créer une référence au composant enfant de suppression d'un frais */
+  @ViewChild(RemoveExpenseComponent)
+  private remove!: RemoveExpenseComponent;
   /**
       tools for formating dates
       needed by the template
  */
   tools: ToolBox = new ToolBox();
 
-  constructor(private route: ActivatedRoute, private router: Router, private expensesService: ExpensesService, private missionsService: MissionsService) { }
+  constructor(private route: ActivatedRoute, private expensesService: ExpensesService, private missionsService: MissionsService) { }
   /**
    * component initialisation
    */
@@ -131,7 +124,7 @@ export class UpdateExpensesComponent implements OnInit {
     this.expensesService.removeExpense(expense).subscribe(
       {
         next: () => {
-          Notiflix.Notify.info(`Expense of type ${expense.type.name}  on ${this.tools.format(expense.date)} removed`);
+          Notiflix.Notify.info(`le frais ${expense.type.name}  du ${this.tools.format(expense.date)} a bien été supprimé`);
           this.expenses = this.expenses.filter((exp) => exp !== expense);
         }
         , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
@@ -148,9 +141,9 @@ export class UpdateExpensesComponent implements OnInit {
     and couldn't be modify after that even by references
 
   */
-  onAction(expense: Expense): void {
-    this.expenseLine = expense;
-    this.modify.initForm(expense);
+  onAction(selectedExpense: Expense): void {
+    this.modify.initForm(selectedExpense);
+    this.remove.initForm(selectedExpense)
   }
 
 
