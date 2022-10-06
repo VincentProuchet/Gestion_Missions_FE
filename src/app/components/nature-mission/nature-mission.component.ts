@@ -2,13 +2,13 @@
 import { Component, LOCALE_ID, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ToolBox } from '../model/toolBox';
-import { Nature } from '../model/nature';
 
-import { NaturesService } from '../service/natures.service';
 
 import { Notify } from "notiflix";
 import { HttpErrorResponse } from '@angular/common/http';
+import { Nature } from 'src/app/model/nature';
+import { ToolBox } from 'src/app/model/toolBox';
+import { NaturesService } from 'src/app/service/natures.service';
 @Component({
   selector: 'app-nature-mission',
   templateUrl: './nature-mission.component.html',

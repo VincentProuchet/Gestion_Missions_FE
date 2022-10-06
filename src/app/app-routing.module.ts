@@ -8,11 +8,12 @@ import { AllMissionsComponent } from './components/missions/all-missions/all-mis
 import { CreateMissionComponent } from './components/missions/create-mission/create-mission.component';
 import { UpdateMissionComponent } from './components/missions/update-mission/update-mission.component';
 import { ValidationMissionComponent } from './components/missions/validation-mission/validation-mission.component';
+import { CreationNatureComponent } from './components/nature-mission/creation-nature/creation-nature.component';
+import { DeleteNatureComponent } from './components/nature-mission/delete-nature/delete-nature.component';
+import { ModifyNatureComponent } from './components/nature-mission/modify-nature/modify-nature.component';
+import { NatureMissionComponent } from './components/nature-mission/nature-mission.component';
 import { ROLES } from './model/role';
-import { CreationNatureComponent } from './nature-mission/creation-nature/creation-nature.component';
-import { DeleteNatureComponent } from './nature-mission/delete-nature/delete-nature.component';
-import { ModifyNatureComponent } from './nature-mission/modify-nature/modify-nature.component';
-import { NatureMissionComponent } from './nature-mission/nature-mission.component';
+
 import { AuthGuard } from './shared/guards/auth.guard';
 import { BeforeAuthGuard } from './shared/guards/before-auth.guard';
 import { RoleGuard } from './shared/guards/role.guard';

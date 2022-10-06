@@ -31,15 +31,18 @@
         <td>{{ nature.tjm }}</td>
         <td>{{ nature.bonusPercentage }}</td>
         <td>
-          <button (click)="onModifierNature(nature.id)" class="btn btn-primary" style="margin: 5px">
-            <fa-icon icon="check"></fa-icon>
-            <p class="visually-hidden">modifier</p>
-          </button>
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" attr.data-bs-target="{{'#removeModal'}}"
-            (click)="onDeletePrompt(nature)">
-            <fa-icon icon="times"></fa-icon>
-            <p class="visually-hidden">supprimer</p>
-          </button>
+          <div class="btn-group">
+
+            <button type="button" class="btn btn-primary" (click)="onModifierNature(nature.id)">
+              <fa-icon icon="pen-to-square"></fa-icon>
+              <p class="visually-hidden">modifier</p>
+            </button>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" attr.data-bs-target="{{'#removeModal'}}"
+              (click)="onDeletePrompt(nature)">
+              <fa-icon icon="trash"></fa-icon>
+              <p class="visually-hidden">supprimer</p>
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>
