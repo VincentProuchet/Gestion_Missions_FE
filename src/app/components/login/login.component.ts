@@ -46,9 +46,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    let loginCred = this.collectForm();
     let loginAttempt: boolean;
-    this.srvAuth.loginfromdb(loginCred).subscribe(
+    this.srvAuth.loginfromdb(this.collectForm()).subscribe(
       {
         next: (pata: Collaborator) => {
           this.srvAuth.setUser(pata);

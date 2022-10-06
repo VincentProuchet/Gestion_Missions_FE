@@ -131,9 +131,17 @@ export class MissionsService {
    */
   pdfExport(mission: Mission): void {
 
-    localStorage.setItem("mission", mission.toString());
-    console.log(mission);
-    console.log(mission.id);
+
+
+
+
+
+
+
+
+
+
+    localStorage.setItem("mission", JSON.stringify(mission, null, 1));
     Notiflix.Notify.success("saved to storage");
   }
 
