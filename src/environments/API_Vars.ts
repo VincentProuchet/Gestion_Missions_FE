@@ -38,8 +38,14 @@ from environement.ts
 I'm not a fan of those kind of surprises
  */
 export const AP_Vars = {
+  /** app name */
   app_Name: "GMD",
+  /** company name */
   company_name: "GDM",
+  /** mot de passe d'accées propriétaire
+  utilisé lors de la génération de document pdf
+   */
+  pdfOwnerPassword: `123456`,
 
   /** proxy BE connection parameter */
   BEConnectionUrl: API_Url.proxy_rewrite_keyword,

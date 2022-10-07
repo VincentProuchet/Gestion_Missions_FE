@@ -1,4 +1,3 @@
-import { KeyValuePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Transport } from '../model/transport';
 

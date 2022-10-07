@@ -128,10 +128,10 @@ in session and local storage
         opacity: 1,
         borderRadius: '5px', rtl: false, timeout: 3000, messageMaxLength: 110,
         backOverlay: false, backOverlayColor: 'rgba(0,0,0,0.5)', plainText: true,
-        showOnlyTheLastOne: false, clickToClose: false, pauseOnHover: true,
+        showOnlyTheLastOne: true, clickToClose: true, pauseOnHover: false,
         ID: 'NotiflixNotify', className: 'notiflix-notify', zindex: 4001,
         fontFamily: 'Quicksand', fontSize: '13px', cssAnimation: true,
-        cssAnimationDuration: 400, cssAnimationStyle: 'fade',
+        cssAnimationDuration: 400, cssAnimationStyle: 'from-left',
         closeButton: true, useIcon: true, useFontAwesome: false,
         fontAwesomeIconStyle: 'basic', fontAwesomeIconSize: '34px',
 

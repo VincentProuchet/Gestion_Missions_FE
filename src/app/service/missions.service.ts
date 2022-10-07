@@ -146,25 +146,40 @@ export class MissionsService {
    * @param mission
    */
   pdfExport(mission: Mission): void {
-
-    localStorage.setItem("mission", JSON.stringify(mission, null, 1));
-    // var win = window.open('', '_blank');
-
+    // definition d'un document pdf
     let pdf: TDocumentDefinitions = {
+      // autorisations pour certaines action sur le pdf
+      ownerPassword: AP_Vars.pdfOwnerPassword,
+      permissions: {
+        printing: 'highResolution', //'lowResolution'
+        modifying: false,
+        copying: true,
+        annotating: true,
+        fillingForms: true,
+        contentAccessibility: true,
+        documentAssembly: true
+      },
+
       header: {// header is the fine line at the top of the page
+        style: `titre`,
         text: [
 
         ]
       }
       ,
-      footer: {
-        text: "(currentPage, pageCount) => (currentPage.toString() + ' of ' + pageCount)"
-      }
-      ,
-
+      footer: function (currentPage, pageCount) {
+        return [
+          {
+            style: 'footer',
+            text: `page ${currentPage.toString()} de ${pageCount}`
+          }
+        ];
+      },
       content: [
+
         // company name and logo
         {
+          tocItem: `identity`,
           style: 'titre',
           text: AP_Vars.company_name,
         },
@@ -173,18 +188,18 @@ export class MissionsService {
           style: 'mission_details',
           text: [
             {
-              text: `Mission :`,
+              fontSize: 16,
+              bold: true,
+              color: 'blue',
+              text: `${mission.nature.description} \n`,
             },
             {
-              text: `${mission.nature.description}`,
+              text: ` du ${this.tools.date(mission.start)} au ${this.tools.date(mission.end)} \n`,
             },
             {
-
-              text: ` du ${this.tools.date(mission.start)} au ${this.tools.date(mission.end)}`,
-
-            },
-            {
-              text: ``,
+              color: '#3399ff',
+              fontSize: 14,
+              text: `${mission.collaborator?.firstName} ${mission.collaborator?.firstName}`,
             },
           ]
         },
@@ -193,18 +208,28 @@ export class MissionsService {
         // expense table
         {
           style: 'expenses',
+          margin: [5, 2],
+          layout: 'lightHorizontalLines',
           table: {
             headerRows: 1,
-            // widths: ['auto', 'auto', 'auto', 'auto', 'auto'],
-            body: [
-              [`type`, `date`, `montant HT`, `TVA`, `montant TTC`], // header
-              ...mission.expenses.map(e => (
-                [e.type.name, `${this.tools.date(e.date)}`, e.cost, e.tva, this.tools.expenseTTC(e)]  // lines
+            widths: ['*', 'auto', 'auto', 'auto', 'auto'],
+            body: [ // table header
+              [{ style: `table_headers`, text: `type` },
+              { style: `table_headers`, text: `date` },
+              { style: `table_headers`, text: `montant HT` },
+              { style: `table_headers`, text: `TVA` },
+              { style: `table_headers`, text: `montant TTC` }],
+              ...mission.expenses.map(e => (// expenses lines
+                [e.type.name,
+                `${this.tools.date(e.date)}`,
+                { style: `numbers`, text: e.cost },
+                { style: `numbers`, text: e.tva },
+                { style: `numbers`, text: this.tools.expenseTTC(e) }]
               )
               ),
 
-              [{ text: "total HT :", colSpan: 4 }, 0, 0, 0, this.tools.sumExpenses(mission.expenses)], // bas du tableau
-              [{ text: "total TTC:", colSpan: 4 }, 0, 0, 0, this.tools.sumExpensesTTC(mission.expenses)],//// bas du tableau
+              ['', '', { text: "total HT :", colSpan: 1 }, { style: `numbers`, text: this.tools.sumExpenses(mission.expenses), colSpan: 2 }, 0], // bas du tableau
+              ['', '', { text: "total TTC:", colSpan: 1 }, { style: `numbers`, text: this.tools.sumExpensesTTC(mission.expenses), colSpan: 2 }, 0],//// bas du tableau
 
             ]
           }
@@ -212,45 +237,47 @@ export class MissionsService {
 
 
       ],
+      pageOrientation: 'portrait', //
+      pageSize: 'A4',
+      info: { // metadatas  du document
+        title: `frais de la mission ${mission.nature.description}`,
+        author: `${mission.collaborator?.firstName} ${mission.collaborator?.lastName}`,
+        subject: `${mission.nature.description}  du ${mission.start} au ${mission.end}`,
+        keywords: `${mission.nature.description},${mission.start},${mission.end},${mission.startCity.name},${mission.arrivalCity.name},${mission.status},${mission.transport}`,
+      },
 
       styles: {
         titre: {
-          fontSize: 18,
+          alignment: 'center',
+          fontSize: 32,
+          margin: [0, 50, 0, 50],
           bold: true
         },
+        numbers: {
+
+          alignment: 'right'
+        },
+        table_headers: {
+          alignment: 'center'
+        },
         mission_details: {
+          alignment: 'right',
           fontSize: 12,
+          margin: [0, 50, 0, 50]
         },
         expenses: {
+
           fontSize: 12,
+        },
+        footer: {
+          alignment: 'right',
+          margin: [30, 5],
         }
       }
-    };
-    let pdf2: TDocumentDefinitions = {
-      content: [
-        {
-          text: 'qsdfqsdfdqsfdffqsdfqsdfqsfqfqsdf'
-        }
-      ]
 
     };
-
     pdfMake.createPdf(pdf).open();
-
-    Notiflix.Notify.success("saved to storage");
+    localStorage.setItem("mission", JSON.stringify(mission, null, 1));
+    Notiflix.Notify.success("exporté vers *.pdf");
   }
-  /** it was for testing purpose */
-  nothing(): any[] {
-    let values = [
-      { type: "qsdfqsdf", date: `22-05-01`, tva: 5, value: 0 },
-      { type: "qsdfqsdf", date: `22-05-01`, tva: 5, value: 0 },
-      { type: "qsdfqsdf", date: `22-05-01`, tva: 5, value: 0 },
-      { type: "qsdfqsdf", date: `22-05-01`, tva: 5, value: 0 },
-      { type: "qsdfqsdf", date: `22-05-01`, tva: 5, value: 0 },
-    ];
-    return values;
-
-
-  }
-
 }
