@@ -55,17 +55,10 @@ export class CreationNatureComponent implements OnInit {
     }
     let nature: Nature = this.collectForm();
 
-    this.srvNature.creationNature(nature).subscribe(
-      {
-        next: () => {
-          this.router.navigate(['/gestionDesNatures'])
-          Notiflix.Notify.success(`la nature ${nature.description} à été crée avec succés `);
+    this.srvNature.creationNature(nature).add(
 
-        }
-        , error: (err: HttpErrorResponse) => {
-          Notiflix.Notify.failure(err.error.message);
-        }
-      });
+      () => { Notiflix.Notify.info("hello") }
+    );
 
   }
   /**

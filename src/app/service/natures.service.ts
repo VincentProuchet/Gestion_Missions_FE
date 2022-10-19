@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import * as Notiflix from 'notiflix';
+import { Observable, Subscription } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
 import { AP_Vars } from 'src/environments/API_Vars';
 import { Nature } from '../model/nature';
@@ -22,9 +24,10 @@ export class NaturesService implements OnDestroy {
   private FULL_URL = `http://localhost:3000/nature`;
   // le terme à placer après l'URL de base  pour faire ses requêtes
   private API_AFTER_URL: string = API_Route.NATURE;
-  //private natures: Subject<Nature[]> = new Subject()
-  constructor(private http: HttpClient) {
+  public natures: Nature[] = [];
+  public natureToModify!: Nature;
 
+  constructor(private http: HttpClient, private router: Router) {
 
   }
   ngOnDestroy(): void {
@@ -41,15 +44,25 @@ export class NaturesService implements OnDestroy {
     return this.http.get<Nature[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`)
 
   }
-
   /**get the mission nature Data with the provideed id
-   *
-   * @param id nature id
-   * @returns a subject that you can make a subscribe on it
-   */
-  getNature(id: number): Observable<Nature> {
-    return this.http.get<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${id}`);
+ *
+ * @param id nature id
+ * @returns a subject that you can make a subscribe on it
+ */
+  getNature(id: number): Subscription {
+    return this.http.get<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${id}`).subscribe(
+      {
+        next: (data: Nature) => {
+          this.natureToModify = data;
+        }
+        , error: (e: HttpErrorResponse) => {
+          Notiflix.Notify.failure(e.error.message);
+        }
+      }
+    );
   }
+
+
 
   /**applique un filtre sur le tableau de nature passé en paramètre
    * @param data tableau de natures
@@ -63,16 +76,41 @@ export class NaturesService implements OnDestroy {
    * créer une nouvelle nature
    * @param nature la nature à créer
    */
-  creationNature(nature: Nature): Observable<Nature> {
+  creationNature(nature: Nature): Subscription {
     return this.http.post<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`, nature)
+      .subscribe(
+        {
+          next: () => {
+            this.router.navigate(['/gestionDesNatures'])
+            Notiflix.Notify.success(`la nature ${nature.description} à été crée avec succés `);
+          }
+          , error: (err: HttpErrorResponse) => {
+            Notiflix.Notify.failure(err.error.message);
+          }
+          , complete: () => {
+            return this.natures;
+          }
+        });
+
+
   }
   /**
    * à mettre à jour une nature
    * @param nature à mettre à jour
    * @returns
    */
-  modifierNature(id: number, nature: Nature): Observable<Nature> {
-    return this.http.put<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${id}`, nature);
+  modifierNature(id: number, nature: Nature): Subscription {
+    return this.http.put<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${id}`, nature).subscribe(
+      {
+        next: () => {
+          this.router.navigate(['gestionDesNatures'])
+          Notiflix.Notify.success(`la nature ${nature.description} à bien été mise à jour`);
+        }
+        , error: (err: HttpErrorResponse) => {
+          Notiflix.Notify.failure(err.error.message);
+        }
+      }
+    );
   }
 
   /**
@@ -82,13 +120,35 @@ export class NaturesService implements OnDestroy {
    * @param nature à supprimer
    * @returns
    */
-  supprimerNature(nature: Nature): Observable<Nature> {
-    return this.http.delete<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${nature.id}`);
+  supprimerNature(nature: Nature) {
+    return this.http.delete<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${nature.id}`)
+      .subscribe({
+        next: () => {
+          Notiflix.Notify.success(`la nature : ${nature.description} \n a été supprimée avec succés`);
+        }
+        , error: (err: HttpErrorResponse) => {
+          Notiflix.Notify.failure(err.error.message);
+        }
+        , complete: () => {
+        }
+      });
+
   }
 
+  refreshNatures(): Subscription {
+    let that = this;
+    return this.getNatures().subscribe(
+      {
+        next: (data: Nature[]) => {
+          that.natures = data;
+        }
+        , error: (e: HttpErrorResponse) => {
+          Notiflix.Notify.failure(e.error.message);
+        }
+        , complete: () => {
+        }
+      }
+    )
+  }
 
-  /*
-    getNaturesAsString():Observable<String[]> {
-      return this.http.get<Nature[]>(`${environment.baseUrl}${environment.port}${this.API_AFTER_URL}`).pipe(map(natures => natures.map(nature => nature.description)));
-    }*/
 }

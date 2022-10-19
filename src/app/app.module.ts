@@ -19,12 +19,14 @@ import { LoginComponent } from './components/login/login.component';
 import { MissionsModule } from './components/missions/missions.module';
 import { ExpensesModule } from './components/expenses/expenses.module';
 import { NatureMissionModule } from './components/nature-mission/nature-mission.module';
+import { NavigationComponent } from './shared/guards/navigation/navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AuthMaskComponent,
+    NavigationComponent,
 
 
 

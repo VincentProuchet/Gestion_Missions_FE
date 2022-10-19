@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     rememberMeCheckbox: [true]
   });
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private srvAuth: AuthenticationService,
+  constructor(private router: Router, private formBuilder: FormBuilder, public srvAuth: AuthenticationService,
     private srvCollab: CollaboratorService) {
   }
 
@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
         next: (pata: Collaborator) => {
           this.srvAuth.setUser(pata);
           this.router.navigate(['']);
-          window.location.reload();
           Notiflix.Notify.success(`Bonjour ${pata.lastName} ${pata.firstName}`);
 
         }

@@ -5,7 +5,7 @@ export interface Role {
   label: `ROLE_${RoleUnion}`
 }
 
-export type RoleMap = {[key in RoleUnion]: Role};
+export type RoleMap = { [key in RoleUnion]: Role };
 
 /**
 * Roles can be used to mask/unmask

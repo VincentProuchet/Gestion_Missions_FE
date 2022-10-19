@@ -10,6 +10,8 @@ import { Nature } from 'src/app/model/nature';
 import { ToolBox } from 'src/app/model/toolBox';
 import { NaturesService } from 'src/app/service/natures.service';
 import * as Notiflix from 'notiflix';
+import { AuthenticationService } from 'src/app/service/authentication.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-nature-mission',
   templateUrl: './nature-mission.component.html',
@@ -29,7 +31,8 @@ export class NatureMissionComponent implements OnInit {
   /** referenc to a nature to delete */
   public natureToDelete!: Nature;
 
-  constructor(private srvNature: NaturesService, private router: Router) {
+  constructor(private srvNature: NaturesService, private router: Router, private srvAuth: AuthenticationService) {
+    srvAuth.setNotiflix();
   }
 
   ngOnInit(): void {
@@ -39,15 +42,11 @@ export class NatureMissionComponent implements OnInit {
    * this fetch natures from back-end to populate componenet  list
    */
   refreshNatures() {
-    this.srvNature.getNatures().subscribe({
-      next: (data) => {
-        this.natures = data;
-      },
-      error: (err) => {
-        Notiflix.Notify.failure(err.error.message);
-
-      },
-    });
+    this.srvNature.refreshNatures().add(
+      () => {
+        this.natures = this.srvNature.natures;
+      }
+    )
   }
   /**
    * this send a demand to back end for removing
@@ -55,18 +54,11 @@ export class NatureMissionComponent implements OnInit {
    * @param nature
    */
   deleteNature(nature: Nature): void {
-    this.srvNature
-      .supprimerNature(nature)
-      .subscribe({
-        next: () => {
-          this.natures = this.natures.filter((n: Nature) => n !== nature);
-          Notiflix.Notify.success(`la nature : ${nature.description} \n a été supprimée avec succés`);
-
-        }
-        , error: (err: HttpErrorResponse) => {
-          Notiflix.Notify.failure(err.error.message);
-        }
-      });
+    this.srvNature.supprimerNature(nature).add(
+      () => {
+        this.refreshNatures();
+      }
+    );
   }
   /**
    * rerouting to creation-nature formular
