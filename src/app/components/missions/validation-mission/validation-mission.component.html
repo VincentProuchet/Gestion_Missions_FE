@@ -35,7 +35,7 @@
             </div>
           </td>
           <div class="flex-wrap row-cols-2 gasp-1"
-            *ngIf="mission.status.toString() === 'INIT' || mission.status.toString() === 'WAITING_VALIDATION', then canUpdate else canReset">
+            *ngIf=" tools.statusEquals(mission, statusEnum.INIT,statusEnum.WAITING_VALIDATION) , then canUpdate else canReset">
           </div>
 
           <ng-template #canUpdate>
