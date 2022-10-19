@@ -46,8 +46,7 @@ export class ValidationMissionComponent implements OnInit {
         this.missions = data;
       },
       error: (err: HttpErrorResponse) => {
-        Notiflix.Notify.failure(err.error);
-        console.log(err)
+        Notiflix.Notify.failure(err.error.message);
       }
     });
   }
@@ -56,16 +55,13 @@ export class ValidationMissionComponent implements OnInit {
       validate the  mission to the BE
   */
   onValidate(mission: Mission) {
-    //TODO: retirer ligne suivante une fois relié au back end
-    //mission.status = this.statusEnum.VALIDATED;
-
     this.missionService.validateMission(mission).subscribe({
       next: (data: Mission) => {
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
       error: (err: HttpErrorResponse) => {
-        Notiflix.Notify.failure(err.message);
+        Notiflix.Notify.failure(err.error.message);
       }
 
     })
@@ -81,7 +77,7 @@ export class ValidationMissionComponent implements OnInit {
         this.missions[idx] = data;
       },
       error: (err: HttpErrorResponse) => {
-        Notiflix.Notify.failure(err.error);
+        Notiflix.Notify.failure(err.error.message);
       }
     })
   }
@@ -97,9 +93,10 @@ export class ValidationMissionComponent implements OnInit {
       next: (data: Mission) => {
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
+
       },
       error: (err: HttpErrorResponse) => {
-        Notiflix.Notify.failure(err.message);
+        Notiflix.Notify.failure(err.error.message);
       }
     })
   }

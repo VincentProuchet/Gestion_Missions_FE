@@ -1,4 +1,4 @@
-<app-auth-mask [cond]="user !== null">
+<div *ngIf="user != null">
   <nav class="navbar navbar-expand-md bg-light">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -59,7 +59,7 @@
       </div>
     </div>
   </nav>
-</app-auth-mask>
+</div>
 <div class="container">
   <router-outlet></router-outlet>
 </div>

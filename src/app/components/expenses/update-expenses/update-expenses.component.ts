@@ -60,16 +60,16 @@ export class UpdateExpensesComponent implements OnInit {
                 this.expensesService.getMissionExpenses(missionID).subscribe(
                   {
                     next: (expenses: Expense[]) => { this.expenses = expenses; }
-                    , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.message) }
+                    , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error.message) }
                   });
               },
               error: (e: HttpErrorResponse) => {
-                Notiflix.Notify.failure(e.message);
+                Notiflix.Notify.failure(e.error.message);
               }
             });
         },
         error: (e: HttpErrorResponse) => {
-          Notiflix.Notify.failure(e.message);
+          Notiflix.Notify.failure(e.error.message);
         }
       }
 
@@ -110,7 +110,7 @@ export class UpdateExpensesComponent implements OnInit {
           this.expenses[idx] = expense;
           Notiflix.Notify.info(`le frais du ${this.tools.format(data.date)} est modifié `);
         }
-        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
+        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error.message); }
       }
     );
   }
@@ -127,7 +127,7 @@ export class UpdateExpensesComponent implements OnInit {
           Notiflix.Notify.info(`le frais ${expense.type.name}  du ${this.tools.format(expense.date)} a bien été supprimé`);
           this.expenses = this.expenses.filter((exp) => exp !== expense);
         }
-        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
+        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error.message); }
       }
     );
   }

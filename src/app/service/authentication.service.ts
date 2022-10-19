@@ -45,7 +45,7 @@ export class AuthenticationService {
    * @returns
    */
   loginfromdb(loginCred: LoginCredentials): Observable<Collaborator> {
-    console.log("login from db");
+
     let loginformParam = new FormData();
     loginformParam.append('username', loginCred.username);
     loginformParam.append('password', loginCred.password);
@@ -57,27 +57,21 @@ export class AuthenticationService {
   and do a refresh of the windows for the guard to do the magic
    */
   logout(): void {
-    if (this.currentUser()) {
-      this.http.post(`${AP_Vars.BEConnectionUrl}/${API_Route.LOGOUT}`, null).subscribe({
-        next: (data) => {
-          Notiflix.Notify.success("logged out");
-        },
-        error: (e: HttpErrorResponse) => {
-          this.deleteUser();
-          Notiflix.Notify.failure(e.error);
-          console.log(e.error)
-          window.location.reload();
-        },
-        complete: () => {
-          this.deleteUser();
-          window.location.reload();
+    this.http.post(`${AP_Vars.BEConnectionUrl}/${API_Route.LOGOUT}`, null).subscribe({
+      next: (data) => {
+        Notiflix.Notify.success("logged out");
+      },
+      error: (e: HttpErrorResponse) => {
+        this.deleteUser();
+        Notiflix.Notify.failure(e.error.message);
+        window.location.reload();
+      },
+      complete: () => {
+        this.deleteUser();
+        window.location.reload();
 
-        }
-      });
-
-    } else {
-      Notiflix.Notify.failure("No current user");
-    }
+      }
+    });
   }
   /**
    * puts user data in local storage

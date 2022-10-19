@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Nature } from 'src/app/model/nature';
 import { ToolBox } from 'src/app/model/toolBox';
 import { NaturesService } from 'src/app/service/natures.service';
+import * as Notiflix from 'notiflix';
 @Component({
   selector: 'app-nature-mission',
   templateUrl: './nature-mission.component.html',
@@ -43,8 +44,8 @@ export class NatureMissionComponent implements OnInit {
         this.natures = data;
       },
       error: (err) => {
-        Notify.failure(err);
-        console.log(err);
+        Notiflix.Notify.failure(err.error.message);
+
       },
     });
   }
@@ -59,9 +60,11 @@ export class NatureMissionComponent implements OnInit {
       .subscribe({
         next: () => {
           this.natures = this.natures.filter((n: Nature) => n !== nature);
+          Notiflix.Notify.success(`la nature : ${nature.description} \n a été supprimée avec succés`);
+
         }
         , error: (err: HttpErrorResponse) => {
-          Notify.failure(err.error.message);
+          Notiflix.Notify.failure(err.error.message);
         }
       });
   }

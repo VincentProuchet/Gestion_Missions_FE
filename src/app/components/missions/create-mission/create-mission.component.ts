@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as Notiflix from 'notiflix';
 import { City } from 'src/app/model/city';
 import { Mission } from 'src/app/model/mission';
 import { Nature } from 'src/app/model/nature';
@@ -11,7 +12,7 @@ import { CityService } from 'src/app/service/city.service';
 import { MissionsService } from 'src/app/service/missions.service';
 import { NaturesService } from 'src/app/service/natures.service';
 import { TransportService } from 'src/app/service/transport.service';
-import { CustomValidators } from 'src/app/shared/custom-validators';
+import { CustomValidators } from 'src/app/model/custom-validators';
 
 @Component({
   selector: 'app-create-mission',
@@ -75,7 +76,9 @@ export class CreateMissionComponent implements OnInit {
         next: (data: Mission) => {
           this.router.navigate(['gestionMission']);
         },
-        error: (err: HttpErrorResponse) => console.log(err.message)
+        error: (err: HttpErrorResponse) => {
+          Notiflix.Notify.failure(err.error.message);
+        }
       });
     }
   }

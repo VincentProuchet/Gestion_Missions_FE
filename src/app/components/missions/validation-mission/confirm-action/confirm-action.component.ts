@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Mission } from 'src/app/model/mission';
-import { Action } from 'rxjs/internal/scheduler/Action';
 import { Actions } from 'src/app/model/actions';
 import * as Notiflix from 'notiflix';
 import { ToolBox } from 'src/app/model/toolBox';
@@ -43,19 +42,9 @@ export class ConfirmActionComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  /** on validate */
-  onValidate(mission: Mission) {
-    this.onValidateEvt.emit(mission);
-  }
-
-  /** on reject */
-  onReject(mission: Mission) {
-    this.onRejectEvt.emit(mission);
-  }
-  /** on reset */
-  onReset(mission: Mission) {
-    this.onResetEvt.emit(mission);
-  }
+  /**
+   *  confirmation de l'action
+   */
   onConfirm(): void {
     if (this.mission != null) {
       switch (this.action) {

@@ -6,7 +6,7 @@ import { AP_Vars } from 'src/environments/API_Vars';
 import { City } from '../model/city';
 
 /**
- * Description placeholder
+ * Service pour les villes
  * @date 21/09/2022 - 12:12:22
  *
  * @export

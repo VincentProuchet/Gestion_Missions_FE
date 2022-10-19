@@ -4,7 +4,7 @@ import { Mission } from 'src/app/model/mission';
 import { ExpenseType } from 'src/app/model/expense-type';
 import { ExpensesService } from 'src/app/service/expenses.service';
 import { NaturesService } from 'src/app/service/natures.service';
-import { CustomValidators } from 'src/app/shared/custom-validators';
+import { CustomValidators } from 'src/app/model/custom-validators';
 import { Expense } from 'src/app/model/expense';
 import { ToolBox } from 'src/app/model/toolBox';
 import * as Notiflix from 'notiflix';

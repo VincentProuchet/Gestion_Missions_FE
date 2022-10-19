@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Nature } from 'src/app/model/nature';
 import { NaturesService } from 'src/app/service/natures.service';
-import { CustomValidators } from 'src/app/shared/custom-validators';
-import { Notify } from "notiflix";
+import { HttpErrorResponse } from '@angular/common/http';
+import * as Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-creation-nature',
@@ -20,8 +20,18 @@ export class CreationNatureComponent implements OnInit {
     tjmControl: [0, [Validators.required, Validators.min(0)]],
     bonusControl: [0, [Validators.required, Validators.min(0)]]
   });
+  /**
+  nom des controles dans le formulaire du composant
+   */
+  controlNames = {
+    description: "descriptionControl"
+    , giveBonus: "giveBonusControl"
+    , charged: "chargedControl"
+    , tjm: "tjmControl"
+    , bonus: "bonusControl"
+  }
 
-  /*
+  /**
  //icons
   faPencilAlt = faPencilAlt
   faTrashAlt = faTrashAlt
@@ -47,11 +57,13 @@ export class CreationNatureComponent implements OnInit {
 
     this.srvNature.creationNature(nature).subscribe(
       {
-        next: () => { this.router.navigate(['/gestionDesNatures']) }
-        ,
-        error: (err) => {
-          Notify.failure(err);
-          console.log(err);
+        next: () => {
+          this.router.navigate(['/gestionDesNatures'])
+          Notiflix.Notify.success(`la nature ${nature.description} à été crée avec succés `);
+
+        }
+        , error: (err: HttpErrorResponse) => {
+          Notiflix.Notify.failure(err.error.message);
         }
       });
 
@@ -72,13 +84,13 @@ export class CreationNatureComponent implements OnInit {
   collectForm(): Nature {
     return {
       id: null,
-      description: this.formGroupNature.controls["descriptionControl"].value,
+      description: this.formGroupNature.controls[this.controlNames.description].value,
       dateOfValidity: new Date(),
       endOfValidity: null,
-      givesBonus: this.formGroupNature.controls["giveBonusControl"].value || true,
-      charged: this.formGroupNature.controls["chargedControl"].value || true,
-      tjm: this.formGroupNature.controls["tjmControl"].value || 0,
-      bonusPercentage: this.formGroupNature.controls["bonusControl"].value || 0,
+      givesBonus: this.formGroupNature.controls[this.controlNames.giveBonus].value || true,
+      charged: this.formGroupNature.controls[this.controlNames.charged].value || true,
+      tjm: this.formGroupNature.controls[this.controlNames.tjm].value || 0,
+      bonusPercentage: this.formGroupNature.controls[this.controlNames.bonus].value || 0,
     };
   }
 

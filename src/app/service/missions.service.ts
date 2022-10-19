@@ -222,14 +222,14 @@ export class MissionsService {
               ...mission.expenses.map(e => (// expenses lines
                 [e.type.name,
                 `${this.tools.date(e.date)}`,
-                { style: `numbers`, text: e.cost },
-                { style: `numbers`, text: e.tva },
-                { style: `numbers`, text: this.tools.expenseTTC(e) }]
+                { style: `numbers`, text: e.cost.toFixed(2) },
+                { style: `numbers`, text: e.tva.toFixed(2) },
+                { style: `numbers`, text: this.tools.expenseTTC(e).toFixed(2) }]
               )
               ),
-
-              ['', '', { text: "total HT :", colSpan: 1 }, { style: `numbers`, text: this.tools.sumExpenses(mission.expenses), colSpan: 2 }, 0], // bas du tableau
-              ['', '', { text: "total TTC:", colSpan: 1 }, { style: `numbers`, text: this.tools.sumExpensesTTC(mission.expenses), colSpan: 2 }, 0],//// bas du tableau
+              // table foot
+              ['', '', { text: "total HT :", colSpan: 1 }, { style: `numbers`, text: this.tools.sumExpenses(mission.expenses).toFixed(2), colSpan: 2 }, 0], // bas du tableau
+              ['', '', { text: "total TTC:", colSpan: 1 }, { style: `numbers`, text: this.tools.sumExpensesTTC(mission.expenses).toFixed(2), colSpan: 2 }, 0],//// bas du tableau
 
             ]
           }
@@ -278,6 +278,6 @@ export class MissionsService {
     };
     pdfMake.createPdf(pdf).open();
     localStorage.setItem("mission", JSON.stringify(mission, null, 1));
-    Notiflix.Notify.success("exporté vers *.pdf");
+    Notiflix.Notify.success(" les frais de la mission ont été exporté avec succés vers un pdf \n une nouvelle fenêtre va s'ouvrir.");
   }
 }

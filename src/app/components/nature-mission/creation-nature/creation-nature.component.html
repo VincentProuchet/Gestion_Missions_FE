@@ -8,16 +8,16 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="nature" class="col-sm-6 col-form-label text-right">Description</label>
           <div class="col-sm-6">
-            <input type="text" formControlName="descriptionControl" class="form-control" id="nature"/>
+            <input type="text" formControlName="{{controlNames.description}}" class="form-control" id="nature" />
           </div>
         </div>
         <div
-          *ngIf="formGroupNature.controls['descriptionControl'].invalid && (formGroupNature.controls['descriptionControl'].dirty || formGroupNature.controls['descriptionControl'].touched)"
+          *ngIf="formGroupNature.controls[controlNames.description].invalid && (formGroupNature.controls[controlNames.description].dirty || formGroupNature.controls[controlNames.description].touched)"
           class="alert alert-danger mt-2">
-          <div *ngIf="formGroupNature.controls['descriptionControl'].errors?.['required']">
+          <div *ngIf="formGroupNature.controls[controlNames.description].errors?.['required']">
             Saisie invalide, a preciser
           </div>
-          <div *ngIf="formGroupNature.controls['descriptionControl'].errors?.['maxlength']">
+          <div *ngIf="formGroupNature.controls[controlNames.description].errors?.['maxlength']">
             50 caractères max.
           </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="facturee" class="col-sm-6 col-form-label text-right">Facturée</label>
           <div class="col-sm-6">
-            <select formControlName="chargedControl" class="form-select" id="facturee">
+            <select formControlName="{{controlNames.charged}}" class="form-select" id="facturee">
               <option value="true" selected>OUI</option>
               <option value="false">NON</option>
             </select>
@@ -37,7 +37,7 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="versementPrime" class="col-sm-6 col-form-label text-right">Versement Prime</label>
           <div class="col-sm-6">
-            <select formControlName="giveBonusControl" class="form-select" id="versementPrime">
+            <select formControlName="{{controlNames.giveBonus}}" class="form-select" id="versementPrime">
               <option value="true" selected>OUI</option>
               <option value="false">NON</option>
             </select>
@@ -48,12 +48,14 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="tmj" class="col-sm-6 col-form-label text-right">TMJ</label>
           <div class="col-sm-6">
-            <input type="number" formControlName="tjmControl" class="form-control" id="tmj" step="0.5" />
+            <input type="number" formControlName="{{controlNames.tjm}}" class="form-control" id="tmj" step="0.5" />
           </div>
         </div>
-        <div *ngIf="formGroupNature.controls['tjmControl'].invalid && (formGroupNature.controls['tjmControl'].dirty || formGroupNature.controls['tjmControl'].touched)"
+        <div
+          *ngIf="formGroupNature.controls[controlNames.tjm].invalid && (formGroupNature.controls[controlNames.tjm].dirty || formGroupNature.controls[controlNames.tjm].touched)"
           class="alert alert-danger mt-2">
-          <div *ngIf="formGroupNature.controls['tjmControl'].errors?.['min'] || formGroupNature.controls['tjmControl'].errors?.['required']">
+          <div
+            *ngIf="formGroupNature.controls[controlNames.tjm].errors?.['min'] || formGroupNature.controls[controlNames.tjm].errors?.['required']">
             Doit être un nombre supérieur ou égal à 0
           </div>
         </div>
@@ -62,19 +64,22 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="bonus" class="col-sm-6 col-form-label text-right">Prime</label>
           <div class="col-sm-6">
-            <input type="number" formControlName="bonusControl" class="form-control" id="bonus" step="0.5"/>
+            <input type="number" formControlName="{{controlNames.bonus}}" class="form-control" id="bonus" step="0.5" />
           </div>
         </div>
-        <div *ngIf="formGroupNature.controls['bonusControl'].invalid && (formGroupNature.controls['bonusControl'].dirty || formGroupNature.controls['tjmControl'].touched)"
+        <div
+          *ngIf="formGroupNature.controls[controlNames.bonus].invalid && (formGroupNature.controls[controlNames.bonus].dirty || formGroupNature.controls[controlNames.bonus].touched)"
           class="alert alert-danger mt-2">
-          <div class="text-danger" *ngIf="formGroupNature.controls['bonusControl'].errors?.['min'] || formGroupNature.controls['bonusControl'].errors?.['required']">
+          <div class="text-danger"
+            *ngIf="formGroupNature.controls[controlNames.bonus].errors?.['min'] || formGroupNature.controls[controlNames.bonus].errors?.['required']">
             Doit être un nombre supérieur ou égal à 0
           </div>
         </div>
       </div>
       <div class="d-flex justify-content-center gap-3 mt-3">
         <button (click)="onCancel()" class="btn btn-danger" type="button" style="margin: 5px">Annuler</button>
-        <button class="btn btn-success" type="submit" style="margin: 5px" [disabled]="!formGroupNature.valid">Valider</button>
+        <button class="btn btn-success" type="submit" style="margin: 5px"
+          [disabled]="!formGroupNature.valid">Valider</button>
       </div>
     </form>
   </div>

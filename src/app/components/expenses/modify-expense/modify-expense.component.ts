@@ -5,7 +5,7 @@ import { Expense } from 'src/app/model/expense';
 import { ExpenseType } from 'src/app/model/expense-type';
 import { Mission } from 'src/app/model/mission';
 import { ExpensesService } from 'src/app/service/expenses.service';
-import { CustomValidators } from 'src/app/shared/custom-validators';
+import { CustomValidators } from 'src/app/model/custom-validators';
 import * as Notiflix from 'notiflix';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToolBox } from 'src/app/model/toolBox';

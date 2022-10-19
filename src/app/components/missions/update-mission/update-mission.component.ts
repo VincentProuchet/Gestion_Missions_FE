@@ -11,7 +11,7 @@ import { CityService } from 'src/app/service/city.service';
 import { MissionsService } from 'src/app/service/missions.service';
 import { NaturesService } from 'src/app/service/natures.service';
 import { TransportService } from 'src/app/service/transport.service';
-import { CustomValidators } from 'src/app/shared/custom-validators';
+import { CustomValidators } from 'src/app/model/custom-validators';
 import { AP_Vars } from 'src/environments/API_Vars';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as Notiflix from 'notiflix';
@@ -83,7 +83,7 @@ export class UpdateMissionComponent implements OnInit {
             this.initFormValues(data);
           }
           , error: (err: HttpErrorResponse) => {
-            Notiflix.Notify.failure(err.message);
+            Notiflix.Notify.failure(err.error.message);
           }
         }
       )
@@ -99,7 +99,7 @@ export class UpdateMissionComponent implements OnInit {
           this.router.navigate(['gestionMission']);
         },
         error: (err: HttpErrorResponse) => {
-          Notiflix.Notify.failure(err.message);
+          Notiflix.Notify.failure(err.error.message);
         }
       })
       //register the new data, if valid
@@ -118,7 +118,7 @@ export class UpdateMissionComponent implements OnInit {
       {
         next: (data: Nature[]) => { this.natures = this.srvNature.getValidNatures(data) }
         ,
-        error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.message); }
+        error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.error.message); }
       }
     );
 
@@ -131,7 +131,7 @@ export class UpdateMissionComponent implements OnInit {
       {
         next: (data: City[]) => { this.cities = data }
         ,
-        error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.message); }
+        error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.error.message); }
       }
     );
 

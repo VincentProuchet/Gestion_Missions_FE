@@ -40,20 +40,21 @@ export class AllMissionsComponent implements OnInit {
   constructor(private router: Router, private srvMission: MissionsService, private srvTransport: TransportService) { }
 
   ngOnInit(): void {
-    this.updateMission();
+    this.getMission();
   }
 
   /**
    * Met à jour la liste des missions
    */
-  updateMission() {
+  getMission() {
     this.srvMission.getMissions().subscribe(
       {
         next: (data: Mission[]) => {
           this.missions = data;
+
         }
         , error: (err: HttpErrorResponse) => {
-          Notiflix.Notify.failure(err.message);
+          Notiflix.Notify.failure(err.error.message);
         }
       }
     )
@@ -84,10 +85,11 @@ export class AllMissionsComponent implements OnInit {
       next: () => {
         // mise à jour de la liste
         this.missions = this.missions.filter((m: Mission) => m !== mission);
+        Notiflix.Notify.success("La mission a bien été supprimée.");
       },
       error: (err: HttpErrorResponse) => {
         // affichage de la réponse du serveur
-        Notiflix.Notify.failure(err.message);
+        Notiflix.Notify.failure(err.error.message);
       }
     });
 
