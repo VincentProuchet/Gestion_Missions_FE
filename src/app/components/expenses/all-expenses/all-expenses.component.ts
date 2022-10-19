@@ -6,6 +6,7 @@ import * as Notiflix from 'notiflix';
 
 import { Expense } from 'src/app/model/expense';
 import { Mission } from 'src/app/model/mission';
+import { Status } from 'src/app/model/status';
 import { ToolBox } from 'src/app/model/toolBox';
 import { MissionsService } from 'src/app/service/missions.service';
 import { TransportService } from 'src/app/service/transport.service';
@@ -16,8 +17,9 @@ import { TransportService } from 'src/app/service/transport.service';
   styleUrls: ['./all-expenses.component.css']
 })
 /**
-this component list all user's missions and expense related to each one
-in a condensed easiers to read table allowing to edit expense for each connected user missions
+this component list all user's missions
+in a condensed easiers to read table
+allowing to edit expenses of user's missions
  */
 export class AllExpensesComponent implements OnInit {
   /** list of user's missions  */
@@ -33,7 +35,11 @@ export class AllExpensesComponent implements OnInit {
     this.missionService.getMissions().subscribe(
       {
         next: (missions: Mission[]) => {
-          this.missions = missions;
+          let now: Date = new Date(Date.now());
+          this.missions = missions.filter((m) => {
+            return (this.tools.statusEquals(m, Status.VALIDATED))
+              && (now.getTime() > new Date(m.end).getTime())
+          });
         }
         , error: (error: HttpErrorResponse) => {
           Notiflix.Notify.failure(error.message);

@@ -42,8 +42,7 @@ export class ValidationMissionComponent implements OnInit {
    */
   updateMission() {
     this.missionService.getMissionsToValidate().subscribe({
-      next: (data) => {
-        console.log(data);
+      next: (data: Mission[]) => {
         this.missions = data;
       },
       error: (err: HttpErrorResponse) => {
@@ -61,13 +60,12 @@ export class ValidationMissionComponent implements OnInit {
     //mission.status = this.statusEnum.VALIDATED;
 
     this.missionService.validateMission(mission).subscribe({
-      next: (data) => {
+      next: (data: Mission) => {
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
       error: (err: HttpErrorResponse) => {
-        Notiflix.Notify.failure(err.error);
-        console.log(err)
+        Notiflix.Notify.failure(err.message);
       }
 
     })

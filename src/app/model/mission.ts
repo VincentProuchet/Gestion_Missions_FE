@@ -10,31 +10,35 @@ import { Transport } from "./transport";
  * Mission
  */
 export interface Mission {
-  /** */
+  /**
+   identifaint en persistence de la mission
+  */
   id: number | null;
-  /** */
+  /**
+  bonus de la mission
+   */
   bonus: number;
-  /** */
+  /** Status de la mission */
   status: Status,
-  /** */
+  /** moyen de transport majoritaire */
   transport: Transport;
-  /**date début de la mission
-   * ici le type any est pour le devellopement seuelement
+  /**
+  date début de la mission
   */
   start: Date;
-  /** date de fin de la mission
-   * ici le type any est pour le devellopement seuelement
+  /**
+  date de fin de la mission
    */
   end: Date;
-  /** */
+  /** ville de départ */
   startCity: City;
-  /** */
+  /**  ville d'arrivée */
   arrivalCity: City;
-  /** */
+  /** nature de la mission */
   nature: Nature;
-  /** */
+  /** collaborateur de la mission */
   collaborator: Collaborator | null;
-  /** */
+  /** frais de mission */
   expenses: Expense[];
 
 }
