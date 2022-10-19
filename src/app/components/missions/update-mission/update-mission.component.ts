@@ -13,6 +13,8 @@ import { NaturesService } from 'src/app/service/natures.service';
 import { TransportService } from 'src/app/service/transport.service';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 import { AP_Vars } from 'src/environments/API_Vars';
+import { HttpErrorResponse } from '@angular/common/http';
+import * as Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-update-mission',
@@ -20,7 +22,7 @@ import { AP_Vars } from 'src/environments/API_Vars';
   styleUrls: ['./update-mission.component.css']
 })
 export class UpdateMissionComponent implements OnInit {
-  /** formular */
+  /** formulaire */
   formGroup: FormGroup = this.formBuilder.group(
     {
       startDateControl: ['', [Validators.required]],
@@ -35,10 +37,22 @@ export class UpdateMissionComponent implements OnInit {
       validators: [CustomValidators.startEndDateValidator()]
     }
   );
+  /**
+      nom des controles dans le formulaire
+   */
+  controlsNames = {
+    startDateControl: "startDateControl"
+    , endDateControl: "endDateControl"
+    , natureControl: "natureControl"
+    , startCityControl: "startCityControl"
+    , endCityControl: "endCityControl"
+    , transportControl: "transportControl"
+    , bonusEstimeeControl: "bonusEstimeeControl"
+  };
   /** mission to update */
   mission!: Mission;
   /** toolbox for date formating */
-  date: ToolBox = new ToolBox();
+  tools: ToolBox = new ToolBox();
   /** natures list */
   natures: Nature[] = new Array();
   /** cities list  */
@@ -55,8 +69,6 @@ export class UpdateMissionComponent implements OnInit {
     this.transports = srvTransport.getTransportMap();
     this.updateNatures();
     this.updatecities();
-
-
   }
   /**
    * on récupére les données de la mission à modifier dés l'initialisation
@@ -66,36 +78,36 @@ export class UpdateMissionComponent implements OnInit {
       //get mission with id and fill the form
       this.srvMission.getMission(params['id']).subscribe(
         {
-          next: (data) => {
+          next: (data: Mission) => {
             this.mission = data;// the form is filled here
             this.initFormValues(data);
           }
-          , error: (err) => {
-            console.log(err);// here is to display an error in case something went wrong
+          , error: (err: HttpErrorResponse) => {
+            Notiflix.Notify.failure(err.message);
           }
         }
       )
     })
   }
   /**
-   * form submit action
-   * @returns
+   form submit action
    */
   onSubmit(): void {
-    if (this.formGroup.invalid) {
-      return;
+    if (this.formGroup.valid) {
+      this.srvMission.updateMission(this.collectForm()).subscribe({
+        next: (data: Mission) => {
+          this.router.navigate(['gestionMission']);
+        },
+        error: (err: HttpErrorResponse) => {
+          Notiflix.Notify.failure(err.message);
+        }
+      })
+      //register the new data, if valid
     }
-    this.mission = this.collectForm();
-
-    this.srvMission.updateMission(this.mission).subscribe({
-      next: (data) => {
-        this.router.navigate(['gestionMission']);
-      },
-      error: (err) => console.log(err)
-    })
-    //register the new data, if valid
   }
-  /** form cancel action */
+  /**
+   form cancel action
+   */
   onCancel(): void {
     //register the new mission, if valid
     this.router.navigate(['gestionMission'])
@@ -104,20 +116,22 @@ export class UpdateMissionComponent implements OnInit {
   updateNatures(): void {
     this.srvNature.getNatures().subscribe(
       {
-        next: (data) => { this.natures = this.srvNature.getValidNatures(data) }
+        next: (data: Nature[]) => { this.natures = this.srvNature.getValidNatures(data) }
         ,
-        error: (err) => { console.log(err); }
+        error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.message); }
       }
     );
 
   }
-  /** update cities lists from service */
+  /**
+  update cities lists from service
+  */
   updatecities(): void {
     this.srvCity.getCities().subscribe(
       {
-        next: (data) => { this.cities = data }
+        next: (data: City[]) => { this.cities = data }
         ,
-        error: (err) => { console.log(err); }
+        error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.message); }
       }
     );
 
@@ -126,19 +140,16 @@ export class UpdateMissionComponent implements OnInit {
    * return form's data's as a Mission Type Object
    */
   collectForm(): Mission {
-    console.log(this.formGroup.controls["natureControl"].value);
     return {
       id: this.mission.id,
       bonus: this.mission.bonus,
       status: this.mission.status,
-      transport: this.formGroup.controls["transportControl"].value,
-      start: new Date(this.formGroup.controls["startDateControl"].value),
-      end: new Date(this.formGroup.controls["endDateControl"].value),
-      startCity: this.formGroup.controls["startCityControl"].value,
-
-      arrivalCity: this.formGroup.controls["endCityControl"].value,
-
-      nature: this.formGroup.controls["natureControl"].value,
+      transport: this.formGroup.controls[this.controlsNames.transportControl].value,
+      start: new Date(this.formGroup.controls[this.controlsNames.startDateControl].value),
+      end: new Date(this.formGroup.controls[this.controlsNames.endDateControl].value),
+      startCity: this.formGroup.controls[this.controlsNames.startCityControl].value,
+      arrivalCity: this.formGroup.controls[this.controlsNames.endCityControl].value,
+      nature: this.formGroup.controls[this.controlsNames.natureControl].value,
       collaborator: this.mission.collaborator,
       expenses: this.mission.expenses
     };
@@ -153,13 +164,9 @@ export class UpdateMissionComponent implements OnInit {
       "endCityControl": data.arrivalCity,
       "transportControl": data.transport,
       "bonusEstimeeControl": data.bonus,
-      "startDateControl": this.date.inputFormat(data.start),
-      "endDateControl": this.date.inputFormat(data.end),
+      "startDateControl": this.tools.inputFormat(data.start),
+      "endDateControl": this.tools.inputFormat(data.end),
     });
-  }
-
-  compareById(itemOne: any, itemTwo: any) {
-    return itemOne && itemTwo && itemOne.id == itemTwo.id;
   }
 
 }

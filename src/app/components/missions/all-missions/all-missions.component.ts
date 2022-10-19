@@ -52,7 +52,9 @@ export class AllMissionsComponent implements OnInit {
         next: (data: Mission[]) => {
           this.missions = data;
         }
-        , error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.message); }
+        , error: (err: HttpErrorResponse) => {
+          Notiflix.Notify.failure(err.message);
+        }
       }
     )
 
@@ -78,8 +80,6 @@ export class AllMissionsComponent implements OnInit {
    * @param mission à supprimer
    */
   onDelete(mission: Mission): void {
-    console.log("confirm delete event received");
-
     this.srvMission.deleteMission(mission).subscribe({
       next: () => {
         // mise à jour de la liste

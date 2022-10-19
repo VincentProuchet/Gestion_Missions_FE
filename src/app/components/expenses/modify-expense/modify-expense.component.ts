@@ -66,7 +66,7 @@ export class ModifyExpenseComponent implements OnInit {
         next: (types: ExpenseType[]) => {
           this.types = types;
           if (this.expenseToModify != null) {
-            this.formGroup.controls["typeControl"].setValue(this.expenseToModify.type);
+            this.formGroup.controls[this.controlNames.type].setValue(this.expenseToModify.type);
           }
         }
         , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }

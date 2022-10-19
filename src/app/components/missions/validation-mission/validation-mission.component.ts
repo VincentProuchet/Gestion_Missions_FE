@@ -75,17 +75,13 @@ export class ValidationMissionComponent implements OnInit {
       reject the  mission to the BE
   */
   onReject(mission: Mission) {
-    //TODO: retirer ligne suivante une fois relié au back end
-    //mission.status = this.statusEnum.REJECTED;
-
     this.missionService.rejectMission(mission).subscribe({
-      next: (data) => {
+      next: (data: Mission) => {
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
       error: (err: HttpErrorResponse) => {
         Notiflix.Notify.failure(err.error);
-        console.log(err)
       }
     })
   }
@@ -98,14 +94,12 @@ export class ValidationMissionComponent implements OnInit {
     //mission.status = this.statusEnum.WAITING_VALIDATION;
 
     this.missionService.resetMission(mission).subscribe({
-      next: (data) => {
-        console.log(data);
+      next: (data: Mission) => {
         let idx = this.missions.indexOf(mission);
         this.missions[idx] = data;
       },
-      error: (err) => {
-        Notiflix.Notify.failure(err.error);
-        console.log(err)
+      error: (err: HttpErrorResponse) => {
+        Notiflix.Notify.failure(err.message);
       }
     })
   }

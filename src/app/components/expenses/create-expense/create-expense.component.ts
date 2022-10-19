@@ -39,7 +39,7 @@ export class CreateExpenseComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private expensesService: ExpensesService) {
     this.expensesService.getExpenseTypes().subscribe(
       {
-        next: (types) => { this.types = types }
+        next: (types: ExpenseType[]) => { this.types = types }
         , error: (error: HttpErrorResponse) => { Notiflix.Notify.failure(error.message); }
       }
     );

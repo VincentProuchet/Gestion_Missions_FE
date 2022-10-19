@@ -30,11 +30,9 @@ export class RemoveMissionComponent implements OnInit {
 
   /**
    * action de confirmation
-  emet l'event de confimation
+  emet l'event de confimation de suppression 
    */
   onDeleteConfirmed() {
-    console.log("sending event");
-
     this.confirmDeleteEvt.emit(this.missionToDelete);
   }
 

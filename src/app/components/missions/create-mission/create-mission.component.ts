@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -28,10 +29,24 @@ export class CreateMissionComponent implements OnInit {
     endCityControl: ['', [Validators.required, Validators.maxLength(50)]],
     transportControl: ['', [Validators.required]],
     bonusEstimeeControl: ['']
-  }, { validators: [CustomValidators.startEndDateValidator()] });;
-
+  }, { validators: [CustomValidators.startEndDateValidator()] });
+  /**
+  nom des control dans le formulaire du composant
+   */
+  controlNames = {
+    startDateControl: "startDateControl"
+    , endDateControl: "endDateControl"
+    , natureControl: "natureControl"
+    , startCityControl: "startCityControl"
+    , endCityControl: "endCityControl"
+    , transportControl: "transportControl"
+    , bonusEstimeeControl: "bonusEstimeeControl"
+  }
+  /** liste des nature */
   natures: Nature[] = [];
+  /** liste des villes */
   cities: City[] = [];
+  /** enumération des transports */
   transports: Record<keyof typeof Transport, Transport>;
 
 
@@ -40,48 +55,56 @@ export class CreateMissionComponent implements OnInit {
   ) {
     this.transports = transportService.getTransportMap();
     this.natureService.getNatures().subscribe(
-      (data) => this.natures = this.natureService.getValidNatures(data)
+      (data: Nature[]) => this.natures = this.natureService.getValidNatures(data)
     );
     this.srvCity.getCities().subscribe(
-      (data) => this.cities = data
+      (data: City[]) => this.cities = data
     );
   }
 
   ngOnInit(): void {
   }
-
+  /**
+   * controle la validité du formulaire
+      puis fait une demande d'enregistrement en persistence
+      avant d'envoyer l'utilisateur vers la page de gestion des missions
+   */
   onSubmit(): void {
-    if (this.formGroup.invalid) {
-      return;
+    if (!this.formGroup.invalid) {
+      this.missionService.createMission(this.collectForm()).subscribe({
+        next: (data: Mission) => {
+          this.router.navigate(['gestionMission']);
+        },
+        error: (err: HttpErrorResponse) => console.log(err.message)
+      });
     }
-    let selectedStart;
-    let selectedArrival;
-
-
-    let newMission: Mission = {
-      id: null,
-      bonus: this.formGroup.controls["bonusEstimeeControl"].value,
-      status: Status.INIT,
-      transport: this.formGroup.controls["transportControl"].value,
-      start: new Date(this.formGroup.controls["startDateControl"].value),
-      end: new Date(this.formGroup.controls["endDateControl"].value),
-      nature: this.formGroup.controls["natureControl"].value,
-      startCity: this.formGroup.controls["startCityControl"].value,
-      arrivalCity: this.formGroup.controls["endCityControl"].value,
-      collaborator: null,
-      expenses: []
-    }
-    console.log(newMission);
-
-    this.missionService.createMission(newMission).subscribe({
-      next: (data) => {
-        this.router.navigate(['gestionMission']);
-      },
-      error: (err) => console.log(err)
-    });
   }
+  /**
+   * annulation de la création
+  retourne à la page gestionDesMission
+   */
   onCancel(): void {
     //register the new mission, if valid
     this.router.navigate(['gestionMission'])
+  }
+  /**
+   * collecte les données du formulaire
+
+   * @returns a convenient Mission entity filled with data from the form
+   */
+  collectForm(): Mission {
+    return {
+      id: null,
+      bonus: this.formGroup.controls[this.controlNames.bonusEstimeeControl].value,
+      status: Status.INIT,
+      transport: this.formGroup.controls[this.controlNames.transportControl].value,
+      start: new Date(this.formGroup.controls[this.controlNames.startDateControl].value),
+      end: new Date(this.formGroup.controls[this.controlNames.endDateControl].value),
+      nature: this.formGroup.controls[this.controlNames.natureControl].value,
+      startCity: this.formGroup.controls[this.controlNames.startCityControl].value,
+      arrivalCity: this.formGroup.controls[this.controlNames.endCityControl].value,
+      collaborator: null,
+      expenses: []
+    }
   }
 }

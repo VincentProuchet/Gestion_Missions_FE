@@ -86,7 +86,7 @@ export class UpdateExpensesComponent implements OnInit {
   onCreate(expense: Expense) {
     this.expensesService.addExpense(expense).subscribe(
       {
-        next: (expense) => {
+        next: (expense: Expense) => {
           this.expenses.push(expense);
           Notiflix.Notify.success("frais ajouté avec succés ");
         },
