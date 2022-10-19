@@ -1,6 +1,7 @@
 import { DatePipe, formatDate } from "@angular/common";
 import { AP_Vars } from "src/environments/API_Vars";
 import { Expense } from "./expense";
+import { Mission } from "./mission";
 import { Status } from "./status";
 import { Transport } from "./transport";
 /**
@@ -80,6 +81,25 @@ export class ToolBox {
         break;
     }
     return bsClass;
+  }
+
+  /**
+   * compare a mission's status to one or more required statuses
+    if one of them match with mission's status
+    true is returned
+   * @param mission
+   * @param required... one or more of required status
+   * @returns true if mission's statsu matche one of the required status
+   */
+  statusEquals(mission: Mission, ...required: Status[]): boolean {
+    let response: boolean = false;
+    required.forEach(status => {
+      if (mission.status.toString() == Status[status]) {
+        response = true;
+      }
+    });
+    return response;
+
   }
   /**
  * retourne la liste des transport
@@ -171,7 +191,7 @@ export class ToolBox {
     return expenses.map(expense => (expense.cost * (1 + expense.tva / 100))).reduce((currSum, currElement) => currSum + currElement, 0);
   }
   /**
-   * 
+   *
    * @param expense
    * @returns the TTC value of an expense
    */

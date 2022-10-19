@@ -26,7 +26,7 @@ export class AllMissionsComponent implements OnInit {
    */
   missions: Array<Mission> = [];
   /** boite à outils  */
-  dates: ToolBox = new ToolBox();
+  tools: ToolBox = new ToolBox();
   /** enumération des status */
   statusEnum: typeof Status = Status;
   /** référence à l'instance de mission à supprimer
@@ -49,8 +49,10 @@ export class AllMissionsComponent implements OnInit {
   updateMission() {
     this.srvMission.getMissions().subscribe(
       {
-        next: (data) => { this.missions = data; }
-        , error: (err) => { console.log(err); }
+        next: (data: Mission[]) => {
+          this.missions = data;
+        }
+        , error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.message); }
       }
     )
 
@@ -84,9 +86,8 @@ export class AllMissionsComponent implements OnInit {
         this.missions = this.missions.filter((m: Mission) => m !== mission);
       },
       error: (err: HttpErrorResponse) => {
-        console.log(err)
         // affichage de la réponse du serveur
-        Notiflix.Notify.failure(err.error);
+        Notiflix.Notify.failure(err.message);
       }
     });
 
@@ -97,16 +98,6 @@ export class AllMissionsComponent implements OnInit {
    */
   confirmDelete(mission: Mission) {
     this.missionToDelete = mission;
-  }
-  /**
-   * permet d'obtenir
-  la valeur de transport depuis la cléf
-  à refactorer pour en premetre un accés plus universel
-   * @param key
-   * @returns
-   */
-  getTransportValue(key: string): string {
-    return this.srvTransport.getTransportValue(key);
   }
 
 }

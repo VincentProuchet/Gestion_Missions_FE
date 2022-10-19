@@ -1,54 +1,61 @@
 <div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-end">
-    <h1>Gestion des Missions</h1>
-    <div>
-      Demander une mission
-      <button (click)="onCreate()" class="btn btn-primary">
-        <fa-icon icon="plus"></fa-icon>
-      </button>
-    </div>
+  <div class="d-flex justify-content-center">
+    <h1 class="">Gestion des Missions</h1>
   </div>
-  <div class="row">
-    <table class="table table-striped ">
-      <thead>
-        <tr>
-          <th scope="col">début</th>
-          <th scope="col">fin</th>
-          <th scope="col">Nature</th>
-          <th scope="col">Départ</th>
-          <th scope="col">Arrivée</th>
-          <th scope="col">Transport</th>
-          <th scope="col">Statut</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let mission of missions, let index = index">
-          <td>{{ dates.format(mission.start) }}</td>
-          <td>{{ dates.format(mission.end) }}</td>
-          <td>{{ mission.nature.description }}</td>
-          <td>{{ mission.startCity.name }}</td>
-          <td>{{ mission.arrivalCity.name }}</td>
-          <td>{{ getTransportValue(mission.transport) }}</td>
-          <td>{{ mission.status }}</td>
-          <td class="gap-1">
-            <div class="btn-group">
+  <div class="d-flex justify-content-end">
+    <label for="nouvelleMission">Demander une mission</label>
+    <button (click)="onCreate()" class="btn btn-primary" id="nouvelleMission">
+      <fa-icon icon="plus"></fa-icon>
+    </button>
+  </div>
+  <div class="row d-flex ">
 
-              <button *ngIf="mission.status  == statusEnum.INIT||true " (click)="onEdit(mission)"
-                class="btn btn-primary">
-                <fa-icon icon="pen-to-square"></fa-icon>
-                <p class="visually-hidden">modifier</p>
-              </button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                attr.data-bs-target="{{'#removeModal'}}" (click)="confirmDelete(mission)">
-                <fa-icon icon="trash"></fa-icon>
-                <p class="visually-hidden">supprimer</p>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="justify-content-center">
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col flex-wrap">début</th>
+            <th scope="col flex-wrap">fin</th>
+            <th scope="col flex-column">Nature</th>
+            <th scope="col flex-wrap">Départ</th>
+            <th scope="col flex-wrap">Arrivée</th>
+            <th scope="col flex-wrap">Transport</th>
+            <th scope="col flex-wrap">Statut</th>
+            <th scope="col flex-wrap">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mission of missions, let index = index">
+            <td>{{ tools.format(mission.start) }}</td>
+            <td>{{tools.format(mission.end) }}</td>
+            <td>{{ mission.nature.description }}</td>
+            <td>{{ mission.startCity.name }}</td>
+            <td>{{ mission.arrivalCity.name }}</td>
+            <td>{{tools.getTransportValue(mission.transport) }}</td>
+            <td>{{ mission.status }}</td>
+            <td class="gap-1">
+              <div class="btn-group">
+
+                <button *ngIf="tools.statusEquals(mission, statusEnum.INIT, statusEnum.REJECTED ) "
+                  (click)="onEdit(mission)" class="btn btn-primary">
+                  <fa-icon icon="pen-to-square"></fa-icon>
+                  <p class="visually-hidden">modifier</p>
+                </button>
+                <button
+                  *ngIf="tools.statusEquals(mission, statusEnum.INIT,statusEnum.WAITING_VALIDATION ,statusEnum.REJECTED )"
+                  type="button" class="btn btn-danger" data-bs-toggle="modal" attr.data-bs-target="{{'#removeModal'}}"
+                  (click)="confirmDelete(mission)">
+                  <fa-icon icon="trash"></fa-icon>
+                  <p class="visually-hidden">supprimer</p>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col"></div>
   </div>
 </div>
 <app-remove-mission (confirmDeleteEvt)="onDelete($event)" [missionToDelete]="missionToDelete"></app-remove-mission>
