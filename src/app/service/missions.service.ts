@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as Notiflix from 'notiflix';
-import { Observable, Observer, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
 import { AP_Vars } from 'src/environments/API_Vars';
 import { Mission } from '../model/mission';
@@ -10,7 +10,6 @@ import { AuthenticationService } from './authentication.service';
 import * as pdfMake from "pdfmake/build/pdfMake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
-import { Nature } from '../model/nature';
 import { Router } from '@angular/router';
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;// pdf aren't gnerated if you don't have this
 // yhea that's ugly

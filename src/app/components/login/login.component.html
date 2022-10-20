@@ -1,10 +1,6 @@
 <div *ngIf="srvAuth.currentUser()==null" class="container">
 
   <div class="container-fluid ">
-    <div *ngIf="incorrectCredentials" class="alert alert-danger alert-dismissible row d-flex">
-      Nom d'utilisateur ou mot de passe incorrect.
-      <button type="button" class="btn-close" (click)="dismissError()" aria-label="Close"></button>
-    </div>
     <div class="row no-gutter">
       <!-- content  -->
       <div class="bg-light">
@@ -15,7 +11,7 @@
               <div class="col-6 offset-xl-1">
                 <h2 class="display-4">GDM</h2>
                 <h4 class="text-muted mb-4">Gestion des missions</h4>
-                <form (ngSubmit)="onSubmitToBE()" [formGroup]="loginForm">
+                <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
                   <div class="form-group has-validation mb-4">
                     <input id="inputUsername" type="text" placeholder="Nom d'utilisateur"
                       formControlName="usernameControl" required="" class="form-control rounded-pill shadow-sm px-4"

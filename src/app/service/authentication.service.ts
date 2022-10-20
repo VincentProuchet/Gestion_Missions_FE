@@ -1,12 +1,11 @@
-import { JsonPipe } from '@angular/common';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from "ngx-cookie-service";
 import * as Notiflix from 'notiflix';
 
 
-import { map, Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
 import { AP_Vars } from 'src/environments/API_Vars';
 
@@ -44,13 +43,24 @@ export class AuthenticationService {
    * @param loginCred
    * @returns
    */
-  loginfromdb(loginCred: LoginCredentials): Observable<Collaborator> {
+  loginfromdb(loginCred: LoginCredentials): Subscription {
 
     let loginformParam = new FormData();
     loginformParam.append('username', loginCred.username);
     loginformParam.append('password', loginCred.password);
 
-    return this.http.post<Collaborator>(`${AP_Vars.BEConnectionUrl}/${API_Route.SIGNIN}`, loginformParam);
+    return this.http.post<Collaborator>(`${AP_Vars.BEConnectionUrl}/${API_Route.SIGNIN}`, loginformParam).subscribe(
+      {
+        next: (data: Collaborator) => {
+          this.setUser(data);
+          this.router.navigate(['']);
+          window.location.reload();
+          Notiflix.Notify.success(`Bonjour ${data.lastName} ${data.firstName}`);
+        }
+        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(` le login et le mot de passe ne correspondent à aucuns comptes `) }
+        , complete: () => { }
+      }
+    );
   }
   /**
    * make the resquest for login out
@@ -58,7 +68,7 @@ export class AuthenticationService {
    */
   logout(): void {
     this.http.post(`${AP_Vars.BEConnectionUrl}/${API_Route.LOGOUT}`, null).subscribe({
-      next: (data) => {
+      next: () => {
         Notiflix.Notify.success("logged out");
       },
       error: (e: HttpErrorResponse) => {
@@ -101,7 +111,7 @@ in session and local storage
    */
   currentUser(): Collaborator | null {
     let user: string | null = localStorage.getItem(this.STORAGE_KEY);
-    this.connectedUser = user ? JSON.parse(user) : null;
+    this.connectedUser = user ? JSON.parse(user) : this.connectedUser;
     return this.connectedUser;
   }
 

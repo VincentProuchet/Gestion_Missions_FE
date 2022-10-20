@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as Notiflix from 'notiflix';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
 import { AP_Vars } from 'src/environments/API_Vars';
 import { City } from '../model/city';

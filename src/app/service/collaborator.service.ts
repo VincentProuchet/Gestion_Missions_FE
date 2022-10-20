@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import * as Notiflix from 'notiflix';
+import { map, Subscription } from 'rxjs';
 import { AP_Vars } from 'src/environments/API_Vars';
-import { environment } from 'src/environments/environment';
 import { Collaborator } from '../model/collaborator';
 
 /**
@@ -20,7 +20,10 @@ import { Collaborator } from '../model/collaborator';
 export class CollaboratorService {
 
   private API_AFTER_URL: Readonly<string> = "collaborator";
-
+  /** listre de collaborator */
+  public collaborators: Collaborator[] = [];
+  /** collaborator  */
+  public collaborator!: Collaborator;
   /**
    * Creates an instance of CollaboratorService.
    * @date 21/09/2022 - 12:12:32
@@ -30,13 +33,15 @@ export class CollaboratorService {
   constructor(private http: HttpClient) { }
 
 
-  getCollaborators(): Observable<Collaborator[]> {
-    return this.http.get<Collaborator[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`);
+  getCollaborators(): Subscription {
+    return this.http.get<Collaborator[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`).subscribe(
+      {
+        next: (data: Collaborator[]) => { this.collaborators = data; }
+        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error.message); }
+        , complete: () => { }
+      }
+    );
   }
 
-  //TODO: Refactoriser une fois connecté au back-end;
-  getCollaboratorByUsername(username: string): Observable<Collaborator | null> {
-    console.log(`${AP_Vars.BEConnectionUrl}/login`);
-    return this.http.head<Collaborator>(`${AP_Vars.BEConnectionUrl}/login`);
-  }
+
 }

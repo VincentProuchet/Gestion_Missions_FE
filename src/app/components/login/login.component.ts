@@ -20,17 +20,19 @@ Our magnificent login page
 export class LoginComponent implements OnInit {
 
 
-  /** if an error as occured  */
-  error !: String
-  incorrectCredentials: boolean = false;
-  /** for setting user data cookies */
-  loginCookieName: string = AP_Vars.CookiesNameUser;
+
+
+
   /** form controls */
   loginForm: FormGroup = this.formBuilder.group({
     usernameControl: ['', [Validators.required]],
     passwordControl: ['', [Validators.required]],
     rememberMeCheckbox: [true]
   });
+  controlName = {
+    usernameControl: "usernameControl"
+    , passwordControl: "passwordControl"
+  }
 
   constructor(private router: Router, private formBuilder: FormBuilder, public srvAuth: AuthenticationService,
     private srvCollab: CollaboratorService) {
@@ -43,26 +45,10 @@ export class LoginComponent implements OnInit {
   made in parrallel to not mess with FE dev that still need to use the json-server
    * @returns void
    */
-  onSubmitToBE(): void {
-    if (this.loginForm.invalid) {
-      return;
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      this.srvAuth.loginfromdb(this.collectForm());
     }
-    this.srvAuth.loginfromdb(this.collectForm()).subscribe(
-      {
-        next: (pata: Collaborator) => {
-          this.srvAuth.setUser(pata);
-
-          this.router.navigate(['']);
-          window.location.reload();
-          Notiflix.Notify.success(`Bonjour ${pata.lastName} ${pata.firstName}`);
-
-        }
-        , error: (e: HttpErrorResponse) => {
-          this.incorrectCredentials = true;
-          this.error = e.error;
-        }
-      }
-    );
   }
   inputIsInvalid(inputName: string) {
     let isTouched: boolean = this.loginForm.controls[inputName].invalid && (this.loginForm.controls[inputName].dirty || this.loginForm.controls[inputName].touched);
@@ -76,16 +62,9 @@ export class LoginComponent implements OnInit {
    */
   collectForm(): LoginCredentials {
     return {
-      "username": this.loginForm.controls['usernameControl'].value,
-      "password": this.loginForm.controls['passwordControl'].value
+      username: this.loginForm.controls[this.controlName.usernameControl].value,
+      password: this.loginForm.controls[this.controlName.passwordControl].value
     };
   }
-  dismissError() {
-    this.incorrectCredentials = false;
-  }
-  onLogout() {
-    this.srvAuth.logout();
-  }
-
 
 }
