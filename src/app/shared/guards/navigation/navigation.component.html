@@ -25,6 +25,11 @@
               Saisie des Frais
             </a>
           </li>
+          <li class="nav-item">
+            <a routerLink="primes" class="nav-link" routerLinkActive="active">
+              Primes
+            </a>
+          </li>
           <app-auth-mask [cond]="userHasRole(ROLES.MANAGER)">
             <li class="nav-item">
               <a routerLink="validationMission" class="nav-link" routerLinkActive="active">

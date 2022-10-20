@@ -74,4 +74,28 @@ export const AP_Vars = {
    */
   CookiesNameSession: 'JSESSIONID',
 }
-
+export const fr_dates = {
+  month: [
+    'janvier'
+    , 'février'
+    , 'mars'
+    , 'avril'
+    , 'mai'
+    , 'juin'
+    , 'juillet'
+    , 'aout'
+    , 'septembre'
+    , 'octobre'
+    , 'novembre'
+    , 'décembre'
+  ],
+  day: [
+    "lundi"
+    , "mardi"
+    , "mercredi"
+    , "jeudi"
+    , "vendredi"
+    , "samedi"
+    , "dimanche"
+  ]
+}

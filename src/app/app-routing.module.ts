@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BonusesComponent } from './components/bonuses/bonuses.component';
 import { AllExpensesComponent } from './components/expenses/all-expenses/all-expenses.component';
 
 import { UpdateExpensesComponent } from './components/expenses/update-expenses/update-expenses.component';
@@ -18,7 +19,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { BeforeAuthGuard } from './shared/guards/before-auth.guard';
 import { RoleGuard } from './shared/guards/role.guard';
 /**
- * 
+ *
  */
 const routes: Routes = [
   {
@@ -54,7 +55,7 @@ const routes: Routes = [
   {
     // page de consultation des primes
     path: 'primes',
-    component: AllMissionsComponent,
+    component: BonusesComponent,
     canActivate: [AuthGuard]
   },
   {

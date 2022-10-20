@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
@@ -20,6 +21,9 @@ import { MissionsModule } from './components/missions/missions.module';
 import { ExpensesModule } from './components/expenses/expenses.module';
 import { NatureMissionModule } from './components/nature-mission/nature-mission.module';
 import { NavigationComponent } from './shared/guards/navigation/navigation.component';
+import { BonusesComponent } from './components/bonuses/bonuses.component';
+import { ChartComponent } from './components/bonuses/chart/chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,8 @@ import { NavigationComponent } from './shared/guards/navigation/navigation.compo
     LoginComponent,
     AuthMaskComponent,
     NavigationComponent,
+    BonusesComponent,
+    ChartComponent,
 
 
 
@@ -40,6 +46,7 @@ import { NavigationComponent } from './shared/guards/navigation/navigation.compo
     HttpClientModule,
     ExpensesModule,
     FontAwesomeModule,
+    NgChartsModule
 
   ],
   providers: [

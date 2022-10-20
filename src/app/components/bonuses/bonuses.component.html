@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="">
+    <div class="row">
+      <h1 class="">
+        Vos Primes
+      </h1>
+      <div class="cols-sm-3">
+
+        <select class="" [formControl]="selectedCountriesControl" (change)="this.filterMission()">
+          <option *ngFor=" let year of years" value="{{year}}">
+            {{year}}
+          </option>
+
+        </select>
+
+      </div>
+
+
+    </div>
+    <div class="row-cols-12">
+      <div class="col-6">
+        <table class="table table-striped ">
+          <thead>
+            <tr>
+              <th scope="col">début</th>
+              <th scope="col">fin</th>
+              <th scope="col-1">Nature</th>
+              <th scope="col-1">Départ</th>
+              <th scope="col-1">Arrivée</th>
+              <th scope="col-1">Transport</th>
+              <th scope="col-1">Frais</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mission of displayedMissions; let index = index">
+              <td>{{tools.format(mission.start)}}</td>
+              <td>{{tools.format(mission.end)}}</td>
+              <td>{{mission.nature.description }}</td>
+              <td>{{mission.startCity.name}}</td>
+              <td>{{mission.arrivalCity.name}}</td>
+              <td>{{tools.getTransportValue(mission.transport)}}</td>
+              <td>{{tools.sumExpenses(mission.expenses)}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-6">
+        <app-chart [mission]="displayedMissions">
+
+        </app-chart>
+      </div>
+    </div>
+
+  </div>
