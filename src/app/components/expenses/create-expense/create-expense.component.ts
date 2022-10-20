@@ -37,13 +37,8 @@ export class CreateExpenseComponent implements OnInit {
   formGroup!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private expensesService: ExpensesService) {
-    this.expensesService.getExpenseTypes().subscribe(
-      {
-        next: (types: ExpenseType[]) => { this.types = types }
-        , error: (error: HttpErrorResponse) => { Notiflix.Notify.failure(error.message); }
-      }
-    );
-
+    this.expensesService.getExpenseTypes().add(
+      () => { this.types = this.expensesService.types });
   }
   /**
    * automatically called angular function

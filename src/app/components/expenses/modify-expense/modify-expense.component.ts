@@ -61,16 +61,13 @@ export class ModifyExpenseComponent implements OnInit {
 
   ngOnInit(): void {
     // fill in of Expenses type
-    this.expensesService.getExpenseTypes().subscribe(
-      {
-        next: (types: ExpenseType[]) => {
-          this.types = types;
-          if (this.expenseToModify != null) {
-            this.formGroup.controls[this.controlNames.type].setValue(this.expenseToModify.type);
-          }
-        }
-        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error); }
+    this.expensesService.getExpenseTypes().add(
+      () => {
+        this.types = this.expensesService.types;
+
       }
+
+
     );
   }
   /**

@@ -57,11 +57,8 @@ export class UpdateExpensesComponent implements OnInit {
             () => {
               this.mission = this.missionsService.mission;
               // we get the expenses of the mission
-              this.expensesService.getMissionExpenses(missionID).subscribe(
-                {
-                  next: (expenses: Expense[]) => { this.expenses = expenses; }
-                  , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error.message) }
-                });
+              this.expensesService.getMissionExpenses(missionID).add(
+                () => { this.expenses = this.expensesService.expenses; });
             })
         }
         , error: (e: HttpErrorResponse) => {
@@ -81,17 +78,8 @@ export class UpdateExpensesComponent implements OnInit {
    * @param expense
    */
   onCreate(expense: Expense) {
-    this.expensesService.addExpense(expense).subscribe(
-      {
-        next: (expense: Expense) => {
-          this.expenses.push(expense);
-          Notiflix.Notify.success("frais ajouté avec succés ");
-        },
-        error: (e: HttpErrorResponse) => {
-          Notiflix.Notify.failure(e.error.message);
-        }
-      }
-    );
+    this.expensesService.addExpense(expense).add(
+      () => { this.expenses = this.expensesService.expenses; });
   }
   /**
    * updating an existing expense
@@ -100,16 +88,8 @@ export class UpdateExpensesComponent implements OnInit {
    * @param expense
    */
   onUpdate(expense: Expense) {
-    this.expensesService.updateExpense(expense).subscribe(
-      {
-        next: (data: Expense) => {
-          let idx: number = this.expenses.indexOf(this.expenses.filter((exp) => exp.id === expense.id)[0]);
-          this.expenses[idx] = expense;
-          Notiflix.Notify.info(`le frais du ${this.tools.format(data.date)} est modifié `);
-        }
-        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error.message); }
-      }
-    );
+    this.expensesService.updateExpense(expense).add(
+      () => { this.expenses = this.expensesService.expenses; });
   }
 
   /**
@@ -118,15 +98,8 @@ export class UpdateExpensesComponent implements OnInit {
    * @param expense
    */
   onDelete(expense: Expense) {
-    this.expensesService.removeExpense(expense).subscribe(
-      {
-        next: () => {
-          Notiflix.Notify.info(`le frais ${expense.type.name}  du ${this.tools.format(expense.date)} a bien été supprimé`);
-          this.expenses = this.expenses.filter((exp) => exp !== expense);
-        }
-        , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error.message); }
-      }
-    );
+    this.expensesService.removeExpense(expense).add(
+      () => { this.expenses = this.expensesService.expenses });
   }
 
   /** lors d'une action dans le composant
