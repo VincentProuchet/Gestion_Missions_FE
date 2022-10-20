@@ -69,6 +69,7 @@ export class UpdateMissionComponent implements OnInit {
     this.transports = srvTransport.getTransportMap();
     this.updateNatures();
     this.updatecities();
+
   }
   /**
    * on récupére les données de la mission à modifier dés l'initialisation
@@ -76,32 +77,20 @@ export class UpdateMissionComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       //get mission with id and fill the form
-      this.srvMission.getMission(params['id']).subscribe(
-        {
-          next: (data: Mission) => {
-            this.mission = data;// the form is filled here
-            this.initFormValues(data);
-          }
-          , error: (err: HttpErrorResponse) => {
-            Notiflix.Notify.failure(err.error.message);
-          }
+      this.srvMission.getMission(params['id']).add(
+        () => {
+          this.mission = this.srvMission.mission;// the form is filled here
+          this.initFormValues(this.mission);
         }
       )
-    })
+    });
   }
   /**
    form submit action
    */
   onSubmit(): void {
     if (this.formGroup.valid) {
-      this.srvMission.updateMission(this.collectForm()).subscribe({
-        next: (data: Mission) => {
-          this.router.navigate(['gestionMission']);
-        },
-        error: (err: HttpErrorResponse) => {
-          Notiflix.Notify.failure(err.error.message);
-        }
-      })
+      this.srvMission.updateMission(this.collectForm());
       //register the new data, if valid
     }
   }
@@ -115,11 +104,7 @@ export class UpdateMissionComponent implements OnInit {
   /** update mission natures list from service */
   updateNatures(): void {
     this.srvNature.getNatures().add(
-
-      () => (data: Nature[]) => { this.natures = this.srvNature.getValidNatures(data) }
-
-    );
-
+      () => { this.natures = this.srvNature.getValidNatures(this.srvNature.natures); });
   }
   /**
   update cities lists from service

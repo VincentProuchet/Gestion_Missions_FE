@@ -31,7 +31,6 @@ export class NaturesService implements OnDestroy {
 
   }
   ngOnDestroy(): void {
-
   }
   /**
    *pour obtenir la liste des natures
@@ -77,7 +76,8 @@ export class NaturesService implements OnDestroy {
    */
   getValidNatures(data: Nature[]): Nature[] {
     let now: Date = new Date(Date.now());
-    return (data.filter(value => ((value.endOfValidity == null) || (now.getTime() < new Date(value.endOfValidity).getTime()))));
+    //return data.filter(value => value.endOfValidity == null);
+    return data.filter(value => ((value.endOfValidity == null) || (now.getTime() < new Date(value.endOfValidity).getTime())));
   }
 
   /**
@@ -96,11 +96,8 @@ export class NaturesService implements OnDestroy {
             Notiflix.Notify.failure(err.error.message);
           }
           , complete: () => {
-            return this.natures;
           }
         });
-
-
   }
   /**
    * à mettre à jour une nature
@@ -128,7 +125,7 @@ export class NaturesService implements OnDestroy {
    * @param nature à supprimer
    * @returns
    */
-  supprimerNature(nature: Nature) {
+  supprimerNature(nature: Nature): Subscription {
     return this.http.delete<Nature>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${nature.id}`)
       .subscribe({
         next: () => {

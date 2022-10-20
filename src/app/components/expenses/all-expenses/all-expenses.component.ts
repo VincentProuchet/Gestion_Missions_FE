@@ -31,19 +31,15 @@ export class AllExpensesComponent implements OnInit {
 
   /** on component initalisation */
   ngOnInit(): void {
-    this.missionService.getMissions().subscribe(
-      {
-        next: (missions: Mission[]) => {
-          let now: Date = new Date(Date.now());
-          this.missions = missions.filter((m) => {
-            return (this.tools.statusEquals(m, Status.VALIDATED))
-              && (now.getTime() > new Date(m.end).getTime())
-          });
-        }
-        , error: (error: HttpErrorResponse) => {
-          Notiflix.Notify.failure(error.message);
-        }
+    this.missionService.getMissions().add(
+      () => {
+        let now: Date = new Date(Date.now());
+        this.missions = this.missionService.missions.filter((m) => {
+          return ((this.tools.statusEquals(m, Status.VALIDATED))
+            && (now.getTime() > new Date(m.end).getTime()));
+        });
       }
+
     );
   }
   /** edit action */

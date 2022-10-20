@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as Notiflix from 'notiflix';
-import { Observable } from 'rxjs';
+import { Observable, Observer, Subscription } from 'rxjs';
 import { API_Route } from 'src/environments/API_route';
 import { AP_Vars } from 'src/environments/API_Vars';
 import { Mission } from '../model/mission';
@@ -10,6 +10,8 @@ import { AuthenticationService } from './authentication.service';
 import * as pdfMake from "pdfmake/build/pdfMake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
+import { Nature } from '../model/nature';
+import { Router } from '@angular/router';
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;// pdf aren't gnerated if you don't have this
 // yhea that's ugly
 
@@ -42,8 +44,13 @@ export class MissionsService {
   private API_REJECT = API_Route.REJETER;
   private API_RESET = API_Route.RESET;
   private tools: ToolBox = new ToolBox();
-
-
+  /**
+  missions list
+  component get missions from here
+   */
+  public missions: Mission[] = [];
+  /** mission unique for updates */
+  public mission!: Mission;
 
   ;
 
@@ -54,28 +61,40 @@ export class MissionsService {
    * @constructor
    * @param {HttpClient} http
    */
-  constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
-    /** this is because you need to fill in fonts
-    its not made by default because you could want to use a custom font
-    */
-    //pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  constructor(private http: HttpClient, private authenticationService: AuthenticationService, private router: Router) {
+
   }
-
-
-
   /**
-   * Description placeholder
+   * fecth mission list from persistence
+
    * @date 21/09/2022 - 11:48:21
    *
-   * @returns {Observable<Mission[]>}
+   * @returns {Subscription>}
    */
-  getMissions(): Observable<Mission[]> {
-    return this.http.get<Mission[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`);
+  getMissions(): Subscription {
+    return this.http.get<Mission[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`).subscribe(
+      {
+        next: (data: Mission[]) => {
+          this.missions = data;
+        }
+        , error: (err: HttpErrorResponse) => {
+          Notiflix.Notify.failure(err.error.message);
+        }
+      }
+    );
 
   }
 
-  getMissionsToValidate(): Observable<Mission[]> {
-    return this.http.get<Mission[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${API_Route.MANAGER}/${this.authenticationService.currentUser()?.id}`);
+  getMissionsToValidate(): Subscription {
+    return this.http.get<Mission[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${API_Route.MANAGER}/${this.authenticationService.currentUser()?.id}`).subscribe(
+      {
+        next: (data: Mission[]) => {
+          this.missions = data;
+        },
+        error: (err: HttpErrorResponse) => {
+          Notiflix.Notify.failure(err.error.message);
+        }
+      });
   }
 
   /**get the mission Data with the provideed id
@@ -83,8 +102,18 @@ export class MissionsService {
    * @param id mission id
    * @returns a subject that you can make a subscribe on it
    */
-  getMission(id: number): Observable<Mission> {
-    return this.http.get<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${id}`);
+  getMission(id: number): Subscription {
+    return this.http.get<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${id}`).subscribe(
+      {
+        next: (data: Mission) => {
+          this.mission = data;
+        }
+        , error: (err: HttpErrorResponse) => {
+          Notiflix.Notify.failure(err.error.message);
+        }
+      }
+    )
+
   }
   /**
    * envoie une demande d'ajout d'une mission à l'API
@@ -92,8 +121,15 @@ export class MissionsService {
    * @param mission
    * @returns
    */
-  createMission(mission: Mission): Observable<Mission> {
-    return this.http.post<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`, mission);
+  createMission(mission: Mission): Subscription {
+    return this.http.post<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`, mission).subscribe({
+      next: (data: Mission) => {
+        this.router.navigate(['gestionMission']);
+      },
+      error: (err: HttpErrorResponse) => {
+        Notiflix.Notify.failure(err.error.message);
+      }
+    });
   }
   /**
    * envoi une demande de modification de mission à l'API
@@ -101,8 +137,17 @@ export class MissionsService {
    * @param mission
    * @returns
    */
-  updateMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}`, mission);
+  updateMission(mission: Mission): Subscription {
+    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}`, mission).subscribe({
+      next: (data: Mission) => {
+        this.router.navigate(['gestionMission']);
+      },
+      error: (err: HttpErrorResponse) => {
+        Notiflix.Notify.failure(err.error.message);
+      }
+    });
+    //register the new data, if valid
+
   }
 
   /**
@@ -110,8 +155,17 @@ export class MissionsService {
    * @param mission à surprimer
    * @returns mission suprimée
    */
-  deleteMission(mission: Mission): Observable<Mission> {
-    return this.http.delete<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}`);
+  deleteMission(mission: Mission): Subscription {
+    return this.http.delete<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}`).subscribe({
+      next: () => {
+        // mise à jour de la liste
+        this.getMissions();
+        Notiflix.Notify.success("La mission a bien été supprimée.");
+      },
+      error: (err: HttpErrorResponse) => {
+        Notiflix.Notify.failure(err.error.message);
+      }
+    });
   }
   /**
    * envoi une demande de validation à l'API
@@ -119,8 +173,17 @@ export class MissionsService {
    * @param mission
    * @returns
    */
-  validateMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_VALIDATE}`, mission);
+  validateMission(mission: Mission): Subscription {
+    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_VALIDATE}`, mission).subscribe({
+      next: (data: Mission) => {
+        // mise à jour de la liste
+        let idx = this.missions.indexOf(mission);
+        this.missions[idx] = data;
+      },
+      error: (err: HttpErrorResponse) => {
+        Notiflix.Notify.failure(err.error.message);
+      }
+    });
   }
   /**
    * envoie une demande de rejet de la mission à l'API
@@ -128,8 +191,17 @@ export class MissionsService {
    * @param mission
    * @returns
    */
-  rejectMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_REJECT}`, mission);
+  rejectMission(mission: Mission): Subscription {
+    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_REJECT}`, mission).subscribe({
+      next: (data: Mission) => {
+        // mise à jour de la liste
+        let idx = this.missions.indexOf(mission);
+        this.missions[idx] = data;
+      },
+      error: (err: HttpErrorResponse) => {
+        Notiflix.Notify.failure(err.error.message);
+      }
+    });
   }
 
   /**
@@ -138,9 +210,20 @@ export class MissionsService {
     * @param mission
     * @returns
     */
-  resetMission(mission: Mission): Observable<Mission> {
-    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_RESET}`, mission);
+  resetMission(mission: Mission): Subscription {
+    return this.http.put<Mission>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}/${mission.id}/${this.API_RESET}`, mission).subscribe({
+      next: (data: Mission) => {
+        // mise à jour de la liste
+        let idx = this.missions.indexOf(mission);
+        this.missions[idx] = data;
+      },
+      error: (err: HttpErrorResponse) => {
+        Notiflix.Notify.failure(err.error.message);
+      }
+    });
   }
+
+
   /**
    * is supposed to expot the mission as a pdf document
    * @param mission

@@ -41,64 +41,32 @@ export class ValidationMissionComponent implements OnInit {
       a user can only see mission of its team members
    */
   updateMission() {
-    this.missionService.getMissionsToValidate().subscribe({
-      next: (data: Mission[]) => {
-        this.missions = data;
-      },
-      error: (err: HttpErrorResponse) => {
-        Notiflix.Notify.failure(err.error.message);
-      }
-    });
+    this.missionService.getMissionsToValidate().add(
+      () => { this.missions = this.missionService.missions; });
   }
   /**
       send a demand to
       validate the  mission to the BE
   */
   onValidate(mission: Mission) {
-    this.missionService.validateMission(mission).subscribe({
-      next: (data: Mission) => {
-        let idx = this.missions.indexOf(mission);
-        this.missions[idx] = data;
-      },
-      error: (err: HttpErrorResponse) => {
-        Notiflix.Notify.failure(err.error.message);
-      }
-
-    })
+    this.missionService.validateMission(mission).add(
+      () => { this.missions = this.missionService.missions; });
   }
   /**
       send a demand to
       reject the  mission to the BE
   */
   onReject(mission: Mission) {
-    this.missionService.rejectMission(mission).subscribe({
-      next: (data: Mission) => {
-        let idx = this.missions.indexOf(mission);
-        this.missions[idx] = data;
-      },
-      error: (err: HttpErrorResponse) => {
-        Notiflix.Notify.failure(err.error.message);
-      }
-    })
+    this.missionService.rejectMission(mission).add(
+      () => { this.missions = this.missionService.missions; });
   }
   /**
       send a demand to
       reset the  mission to the BE
   */
   onReset(mission: Mission) {
-    //TODO: retirer ligne suivante une fois relié au back end
-    //mission.status = this.statusEnum.WAITING_VALIDATION;
-
-    this.missionService.resetMission(mission).subscribe({
-      next: (data: Mission) => {
-        let idx = this.missions.indexOf(mission);
-        this.missions[idx] = data;
-
-      },
-      error: (err: HttpErrorResponse) => {
-        Notiflix.Notify.failure(err.error.message);
-      }
-    })
+    this.missionService.resetMission(mission).add(
+      () => { this.missions = this.missionService.missions; });
   }
   onAction(mission: Mission, action: Actions): void {
     this.action = action;

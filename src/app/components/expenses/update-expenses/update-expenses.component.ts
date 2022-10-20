@@ -52,25 +52,22 @@ export class UpdateExpensesComponent implements OnInit {
       {// we get the param
         next: (params) => {
           const missionID = params["id"];//get the mission with given id
-          this.missionsService.getMission(missionID).subscribe(
-            {// we get the mission
-              next: (data: Mission) => {
-                this.mission = data;
-                // we get the expenses of the mission
-                this.expensesService.getMissionExpenses(missionID).subscribe(
-                  {
-                    next: (expenses: Expense[]) => { this.expenses = expenses; }
-                    , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error.message) }
-                  });
-              },
-              error: (e: HttpErrorResponse) => {
-                Notiflix.Notify.failure(e.error.message);
-              }
-            });
-        },
-        error: (e: HttpErrorResponse) => {
+          this.missionsService.getMission(missionID).add(
+            // we get the mission
+            () => {
+              this.mission = this.missionsService.mission;
+              // we get the expenses of the mission
+              this.expensesService.getMissionExpenses(missionID).subscribe(
+                {
+                  next: (expenses: Expense[]) => { this.expenses = expenses; }
+                  , error: (e: HttpErrorResponse) => { Notiflix.Notify.failure(e.error.message) }
+                });
+            })
+        }
+        , error: (e: HttpErrorResponse) => {
           Notiflix.Notify.failure(e.error.message);
         }
+
       }
 
     )

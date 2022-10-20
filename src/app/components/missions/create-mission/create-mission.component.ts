@@ -68,14 +68,7 @@ export class CreateMissionComponent implements OnInit {
    */
   onSubmit(): void {
     if (!this.formGroup.invalid) {
-      this.missionService.createMission(this.collectForm()).subscribe({
-        next: (data: Mission) => {
-          this.router.navigate(['gestionMission']);
-        },
-        error: (err: HttpErrorResponse) => {
-          Notiflix.Notify.failure(err.error.message);
-        }
-      });
+      this.missionService.createMission(this.collectForm());
     }
   }
   /**

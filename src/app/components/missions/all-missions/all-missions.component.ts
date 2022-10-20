@@ -47,18 +47,8 @@ export class AllMissionsComponent implements OnInit {
    * Met à jour la liste des missions
    */
   getMission() {
-    this.srvMission.getMissions().subscribe(
-      {
-        next: (data: Mission[]) => {
-          this.missions = data;
-
-        }
-        , error: (err: HttpErrorResponse) => {
-          Notiflix.Notify.failure(err.error.message);
-        }
-      }
-    )
-
+    this.srvMission.getMissions().add(
+      () => { this.missions = this.srvMission.missions; });
   }
   /**
    * ouvre le formulaire de modification d'édition d'une mission
@@ -81,17 +71,12 @@ export class AllMissionsComponent implements OnInit {
    * @param mission à supprimer
    */
   onDelete(mission: Mission): void {
-    this.srvMission.deleteMission(mission).subscribe({
-      next: () => {
+    this.srvMission.deleteMission(mission).add(
+      () => {
         // mise à jour de la liste
-        this.missions = this.missions.filter((m: Mission) => m !== mission);
-        Notiflix.Notify.success("La mission a bien été supprimée.");
-      },
-      error: (err: HttpErrorResponse) => {
-        // affichage de la réponse du serveur
-        Notiflix.Notify.failure(err.error.message);
+        this.missions = this.missions.filter((m: Mission) => m !== mission)
       }
-    });
+    );
 
   }
   /**
