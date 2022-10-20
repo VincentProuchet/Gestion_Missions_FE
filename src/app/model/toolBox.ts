@@ -198,4 +198,6 @@ export class ToolBox {
   expenseTTC(expense: Expense): number {
     return (expense.cost * (1 + expense.tva / 100))
   }
+
+
 }

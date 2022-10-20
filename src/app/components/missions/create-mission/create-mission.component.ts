@@ -55,12 +55,8 @@ export class CreateMissionComponent implements OnInit {
     , private srvCity: CityService
   ) {
     this.transports = transportService.getTransportMap();
-    this.natureService.getNatures().subscribe(
-      (data: Nature[]) => this.natures = this.natureService.getValidNatures(data)
-    );
-    this.srvCity.getCities().subscribe(
-      (data: City[]) => this.cities = data
-    );
+    this.natureService.getNatures().add(() => { this.natures = this.natureService.getValidNatures(this.natureService.natures) });
+    this.srvCity.getCities().add(() => this.cities = srvCity.cities);
   }
 
   ngOnInit(): void {

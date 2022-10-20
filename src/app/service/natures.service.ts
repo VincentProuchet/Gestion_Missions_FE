@@ -37,15 +37,22 @@ export class NaturesService implements OnDestroy {
    *pour obtenir la liste des natures
    * @returns Subject de Natures
    */
-  getNatures(): Observable<Nature[]> {
+  getNatures(): Subscription {
     // exemple de filtre pour la partie ou l'on ne devras afficher que les
     // natures ACTIVES
     //return this.natures.filter(valuer => valuer.endOfValidity == null);
-    return this.http.get<Nature[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`)
+    return this.http.get<Nature[]>(`${AP_Vars.BEConnectionUrl}/${this.API_AFTER_URL}`).subscribe(
+      {
+        next: (data: Nature[]) => { this.natures = data }
+        ,
+        error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.error.message); }
+      }
+    );
 
   }
-  /**get the mission nature Data with the provideed id
- *
+  /**
+    get a nature Data using the provided id
+  *
  * @param id nature id
  * @returns a subject that you can make a subscribe on it
  */
@@ -69,7 +76,8 @@ export class NaturesService implements OnDestroy {
    * @returns seuelement les nature dont la date de validité est nulle
    */
   getValidNatures(data: Nature[]): Nature[] {
-    return data.filter(value => value.endOfValidity == null)
+    let now: Date = new Date(Date.now());
+    return (data.filter(value => ((value.endOfValidity == null) || (now.getTime() < new Date(value.endOfValidity).getTime()))));
   }
 
   /**
@@ -135,20 +143,6 @@ export class NaturesService implements OnDestroy {
 
   }
 
-  refreshNatures(): Subscription {
-    let that = this;
-    return this.getNatures().subscribe(
-      {
-        next: (data: Nature[]) => {
-          that.natures = data;
-        }
-        , error: (e: HttpErrorResponse) => {
-          Notiflix.Notify.failure(e.error.message);
-        }
-        , complete: () => {
-        }
-      }
-    )
-  }
+
 
 }

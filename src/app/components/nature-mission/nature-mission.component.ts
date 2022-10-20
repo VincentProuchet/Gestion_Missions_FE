@@ -42,7 +42,7 @@ export class NatureMissionComponent implements OnInit {
    * this fetch natures from back-end to populate componenet  list
    */
   refreshNatures() {
-    this.srvNature.refreshNatures().add(
+    this.srvNature.getNatures().add(
       () => {
         this.natures = this.srvNature.natures;
       }

@@ -47,12 +47,13 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    let loginAttempt: boolean;
     this.srvAuth.loginfromdb(this.collectForm()).subscribe(
       {
         next: (pata: Collaborator) => {
           this.srvAuth.setUser(pata);
+
           this.router.navigate(['']);
+          window.location.reload();
           Notiflix.Notify.success(`Bonjour ${pata.lastName} ${pata.firstName}`);
 
         }

@@ -114,12 +114,10 @@ export class UpdateMissionComponent implements OnInit {
   }
   /** update mission natures list from service */
   updateNatures(): void {
-    this.srvNature.getNatures().subscribe(
-      {
-        next: (data: Nature[]) => { this.natures = this.srvNature.getValidNatures(data) }
-        ,
-        error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.error.message); }
-      }
+    this.srvNature.getNatures().add(
+
+      () => (data: Nature[]) => { this.natures = this.srvNature.getValidNatures(data) }
+
     );
 
   }
@@ -127,14 +125,7 @@ export class UpdateMissionComponent implements OnInit {
   update cities lists from service
   */
   updatecities(): void {
-    this.srvCity.getCities().subscribe(
-      {
-        next: (data: City[]) => { this.cities = data }
-        ,
-        error: (err: HttpErrorResponse) => { Notiflix.Notify.failure(err.error.message); }
-      }
-    );
-
+    this.srvCity.getCities().add(() => this.cities = this.srvCity.cities);
   }
   /**
    * return form's data's as a Mission Type Object
@@ -159,13 +150,13 @@ export class UpdateMissionComponent implements OnInit {
   */
   initFormValues(data: Mission): void {
     this.formGroup.setValue({
-      "natureControl": data.nature,
-      "startCityControl": data.startCity,
-      "endCityControl": data.arrivalCity,
-      "transportControl": data.transport,
-      "bonusEstimeeControl": data.bonus,
-      "startDateControl": this.tools.inputFormat(data.start),
-      "endDateControl": this.tools.inputFormat(data.end),
+      natureControl: data.nature,
+      startCityControl: data.startCity,
+      endCityControl: data.arrivalCity,
+      transportControl: data.transport,
+      bonusEstimeeControl: data.bonus,
+      startDateControl: this.tools.inputFormat(data.start),
+      endDateControl: this.tools.inputFormat(data.end),
     });
   }
 
