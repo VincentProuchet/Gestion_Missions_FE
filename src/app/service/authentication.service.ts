@@ -124,6 +124,9 @@ in session and local storage
     let user: Collaborator | null = this.currentUser();
     return user ? user.roles.some((r) => r.label === role.label) : false;
   }
+  /**
+   * notifications configurator
+   */
   setNotiflix(): void {
     Notiflix.Notify.init(
       {
