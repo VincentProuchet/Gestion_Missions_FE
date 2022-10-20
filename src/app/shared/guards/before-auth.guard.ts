@@ -24,7 +24,7 @@ export class BeforeAuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authenticationService.currentUser() === null;
+    return !this.authenticationService.isconneted();
   }
 
 }

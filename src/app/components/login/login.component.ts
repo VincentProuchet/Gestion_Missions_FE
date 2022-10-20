@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
    */
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.srvAuth.loginfromdb(this.collectForm());
+      this.srvAuth.login(this.collectForm());
     }
   }
   inputIsInvalid(inputName: string) {

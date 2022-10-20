@@ -25,8 +25,13 @@ import { CollaboratorService } from './collaborator.service';
   IT's NOT a SECURITY provider, jsuter an helper on UX
 */
 export class AuthenticationService {
-
+  /**
+  data of the currently connected user this data MUST NEVER  leave the instance
+  you can copy data gy data
+  but nerver giving out the object
+  */
   private connectedUser: Collaborator | null = null;
+  /** String of cookie name  */
   private STORAGE_KEY: string = AP_Vars.CookiesNameUser;
 
   constructor(private router: Router, private srvCollaborator: CollaboratorService, private http: HttpClient
@@ -34,7 +39,7 @@ export class AuthenticationService {
   ) {
     this.setNotiflix();
     // we look in local storage for a cookies of a user
-    this.connectedUser = this.currentUser();
+    this.loadUser();
   }
 
   /**
@@ -43,7 +48,7 @@ export class AuthenticationService {
    * @param loginCred
    * @returns
    */
-  loginfromdb(loginCred: LoginCredentials): Subscription {
+  login(loginCred: LoginCredentials): Subscription {
 
     let loginformParam = new FormData();
     loginformParam.append('username', loginCred.username);
@@ -52,7 +57,8 @@ export class AuthenticationService {
     return this.http.post<Collaborator>(`${AP_Vars.BEConnectionUrl}/${API_Route.SIGNIN}`, loginformParam).subscribe(
       {
         next: (data: Collaborator) => {
-          this.setUser(data);
+          this.connectedUser = data
+          this.saveUser();
           this.router.navigate(['']);
           window.location.reload();
           Notiflix.Notify.success(`Bonjour ${data.lastName} ${data.firstName}`);
@@ -84,35 +90,44 @@ export class AuthenticationService {
     });
   }
   /**
-   * puts user data in local storage
-  and in connectedUser propertie
+   * puts the connected uset in local storage
+    this is for session persistence
    * @param user
    */
-  setUser(user: Collaborator): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(user, null, 1));
-    this.connectedUser = user;
+  saveUser(): void {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.connectedUser, null, 1));
     // sessionStorage.setItem("pourquoi ça marche pas ?", "parce que t'écrit au mauvais endroit ANDOUILLE !");
+  }
+  loadUser(): void {
+    let user: string | null = localStorage.getItem(this.STORAGE_KEY);
+    this.connectedUser = user ? JSON.parse(user) : this.connectedUser;
   }
   /**
    * will delete user cookies
-in session and local storage
-  and destroy the connectedUser
+    in session and local storage
+    and destroy the connectedUser
    */
   deleteUser(): void {
     this.srvCookies.delete(AP_Vars.CookiesNameSession);
     sessionStorage.removeItem(AP_Vars.CookiesNameSession);
     localStorage.removeItem(this.STORAGE_KEY);
     this.connectedUser = null;
-
   }
   /**
    * will look in local storage for a Collaborator type cookie
-   * @returns nul if the current user doesn't exist
+    note that the connectUser is never returned
+   * @returns null if the current user doesn't exist
    */
   currentUser(): Collaborator | null {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.connectedUser, null, 1));
     let user: string | null = localStorage.getItem(this.STORAGE_KEY);
-    this.connectedUser = user ? JSON.parse(user) : this.connectedUser;
-    return this.connectedUser;
+    return user ? JSON.parse(user) : null;
+  }
+  /**
+   * @returns true if connectedUser not null
+   */
+  isconneted(): boolean {
+    return this.connectedUser != null;
   }
 
   /**
