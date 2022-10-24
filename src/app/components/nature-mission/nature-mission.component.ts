@@ -36,6 +36,7 @@ export class NatureMissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.natures = this.srvNature.natures;
     this.refreshNatures();
   }
   /**

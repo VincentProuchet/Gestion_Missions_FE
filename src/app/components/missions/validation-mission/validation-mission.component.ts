@@ -41,6 +41,7 @@ export class ValidationMissionComponent implements OnInit {
       a user can only see mission of its team members
    */
   updateMission() {
+    // and fetch from the backEnd
     this.missionService.getMissionsToValidate().add(
       () => { this.missions = this.missionService.missions; });
   }
@@ -73,5 +74,12 @@ export class ValidationMissionComponent implements OnInit {
     this.mission = mission;
   }
 
+  filter(missions: Mission[]): Mission[] {
+    let now: Date = new Date(Date.now());
+    //now.setMonth(-6)
+    return missions.filter((m) => {
+      return ((!this.tools.statusEquals(m, Status.VALIDATED)) || (now.getTime() < new Date(m.start).getTime()));
+    });
+  }
 
 }

@@ -179,7 +179,7 @@ export class ToolBox {
    */
   sumExpenses(expenses: Expense[]): number {
     //  create a new list containing only expense.cost   /// then summing all cost.
-    return expenses.map(expense => expense.cost).reduce((currSum, currElement) => currSum + currElement, 0);
+    return expenses.map(expense => expense.cost).reduce((currSum, currElement) => (currSum + currElement), 0);
   }
   /**
      * will sum all expense from a list and their TVA

@@ -1,9 +1,10 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Mission } from 'src/app/model/mission';
 import { ToolBox } from 'src/app/model/toolBox';
 import { MissionsService } from 'src/app/service/missions.service';
+import { ChartComponent } from './chart/chart.component';
 
 @Component({
   selector: 'app-bonuses',
@@ -17,6 +18,10 @@ export class BonusesComponent implements OnInit {
   public missions: Mission[] = [];
   public displayedMissions: Mission[] = [];
 
+  /** ici on créer une référence au composant enfant  d'édition d'un frais */
+  @ViewChild(ChartComponent)
+  private chart!: ChartComponent;
+
   /** années des missions de l'utilisateur connecté */
   public years: number[] = [];
 
@@ -25,6 +30,7 @@ export class BonusesComponent implements OnInit {
   public tools: ToolBox = new ToolBox();
 
   constructor(private srvMission: MissionsService) {
+    this.missions = this.srvMission.missions
     //this.years.push(this.selectedYear);
 
   }
@@ -48,8 +54,7 @@ export class BonusesComponent implements OnInit {
   /**
    * check if the year of the given Date
   exist in the list
-  if not the year
-  is added to the list
+    if not, the year is added to the list
    * @param date
    */
   private addtoYear(date: Date): void {
@@ -66,19 +71,20 @@ export class BonusesComponent implements OnInit {
       this.years.push(value);
     }
   }
+  /**
+   * filter mission
+  by selected year
+   */
   public filterMission(): void {
     this.selectedYear = this.selectedCountriesControl.value;
-    console.log(this.selectedYear);
+
     this.displayedMissions = this.missions.filter((mission) => {
       if (new Date(mission.start).getFullYear() == this.selectedYear) {
         return true;
       }
       return false;
     })
-  }
-
-  compareFn(c1: number, c2: number): boolean {
-    return c1 && c2 ? c1 == c2 : c1 == c2;
+    this.chart.update(this.selectedYear);
   }
 
 }

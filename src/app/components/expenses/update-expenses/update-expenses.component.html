@@ -21,8 +21,8 @@
           <tr *ngFor="let expenseLine of expenses; let index = index ">
             <td>{{tools.format(expenseLine.date)}}</td>
             <td>{{expenseLine.type.name}}</td>
-            <td>{{expenseLine.cost}} €</td>
-            <td>{{expenseLine.tva}} %</td>
+            <td>{{expenseLine.cost.toFixed(2)}} €</td>
+            <td>{{expenseLine.tva.toFixed(2)}} %</td>
             <!-- action buttons-->
             <td class="col-1">
               <div class="btn-group">
@@ -71,7 +71,7 @@
         </li>
         <li class="list-group-item row d-flex align-self-end">
           <span class="col-sm-6 fw-semibold">Estimation prime :</span>
-          <span class="col-sm-6 text-end">{{mission.bonus}}</span>
+          <span class="col-sm-6 text-end">{{mission.bonus.toFixed(2)}}</span>
         </li>
       </ul>
     </div>

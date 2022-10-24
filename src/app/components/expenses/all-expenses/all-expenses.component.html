@@ -17,14 +17,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let mission of missions; let index = index">
+        <tr *ngFor="let mission of filter(missions); let index = index">
           <td>{{tools.format(mission.start)}}</td>
           <td>{{tools.format(mission.end)}}</td>
           <td>{{mission.nature.description }}</td>
           <td>{{mission.startCity.name}}</td>
           <td>{{mission.arrivalCity.name}}</td>
           <td>{{tools.getTransportValue(mission.transport)}}</td>
-          <td>{{tools.sumExpenses(mission.expenses)}}</td>
+          <td>{{tools.sumExpensesTTC(mission.expenses).toFixed(2)}}</td>
           <td>
             <div class="btn-group">
 

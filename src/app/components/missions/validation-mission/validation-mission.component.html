@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let mission of missions, let index = index">
+        <tr *ngFor="let mission of filter(missions), let index = index">
           <td>{{mission.collaborator?.firstName}}</td>
           <td>{{tools.format(mission.start) }}</td>
           <td>{{tools.format(mission.end) }}</td>

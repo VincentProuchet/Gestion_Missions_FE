@@ -44,9 +44,10 @@ export class AllMissionsComponent implements OnInit {
   }
 
   /**
-   * Met à jour la liste des missions
-   */
+  * Met à jour la liste des missions
+  */
   getMission() {
+    this.missions = this.srvMission.missions;
     this.srvMission.getMissions().add(
       () => { this.missions = this.srvMission.missions; });
   }
@@ -87,4 +88,27 @@ export class AllMissionsComponent implements OnInit {
     this.missionToDelete = mission;
   }
 
+  /**
+   * filtre les missions
+  seulement celles qui n'ont pas plus de six mois
+  trié par année
+  puis par mois
+   * @param missions
+   * @returns
+   */
+  filter(missions: Mission[]): Mission[] {
+    let now: Date = new Date(Date.now());
+    now.setMonth(now.getMonth() - 6);
+    return missions.filter((m) => {
+      return ((now.getTime() < new Date(m.start).getTime()));
+    }).sort((a: Mission, b: Mission) => {
+      let c = new Date(a.start)
+      let d = new Date(b.start)
+      return d.getFullYear() - c.getFullYear();
+    }).sort((a: Mission, b: Mission) => {
+      let c = new Date(a.start)
+      let d = new Date(b.start)
+      return d.getMonth() - c.getMonth();
+    })
+  }
 }

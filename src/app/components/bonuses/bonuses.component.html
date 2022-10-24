@@ -17,18 +17,21 @@
 
 
     </div>
-    <div class="row-cols-12">
+    <div class="row">
       <div class="col-6">
+
         <table class="table table-striped ">
+          <caption>table de vos mission terminées et filtrées par années missions </caption>
           <thead>
             <tr>
-              <th scope="col">début</th>
-              <th scope="col">fin</th>
-              <th scope="col-1">Nature</th>
-              <th scope="col-1">Départ</th>
-              <th scope="col-1">Arrivée</th>
-              <th scope="col-1">Transport</th>
-              <th scope="col-1">Frais</th>
+              <th class="col-1" scope="col">début</th>
+              <th class="col-1" scope="col">fin</th>
+              <th class="col-1" scope="col">Nature</th>
+              <th class="col-1" scope="col">Départ</th>
+              <th class="col-1" scope="col">Arrivée</th>
+              <th class="col-1" scope="col">Transport</th>
+              <th class="col-1" scope="col">frais</th>
+              <th class="col-1" scope="col">Bonus</th>
 
             </tr>
           </thead>
@@ -40,14 +43,16 @@
               <td>{{mission.startCity.name}}</td>
               <td>{{mission.arrivalCity.name}}</td>
               <td>{{tools.getTransportValue(mission.transport)}}</td>
-              <td>{{tools.sumExpenses(mission.expenses)}}</td>
+              <td>{{tools.sumExpensesTTC(mission.expenses).toFixed(2)}}</td>
+              <td>{{mission.bonus.toFixed(2)}}</td>
 
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="col-6">
-        <app-chart [mission]="displayedMissions">
+
+      <div class="col-4">
+        <app-chart>
 
         </app-chart>
       </div>

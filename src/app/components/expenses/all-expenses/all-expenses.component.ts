@@ -31,13 +31,10 @@ export class AllExpensesComponent implements OnInit {
 
   /** on component initalisation */
   ngOnInit(): void {
+    this.missions = this.missionService.missions;
     this.missionService.getMissions().add(
       () => {
-        let now: Date = new Date(Date.now());
-        this.missions = this.missionService.missions.filter((m) => {
-          return ((this.tools.statusEquals(m, Status.VALIDATED))
-            && (now.getTime() > new Date(m.end).getTime()));
-        });
+        this.missions = this.missionService.missions
       }
 
     );
@@ -51,6 +48,32 @@ export class AllExpensesComponent implements OnInit {
     this.missionService.pdfExport(mission);
   }
 
+  /**
+   * * filter missions
+                      with validated status
+                      and end date before now
+   * @param mission
+   * @returns
+   */
+  filter(mission: Mission[]) {
+    let now: Date = new Date(Date.now());
+    let before: Date = new Date(now);
+    before.setMonth(before.getMonth() - 6);
+
+    return mission.filter((m) => {
+      return ((this.tools.statusEquals(m, Status.VALIDATED))
+        && (now.getTime() > new Date(m.end).getTime()) && (before.getTime() < new Date(m.end).getTime()))
+    }).sort((a: Mission, b: Mission) => {
+      let c = new Date(a.start)
+      let d = new Date(b.start)
+      return d.getFullYear() - c.getFullYear();
+    }).sort((a: Mission, b: Mission) => {
+      let c = new Date(a.start)
+      let d = new Date(b.start)
+      return d.getMonth() - c.getMonth();
+    })
+      ;
+  }
 
 
 }
