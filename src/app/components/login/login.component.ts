@@ -1,13 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import * as Notiflix from 'notiflix';
-import { AP_Vars } from 'src/environments/API_Vars';
-import { Collaborator } from '../../model/collaborator';
+import { API_FormControlNames } from 'src/environments/API_FormControlNames';
 import { LoginCredentials } from '../../model/login-credentials';
 import { AuthenticationService } from '../../service/authentication.service';
-import { CollaboratorService } from '../../service/collaborator.service';
+
 
 @Component({
   selector: 'app-login',
@@ -19,23 +15,14 @@ Our magnificent login page
 */
 export class LoginComponent implements OnInit {
 
-
-
-
-
   /** form controls */
   loginForm: FormGroup = this.formBuilder.group({
     usernameControl: ['', [Validators.required]],
     passwordControl: ['', [Validators.required]],
     rememberMeCheckbox: [true]
   });
-  controlName = {
-    usernameControl: "usernameControl"
-    , passwordControl: "passwordControl"
-  }
-
-  constructor(private router: Router, private formBuilder: FormBuilder, public srvAuth: AuthenticationService,
-    private srvCollab: CollaboratorService) {
+  controlName = API_FormControlNames;
+  constructor(private formBuilder: FormBuilder, public srvAuth: AuthenticationService) {
   }
 
   ngOnInit(): void {

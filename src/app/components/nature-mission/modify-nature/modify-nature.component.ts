@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Nature } from 'src/app/model/nature';
 import { NaturesService } from 'src/app/service/natures.service';
-import { Notify } from "notiflix";
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { API_FormControlNames } from 'src/environments/API_FormControlNames';
 
 @Component({
   selector: 'app-modify-nature',
@@ -40,13 +39,7 @@ export class ModifyNatureComponent implements OnInit {
   /**
   form control names
    */
-  controlName = {
-    descriptionControl: "descriptionControl"
-    , giveBonusControl: "giveBonusControl"
-    , chargedControl: "chargedControl"
-    , tjmControl: "tjmControl"
-    , bonusControl: "bonusControl"
-  }
+  controlName = API_FormControlNames;
 
   constructor(
     private formBuilder: FormBuilder,

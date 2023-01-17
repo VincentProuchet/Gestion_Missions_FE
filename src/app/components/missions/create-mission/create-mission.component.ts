@@ -13,6 +13,7 @@ import { MissionsService } from 'src/app/service/missions.service';
 import { NaturesService } from 'src/app/service/natures.service';
 import { TransportService } from 'src/app/service/transport.service';
 import { CustomValidators } from 'src/app/model/custom-validators';
+import { API_FormControlNames } from 'src/environments/API_FormControlNames';
 
 @Component({
   selector: 'app-create-mission',
@@ -34,15 +35,7 @@ export class CreateMissionComponent implements OnInit {
   /**
   nom des control dans le formulaire du composant
    */
-  controlNames = {
-    startDateControl: "startDateControl"
-    , endDateControl: "endDateControl"
-    , natureControl: "natureControl"
-    , startCityControl: "startCityControl"
-    , endCityControl: "endCityControl"
-    , transportControl: "transportControl"
-    , bonusEstimeeControl: "bonusEstimeeControl"
-  }
+  controlNames = API_FormControlNames;
   /** liste des nature */
   natures: Nature[] = [];
   /** liste des villes */

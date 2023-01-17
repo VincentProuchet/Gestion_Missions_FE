@@ -15,6 +15,7 @@ import { CustomValidators } from 'src/app/model/custom-validators';
 import { AP_Vars } from 'src/environments/API_Vars';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as Notiflix from 'notiflix';
+import { API_FormControlNames } from 'src/environments/API_FormControlNames';
 
 @Component({
   selector: 'app-update-mission',
@@ -40,15 +41,7 @@ export class UpdateMissionComponent implements OnInit {
   /**
       nom des controles dans le formulaire
    */
-  controlsNames = {
-    startDateControl: "startDateControl"
-    , endDateControl: "endDateControl"
-    , natureControl: "natureControl"
-    , startCityControl: "startCityControl"
-    , endCityControl: "endCityControl"
-    , transportControl: "transportControl"
-    , bonusEstimeeControl: "bonusEstimeeControl"
-  };
+  controlsNames = API_FormControlNames;
   /** mission to update */
   mission!: Mission;
   /** toolbox for date formating */

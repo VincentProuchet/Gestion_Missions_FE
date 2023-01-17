@@ -5,6 +5,7 @@ import { Nature } from 'src/app/model/nature';
 import { NaturesService } from 'src/app/service/natures.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as Notiflix from 'notiflix';
+import { API_FormControlNames } from 'src/environments/API_FormControlNames';
 
 @Component({
   selector: 'app-creation-nature',
@@ -23,13 +24,7 @@ export class CreationNatureComponent implements OnInit {
   /**
   nom des controles dans le formulaire du composant
    */
-  controlNames = {
-    description: "descriptionControl"
-    , giveBonus: "giveBonusControl"
-    , charged: "chargedControl"
-    , tjm: "tjmControl"
-    , bonus: "bonusControl"
-  }
+  controlNames = API_FormControlNames;
 
   /**
  //icons

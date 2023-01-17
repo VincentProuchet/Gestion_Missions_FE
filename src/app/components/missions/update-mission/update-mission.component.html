@@ -8,13 +8,13 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="startDate" class="col-sm-6 col-form-label text-right">Date de début</label>
           <div class="col-sm-6">
-            <input class="form-control" type="date" formControlName="startDateControl" id="startDate" />
+            <input class="form-control" type="date" formControlName={{controlsNames.startDateControl}} id="startDate" />
           </div>
         </div>
         <div
-          *ngIf="formGroup.controls['startDateControl'].invalid && (formGroup.controls['startDateControl'].dirty || formGroup.controls['startDateControl'].touched)"
+          *ngIf="formGroup.controls[controlsNames.startDateControl].invalid && (formGroup.controls[controlsNames.startDateControl].dirty || formGroup.controls[controlsNames.startDateControl].touched)"
           class="alert alert-danger mt-2">
-          <div *ngIf="formGroup.controls['startDateControl'].errors?.['required']">
+          <div *ngIf="formGroup.controls[controlsNames.startDateControl].errors?.['required']">
             Saisie invalide, a preciser
           </div>
         </div>
@@ -23,13 +23,13 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="endDate" class="col-sm-6 col-form-label text-right">Date de fin</label>
           <div class="col-sm-6">
-            <input class="form-control" type="date" formControlName="endDateControl" id="endDate" />
+            <input class="form-control" type="date" formControlName={{controlsNames.endDateControl}} id="endDate" />
           </div>
         </div>
         <div
-          *ngIf="(formGroup.controls['endDateControl'].invalid && (formGroup.controls['endDateControl'].dirty || formGroup.controls['endDateControl'].touched)) || formGroup.getError('startEndDateValidator')"
+          *ngIf="(formGroup.controls[controlsNames.endDateControl].invalid && (formGroup.controls[controlsNames.endDateControl].dirty || formGroup.controls[controlsNames.endDateControl].touched)) || formGroup.getError('startEndDateValidator')"
           class="alert alert-danger mt-2">
-          <ng-container *ngIf="formGroup.controls['endDateControl'].errors?.['required'], else elseif1">
+          <ng-container *ngIf="formGroup.controls[controlsNames.endDateControl].errors?.['required'], else elseif1">
             Saisie invalide, a preciser
           </ng-container>
           <ng-template #elseif1>
@@ -43,7 +43,8 @@
         <div class="form-group row d-flex justify-content-center">
           <label for="nature" class="col-sm-6 col-form-label text-right">Nature</label>
           <div class="col-sm-6">
-            <select formControlName="natureControl" class="form-select" id="nature" [compareWith]="tools.compareById">
+            <select formControlName={{controlsNames.natureControl}} class="form-select" id="nature"
+              [compareWith]="tools.compareById">
               <option *ngFor="let nature of natures" [ngValue]="nature">
                 <!--ngfor-->{{nature.description}}
               </option>
@@ -51,9 +52,9 @@
           </div>
         </div>
         <div
-          *ngIf="formGroup.controls['natureControl'].invalid && (formGroup.controls['natureControl'].dirty || formGroup.controls['natureControl'].touched)"
+          *ngIf="formGroup.controls[controlsNames.natureControl].invalid && (formGroup.controls[controlsNames.natureControl].dirty || formGroup.controls[controlsNames.natureControl].touched)"
           class="alert alert-danger mt-2">
-          <div *ngIf="formGroup.controls['natureControl'].errors?.['required']">
+          <div *ngIf="formGroup.controls[controlsNames.natureControl].errors?.['required']">
             Saisie invalide, a preciser
           </div>
         </div>

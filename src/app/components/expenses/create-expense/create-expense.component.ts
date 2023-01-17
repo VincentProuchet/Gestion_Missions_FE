@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Mission } from 'src/app/model/mission';
 import { ExpenseType } from 'src/app/model/expense-type';
 import { ExpensesService } from 'src/app/service/expenses.service';
-import { NaturesService } from 'src/app/service/natures.service';
+
 import { CustomValidators } from 'src/app/model/custom-validators';
 import { Expense } from 'src/app/model/expense';
 import { ToolBox } from 'src/app/model/toolBox';
-import * as Notiflix from 'notiflix';
-import { HttpErrorResponse } from '@angular/common/http';
+import { API_FormControlNames } from 'src/environments/API_FormControlNames';
+
 
 @Component({
   selector: 'app-create-expense',
@@ -21,12 +21,7 @@ export class CreateExpenseComponent implements OnInit {
   /** control names
   this little object bear the names used in the template's formcontrols
    */
-  controlNames = {
-    date: 'dateControl',
-    type: 'typeControl',
-    cost: 'costControl',
-    tva: 'tvaControl',
-  }
+  controlNames = API_FormControlNames;
   //** mission to add expense */
   @Input() mission !: Mission;
   /** expenses type list */
