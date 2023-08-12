@@ -1,3 +1,13 @@
+/**
+ *  Cette classe contient les nom de controle pour lers formulaires
+    l'idée est de centraliser leur déclarations
+    et donc réduire les risques d'une simple erreur de syntaxe
+    vous noterez les doublons
+    ils sont dûs à un manque d'uniformisation
+    c'est ce qu'il se produit quand les programmeurs ne sont pas contraint à la rédaction
+    de la documentation
+
+ */
 export const API_FormControlNames = {
   usernameControl: "usernameControl"
   , passwordControl: "passwordControl"
